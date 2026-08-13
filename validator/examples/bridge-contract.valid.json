@@ -1,0 +1,503 @@
+{
+  "$schema": "../bridge.schema.json",
+  "bridge": {
+    "contractVersion": "0.2.0",
+    "methodologyVersion": "0.9.0",
+    "rulesVersion": "0.4.0",
+    "source": {
+      "tool": "Figma",
+      "documentId": "example-design-file",
+      "revision": "42",
+      "exportedAt": "2026-08-13T10:00:00Z"
+    },
+    "context": {
+      "project": "BRIDGE example",
+      "page": "catalog",
+      "route": "/catalog",
+      "targets": [
+        "web"
+      ]
+    },
+    "identity": {
+      "elements": [
+        {
+          "bridgeKey": "catalog-page",
+          "role": {
+            "kind": "page",
+            "semantics": "Catalog page root"
+          },
+          "designInstance": {
+            "designInstanceKey": "catalog-page-default",
+            "sourceNodes": [
+              {
+                "contextId": "desktop",
+                "nodeId": "1:1",
+                "layerPath": "Catalog / Desktop"
+              },
+              {
+                "contextId": "mobile",
+                "nodeId": "1:2",
+                "layerPath": "Catalog / Mobile"
+              }
+            ]
+          },
+          "target": {
+            "platform": "web",
+            "kind": "route",
+            "targetKey": "catalog-route",
+            "locator": "/catalog"
+          }
+        },
+        {
+          "bridgeKey": "product-grid",
+          "role": {
+            "kind": "collection"
+          },
+          "designInstance": {
+            "designInstanceKey": "product-grid-default",
+            "sourceNodes": [
+              {
+                "contextId": "desktop",
+                "nodeId": "2:1",
+                "layerPath": "Catalog / Desktop / Product Grid"
+              },
+              {
+                "contextId": "mobile",
+                "nodeId": "2:2",
+                "layerPath": "Catalog / Mobile / Product List"
+              }
+            ]
+          },
+          "runtimeData": {
+            "collection": "products",
+            "keyField": "id",
+            "fixtureKey": "default-products",
+            "runtimeDataKey": "catalog-products"
+          }
+        },
+        {
+          "bridgeKey": "revenue-chart",
+          "role": {
+            "kind": "data-display"
+          },
+          "designInstance": {
+            "designInstanceKey": "revenue-chart-default",
+            "sourceNodes": [
+              {
+                "contextId": "desktop",
+                "nodeId": "3:1",
+                "layerPath": "Catalog / Desktop / Revenue Chart"
+              }
+            ]
+          }
+        },
+        {
+          "bridgeKey": "revenue-table",
+          "role": {
+            "kind": "data-table"
+          },
+          "designInstance": {
+            "designInstanceKey": "revenue-table-default",
+            "sourceNodes": [
+              {
+                "contextId": "desktop",
+                "nodeId": "3:2",
+                "layerPath": "Catalog / Desktop / Revenue Table"
+              }
+            ]
+          }
+        },
+        {
+          "bridgeKey": "filter-dialog",
+          "role": {
+            "kind": "dialog"
+          },
+          "designInstance": {
+            "designInstanceKey": "filter-dialog-default",
+            "sourceNodes": [
+              {
+                "contextId": "desktop",
+                "nodeId": "4:1",
+                "layerPath": "Catalog / Desktop / Filter Dialog"
+              }
+            ]
+          }
+        },
+        {
+          "bridgeKey": "story-visual",
+          "role": {
+            "kind": "illustration"
+          },
+          "designInstance": {
+            "designInstanceKey": "story-visual-default",
+            "sourceNodes": [
+              {
+                "contextId": "desktop",
+                "nodeId": "5:1",
+                "layerPath": "Catalog / Desktop / Story Visual"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "structure": {
+      "contexts": [
+        {
+          "id": "desktop",
+          "rootIdentity": "catalog-page",
+          "tree": {
+            "identity": "catalog-page",
+            "children": [
+              "product-grid",
+              "revenue-chart",
+              "revenue-table",
+              "filter-dialog",
+              "story-visual"
+            ]
+          }
+        },
+        {
+          "id": "mobile",
+          "rootIdentity": "catalog-page",
+          "tree": {
+            "identity": "catalog-page",
+            "children": [
+              "product-grid",
+              "filter-dialog"
+            ]
+          }
+        }
+      ]
+    },
+    "data": {
+      "displays": [
+        {
+          "displayId": "revenue-chart",
+          "purpose": "Compare recognized revenue with target by month",
+          "source": {
+            "owner": "finance-analytics",
+            "dataset": "recognized-revenue",
+            "refresh": "daily",
+            "staleAfter": "PT36H"
+          },
+          "dimensions": [
+            {
+              "key": "month",
+              "type": "year-month",
+              "timeZone": "UTC"
+            }
+          ],
+          "measures": [
+            {
+              "key": "actual",
+              "type": "decimal",
+              "currency": "USD",
+              "aggregation": "sum"
+            }
+          ],
+          "format": {
+            "locale": "user",
+            "maximumFractionDigits": 1
+          },
+          "states": [
+            "loading",
+            "empty",
+            "error",
+            "partial",
+            "stale"
+          ],
+          "accessibleEquivalent": "revenue-table"
+        }
+      ]
+    },
+    "responsive": {
+      "defaultPolicy": "same-tree",
+      "contexts": [
+        {
+          "id": "desktop",
+          "driver": "viewport",
+          "width": 1440
+        },
+        {
+          "id": "mobile",
+          "driver": "viewport",
+          "width": 375
+        }
+      ],
+      "transformations": [
+        {
+          "id": "product-grid-to-list",
+          "fromContext": "desktop",
+          "toContext": "mobile",
+          "when": {
+            "driver": "viewport",
+            "condition": "width < 768px"
+          },
+          "mappings": [
+            {
+              "source": [
+                "product-grid"
+              ],
+              "target": [
+                "product-grid"
+              ],
+              "semantics": "Same product collection rendered as a one-column list"
+            }
+          ],
+          "preserves": [
+            "content",
+            "actions",
+            "selection",
+            "filters"
+          ],
+          "focusOrder": [
+            "product-grid"
+          ],
+          "readingOrder": [
+            "product-grid"
+          ],
+          "stateTransfer": {
+            "selection": "preserve"
+          },
+          "history": {
+            "url": "preserve"
+          }
+        }
+      ]
+    },
+    "interaction": {
+      "stateMachines": [
+        {
+          "id": "filters",
+          "scope": "filter-dialog",
+          "initial": "closed",
+          "states": [
+            "closed",
+            "open",
+            "applying",
+            "failed"
+          ],
+          "transitions": [
+            {
+              "id": "open-filters",
+              "from": "closed",
+              "event": "activate-filter-control",
+              "to": "open",
+              "effects": [
+                {
+                  "type": "show",
+                  "target": "filter-dialog"
+                }
+              ],
+              "focus": {
+                "initial": "first-field"
+              }
+            },
+            {
+              "id": "apply-filters",
+              "from": "open",
+              "event": "submit-filters",
+              "pending": {
+                "to": "applying"
+              },
+              "outcomes": [
+                {
+                  "when": "success",
+                  "to": "closed"
+                },
+                {
+                  "when": "error",
+                  "to": "failed"
+                }
+              ],
+              "concurrency": {
+                "policy": "latest-wins"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "motion": {
+      "sequences": [
+        {
+          "sequenceId": "feature-story-scroll",
+          "purpose": "Explain the workflow in three stable scenes",
+          "driver": {
+            "type": "scroll-progress",
+            "source": "document",
+            "range": {
+              "start": "block-start 80%",
+              "end": "block-end 20%"
+            }
+          },
+          "scenes": [
+            {
+              "id": "intro",
+              "content": "story-visual"
+            }
+          ],
+          "reentry": "derive-from-current-progress",
+          "reverse": "mirror",
+          "interruption": "derive-from-current-progress",
+          "reducedMotion": "show-all-scenes-in-document-order",
+          "fallback": "render-all-scenes-in-normal-flow"
+        }
+      ]
+    },
+    "accessibility": {
+      "profile": {
+        "standard": "WCAG",
+        "version": "2.2",
+        "level": "AA",
+        "scope": "catalog-page"
+      },
+      "elements": [
+        {
+          "element": "revenue-chart",
+          "name": "Monthly revenue",
+          "description": "Actual revenue compared with target",
+          "details": {
+            "equivalent": "revenue-table"
+          },
+          "readingOrder": 2,
+          "reducedMotion": "static-chart",
+          "testIds": [
+            "chart-keyboard",
+            "chart-table-parity"
+          ]
+        }
+      ],
+      "tests": [
+        {
+          "id": "keyboard-flow",
+          "method": "manual",
+          "status": "passed"
+        }
+      ]
+    },
+    "capabilities": {
+      "profiles": [
+        {
+          "id": "web-production",
+          "target": {
+            "platform": "web",
+            "runtime": "evergreen-browser"
+          },
+          "essentialExperience": [
+            "product-grid",
+            "revenue-chart"
+          ],
+          "supports": [
+            "svg",
+            "css-sticky"
+          ],
+          "unsupported": [
+            {
+              "capability": "scroll-timeline",
+              "fallback": "Render all scenes in normal document order",
+              "owner": "engineering-owner"
+            }
+          ],
+          "assets": [
+            {
+              "element": "story-visual",
+              "width": 1200,
+              "height": 800,
+              "formats": [
+                "avif",
+                "webp"
+              ],
+              "quality": 80,
+              "loading": {
+                "priority": "low",
+                "strategy": "lazy"
+              }
+            }
+          ],
+          "data": {
+            "expectedItems": 24,
+            "maximumItems": 10000,
+            "virtualizeAfter": 100,
+            "strategy": "windowed"
+          },
+          "conditions": [
+            "low-bandwidth",
+            "data-saver"
+          ],
+          "budgets": [
+            {
+              "metric": "largest-contentful-paint",
+              "limit": 2500,
+              "unit": "ms",
+              "owner": "engineering-owner",
+              "measureAt": "production p75 mobile"
+            }
+          ]
+        }
+      ]
+    },
+    "lifecycle": {
+      "transferId": "catalog-2026-08",
+      "contractRevision": "3",
+      "sourceRevision": "42",
+      "status": "verified",
+      "owners": [
+        {
+          "id": "design-owner",
+          "role": "Design"
+        },
+        {
+          "id": "engineering-owner",
+          "role": "Engineering"
+        }
+      ],
+      "requirements": [
+        {
+          "id": "req-responsive-parity",
+          "statement": "Mobile preserves catalog content and actions",
+          "status": "verified",
+          "evidence": [
+            "evidence-responsive"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "evidence-responsive",
+          "kind": "test-report",
+          "uri": "reports/responsive-parity.html",
+          "createdAt": "2026-08-13T11:00:00Z"
+        }
+      ],
+      "deviations": []
+    },
+    "exceptions": [],
+    "openQuestions": [
+      {
+        "id": "question-export-format",
+        "scopeRef": "revenue-chart",
+        "question": "Which downloadable data format is required for launch?",
+        "owner": {
+          "id": "product-owner",
+          "role": "Product"
+        },
+        "blocking": false,
+        "status": "open",
+        "due": "2026-08-20",
+        "fallback": "Provide CSV export"
+      },
+      {
+        "id": "question-chart-library",
+        "scopeRef": "revenue-chart",
+        "question": "Which chart library was selected?",
+        "owner": "engineering-owner",
+        "blocking": false,
+        "status": "closed",
+        "decisionLink": "decisions/chart-library.md",
+        "fallback": "Use the platform-neutral SVG and table implementation until the decision is revisited"
+      }
+    ]
+  }
+}

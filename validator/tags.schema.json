@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/tags.schema.json",
+  "title": "BRIDGE layer-tag registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "methodology",
+    "schemaVersion",
+    "description",
+    "statusLevels",
+    "scopeLevels",
+    "sourceOfTruthLevels",
+    "structuredMetadata",
+    "tags"
+  ],
+  "properties": {
+    "$schema": { "const": "./tags.schema.json" },
+    "methodology": { "const": "BRIDGE" },
+    "schemaVersion": { "$ref": "#/$defs/semver" },
+    "description": { "type": "string", "minLength": 20 },
+    "statusLevels": {
+      "const": ["stable", "experimental", "deprecated"]
+    },
+    "scopeLevels": {
+      "const": ["page-root", "variant-root", "layer", "control", "field", "target", "collection", "item"]
+    },
+    "sourceOfTruthLevels": {
+      "const": ["bridge-tag", "figma-metadata"]
+    },
+    "structuredMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["namespace", "schema", "rule"],
+      "properties": {
+        "namespace": { "const": "bridge" },
+        "schema": { "const": "./bridge.schema.json" },
+        "rule": { "type": "string", "minLength": 40 }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/tag" }
+    }
+  },
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+    },
+    "localizedCopy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "ru"],
+      "properties": {
+        "en": { "type": "string", "minLength": 3 },
+        "ru": { "type": "string", "minLength": 3 }
+      }
+    },
+    "tagKey": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "tagList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/tagKey" }
+    },
+    "value": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": ["action", "enum", "field-name", "href", "human-text", "kebab-case", "locale", "positive-integer", "route", "route-pattern", "string"]
+        },
+        "pattern": { "type": "string", "minLength": 1 },
+        "enum": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "minLength": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["kind"],
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "enum" } }, "required": ["kind"] },
+          "then": { "required": ["enum"] }
+        }
+      ]
+    },
+    "companions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requires": { "$ref": "#/$defs/tagList" },
+        "requiresAny": { "$ref": "#/$defs/tagList" },
+        "conflicts": { "$ref": "#/$defs/tagList" },
+        "recommended": { "$ref": "#/$defs/tagList" },
+        "requiresValue": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["key", "value"],
+          "properties": {
+            "key": { "$ref": "#/$defs/tagKey" },
+            "value": { "type": "string", "minLength": 1 }
+          }
+        },
+        "recommendedWhen": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "any"],
+          "properties": {
+            "value": { "type": "string", "minLength": 1 },
+            "any": { "$ref": "#/$defs/tagList" }
+          }
+        }
+      }
+    },
+    "tag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "title", "status", "authoredInLayerName", "sourceOfTruth", "scope", "form", "value", "identityBearing", "companions"],
+      "properties": {
+        "key": { "$ref": "#/$defs/tagKey" },
+        "title": { "$ref": "#/$defs/localizedCopy" },
+        "status": { "enum": ["stable", "experimental", "deprecated"] },
+        "authoredInLayerName": { "type": "boolean" },
+        "sourceOfTruth": { "enum": ["bridge-tag", "figma-metadata"] },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["page-root", "variant-root", "layer", "control", "field", "target", "collection", "item"] }
+        },
+        "form": { "enum": ["boolean", "property", "boolean-or-property"] },
+        "value": { "$ref": "#/$defs/value" },
+        "identityBearing": { "type": "boolean" },
+        "companions": { "$ref": "#/$defs/companions" },
+        "notes": { "$ref": "#/$defs/localizedCopy" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "form": { "const": "boolean" } }, "required": ["form"] },
+          "then": { "properties": { "value": { "type": "null" } } },
+          "else": { "properties": { "value": { "type": "object" } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "deprecated" } }, "required": ["status"] },
+          "then": { "properties": { "authoredInLayerName": { "const": false } }, "required": ["notes"] }
+        },
+        {
+          "if": { "properties": { "sourceOfTruth": { "const": "figma-metadata" } }, "required": ["sourceOfTruth"] },
+          "then": { "properties": { "authoredInLayerName": { "const": false } } }
+        },
+        {
+          "if": { "properties": { "key": { "const": "item" } }, "required": ["key"] },
+          "then": {
+            "properties": { "identityBearing": { "const": false } },
+            "required": ["notes"]
+          }
+        }
+      ]
+    }
+  }
+}

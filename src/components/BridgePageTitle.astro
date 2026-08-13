@@ -1,0 +1,10 @@
+---
+import DefaultPageTitle from '@astrojs/starlight/components/PageTitle.astro';
+
+// Splash pages render an application-style hero with their own visible <h1>.
+// Omitting Starlight's generated title keeps one semantic page title in the DOM,
+// while regular documentation pages retain the standard Starlight heading.
+const hasCustomHero = Astro.locals.starlightRoute.entry.data.template === 'splash';
+---
+
+{!hasCustomHero && <DefaultPageTitle />}

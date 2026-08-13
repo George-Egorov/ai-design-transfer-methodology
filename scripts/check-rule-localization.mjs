@@ -40,22 +40,24 @@ for (const rule of catalog.rules) {
   if (!entry || typeof entry !== 'object' || Array.isArray(entry)) continue;
 
   const keys = Object.keys(entry).sort();
-  if (keys.join(',') !== 'description,fix') {
-    issues.push(`${rule.id}: ожидаются только поля description и fix`);
+  if (keys.join(',') !== 'description,fix,title') {
+    issues.push(`${rule.id}: ожидаются только поля title, description и fix`);
   }
 
-  for (const field of ['description', 'fix']) {
+  for (const field of ['title', 'description', 'fix']) {
     const value = entry[field];
-    if (typeof value !== 'string' || value.trim().length < 20) {
+    const minimumLength = field === 'title' ? 5 : 20;
+    if (typeof value !== 'string' || value.trim().length < minimumLength) {
       issues.push(`${rule.id}.${field}: перевод отсутствует или слишком короткий`);
       continue;
     }
 
-    if ((value.match(/[А-ЯЁа-яё]/gu) ?? []).length < 8) {
+    const minimumRussianLetters = field === 'title' ? 3 : 8;
+    if ((value.match(/[А-ЯЁа-яё]/gu) ?? []).length < minimumRussianLetters) {
       issues.push(`${rule.id}.${field}: в переводе недостаточно русского текста`);
     }
 
-    if (value.trim() === rule[field].trim()) {
+    if (field !== 'title' && value.trim() === rule[field].trim()) {
       issues.push(`${rule.id}.${field}: вместо перевода скопирован английский оригинал`);
     }
 

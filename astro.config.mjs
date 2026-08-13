@@ -1,8 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import sitemap from '@astrojs/sitemap';
 
 const base = process.env.SITE_BASE || '/bridge-design-methodology';
+const canonicalRoot = `https://poliklot.github.io${base === '/' ? '/' : `${base.replace(/\/$/u, '')}/`}`;
 
 export default defineConfig({
   site: 'https://poliklot.github.io',
@@ -39,10 +41,12 @@ export default defineConfig({
         SocialIcons: './src/components/ExternalSocialIcons.astro',
         ThemeSelect: './src/components/BridgeThemeSelect.astro',
         LanguageSelect: './src/components/BridgeLanguageSelect.astro',
+        PageTitle: './src/components/BridgePageTitle.astro',
         Footer: './src/components/BridgeFooter.astro',
       },
       lastUpdated: false,
       credits: false,
+      disable404Route: true,
       pagefind: true,
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
       head: [
@@ -79,7 +83,7 @@ export default defineConfig({
         {
           label: 'Справочник',
           translations: { en: 'Reference' },
-          items: [{ slug: 'rules' }, { autogenerate: { directory: 'reference' } }],
+          items: [{ slug: 'tags' }, { slug: 'rules' }, { autogenerate: { directory: 'reference' } }],
         },
         {
           label: 'Проект',
@@ -88,6 +92,15 @@ export default defineConfig({
           items: [{ autogenerate: { directory: 'project' } }],
         },
       ],
+    }),
+    sitemap({
+      // The unlocalized root is a noindex redirect to Russian. Publishing it as
+      // the default Russian URL produces a duplicate hreflang alongside /ru/.
+      filter: (page) => page !== canonicalRoot,
+      i18n: {
+        defaultLocale: 'ru',
+        locales: { ru: 'ru', en: 'en' },
+      },
     }),
   ],
 });

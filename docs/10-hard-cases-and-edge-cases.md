@@ -38,7 +38,7 @@ BRIDGE becomes useful only if it covers ugly real-world design situations, not j
 | Case | Why it is dangerous | BRIDGE response | Auto-check |
 | --- | --- | --- | --- |
 | Related items are free-floating siblings | Responsive transfer cannot infer grouping. | Meaningful Figma structure: frames/groups/components, Auto Layout, or constraints. | Geometry clustering heuristic. |
-| Wrapper maze | Layout tree is deep but meaningless. | Every wrapper needs `[wrapper-role=...]`. | Detect one-child/deep wrappers. |
+| Wrapper maze | Layout tree is deep but meaningless. | Keep only wrappers with a real grouping, layout, clipping, surface, semantic, or interaction function; do not invent a wrapper tag. | Detect one-child/deep wrappers. |
 | Fixed height clips real content | Localization/CMS content breaks layout. | Use hug/min-height or explicit overflow policy. | Fixed-height text/card checks. |
 | Visually detached element behaves like ordinary content | It will not adapt with the group. | Move it into the shared structure or mark intent as `[decor]`, `[asset]`, `[modal=...]`, or an exception. | Positioning + intent check. |
 | Overlap is accidental | z-order differs across targets. | Declare overlay/decor/asset intent or collision reason. | Bounding-box overlap heuristic. |
@@ -101,6 +101,18 @@ BRIDGE becomes useful only if it covers ugly real-world design situations, not j
 - A layer is visually a button but is named `Rectangle 44` and has no action.
 - Desktop uses cards; mobile uses screenshots of the cards.
 - Desktop and mobile use different currencies, prices, or legal disclaimers.
+
+## 9. Capability and performance blind spots
+
+| Case | Why it is dangerous | BRIDGE response | Owner/check |
+| --- | --- | --- | --- |
+| Oversized image/video has no delivery intent | Bandwidth, memory, and loading regress while the design still “matches.” | Declare intrinsic dimensions, formats, quality, art direction, crop safe area, poster, and priority/lazy policy. | Design declares essential media; implementation owns budget and measurement. |
+| A data display assumes the fixture count | Large results freeze or become unusable. | Declare expected/max volume and pagination, streaming, or virtualization threshold. | Data + implementation test. |
+| Experience assumes fast network and full power | Offline, data saver, low bandwidth, or low power loses the task. | Capability profile defines essential outcome, degraded states, cache/queue behavior, and fallback. | Target-profile QA. |
+| Target lacks sticky, animation, codec, input, or chart capability | An adapter silently drops meaning. | Record support and a semantic fallback; if unknown, create an owned blocking/non-blocking open question. | Adapter capability check. |
+| Budget exists only as a vague wish | Nobody can verify it. | Name metric, limit, environment, measurement point, and accountable implementation owner. | Release evidence. |
+
+BRIDGE is not web-only: each target maps the same capability profile into native mechanisms. Safety, privacy, accessibility, and essential task completion take priority over media fidelity.
 
 ## Definition of a robust BRIDGE design
 

@@ -8,86 +8,6 @@ interface Props {
 
 const { locale } = Astro.props;
 
-const ruTitles: Record<string, string> = {
-  'identity.missing-stable-identity': 'Нет стабильного идентификатора',
-  'identity.duplicate-identity': 'Идентификатор повторяется в одной области',
-  'identity.same-identity-different-type': 'Один идентификатор обозначает разные типы',
-  'identity.breakpoint-specific-id': 'Идентификатор зависит от контрольной ширины',
-  'identity.repeated-item-no-index': 'Повторяющиеся элементы не различаются',
-  'identity.multiple-identity-tags': 'Слой объявляет несколько конкурирующих идентификаторов',
-  'syntax.decor-asset-value-not-kebab-case': 'Значение декора или ресурса записано не в kebab-case',
-  'syntax.identity-value-not-kebab-case': 'Значение идентификатора записано не в kebab-case',
-  'identity.decor-asset-flags-not-identities': 'Признаки decor и asset ошибочно считаются идентификаторами',
-  'syntax.duplicate-tag': 'Один тег повторяется на слое',
-  'syntax.figma-metadata-tag-invalid': 'Тег вручную дублирует метаданные Figma',
-  'section.role-prefix-in-name': 'Название секции повторяет её роль',
-  'section.identity-as-human-heading': 'Секционный ключ скопирован из заголовка',
-  'section.component-source-unclassified': 'Источник секционного компонента не классифицирован',
-  'section.redundant-instance-section-tag': 'Экземпляр секции повторяет лишний тег',
-  'component.ui-kit-used-as-section': 'Компонент UI Kit ошибочно используется как секция',
-  'naming.default-layer-name': 'Осталось стандартное имя слоя Figma',
-  'layout.missing-role': 'Назначение слоя невозможно определить',
-  'layout.positioned-without-intent': 'Вынесенный слой не имеет понятного назначения',
-  'layout.one-child-wrapper-without-role': 'Одноэлементная обёртка не имеет причины',
-  'layout.wrapper-chain-too-deep': 'Цепочка обёрток слишком глубока',
-  'layout.overlap-without-overlay-role': 'Перекрытие слоёв не объяснено',
-  'layout.z-index-ambiguous': 'Порядок наложения неоднозначен',
-  'responsive.missing-breakpoint-root': 'У адаптива нет корневой контрольной ширины',
-  'responsive.view-missing-required-breakpoint': 'Состояние страницы отсутствует на обязательной ширине',
-  'responsive.identity-missing-in-required-breakpoint': 'Элемент отсутствует на обязательном адаптиве',
-  'responsive.tree-cardinality-changed': 'Между адаптивами изменился состав дерева',
-  'responsive.parent-changed-across-breakpoints': 'Элемент меняет родителя между адаптивами',
-  'responsive.order-changed-without-reason': 'Порядок элементов изменён без причины',
-  'responsive.visual-intent-drift': 'Назначение визуального слоя расходится между адаптивами',
-  'content.text-changed-between-breakpoints': 'Текст изменён между адаптивами',
-  'content.decorative-asset-text-excluded-from-product-drift': 'Текст декоративного ресурса исключён из сравнения контента',
-  'content.manual-line-break-in-dynamic-text': 'Динамический текст содержит ручной перенос',
-  'content.manual-line-break-exception-without-reason': 'Исключение для переноса строки не имеет причины',
-  'content.strict-content-drift': 'Строгое продуктовое содержимое расходится',
-  'content.hidden-layer-source-of-truth': 'Скрытый слой используется как источник правды',
-  'interaction.clickable-without-action': 'Интерактивный элемент не имеет назначения',
-  'interaction.control-without-action': 'Элемент управления не имеет действия',
-  'interaction.link-without-href': 'Ссылка не имеет адреса',
-  'interaction.link-has-second-destination': 'У ссылки заданы две цели',
-  'interaction.href-placeholder-invalid': 'В href используется недопустимая заглушка',
-  'interaction.optional-id-value-invalid': 'Необязательный идентификатор записан неверно',
-  'interaction.href-invalid': 'Адрес ссылки недопустим',
-  'interaction.action-invalid': 'Синтаксис действия недопустим',
-  'interaction.control-action-duplicate': 'Элемент управления дублирует описание действия',
-  'interaction.modal-target-missing': 'Цель модального окна отсутствует',
-  'interaction.state-target-missing': 'Цель состояния отсутствует',
-  'interaction.form-target-missing': 'Целевая форма отсутствует',
-  'interaction.reset-target-missing': 'Цель сброса отсутствует',
-  'interaction.modal-missing-close': 'Для модального окна не описано закрытие',
-  'interaction.form-field-missing-label': 'Поле формы не имеет подписи',
-  'interaction.form-missing-submit-action': 'Форма не имеет действия отправки',
-  'state.required-state-missing': 'Обязательное состояние отсутствует',
-  'height.fixed-height-without-reason': 'Фиксированная высота не имеет причины',
-  'overflow.hidden-without-policy': 'Скрытое переполнение не объяснено',
-  'overflow.text-clipping-risk': 'Текст может быть обрезан',
-  'asset.raster-text-without-reason': 'Текст превращён в изображение без причины',
-  'asset.image-missing-focal-point': 'У изображения не задана важная область',
-  'asset.media-missing-fallback': 'У медиаматериала нет запасного варианта',
-  'design-system.token-missing': 'Значение не связано с токеном дизайн-системы',
-  'accessibility.touch-target-too-small': 'Область взаимодействия слишком мала',
-  'accessibility.contrast-risk': 'Контраст может быть недостаточным',
-  'accessibility.decorative-layer-exposed': 'Декоративный слой попал в дерево доступности',
-  'component.page-instance-declares-component-tag': 'Экземпляр вручную повторяет тег компонента',
-  'component.required-state-missing': 'У компонента отсутствует обязательное состояние',
-  'routing.page-route-missing': 'У страницы пока нет рабочего маршрута',
-  'routing.page-root-required': 'Не найден корневой фрейм страницы',
-  'routing.default-view-missing': 'У страницы нет состояния по умолчанию',
-  'routing.route-not-production-url': 'Маршрут не похож на рабочий адрес',
-  'routing.duplicate-route': 'Рабочий маршрут повторяется',
-  'routing.href-internal-route-missing': 'Внутренняя ссылка ведёт на отсутствующий маршрут',
-  'routing.href-anchor-missing': 'Ссылка ведёт на отсутствующий якорь',
-  'routing.page-view-route-drift': 'Маршрут страницы расходится между состояниями',
-  'variation.breakpoint-content-drift': 'Содержимое меняется только из-за ширины',
-  'variation.theme-content-drift': 'Тема оформления меняет содержимое',
-  'variation.axis-overload': 'Одна ось скрывает несколько причин вариативности',
-  'adapter.unsupported-feature': 'Адаптер не поддерживает использованную функцию',
-};
-
 const principleRu: Record<string, string> = {
   Breakpoints: 'Адаптивы',
   Roles: 'Назначение',
@@ -167,7 +87,7 @@ const copy = locale === 'ru'
 <section class="rules-explorer not-content" data-rules-explorer data-page-size="12">
   <header>
     <p class="bridge-eyebrow">{copy.eyebrow}</p>
-    <h1>{copy.title}</h1>
+    <h1 id="_top">{copy.title}</h1>
     <p>{copy.lead}</p>
   </header>
 
@@ -198,7 +118,7 @@ const copy = locale === 'ru'
 
   <div class="rules-list">
     {catalog.rules.map((rule, index) => {
-      const title = locale === 'ru' ? (ruTitles[rule.id] || humanize(rule.id)) : humanize(rule.id);
+      const title = locale === 'ru' ? (ruRules[rule.id as keyof typeof ruRules]?.title || humanize(rule.id)) : humanize(rule.id);
       const localizedRule = locale === 'ru' ? ruRules[rule.id as keyof typeof ruRules] : undefined;
       const searchable = [
         rule.id,
@@ -212,7 +132,9 @@ const copy = locale === 'ru'
       ].join(' ').toLowerCase();
       return (
         <article
+          id={rule.id}
           class={`rule-card rule-${rule.severity}`}
+          tabindex="-1"
           data-rule
           data-severity={rule.severity}
           data-automation={rule.automation}
@@ -266,6 +188,17 @@ const copy = locale === 'ru'
     const pageSize = Number(root.dataset.pageSize || 12);
     let limit = pageSize;
 
+    const ruleFromHash = () => {
+      if (!window.location.hash) return '';
+      try {
+        return decodeURIComponent(window.location.hash.slice(1)).trim().toLowerCase();
+      } catch {
+        return '';
+      }
+    };
+
+    const cardWithId = (id: string) => cards.find((card) => card instanceof HTMLElement && card.id === id);
+
     const filter = () => {
       const query = search instanceof HTMLInputElement ? search.value.trim().toLowerCase() : '';
       const severityValue = severity instanceof HTMLSelectElement ? severity.value : '';
@@ -302,7 +235,29 @@ const copy = locale === 'ru'
       limit += pageSize;
       filter();
     });
-    filter();
+
+    const revealRuleFromLocation = (moveFocus = false) => {
+      const ruleId = ruleFromHash();
+      const target = cardWithId(ruleId);
+      if (!(target instanceof HTMLElement)) return false;
+      if (search instanceof HTMLInputElement) search.value = ruleId;
+      if (severity instanceof HTMLSelectElement) severity.value = '';
+      if (automation instanceof HTMLSelectElement) automation.value = '';
+      limit = cards.length;
+      filter();
+      requestAnimationFrame(() => {
+        target.scrollIntoView({ block: 'center' });
+        if (moveFocus) target.focus({ preventScroll: true });
+      });
+      return true;
+    };
+
+    if (!revealRuleFromLocation()) {
+      const initialQuery = new URLSearchParams(window.location.search).get('q')?.trim() || '';
+      if (initialQuery && search instanceof HTMLInputElement) search.value = initialQuery;
+      filter();
+    }
+    window.addEventListener('hashchange', () => revealRuleFromLocation(true));
   };
 
   for (const root of document.querySelectorAll('[data-rules-explorer]')) initializeRuleExplorer(root);

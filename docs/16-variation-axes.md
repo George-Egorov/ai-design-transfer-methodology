@@ -1,174 +1,164 @@
 # Variation axes
 
-BRIDGE separates different reasons for variation. This prevents designers from hiding content changes inside responsive breakpoints.
+BRIDGE separates the reasons a design changes. One axis must not hide the effect of another.
 
 ## Core rule
 
-> A breakpoint is a layout variation of the same logical tree, not a content or structure variation.
+> A breakpoint is the same logical tree in another layout by default. A different composition requires a declared responsive transformation; width alone never explains it.
 
-If content or logical tree topology changes, the reason must be represented by a different axis: view, locale, theme, experiment, role, data scenario, collection rule, component variant, or structural exception.
+Content changes require a content-bearing axis. Topology that changes only to preserve responsive usability requires a mapped transformation. Neither may appear as unexplained drift between roots.
 
 ## Canonical axes
 
-| Axis | Tag | Can content change? | Purpose |
+| Axis | Design anchor | May content change? | Purpose |
 | --- | --- | --- | --- |
 | Page | `[page=...]` | No by itself | Logical page identity |
-| Route | `[route=...]` / `[route-pattern=...]` | No | Known production URL path/template; omit while draft-unknown |
-| Breakpoint | `[bp=...]` | No | Responsive layout |
-| View | `[view=...]` | Yes, if state-specific | Data/page state such as empty/loading/error |
-| Locale | `[locale=...]` | Yes | Translation and locale-specific formatting |
-| Theme | `[theme=...]` | No | Visual theme such as light/dark |
-| Experiment | `[experiment=...]` | Yes, controlled | A/B or product experiment |
-| Role | `[role-view=...]` | Yes, controlled | User role or permission view |
-| Data scenario | `[data=...]` | Sample content only | Stress cases such as long names or max items |
+| Route | `[route=...]` / `[route-pattern=...]` | No | Known production URL/path template |
+| Breakpoint | `[bp=...]` | No | Authored responsive width anchor |
+| View | `[view=...]` | Yes, state-specific | Page/data state such as loading, empty, partial, or error |
+| Locale | `[locale=...]` | Yes | Translation and regional formatting |
+| Direction / writing mode | Structured context | No by itself | `ltr`/`rtl` and horizontal/vertical logical flow |
+| Theme | `[theme=...]` | No | Visual token context |
+| Experiment | `[experiment=...]` | Yes, controlled | Product experiment |
+| Role | `[role-view=...]` | Yes, controlled | User/permission view |
+| Data scenario | `[data=...]` | Fixtures only | Long, missing, minimum, maximum, stale, or failed data |
+| Target/capability | Structured context/profile | Only through a decision | Supported platform/input/media/performance capabilities and fallback |
+
+Tags are short design anchors. Direction, writing mode, capabilities, mappings, and acceptance criteria belong in structured `bridge.context`, `bridge.responsive`, or a target capability profile.
 
 ## Breakpoint axis
 
-Breakpoint changes layout only:
-
 ```text
-Hero [section=hero] [bp=1200]
-Hero [section=hero] [bp=320]
+Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+Catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
 ```
 
-Allowed changes:
-
-- layout direction;
-- spacing;
-- typography size;
-- wrapping;
-- sibling order inside the same parent;
-- visibility when intentional.
-
-Not allowed:
-
-- extra or missing logical elements;
-- different parent-child topology;
-- replacing one identity with a breakpoint-only copy;
-- different heading text;
-- shorter mobile CTA;
-- different legal copy;
-- different price;
-- different product claim.
+The default permits geometry, spacing, type scale, natural wrapping, column count, and visual arrangement to change. It does not permit silent content, action, data, semantic relationship, or accessibility loss. See [Responsive behavior](03-responsive-breakpoints.md).
 
 ## View axis
 
-Views describe state-specific page/data content:
+Views are reachable page/data fixtures:
 
 ```text
 Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+Catalog Loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
 Catalog Empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
 Catalog Error [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
-`view=empty` may have different content from `view=default`, because the page state is different.
+A view may change content because the product state changed. Matching breakpoints within that view still follow the same-tree default or a declared transformation. Component microstates remain in the component/state-machine contract rather than becoming page roots.
 
 ## Locale axis
-
-Locale changes text and formatting intentionally:
 
 ```text
 Contacts [page=contacts] [route=/contacts] [bp=1200] [locale=en-US]
 Contacts [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
 ```
 
-Rules:
+Locale may change translation, pluralization, date/number/currency formatting, and legal content selected by product rules. Test expansion, unbreakable values, font coverage, and formats. Locale is not a workaround for shorter mobile copy.
 
-- locale variants should not be mixed with breakpoint variants;
-- layout should be tested against longer localized text;
-- locale is not a workaround for mobile copy drift.
+## Direction and writing mode
+
+Locale and direction are related but not interchangeable. Record `direction: ltr | rtl` and `writingMode` in structured context:
+
+```json
+{
+  "direction": "rtl",
+  "writingMode": "horizontal-tb"
+}
+```
+
+Declare whether composition mirrors; use logical start/end; identify icons that mirror and those that remain fixed; cover mixed-direction names, phone numbers, dates, ids, code, and digits; define chart axes/category order; preserve semantic reading and keyboard order independently of visual mirroring; and include RTL/bidirectional stress fixtures and screenshots when supported.
 
 ## Theme axis
 
-Theme changes visual tokens, not content:
-
 ```text
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [theme=light]
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [theme=dark]
+Dashboard [page=dashboard] [bp=1200] [theme=light]
+Dashboard [page=dashboard] [bp=1200] [theme=dark]
 ```
 
-Text content should stay the same between themes.
+Theme changes tokens, media choices, and perhaps contrast treatment. It must not silently change product copy, data, action, or available feature. Test every interactive, data, focus, disabled, error, and forced/high-contrast state rather than only the default background.
 
 ## Experiment axis
-
-Experiment variants may change content, but only when explicitly declared:
 
 ```text
 Pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-a]
 Pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
 ```
 
-Rules:
-
-- experiments must not be disguised as responsive breakpoints;
-- experiment names should be product-approved;
-- analytics and implementation must know the experiment axis.
+Experiments may change approved content or flows. Define hypothesis, assignment, exposure event, metrics, duration/ownership, fallback, accessibility parity, and interaction/history mapping. Do not disguise an experiment as a breakpoint.
 
 ## Role axis
-
-Role or permission views may change content and available actions:
 
 ```text
 Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=guest]
 Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
 ```
 
-Use this for authenticated/unauthenticated, admin/user, owner/viewer, or permission-specific UI.
+Role/permission variants may change information and actions. The authorization system remains the runtime source of truth; hiding a layer is not security. Cover transitions when permissions change while the page is open.
 
-## Data scenario axis
+## Data-scenario axis
 
-Data scenarios are design QA fixtures, not production content variants:
+Data scenarios are QA fixtures, not production variants:
 
 ```text
-Product Card [card=product-card] [data=short]
-Product Card [card=product-card] [data=long]
+product-card [data=short]
+product-card [data=long]
 Product Grid [collection=products] [data=max-items]
+Product Grid Empty [collection=products] [data=empty]
 ```
 
-Use data scenarios to test overflow, long names, empty images, max item count, and localization stress.
+Cover zero, one, typical, maximum/unknown counts, long and mixed-direction text, missing values/media, duplicates, partial, stale, failed, and unauthorized data. Fixture order or numeric suffix is never the runtime record identity. See [Data and visualization](20-data-and-visualization.md).
+
+## Target and capability profile
+
+A target may differ because it lacks hover, sticky positioning, scroll timelines, a chart primitive, a codec, memory, bandwidth, or another capability. Do not turn each capability into a flat tag. The structured target profile declares:
+
+- platform/runtime and supported input/output capabilities;
+- asset/media formats, dimensions, quality variants, and art direction;
+- loading priority, poster/preview, preload versus lazy behavior;
+- expected data volume and the threshold/strategy for pagination or virtualization;
+- low-bandwidth, offline, data-saver, low-power, and reduced-motion behavior;
+- unsupported-capability fallback and owner;
+- performance budgets and where implementation measures them.
+
+Design declares which media, information, and experience are essential. Implementation owns measurable budgets and platform mapping. An unknown capability is an explicit owned `openQuestions[]` record, not an assumed fallback.
 
 ## Axis composition
 
-A complete context may combine axes:
+A transfer context may compose axes:
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=320] [view=empty] [locale=ru-RU] [theme=dark]
+Catalog [page=catalog] [route=/catalog] [bp=360] [view=empty] [locale=ar-SA] [theme=dark]
 ```
 
-But every axis must have one reason. Do not use one axis to smuggle another kind of variation.
+Structured context may add `direction: rtl`, `writingMode: horizontal-tb`, and target profile `mobile-low-bandwidth`. Pairwise/full combinations are selected by risk; teams need not draw the Cartesian product, but every omitted combination must inherit deterministically or be recorded as an open question.
 
 ## Invalid examples
 
-Mobile copy drift:
-
 ```text
-// desktop
-hero-title = "Launch your store in one day"
+// breakpoint hides a content experiment
+hero-title desktop = "Launch your store in one day"
+hero-title mobile = "Launch faster"
 
-// mobile
-hero-title = "Launch faster"
+// fake locale hides mobile copy
+Hero [bp=320] [locale=mobile-short]
+
+// theme changes product behavior
+Delete [theme=light] [action=modal:confirm-delete]
+Delete [theme=dark] [action=none]
 ```
 
-Fake locale as responsive workaround:
+## Validation
 
-```text
-Hero [section=hero] [bp=320] [locale=mobile-short]
-```
+A validator or review should report:
 
-Theme changing content:
-
-```text
-Dashboard [theme=light] = "Welcome back"
-Dashboard [theme=dark] = "Good evening"
-```
-
-## Validator rules
-
-A BRIDGE validator should report:
-
-- text content changes across breakpoints of the same context;
-- text content changes across themes;
-- locale changes mixed into breakpoint-only frames;
-- experiment variants without explicit experiment axis;
-- view-specific content modeled as separate pages/routes;
-- data stress examples used as production content variants.
+- content/action/data changes across breakpoint or theme without an applicable axis;
+- topology changes without a responsive transformation;
+- locale used to encode device/layout;
+- direction reduced to visual mirroring without bidi, reading, keyboard, icon, and chart decisions;
+- an experiment without approved ownership and instrumentation;
+- role-specific visibility treated as authorization;
+- data fixtures used as runtime identity or production variants;
+- unsupported target capabilities without fallback, owner, budget, or open question;
+- ambiguous inheritance for an unprepared axis combination.

@@ -1,0 +1,1120 @@
+{
+  "$schema": "./tags.schema.json",
+  "methodology": "BRIDGE",
+  "schemaVersion": "1.0.0",
+  "description": "Canonical registry of BRIDGE layer-name tags and the boundary with structured Figma metadata and namespaced bridge contracts.",
+  "statusLevels": [
+    "stable",
+    "experimental",
+    "deprecated"
+  ],
+  "scopeLevels": [
+    "page-root",
+    "variant-root",
+    "layer",
+    "control",
+    "field",
+    "target",
+    "collection",
+    "item"
+  ],
+  "sourceOfTruthLevels": [
+    "bridge-tag",
+    "figma-metadata"
+  ],
+  "structuredMetadata": {
+    "namespace": "bridge",
+    "schema": "./bridge.schema.json",
+    "rule": "Use layer tags only for compact transfer intent and identity anchors. Put data, responsive transformations, interaction graphs, motion, accessibility, and delivery lifecycle in the namespaced structured contract."
+  },
+  "tags": [
+    {
+      "key": "page",
+      "title": {
+        "en": "Page identity",
+        "ru": "Идентификатор страницы"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "requires": [
+          "bp",
+          "view"
+        ]
+      }
+    },
+    {
+      "key": "route",
+      "title": {
+        "en": "Production route",
+        "ru": "Рабочий маршрут"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "route",
+        "pattern": "^/(?:[^\\s?#]+/?)*(?:#[a-z0-9]+(?:-[a-z0-9]+)*)?$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requires": [
+          "page"
+        ],
+        "conflicts": [
+          "route-pattern"
+        ]
+      }
+    },
+    {
+      "key": "route-pattern",
+      "title": {
+        "en": "Dynamic route pattern",
+        "ru": "Шаблон динамического маршрута"
+      },
+      "status": "experimental",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "route-pattern",
+        "pattern": "^/(?:[^\\s?#]+/?)*:[a-z][a-z0-9-]*(?:/(?:[^\\s?#]+|:[a-z][a-z0-9-]*))*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requires": [
+          "page"
+        ],
+        "conflicts": [
+          "route"
+        ]
+      }
+    },
+    {
+      "key": "bp",
+      "title": {
+        "en": "Control width",
+        "ru": "Контрольная ширина"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "positive-integer",
+        "pattern": "^[1-9][0-9]*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requires": [
+          "page"
+        ]
+      }
+    },
+    {
+      "key": "view",
+      "title": {
+        "en": "Page view",
+        "ru": "Вид страницы"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requires": [
+          "page"
+        ]
+      }
+    },
+    {
+      "key": "anchor",
+      "title": {
+        "en": "Anchor target",
+        "ru": "Цель якоря"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {}
+    },
+    {
+      "key": "section",
+      "title": {
+        "en": "Page section identity",
+        "ru": "Идентификатор секции"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "conflicts": [
+          "modal",
+          "state",
+          "field",
+          "collection",
+          "item",
+          "form"
+        ]
+      }
+    },
+    {
+      "key": "href",
+      "title": {
+        "en": "Navigation destination",
+        "ru": "Адрес перехода"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer",
+        "control"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "href",
+        "pattern": "^(?:/(?!/)[^\\s]*|#[a-z0-9]+(?:-[a-z0-9]+)*|https?://[^\\s]+|mailto:[^\\s@]+@[^\\s@]+|tel:\\+?[0-9() .-]+)$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "conflicts": [
+          "action"
+        ]
+      }
+    },
+    {
+      "key": "link",
+      "title": {
+        "en": "Draft link or advanced link identity",
+        "ru": "Черновая ссылка или расширенный идентификатор ссылки"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer",
+        "control"
+      ],
+      "form": "boolean-or-property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "conflicts": [
+          "action",
+          "control"
+        ]
+      },
+      "notes": {
+        "en": "Prefer [href=...] when the destination is known; the value form is an advanced override.",
+        "ru": "Когда адрес известен, используйте [href=...]; форма со значением предназначена только для расширенного переопределения."
+      }
+    },
+    {
+      "key": "open",
+      "title": {
+        "en": "Link opening behavior",
+        "ru": "Способ открытия ссылки"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "control"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "enum",
+        "enum": [
+          "new-tab"
+        ]
+      },
+      "identityBearing": false,
+      "companions": {
+        "requiresAny": [
+          "href",
+          "link"
+        ]
+      }
+    },
+    {
+      "key": "a11y-label",
+      "title": {
+        "en": "Accessible control label",
+        "ru": "Доступное название элемента управления"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "control"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "human-text",
+        "minLength": 1
+      },
+      "identityBearing": false,
+      "companions": {
+        "requiresAny": [
+          "href",
+          "link",
+          "action",
+          "control"
+        ]
+      }
+    },
+    {
+      "key": "action",
+      "title": {
+        "en": "Non-navigation action",
+        "ru": "Ненавигационное действие"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "control"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "action",
+        "pattern": "^(?:modal|state|submit|reset):[a-z0-9]+(?:-[a-z0-9]+)*$|^none$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "conflicts": [
+          "href",
+          "link"
+        ]
+      }
+    },
+    {
+      "key": "control",
+      "title": {
+        "en": "Draft control or advanced control identity",
+        "ru": "Черновой элемент управления или его расширенный идентификатор"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "control"
+      ],
+      "form": "boolean-or-property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "conflicts": [
+          "href",
+          "link"
+        ]
+      },
+      "notes": {
+        "en": "Prefer [action=...] when behavior is known; the value form is an advanced override.",
+        "ru": "Когда действие известно, используйте [action=...]; форма со значением предназначена только для расширенного переопределения."
+      }
+    },
+    {
+      "key": "field",
+      "title": {
+        "en": "Field identity",
+        "ru": "Идентификатор поля"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "field"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "requires": [
+          "name"
+        ],
+        "conflicts": [
+          "form"
+        ]
+      }
+    },
+    {
+      "key": "name",
+      "title": {
+        "en": "Data binding name",
+        "ru": "Имя привязки данных"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "field"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "field-name",
+        "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requires": [
+          "field"
+        ]
+      }
+    },
+    {
+      "key": "field-type",
+      "title": {
+        "en": "Field type override",
+        "ru": "Переопределение типа поля"
+      },
+      "status": "experimental",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "field"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requires": [
+          "field"
+        ]
+      }
+    },
+    {
+      "key": "form",
+      "title": {
+        "en": "Form target identity",
+        "ru": "Идентификатор формы"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "target"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "conflicts": [
+          "section",
+          "modal",
+          "state",
+          "field",
+          "collection",
+          "item"
+        ]
+      }
+    },
+    {
+      "key": "modal",
+      "title": {
+        "en": "Modal target identity",
+        "ru": "Идентификатор модального окна"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "target"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "conflicts": [
+          "section",
+          "state",
+          "field",
+          "collection",
+          "item",
+          "form"
+        ]
+      }
+    },
+    {
+      "key": "state",
+      "title": {
+        "en": "State target identity",
+        "ru": "Идентификатор состояния"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "target"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "conflicts": [
+          "section",
+          "modal",
+          "field",
+          "collection",
+          "item",
+          "form"
+        ]
+      }
+    },
+    {
+      "key": "collection",
+      "title": {
+        "en": "Collection identity",
+        "ru": "Идентификатор коллекции"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "collection"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": true,
+      "companions": {
+        "conflicts": [
+          "section",
+          "modal",
+          "state",
+          "field",
+          "item",
+          "form"
+        ]
+      }
+    },
+    {
+      "key": "item",
+      "title": {
+        "en": "Repeated role or type",
+        "ru": "Роль или тип повторяющегося элемента"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "item"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "conflicts": [
+          "section",
+          "modal",
+          "state",
+          "field",
+          "collection",
+          "form"
+        ]
+      },
+      "notes": {
+        "en": "The value classifies a repeated role or type; stable design-instance and runtime-data identities remain separate.",
+        "ru": "Значение классифицирует повторяемую роль или тип; стабильные идентификаторы экземпляра макета и рабочих данных задаются отдельно."
+      }
+    },
+    {
+      "key": "decor",
+      "title": {
+        "en": "Decorative intent",
+        "ru": "Декоративное назначение"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer"
+      ],
+      "form": "boolean-or-property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Prefer the boolean form with a stable layer name; the value is only an identity fallback.",
+        "ru": "Предпочитайте булеву форму со стабильным именем слоя; значение служит только резервным идентификатором."
+      }
+    },
+    {
+      "key": "asset",
+      "title": {
+        "en": "Whole-export policy",
+        "ru": "Политика цельного экспорта"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer"
+      ],
+      "form": "boolean-or-property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Prefer the boolean form with a stable layer name; [decor] and [asset] may be combined.",
+        "ru": "Предпочитайте булеву форму со стабильным именем слоя; теги [decor] и [asset] можно сочетать."
+      }
+    },
+    {
+      "key": "height",
+      "title": {
+        "en": "Dynamic height policy",
+        "ru": "Политика динамической высоты"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "enum",
+        "enum": [
+          "hug",
+          "fixed",
+          "min",
+          "fill"
+        ]
+      },
+      "identityBearing": false,
+      "companions": {
+        "recommendedWhen": {
+          "value": "fixed",
+          "any": [
+            "overflow",
+            "reason"
+          ]
+        }
+      }
+    },
+    {
+      "key": "overflow",
+      "title": {
+        "en": "Overflow policy",
+        "ru": "Политика переполнения"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "enum",
+        "enum": [
+          "visible",
+          "hidden",
+          "scroll",
+          "truncate"
+        ]
+      },
+      "identityBearing": false,
+      "companions": {}
+    },
+    {
+      "key": "lines",
+      "title": {
+        "en": "Maximum visible lines",
+        "ru": "Максимум видимых строк"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "positive-integer",
+        "pattern": "^[1-9][0-9]*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requiresValue": {
+          "key": "overflow",
+          "value": "truncate"
+        }
+      }
+    },
+    {
+      "key": "bridge-exception",
+      "title": {
+        "en": "Documented transfer exception",
+        "ru": "Объявленное исключение переноса"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer",
+        "page-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requires": [
+          "reason"
+        ]
+      }
+    },
+    {
+      "key": "reason",
+      "title": {
+        "en": "Machine-readable reason",
+        "ru": "Машиночитаемая причина"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "layer",
+        "page-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {
+        "requiresAny": [
+          "bridge-exception",
+          "height"
+        ]
+      }
+    },
+    {
+      "key": "locale",
+      "title": {
+        "en": "Locale variation axis",
+        "ru": "Ось языка и региона"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root",
+        "variant-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "locale",
+        "pattern": "^[a-z]{2,3}(?:-[A-Z]{2}|-[A-Za-z]{4})?$"
+      },
+      "identityBearing": false,
+      "companions": {}
+    },
+    {
+      "key": "theme",
+      "title": {
+        "en": "Theme variation axis",
+        "ru": "Ось темы оформления"
+      },
+      "status": "stable",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root",
+        "variant-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {}
+    },
+    {
+      "key": "experiment",
+      "title": {
+        "en": "Experiment variation axis",
+        "ru": "Ось эксперимента"
+      },
+      "status": "experimental",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root",
+        "variant-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {}
+    },
+    {
+      "key": "role-view",
+      "title": {
+        "en": "Permission-role variation axis",
+        "ru": "Ось роли и прав"
+      },
+      "status": "experimental",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root",
+        "variant-root"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {}
+    },
+    {
+      "key": "data",
+      "title": {
+        "en": "Data stress scenario",
+        "ru": "Сценарий тестовых данных"
+      },
+      "status": "experimental",
+      "authoredInLayerName": true,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "page-root",
+        "variant-root",
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {}
+    },
+    {
+      "key": "text",
+      "title": {
+        "en": "Figma text node type",
+        "ru": "Тип текстового узла Figma"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use the native TEXT node type and a stable layer name.",
+        "ru": "Используйте нативный тип узла TEXT и стабильное имя слоя."
+      }
+    },
+    {
+      "key": "image",
+      "title": {
+        "en": "Figma image node type",
+        "ru": "Тип изображения Figma"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use native fills/export metadata and a stable layer name.",
+        "ru": "Используйте нативные заливки или данные экспорта и стабильное имя слоя."
+      }
+    },
+    {
+      "key": "icon",
+      "title": {
+        "en": "Figma icon node type",
+        "ru": "Тип значка Figma"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use component/vector metadata and a stable layer name.",
+        "ru": "Используйте метаданные компонента или вектора и стабильное имя слоя."
+      }
+    },
+    {
+      "key": "container",
+      "title": {
+        "en": "Figma hierarchy",
+        "ru": "Иерархия Figma"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use frames, groups, and Auto Layout.",
+        "ru": "Используйте фреймы, группы и Auto Layout."
+      }
+    },
+    {
+      "key": "layout",
+      "title": {
+        "en": "Figma layout mode",
+        "ru": "Режим компоновки Figma"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use Auto Layout and constraints.",
+        "ru": "Используйте Auto Layout и ограничения."
+      }
+    },
+    {
+      "key": "abs",
+      "title": {
+        "en": "Figma positioning",
+        "ru": "Позиционирование Figma"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "boolean",
+      "value": null,
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use native Figma positioning.",
+        "ru": "Используйте нативное позиционирование Figma."
+      }
+    },
+    {
+      "key": "component",
+      "title": {
+        "en": "Figma component source",
+        "ru": "Источник компонента Figma"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Resolve the source component from Figma metadata.",
+        "ru": "Определяйте исходный компонент по метаданным Figma."
+      }
+    },
+    {
+      "key": "to",
+      "title": {
+        "en": "Second navigation destination",
+        "ru": "Второй адрес перехода"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "bridge-tag",
+      "scope": [
+        "control"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "string",
+        "minLength": 1
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use [href=...] as the single navigation destination.",
+        "ru": "Используйте [href=...] как единственный адрес перехода."
+      }
+    },
+    {
+      "key": "wrapper-role",
+      "title": {
+        "en": "Wrapper intent tag",
+        "ru": "Тег назначения обёртки"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Express wrapper purpose with Figma structure and stable naming.",
+        "ru": "Выражайте назначение обёртки структурой Figma и стабильным именем."
+      }
+    },
+    {
+      "key": "card",
+      "title": {
+        "en": "Ad-hoc card identity",
+        "ru": "Произвольный идентификатор карточки"
+      },
+      "status": "deprecated",
+      "authoredInLayerName": false,
+      "sourceOfTruth": "figma-metadata",
+      "scope": [
+        "layer"
+      ],
+      "form": "property",
+      "value": {
+        "kind": "kebab-case",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "identityBearing": false,
+      "companions": {},
+      "notes": {
+        "en": "Use the stable layer/component name; use [item=...] only for an explicit repeated-item contract.",
+        "ru": "Используйте стабильное имя слоя или компонента; [item=...] нужен только для явного контракта повторяемости."
+      }
+    }
+  ]
+}

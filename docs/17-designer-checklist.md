@@ -28,7 +28,7 @@ For a strict review, use the [full preflight checklist](08-preflight-checklist.m
 
 - [ ] Important layer names use English `kebab-case`.
 - [ ] Names do not contain viewport widths or device labels.
-- [ ] Repeated items have distinct keys.
+- [ ] Repeated design instances have distinct stable layer names/`bridgeKey` values; shared `[item=...]` values classify role/type only.
 - [ ] No identity is reused for different logical types.
 
 ## 5. Keep technical truth in Figma
@@ -69,6 +69,17 @@ For a strict review, use the [full preflight checklist](08-preflight-checklist.m
 - [ ] Component states live in `UI Kit` variants or explicit state models.
 - [ ] Hidden old versions are not part of the handoff tree.
 
+## 11. Cover the full contract
+
+- [ ] Runtime data has schema/key/source/format and loading, empty, partial, stale, error, offline, and permission behavior as applicable.
+- [ ] Nontrivial actions have reaction paths for validation, pending, failure, retry, cancellation, focus, announcements, and history.
+- [ ] Same tree is the responsive default; every structural change has an explicit semantic/focus/state mapping.
+- [ ] Motion has stable scenes, reverse/re-entry, reduced-motion, and unsupported fallbacks.
+- [ ] The implementation target and QA plan cover WCAG 2.2 AA, keyboard/focus, zoom/reflow, and supported RTL/bidirectional contexts.
+- [ ] Target capabilities declare essential experience, media/data budgets, degradation conditions, and fallbacks.
+- [ ] Every unknown/unsupported item has scope, owner, blocking status, review point, safe fallback, and status.
+- [ ] Every deviation has impact, mitigation, evidence, approval, owner, and review date.
+
 ## Final test
 
-Ask someone who did not prepare the file to identify the page, its breakpoints, reusable sections, interactions, targets, dynamic content, exported visuals, and intentional exceptions. If any answer requires spoken context, the design is not ready yet.
+Ask someone who did not prepare the file to identify the page, responsive contexts and transformations, reusable sections, interactions and states, data/provenance, motion fallbacks, accessibility expectations, target limitations, open questions, exported visuals, and deviations. If any answer exists only in speech or chat, it is an untracked blind spot and the design is not ready.

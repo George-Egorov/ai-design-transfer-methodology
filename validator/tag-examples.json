@@ -1,0 +1,217 @@
+{
+  "$schema": "./tag-examples.schema.json",
+  "schemaVersion": "1.0.0",
+  "description": "Executable examples for the canonical BRIDGE layer-tag registry.",
+  "valid": [
+    {
+      "id": "page-root",
+      "scope": "page-root",
+      "layerName": "Home [page=home] [route=/] [bp=1440] [view=default]"
+    },
+    {
+      "id": "dynamic-route",
+      "scope": "page-root",
+      "layerName": "Product [page=product-detail] [route-pattern=/catalog/:slug] [bp=1280] [view=default]"
+    },
+    {
+      "id": "known-link",
+      "scope": "control",
+      "layerName": "telegram-link [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]"
+    },
+    {
+      "id": "draft-link",
+      "scope": "control",
+      "layerName": "contacts-link [link]"
+    },
+    {
+      "id": "advanced-link-id",
+      "scope": "control",
+      "layerName": "contacts-link [link=nav-contacts-primary] [href=/contacts]"
+    },
+    {
+      "id": "known-action",
+      "scope": "control",
+      "layerName": "contact-cta [action=modal:contact-modal] [a11y-label=Contact]"
+    },
+    {
+      "id": "advanced-control-id",
+      "scope": "control",
+      "layerName": "contact-cta [control=contact-cta-primary] [action=modal:contact-modal]"
+    },
+    {
+      "id": "field",
+      "scope": "field",
+      "layerName": "email [field=email] [name=email] [field-type=email]"
+    },
+    {
+      "id": "visual-intent",
+      "scope": "layer",
+      "layerName": "snow-bg [decor] [asset]"
+    },
+    {
+      "id": "visual-fallback",
+      "scope": "layer",
+      "layerName": "Frame 182 [decor=snow-bg]"
+    },
+    {
+      "id": "fixed-height-reason",
+      "scope": "layer",
+      "layerName": "feature-card [height=fixed] [reason=equal-card-grid]"
+    },
+    {
+      "id": "truncated-text",
+      "scope": "layer",
+      "layerName": "description [height=fixed] [overflow=truncate] [lines=3]"
+    },
+    {
+      "id": "exception",
+      "scope": "layer",
+      "layerName": "brand-lockup [bridge-exception=raster-text] [reason=approved-brand-lockup]"
+    },
+    {
+      "id": "locale-axis",
+      "scope": "variant-root",
+      "layerName": "Contacts [locale=ru-RU] [theme=dark]"
+    },
+    {
+      "id": "asset-target",
+      "scope": "target",
+      "layerName": "Contact Modal [modal=contact-modal]"
+    },
+    {
+      "id": "repeated-item-role",
+      "scope": "item",
+      "layerName": "product-card-oak-chair [item=product-card]"
+    },
+    {
+      "id": "repeated-item-same-role",
+      "scope": "item",
+      "layerName": "product-card-wool-lamp [item=product-card]"
+    }
+  ],
+  "invalid": [
+    {
+      "id": "unknown-tag",
+      "scope": "layer",
+      "layerName": "hero [mystery=value]",
+      "expectedErrorCodes": [
+        "unknown-tag"
+      ]
+    },
+    {
+      "id": "figma-metadata-tag",
+      "scope": "layer",
+      "layerName": "hero-title [text=hero-title]",
+      "expectedErrorCodes": [
+        "deprecated-tag"
+      ]
+    },
+    {
+      "id": "property-value-missing",
+      "scope": "page-root",
+      "layerName": "Home [page]",
+      "expectedErrorCodes": [
+        "form-value-required",
+        "missing-companion"
+      ]
+    },
+    {
+      "id": "boolean-has-value",
+      "scope": "layer",
+      "layerName": "snow-bg [abs=absolute]",
+      "expectedErrorCodes": [
+        "deprecated-tag",
+        "form-boolean-required"
+      ]
+    },
+    {
+      "id": "invalid-kebab",
+      "scope": "layer",
+      "layerName": "Hero [section=Главный экран]",
+      "expectedErrorCodes": [
+        "invalid-value"
+      ]
+    },
+    {
+      "id": "breakpoint-identity",
+      "scope": "control",
+      "layerName": "Reviews [control=reviews-button-375]",
+      "expectedErrorCodes": [
+        "breakpoint-specific-identity"
+      ]
+    },
+    {
+      "id": "href-placeholder",
+      "scope": "control",
+      "layerName": "unknown-link [href=#]",
+      "expectedErrorCodes": [
+        "invalid-value"
+      ]
+    },
+    {
+      "id": "invalid-action",
+      "scope": "control",
+      "layerName": "submit [action=click]",
+      "expectedErrorCodes": [
+        "invalid-value"
+      ]
+    },
+    {
+      "id": "missing-required-companion",
+      "scope": "page-root",
+      "layerName": "route [route=/contacts]",
+      "expectedErrorCodes": [
+        "missing-companion"
+      ]
+    },
+    {
+      "id": "missing-any-companion",
+      "scope": "control",
+      "layerName": "external [open=new-tab]",
+      "expectedErrorCodes": [
+        "missing-companion"
+      ]
+    },
+    {
+      "id": "conflicting-destinations",
+      "scope": "control",
+      "layerName": "contacts [href=/contacts] [action=modal:contact-modal]",
+      "expectedErrorCodes": [
+        "conflicting-tags"
+      ]
+    },
+    {
+      "id": "lines-without-truncate",
+      "scope": "layer",
+      "layerName": "description [overflow=hidden] [lines=3]",
+      "expectedErrorCodes": [
+        "companion-value-mismatch"
+      ]
+    },
+    {
+      "id": "duplicate-key",
+      "scope": "layer",
+      "layerName": "section [section=hero] [section=intro]",
+      "expectedErrorCodes": [
+        "duplicate-tag"
+      ]
+    },
+    {
+      "id": "wrong-scope",
+      "scope": "field",
+      "layerName": "email [page=home]",
+      "expectedErrorCodes": [
+        "scope-invalid",
+        "missing-companion"
+      ]
+    },
+    {
+      "id": "exception-without-reason",
+      "scope": "layer",
+      "layerName": "logo [bridge-exception=raster-text]",
+      "expectedErrorCodes": [
+        "missing-companion"
+      ]
+    }
+  ]
+}

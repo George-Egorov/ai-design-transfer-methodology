@@ -137,14 +137,36 @@ Use English kebab-case for stable identities:
 - `stats-row`
 - `card-main-image`
 
-Avoid semantic collisions. Repeated elements need indexes:
+Avoid semantic collisions. Authored fixture instances need distinct, stable design identities:
 
 ```text
-product-card-1
-product-card-2
-review-card-1
-review-card-2
+product-card-oak-chair [item=product]
+product-card-wool-lamp [item=product]
 ```
+
+The repeated `[item=product]` value classifies the role/type; it is intentionally not unique. The stable layer name and `bridgeKey` identify the authored occurrence. A numeric suffix such as `product-card-1` is acceptable only as a design-fixture fallback when no meaningful fixture key exists. It must not be treated as array position or runtime record identity: sorting, filtering, pagination, and live updates change positions. Repeated runtime content uses a separate template key, design-instance key, and stable product data key in the [structured transfer contract](04-transfer-contract.md).
+
+## Five identity dimensions
+
+The stable layer name is the human-visible design anchor, not a universal id for every system. Structured BRIDGE metadata maps five distinct dimensions:
+
+| Dimension | Meaning |
+| --- | --- |
+| Role | The logical purpose, such as navigation, product data item, or status. |
+| Template | The reusable component/section definition that owns structure and inherited behavior. |
+| Design instance | This authored occurrence and its source nodes in each declared context. |
+| Runtime data | The collection and stable product record-key rule, never a visual position. |
+| Target | The component, entity, or locator that realizes the element on a target platform. |
+
+```text
+role=data-item
+templateKey=product-card
+designInstanceKey=product-card-oak-chair
+runtimeDataKey=sku:CHAIR-OAK-01
+targetKey=ProductCard
+```
+
+These are structured contract fields, not five new layer-name tags. They may coincide for a simple static element, but an adapter must not assume that they do. Interaction targets are resolved through the referenced element's stable `bridgeKey`; they are not the same as the target-implementation mapping.
 
 ## Section names
 

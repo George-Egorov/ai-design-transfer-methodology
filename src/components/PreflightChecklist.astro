@@ -1,80 +1,179 @@
 ---
 interface Props {
   locale: 'ru' | 'en';
+  embedded?: boolean;
 }
 
-const { locale } = Astro.props;
+const { locale, embedded = false } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
 const detailsUrl = `${base}/${locale}/check/designer-checklist/`;
+const fullReviewUrl = `${base}/${locale}/check/full-review/`;
 
 const copy = locale === 'ru'
   ? {
-      eyebrow: 'Интерактивная проверка',
-      title: 'Готов ли макет к передаче?',
-      lead: 'Отметьте только те пункты, которые можно подтвердить по самому файлу. Прогресс хранится локально в этом браузере.',
-      done: 'выполнено',
+      eyebrow: 'Перед передачей',
+      title: 'Быстрая проверка без слепых зон.',
+      lead: 'Пройдите шесть каналов передачи. Отмечайте пункт, только если ответ можно найти в самом файле. Прогресс хранится только в этом браузере.',
+      done: 'готово',
       reset: 'Сбросить',
       copy: 'Скопировать отчёт',
       copied: 'Отчёт скопирован',
-      details: 'Открыть подробный чеклист',
-      ready: 'Макет готов к проверке другим человеком.',
+      copyFailed: 'Не удалось скопировать',
+      details: 'Открыть чеклист дизайнера',
+      fullReview: 'Пройти полный review',
+      ready: 'Макет готов к независимой проверке.',
       pending: 'Осталось проверить',
-      reportTitle: 'Проверка макета по BRIDGE',
+      reportTitle: 'Быстрая проверка BRIDGE',
       unresolved: 'Не подтверждено',
       reportProgress: 'готово',
-      items: [
-        ['Страница и состояние объявлены', 'У корневых фреймов есть стабильные `[page]`, `[bp]` и `[view]`.'],
-        ['Адаптивы описывают один экран', 'Состав, смысл и логические родители элементов согласованы.'],
-        ['Секции определяются однозначно', 'Использованы `Page Sections` или явные `[section]`.'],
-        ['Важные элементы имеют стабильные имена', 'Имена не содержат ширину, устройство или случайный номер редактора.'],
-        ['Техническая правда остаётся в Figma', 'Теги не дублируют Auto Layout, тип слоя и источник компонента.'],
-        ['Структура выражает реальные отношения', 'У обёрток и родителей есть понятная задача.'],
-        ['Интерактивность описана', 'Известны ссылки, действия и существующие цели.'],
-        ['Формы готовы к реализации', 'У полей есть имена, подписи, состояния и отправка.'],
-        ['Текст выдерживает реальные данные', 'Нет случайной фиксированной высоты и ручных переносов.'],
-        ['Контент, декор и экспорт различены', 'Назначение `[decor]` и `[asset]` не приходится угадывать.'],
-        ['Компоненты имеют источник правды', 'Состояния принадлежат библиотеке, а не случайным копиям.'],
-        ['Старые версии не спрятаны внутри файла', 'Скрытые слои не используются как источник актуального состояния.'],
-        ['Макет понятен без автора', 'Другой человек может объяснить страницу, действия и исключения.'],
+      groupProgress: 'в канале',
+      groups: [
+        {
+          id: 'structure',
+          title: 'Структура',
+          description: 'Макет можно разобрать по слоям, а не по созвону.',
+          items: [
+            ['Корневые фреймы объявлены', 'Каждый корень содержит `[page]`, `[bp]` и `[view]`; у адаптив совпадают page и view.'],
+            ['Идентичность и связи однозначны', 'Важные слои сохраняют имена; действия ведут к существующим целям.'],
+          ],
+        },
+        {
+          id: 'data',
+          title: 'Данные',
+          description: 'Пример не подменяет контракт данных.',
+          items: [
+            ['Текст выдерживает реальные данные', 'Проверены длинные, короткие, пустые и локализованные значения без случайных fixed-height и ручных переносов.'],
+            ['Коллекции и медиа имеют границы', 'Указаны минимум, максимум, пустое состояние, кадрирование, фокусная точка и доступный эквивалент.'],
+          ],
+        },
+        {
+          id: 'state',
+          title: 'Состояния',
+          description: 'Пользовательский сценарий не обрывается на кнопке.',
+          items: [
+            ['Состояния страницы покрыты', 'Обычное, пустое, загружаемое, ошибочное и другие нужные views сохраняют один page.'],
+            ['Состояния компонентов есть в UI Kit', 'Hover, focus, pressed, disabled, validation и loading принадлежат источнику, а не случайным копиям.'],
+          ],
+        },
+        {
+          id: 'responsive',
+          title: 'Адаптивы',
+          description: 'Каждая ширина показывает тот же экран, а не другой продукт.',
+          items: [
+            ['Дерево согласовано или преобразование объявлено', 'По умолчанию элементы сохраняют identity, родителей и смысл. Для grid → carousel или table → cards явно сопоставлены identity, state, semantics и focus.'],
+            ['Переполнение и кадрирование проверены', 'Длинные строки, максимум элементов, изображения и узкие ширины не ломают макет.'],
+          ],
+        },
+        {
+          id: 'motion',
+          title: 'Движение',
+          description: 'Анимация имеет причину, время и безопасную альтернативу.',
+          items: [
+            ['Ход движения воспроизводим', 'Указаны триггер, владелец, ключевые состояния, время, easing и связь со скроллом.'],
+            ['Reduced motion определён', 'Для несущего смысл движения есть статичный или сокращённый вариант.'],
+          ],
+        },
+        {
+          id: 'accessibility',
+          title: 'Доступность',
+          description: 'Семантика и взаимодействие проверяются до кода.',
+          items: [
+            ['Имя, роль и управление понятны', 'Интерактивные элементы имеют имя; фокус, клавиатура и порядок не зависят от мыши.'],
+            ['Видимость и точность достаточны', 'Контраст, фокус-индикаторы и touch targets проверены; декор не попадает в accessibility tree.'],
+          ],
+        },
       ],
     }
   : {
-      eyebrow: 'Interactive preflight',
-      title: 'Is the design ready for handoff?',
-      lead: 'Check only what can be confirmed from the file itself. Progress is stored locally in this browser.',
+      eyebrow: 'Before handoff',
+      title: 'A quick check with no blind spots.',
+      lead: 'Review all six handoff channels. Confirm an item only when the answer can be found in the file itself. Progress is stored only in this browser.',
       done: 'complete',
       reset: 'Reset',
       copy: 'Copy report',
       copied: 'Report copied',
-      details: 'Open detailed checklist',
+      copyFailed: 'Could not copy',
+      details: 'Open designer checklist',
+      fullReview: 'Run full review',
       ready: 'The design is ready for an independent review.',
       pending: 'Still to verify',
-      reportTitle: 'BRIDGE design preflight',
+      reportTitle: 'BRIDGE quick preflight',
       unresolved: 'Not confirmed',
       reportProgress: 'complete',
-      items: [
-        ['Page and view are declared', 'Root frames have stable `[page]`, `[bp]`, and `[view]` values.'],
-        ['Breakpoints describe one screen', 'Element set, meaning, and logical parents remain consistent.'],
-        ['Sections are unambiguous', 'Use `Page Sections` or explicit `[section]` values.'],
-        ['Important elements have stable names', 'Names do not contain widths, devices, or editor defaults.'],
-        ['Technical truth remains in Figma', 'Tags do not duplicate Auto Layout, node type, or component source.'],
-        ['Structure expresses real relationships', 'Every wrapper and parent has an understandable job.'],
-        ['Interactions are declared', 'Links, actions, and existing targets are known.'],
-        ['Forms are implementation-ready', 'Fields have names, labels, states, and submit behavior.'],
-        ['Text survives real data', 'No accidental fixed heights or manual line breaks.'],
-        ['Content, decor, and assets are distinct', 'The purpose of `[decor]` and `[asset]` is explicit.'],
-        ['Components have a source of truth', 'States belong to the library rather than detached copies.'],
-        ['Old versions are outside the handoff tree', 'Hidden layers are not the source of current state.'],
-        ['The file works without its author', 'Another person can explain the page, actions, and exceptions.'],
+      groupProgress: 'in this channel',
+      groups: [
+        {
+          id: 'structure',
+          title: 'Structure',
+          description: 'The design can be read from its layers, not from a call.',
+          items: [
+            ['Root frames are declared', 'Every root contains `[page]`, `[bp]`, and `[view]`; responsive roots share page and view.'],
+            ['Identity and relationships are unambiguous', 'Important layers keep stable names, and every action resolves to an existing target.'],
+          ],
+        },
+        {
+          id: 'data',
+          title: 'Data',
+          description: 'One fixture does not stand in for a data contract.',
+          items: [
+            ['Text survives real data', 'Long, short, empty, and localized values work without accidental fixed heights or manual line breaks.'],
+            ['Collections and media have bounds', 'Minimum, maximum, empty state, crop or focal point, and fallback behavior are known.'],
+          ],
+        },
+        {
+          id: 'state',
+          title: 'State',
+          description: 'The user journey does not stop at the button.',
+          items: [
+            ['Page states are covered', 'Default, empty, loading, error, and other required views keep one page identity.'],
+            ['Component states live in the UI Kit', 'Hover, focus, pressed, disabled, validation, and loading belong to the source of truth, not detached copies.'],
+          ],
+        },
+        {
+          id: 'responsive',
+          title: 'Responsive',
+          description: 'Each width shows the same screen, not a different product.',
+          items: [
+            ['The tree stays aligned or the transform is declared', 'Elements keep identity, parents, and meaning by default. A grid → carousel or table → cards transform explicitly maps identity, state, semantics, and focus.'],
+            ['Overflow and crop are tested', 'Long strings, maximum item counts, media, and narrow widths do not break the design.'],
+          ],
+        },
+        {
+          id: 'motion',
+          title: 'Motion',
+          description: 'Animation has a reason, a timeline, and a safe alternative.',
+          items: [
+            ['The motion path is reproducible', 'Trigger, owner, key states, duration, easing, and scroll relationship are specified.'],
+            ['Reduced motion is defined', 'Meaningful motion has a static or shortened fallback.'],
+          ],
+        },
+        {
+          id: 'accessibility',
+          title: 'Accessibility',
+          description: 'Semantics and interaction are reviewed before code.',
+          items: [
+            ['Name, role, and control are clear', 'Interactive elements have a name; focus, keyboard, and order do not depend on a mouse.'],
+            ['Visibility and target size are sufficient', 'Contrast, focus indicators, and touch targets are checked; decor stays out of the accessibility tree.'],
+          ],
+        },
       ],
     };
+
+const itemCount = copy.groups.reduce((total, group) => total + group.items.length, 0);
 ---
 
-<section class="preflight not-content" data-preflight data-locale={locale} data-report-title={copy.reportTitle} data-unresolved={copy.unresolved} data-report-progress={copy.reportProgress}>
+<section
+  class:list={['preflight', 'not-content', { 'is-embedded': embedded }]}
+  data-preflight
+  data-locale={locale}
+  data-report-title={copy.reportTitle}
+  data-unresolved={copy.unresolved}
+  data-report-progress={copy.reportProgress}
+>
   <header class="preflight-intro">
     <div>
       <p class="bridge-eyebrow">{copy.eyebrow}</p>
-      <h1>{copy.title}</h1>
+      {embedded ? <h2>{copy.title}</h2> : <h1>{copy.title}</h1>}
       <p>{copy.lead}</p>
     </div>
     <div class="preflight-score" aria-live="polite">
@@ -83,20 +182,46 @@ const copy = locale === 'ru'
     </div>
   </header>
 
-  <div class="preflight-progress" aria-hidden="true"><span data-progress-bar></span></div>
+  <div class="preflight-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label={copy.done} data-progress-track>
+    <span data-progress-bar></span>
+  </div>
 
-  <div class="preflight-list">
-    {copy.items.map(([title, description], index) => (
-      <label class="preflight-item">
-        <input type="checkbox" value={String(index)} />
-        <span class="preflight-check" aria-hidden="true"></span>
-        <span><strong>{title}</strong><small>{description}</small></span>
-      </label>
+  <div class="preflight-groups">
+    {copy.groups.map((group, groupIndex) => (
+      <section
+        class="preflight-group"
+        aria-labelledby={`preflight-${group.id}-title`}
+        data-preflight-group
+        data-group-title={group.title}
+      >
+        <header>
+          <span>{String(groupIndex + 1).padStart(2, '0')} / 06</span>
+          <div>
+            {embedded
+              ? <h3 id={`preflight-${group.id}-title`}>{group.title}</h3>
+              : <h2 id={`preflight-${group.id}-title`}>{group.title}</h2>}
+            <p>{group.description}</p>
+          </div>
+          <strong data-group-progress>0 / {group.items.length}</strong>
+        </header>
+        <div class="preflight-list">
+          {group.items.map(([title, description], itemIndex) => {
+            const value = `${group.id}.${itemIndex + 1}`;
+            return (
+              <label class="preflight-item">
+                <input type="checkbox" value={value} />
+                <span class="preflight-check" aria-hidden="true"></span>
+                <span><strong>{title}</strong><small>{description}</small></span>
+              </label>
+            );
+          })}
+        </div>
+      </section>
     ))}
   </div>
 
   <div class="preflight-summary" data-summary aria-live="polite">
-    <strong>{copy.pending}: {copy.items.length}</strong>
+    <strong>{copy.pending}: {itemCount}</strong>
   </div>
 
   <footer class="preflight-actions">
@@ -104,12 +229,17 @@ const copy = locale === 'ru'
       <button class="bridge-button bridge-button-secondary" type="button" data-reset>{copy.reset}</button>
       <button class="bridge-button bridge-button-primary" type="button" data-copy>{copy.copy}</button>
     </div>
-    <a href={detailsUrl}>{copy.details}<span aria-hidden="true"> →</span></a>
+    <nav aria-label={locale === 'ru' ? 'Следующий шаг проверки' : 'Next review step'}>
+      <a href={detailsUrl}>{copy.details}<span aria-hidden="true"> →</span></a>
+      <a href={fullReviewUrl}>{copy.fullReview}<span aria-hidden="true"> →</span></a>
+    </nav>
   </footer>
 
   <p class="sr-only" data-ready-text>{copy.ready}</p>
   <p class="sr-only" data-pending-text>{copy.pending}</p>
   <p class="sr-only" data-copied-text>{copy.copied}</p>
+  <p class="sr-only" data-copy-failed-text>{copy.copyFailed}</p>
+  <p class="sr-only" data-group-progress-text>{copy.groupProgress}</p>
 </section>
 
 <script>
@@ -118,29 +248,38 @@ const copy = locale === 'ru'
     root.dataset.ready = 'true';
 
     const locale = root.dataset.locale || 'en';
-    const key = `bridge-preflight-${locale}`;
+    const key = `bridge-preflight-v2-${locale}`;
     const inputs = [...root.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
     const value = root.querySelector('[data-progress-value]');
     const bar = root.querySelector('[data-progress-bar]');
+    const track = root.querySelector('[data-progress-track]');
     const summary = root.querySelector('[data-summary]');
     const readyText = root.querySelector('[data-ready-text]')?.textContent || '';
     const pendingText = root.querySelector('[data-pending-text]')?.textContent || '';
     const copiedText = root.querySelector('[data-copied-text]')?.textContent || '';
+    const copyFailedText = root.querySelector('[data-copy-failed-text]')?.textContent || '';
 
     try {
       const stored = JSON.parse(localStorage.getItem(key) || '[]');
-      for (const input of inputs) input.checked = stored.includes(input.value);
+      if (Array.isArray(stored)) {
+        for (const input of inputs) input.checked = stored.includes(input.value);
+      }
     } catch {
-      localStorage.removeItem(key);
+      try {
+        localStorage.removeItem(key);
+      } catch {
+        // The checklist remains functional when storage is unavailable.
+      }
     }
 
     const update = () => {
       const checked = inputs.filter((input) => input.checked);
-      const percent = Math.round((checked.length / inputs.length) * 100);
+      const percent = inputs.length ? Math.round((checked.length / inputs.length) * 100) : 0;
       const remaining = inputs.length - checked.length;
 
       if (value) value.textContent = `${percent}%`;
       if (bar instanceof HTMLElement) bar.style.width = `${percent}%`;
+      track?.setAttribute('aria-valuenow', String(percent));
       if (summary) {
         summary.innerHTML = remaining === 0
           ? `<strong>${readyText}</strong>`
@@ -148,7 +287,19 @@ const copy = locale === 'ru'
       }
 
       for (const input of inputs) input.closest('label')?.classList.toggle('is-done', input.checked);
-      localStorage.setItem(key, JSON.stringify(checked.map((input) => input.value)));
+      for (const group of root.querySelectorAll<HTMLElement>('[data-preflight-group]')) {
+        const groupInputs = [...group.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
+        const groupDone = groupInputs.filter((input) => input.checked).length;
+        const groupProgress = group.querySelector('[data-group-progress]');
+        if (groupProgress) groupProgress.textContent = `${groupDone} / ${groupInputs.length}`;
+        group.classList.toggle('is-done', groupDone === groupInputs.length);
+      }
+
+      try {
+        localStorage.setItem(key, JSON.stringify(checked.map((input) => input.value)));
+      } catch {
+        // The checklist remains functional when storage is unavailable.
+      }
     };
 
     for (const input of inputs) input.addEventListener('change', update);
@@ -159,22 +310,30 @@ const copy = locale === 'ru'
     });
 
     root.querySelector('[data-copy]')?.addEventListener('click', async (event) => {
-      const unresolved = inputs
-        .filter((input) => !input.checked)
-        .map((input) => input.closest('label')?.querySelector('strong')?.textContent?.trim())
-        .filter(Boolean);
+      const lines: string[] = [];
+      for (const group of root.querySelectorAll<HTMLElement>('[data-preflight-group]')) {
+        const missing = [...group.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')]
+          .filter((input) => !input.checked)
+          .map((input) => input.closest('label')?.querySelector('strong')?.textContent?.trim())
+          .filter(Boolean);
+        if (missing.length) lines.push('', `### ${group.dataset.groupTitle || ''}`, ...missing.map((item) => `- [ ] ${item}`));
+      }
+
       const heading = root.dataset.reportTitle || 'BRIDGE preflight';
       const label = root.dataset.unresolved || 'Not confirmed';
       const progressLabel = root.dataset.reportProgress || 'complete';
-      const report = [`# ${heading}`, '', `${value?.textContent || '0%'} ${progressLabel}`, '', `## ${label}`, ...unresolved.map((item) => `- [ ] ${item}`)].join('\n');
+      const report = [`# ${heading}`, '', `${value?.textContent || '0%'} ${progressLabel}`, '', `## ${label}`, ...lines].join('\n');
 
-      await navigator.clipboard.writeText(report);
-      if (event.currentTarget instanceof HTMLButtonElement) {
-        const button = event.currentTarget;
-        const original = button.textContent;
+      if (!(event.currentTarget instanceof HTMLButtonElement)) return;
+      const button = event.currentTarget;
+      const original = button.textContent;
+      try {
+        await navigator.clipboard.writeText(report);
         button.textContent = copiedText;
-        window.setTimeout(() => { button.textContent = original; }, 1800);
+      } catch {
+        button.textContent = copyFailedText;
       }
+      window.setTimeout(() => { button.textContent = original; }, 1800);
     });
 
     update();

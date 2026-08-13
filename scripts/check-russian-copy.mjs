@@ -2,13 +2,16 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
-const files = [
+const markdownFiles = [
   join(root, 'README.ru.md'),
   join(root, 'examples', 'README.ru.md'),
   ...readdirSync(join(root, 'docs', 'ru'))
     .filter((name) => name.endsWith('.md'))
     .map((name) => join(root, 'docs', 'ru', name)),
 ];
+
+const astroFiles = [join(root, 'src', 'components', 'RulesExplorer.astro')];
+const files = [...markdownFiles, ...astroFiles];
 
 const forbiddenTerms = [
   'breakpoint',
@@ -51,6 +54,7 @@ const allowedHeadingWords = new Set([
   'Kit',
   'Page',
   'Sections',
+  'WCAG',
 ]);
 
 const issues = [];
@@ -62,6 +66,9 @@ for (const file of files) {
 
   lines.forEach((sourceLine, index) => {
     const lineNumber = index + 1;
+    const isAstro = file.endsWith('.astro');
+
+    if (isAstro && !/[А-ЯЁа-яё]/u.test(sourceLine)) return;
 
     if (sourceLine.trimStart().startsWith('```')) {
       fenced = !fenced;
@@ -70,16 +77,20 @@ for (const file of files) {
 
     if (fenced) return;
 
-    const prose = sourceLine
+    const candidateLine = isAstro
+      ? (sourceLine.match(/(['"`])([^'"`]*[А-ЯЁа-яё][^'"`]*)\1/u)?.[2] || '')
+      : sourceLine;
+
+    const prose = candidateLine
       .replace(/`[^`]*`/gu, '')
       .replace(/\]\([^)]*\)/gu, ']()')
       .replace(/<[^>]+>/gu, '')
       .replace(/https?:\/\/\S+/gu, '');
 
     const canonicalBridgeLine =
-      /\*\*(Breakpoints|Roles|Identity|Dependencies|Geometry|Exceptions)\*\*/u.test(sourceLine) ||
+      /\*\*(Breakpoints|Roles|Identity|Dependencies|Geometry|Exceptions)\*\*/u.test(candidateLine) ||
       /^\d+\. \*\*[BRIDGE] — (Breakpoints|Roles|Identity|Dependencies|Geometry|Exceptions):/u.test(
-        sourceLine,
+        candidateLine,
       ) ||
       /^- \*\*BRIDGE (Contract|Preflight|Adapter|Linter|Exception|ready)/u.test(sourceLine);
 
@@ -97,7 +108,7 @@ for (const file of files) {
       issues.push(`${fileName}:${lineNumber}: используйте обращение на «вы» вместо «${informal[0]}»`);
     }
 
-    if (sourceLine.startsWith('#')) {
+    if (!isAstro && sourceLine.startsWith('#')) {
       const latinWords = prose.match(/[A-Za-z]{3,}/gu) ?? [];
       const disallowed = latinWords.filter((word) => !allowedHeadingWords.has(word));
       if (disallowed.length > 0) {

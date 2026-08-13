@@ -1,0 +1,242 @@
+{
+  "$schema": "./site-content.schema.json",
+  "version": "1.0.0",
+  "locales": [
+    "en",
+    "ru"
+  ],
+  "pages": [
+    {
+      "route": "start/designer-quick-start",
+      "order": 1,
+      "source": {
+        "en": "docs/00-designer-quick-start.md",
+        "ru": "docs/ru/00-bystryj-start-dlya-dizajnera.md"
+      }
+    },
+    {
+      "route": "guides/design-rules",
+      "order": 2,
+      "source": {
+        "en": "docs/01-design-rules.md",
+        "ru": "docs/ru/01-pravila-dizajna.md"
+      }
+    },
+    {
+      "route": "guides/layer-naming-and-identity",
+      "order": 3,
+      "source": {
+        "en": "docs/02-layer-naming-and-identity.md",
+        "ru": "docs/ru/02-imena-sloev-i-identichnost.md"
+      }
+    },
+    {
+      "route": "guides/responsive-breakpoints",
+      "order": 4,
+      "source": {
+        "en": "docs/03-responsive-breakpoints.md",
+        "ru": "docs/ru/03-adaptivy-i-breakpointy.md"
+      }
+    },
+    {
+      "route": "reference/transfer-contract",
+      "order": 5,
+      "source": {
+        "en": "docs/04-transfer-contract.md",
+        "ru": "docs/ru/04-kontrakt-perenosa.md"
+      }
+    },
+    {
+      "route": "guides/interactions-and-targets",
+      "order": 6,
+      "source": {
+        "en": "docs/05-interactions-and-targets.md",
+        "ru": "docs/ru/05-interaktivnost-i-celi.md"
+      }
+    },
+    {
+      "route": "guides/wrapper-policy",
+      "order": 7,
+      "source": {
+        "en": "docs/06-wrapper-policy.md",
+        "ru": "docs/ru/06-politika-obertok.md"
+      }
+    },
+    {
+      "route": "guides/height-and-overflow",
+      "order": 8,
+      "source": {
+        "en": "docs/07-height-and-overflow.md",
+        "ru": "docs/ru/07-vysoty-i-overflow.md"
+      }
+    },
+    {
+      "route": "check/full-review",
+      "order": 9,
+      "source": {
+        "en": "docs/08-preflight-checklist.md",
+        "ru": "docs/ru/08-preflight-checklist.md"
+      },
+      "description": {
+        "en": "A strict preflight review and foundation for automated validation.",
+        "ru": "Строгая проверка макета и основа для автоматического валидатора."
+      }
+    },
+    {
+      "route": "quality/common-designer-mistakes",
+      "order": 10,
+      "source": {
+        "en": "docs/09-common-designer-mistakes.md",
+        "ru": "docs/ru/09-tipichnye-oshibki-dizajnerov.md"
+      }
+    },
+    {
+      "route": "quality/hard-cases-and-edge-cases",
+      "order": 11,
+      "source": {
+        "en": "docs/10-hard-cases-and-edge-cases.md",
+        "ru": "docs/ru/10-slozhnye-kejsy-i-edge-cases.md"
+      }
+    },
+    {
+      "route": "reference/validation-and-autochecks",
+      "order": 12,
+      "source": {
+        "en": "docs/11-validation-and-autochecks.md",
+        "ru": "docs/ru/11-validaciya-i-avtoproverki.md"
+      }
+    },
+    {
+      "route": "project/team-adoption",
+      "order": 13,
+      "source": {
+        "en": "docs/19-team-adoption.md",
+        "ru": "docs/ru/19-vnedrenie-v-komandu.md"
+      }
+    },
+    {
+      "route": "project/roadmap",
+      "order": 14,
+      "source": {
+        "en": "docs/12-project-roadmap.md",
+        "ru": "docs/ru/12-roadmap-proekta.md"
+      }
+    },
+    {
+      "route": "reference/tag-grammar",
+      "order": 15,
+      "source": {
+        "en": "docs/13-tag-grammar.md",
+        "ru": "docs/ru/13-grammatika-tegov.md"
+      }
+    },
+    {
+      "route": "guides/components-and-ui-kit",
+      "order": 16,
+      "source": {
+        "en": "docs/14-components-and-ui-kit.md",
+        "ru": "docs/ru/14-komponenty-i-ui-kit.md"
+      }
+    },
+    {
+      "route": "guides/page-routing-and-views",
+      "order": 17,
+      "source": {
+        "en": "docs/15-page-routing-and-views.md",
+        "ru": "docs/ru/15-marshruty-stranic-i-sostoyaniya.md"
+      }
+    },
+    {
+      "route": "reference/variation-axes",
+      "order": 18,
+      "source": {
+        "en": "docs/16-variation-axes.md",
+        "ru": "docs/ru/16-osi-variativnosti.md"
+      }
+    },
+    {
+      "route": "check/designer-checklist",
+      "order": 19,
+      "source": {
+        "en": "docs/17-designer-checklist.md",
+        "ru": "docs/ru/17-cheklist-dlya-dizaynerov.md"
+      },
+      "description": {
+        "en": "A concise checklist to use before design handoff.",
+        "ru": "Короткий чеклист перед передачей макета."
+      }
+    },
+    {
+      "route": "reference/terminology",
+      "order": 20,
+      "source": {
+        "en": "docs/18-terminology.md",
+        "ru": "docs/ru/18-terminologiya.md"
+      },
+      "description": {
+        "en": "Canonical BRIDGE terminology and precise definitions.",
+        "ru": "Единый язык русской документации BRIDGE."
+      }
+    },
+    {
+      "route": "project/brand-system",
+      "order": 21,
+      "source": {
+        "en": "docs/brand-system.md",
+        "ru": "docs/ru/brend-sistema.md"
+      }
+    },
+    {
+      "route": "examples",
+      "order": 22,
+      "source": {
+        "en": "examples/README.md",
+        "ru": "examples/README.ru.md"
+      },
+      "description": {
+        "en": "Short BRIDGE recipes in a problem-to-solution format.",
+        "ru": "Короткие решения BRIDGE в формате «неудачно → правильно»."
+      }
+    },
+    {
+      "route": "guides/data-and-visualization",
+      "order": 23,
+      "source": {
+        "en": "docs/20-data-and-visualization.md",
+        "ru": "docs/ru/20-dannye-i-vizualizaciya.md"
+      }
+    },
+    {
+      "route": "guides/motion-and-scroll",
+      "order": 24,
+      "source": {
+        "en": "docs/21-motion-and-scroll.md",
+        "ru": "docs/ru/21-motion-i-scroll.md"
+      }
+    },
+    {
+      "route": "guides/state-machines-and-reactions",
+      "order": 25,
+      "source": {
+        "en": "docs/22-state-machines-and-reactions.md",
+        "ru": "docs/ru/22-sostoyaniya-i-reakcii.md"
+      }
+    },
+    {
+      "route": "reference/accessibility-profile",
+      "order": 26,
+      "source": {
+        "en": "docs/23-accessibility-profile.md",
+        "ru": "docs/ru/23-profil-dostupnosti.md"
+      }
+    },
+    {
+      "route": "project/delivery-lifecycle",
+      "order": 27,
+      "source": {
+        "en": "docs/24-delivery-lifecycle.md",
+        "ru": "docs/ru/24-zhiznennyj-cikl-peredachi.md"
+      }
+    }
+  ]
+}

@@ -12,6 +12,10 @@
 
 BRIDGE is a target-independent methodology for making interface designs transferable: from Figma or any other design source into code, design systems, no-code tools, internal editors, or AI-assisted implementation pipelines.
 
+![BRIDGE covers the blind spots between design evidence, structured intent, implementation, and QA](assets/diagrams/bridge-coverage-map.svg)
+
+**No blind spots** does not mean every answer is known immediately. It means every relevant unknown is explicit, scoped, owned, assigned a blocking status and review point, and given a safe fallback.
+
 Languages: [English](README.md) · [Русский](README.ru.md)
 
 **Documentation site:** [poliklot.github.io/bridge-design-methodology](https://poliklot.github.io/bridge-design-methodology/)
@@ -63,7 +67,7 @@ The visual mark follows the same contract: six stable modules stand for the six 
 Short formula:
 
 ```text
-BRIDGE-ready = explicit breakpoints + stable responsive tree + declared intent
+BRIDGE-ready = stable identity + declared behavior/data/accessibility + tracked unknowns and deviations
 ```
 
 ## Why BRIDGE exists
@@ -78,6 +82,8 @@ BRIDGE separates two things:
 
 1. **Figma metadata** — the technical truth of the design: node type, Auto Layout, hierarchy, constraints, positioning, component source, variants.
 2. **BRIDGE intent tags** — product meaning Figma does not know by itself: page, route, section, link, action, field, modal, state, decor, asset, exception.
+
+Rich data schemas, responsive transformations, state machines, motion timelines, accessibility requirements, target capabilities, questions, and delivery evidence live in the structured `bridge` contract—not in dozens of flat layer tags. Same logical tree remains the responsive default; a different composition requires an explicit mapping.
 
 Designers do not duplicate technical properties by hand. They build proper structure in Figma and use tags only for transferable intent.
 
@@ -103,6 +109,9 @@ No accidental free-floating layers. No mystery buttons. No responsive versions t
 - [Height and overflow](docs/07-height-and-overflow.md)
 - [Components, UI Kit, and Page Sections](docs/14-components-and-ui-kit.md)
 - [Page routing and views](docs/15-page-routing-and-views.md)
+- [Data and visualization](docs/20-data-and-visualization.md)
+- [Motion and long scroll](docs/21-motion-and-scroll.md)
+- [State machines and reactions](docs/22-state-machines-and-reactions.md)
 
 ### Reference and tooling
 
@@ -113,14 +122,37 @@ No accidental free-floating layers. No mystery buttons. No responsive versions t
 - [Validator rule catalog](validator/rules.json)
 - [Project roadmap](docs/12-project-roadmap.md)
 - [Brand system](docs/brand-system.md)
+- [Accessibility profile (WCAG 2.2 AA)](docs/23-accessibility-profile.md)
+- [Delivery lifecycle and deviations](docs/24-delivery-lifecycle.md)
 
 ## Tooling
 
-BRIDGE Assistant, the Figma helper plugin for this methodology, is maintained in a separate repository:
+[BRIDGE Assistant](https://www.figma.com/community/plugin/1654485530503673254/bridge) is the companion Figma plugin. Its installable build is public in Figma Community, while its implementation repository is private. The methodology, documentation, schemas, checklists, and rule catalog in this repository remain open under MIT.
 
-```text
-bridge-figma-assistant
+The catalog contains **102 rules**. Plugin Page Check 0.7.0 covers **24** (23 automatic and 1 heuristic); structured and manual coverage remains explicit.
+
+## Local development
+
+Use Node.js from [`.nvmrc`](.nvmrc), then install exactly from the lockfile:
+
+```bash
+nvm use
+npm ci
+npm run dev
 ```
+
+Run the complete verification pipeline before a pull request:
+
+```bash
+npm test
+npx playwright install chromium # first local run only
+npm run test:e2e
+npm audit
+```
+
+Canonical content lives in `docs/`, `docs/ru/`, and `examples/`. Do not edit generated files under `src/content/docs/en/` or `src/content/docs/ru/`; `npm run content:sync` recreates them from [`validator/site-content.json`](validator/site-content.json). Use `SITE_BASE=/ npm run build` when testing a root-hosted build.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contract-change rules and the complete review flow, and [CHANGELOG.md](CHANGELOG.md) for public methodology releases.
 
 ## Minimal example
 

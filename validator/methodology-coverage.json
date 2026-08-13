@@ -1,0 +1,228 @@
+{
+  "$schema": "./methodology-coverage.schema.json",
+  "schemaVersion": "1.0.0",
+  "catalogVersion": "0.4.0",
+  "description": "Explicit validation ownership for every readiness area added by the expanded BRIDGE contract. Manual means a reviewer must record evidence; it does not mean optional.",
+  "areas": [
+    {
+      "id": "data-and-visualization",
+      "source": {
+        "en": "docs/20-data-and-visualization.md",
+        "ru": "docs/ru/20-dannye-i-vizualizaciya.md"
+      },
+      "checks": [
+        {
+          "concern": "source, provenance, freshness, and unavailable-data policy",
+          "level": "manual",
+          "ruleIds": [
+            "data.source-contract-missing"
+          ]
+        },
+        {
+          "concern": "schema, relationships, cardinality, and aggregation semantics",
+          "level": "manual",
+          "ruleIds": [
+            "data.schema-contract-incomplete"
+          ]
+        },
+        {
+          "concern": "locale, time zone, units, precision, rounding, and missing values",
+          "level": "manual",
+          "ruleIds": [
+            "data.format-contract-missing"
+          ]
+        },
+        {
+          "concern": "loading, empty, error, partial, stale, offline, and unauthorized states",
+          "level": "heuristic",
+          "ruleIds": [
+            "data.required-state-contract-missing"
+          ]
+        },
+        {
+          "concern": "equivalent values, relationships, keyboard operation, and conclusion",
+          "level": "manual",
+          "ruleIds": [
+            "data.accessible-equivalent-missing"
+          ]
+        },
+        {
+          "concern": "narrow-layout data transformations preserve semantics and actions",
+          "level": "manual",
+          "ruleIds": [
+            "responsive.transformation-mapping-incomplete"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "state-machines-and-reactions",
+      "source": {
+        "en": "docs/22-state-machines-and-reactions.md",
+        "ru": "docs/ru/22-sostoyaniya-i-reakcii.md"
+      },
+      "checks": [
+        {
+          "concern": "conditional guards, priority, and fallback are deterministic",
+          "level": "manual",
+          "ruleIds": [
+            "interaction.reaction-guard-ambiguous"
+          ]
+        },
+        {
+          "concern": "ordered effects, targets, mutations, persistence, and rollback",
+          "level": "manual",
+          "ruleIds": [
+            "interaction.reaction-effect-incomplete"
+          ]
+        },
+        {
+          "concern": "focus placement, restoration, order, and announcements",
+          "level": "manual",
+          "ruleIds": [
+            "accessibility.reaction-focus-effect-missing"
+          ]
+        },
+        {
+          "concern": "pending, success, error, retry, cancel, timeout, and stale responses",
+          "level": "manual",
+          "ruleIds": [
+            "interaction.async-outcome-missing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "motion-and-scroll",
+      "source": {
+        "en": "docs/21-motion-and-scroll.md",
+        "ru": "docs/ru/21-motion-i-scroll.md"
+      },
+      "checks": [
+        {
+          "concern": "motion driver, source, trigger, progress, and end state",
+          "level": "manual",
+          "ruleIds": [
+            "motion.driver-missing"
+          ]
+        },
+        {
+          "concern": "range or timing, properties, sequencing, reverse, and interruption",
+          "level": "manual",
+          "ruleIds": [
+            "motion.range-or-timing-missing"
+          ]
+        },
+        {
+          "concern": "reduced-motion composition preserves task completion",
+          "level": "manual",
+          "ruleIds": [
+            "motion.reduced-motion-strategy-missing"
+          ]
+        },
+        {
+          "concern": "unsupported mechanism and script-failure fallback",
+          "level": "manual",
+          "ruleIds": [
+            "motion.fallback-missing"
+          ]
+        },
+        {
+          "concern": "essential content and product state do not depend on playback",
+          "level": "heuristic",
+          "ruleIds": [
+            "motion.essential-content-animation-dependent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility-profile",
+      "source": {
+        "en": "docs/23-accessibility-profile.md",
+        "ru": "docs/ru/23-profil-dostupnosti.md"
+      },
+      "checks": [
+        {
+          "concern": "page language, landmarks, headings, reading order, focus, and live regions",
+          "level": "manual",
+          "ruleIds": [
+            "accessibility.page-profile-missing"
+          ]
+        },
+        {
+          "concern": "component semantics, name, keyboard model, focus, states, and errors",
+          "level": "manual",
+          "ruleIds": [
+            "accessibility.component-profile-missing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "delivery-lifecycle",
+      "source": {
+        "en": "docs/24-delivery-lifecycle.md",
+        "ru": "docs/ru/24-zhiznennyj-cikl-peredachi.md"
+      },
+      "checks": [
+        {
+          "concern": "versioned artifacts, check results, reviews, target results, and acceptance",
+          "level": "manual",
+          "ruleIds": [
+            "delivery.required-evidence-missing"
+          ]
+        },
+        {
+          "concern": "deviation scope, reason, risk, owner, review, mitigation, and approval",
+          "level": "manual",
+          "ruleIds": [
+            "delivery.deviation-undeclared"
+          ]
+        },
+        {
+          "concern": "essential target experience survives constrained conditions",
+          "level": "manual",
+          "ruleIds": [
+            "capability.essential-experience-missing"
+          ]
+        },
+        {
+          "concern": "unsupported capability has equivalent fallback and owner",
+          "level": "manual",
+          "ruleIds": [
+            "capability.unsupported-feature-fallback-missing"
+          ]
+        },
+        {
+          "concern": "asset dimensions, formats, loading, quality, and fallback",
+          "level": "manual",
+          "ruleIds": [
+            "capability.asset-delivery-policy-missing"
+          ]
+        },
+        {
+          "concern": "large data has expected and maximum scale strategy",
+          "level": "manual",
+          "ruleIds": [
+            "capability.data-scale-strategy-missing"
+          ]
+        },
+        {
+          "concern": "performance budget has target measurement evidence",
+          "level": "manual",
+          "ruleIds": [
+            "delivery.performance-budget-evidence-missing"
+          ]
+        },
+        {
+          "concern": "every implementation-affecting unknown is tracked and owned",
+          "level": "manual",
+          "ruleIds": [
+            "contract.open-question-untracked"
+          ]
+        }
+      ]
+    }
+  ]
+}

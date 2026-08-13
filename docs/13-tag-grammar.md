@@ -253,11 +253,11 @@ Use collection/item tags only when a dynamic list or repeated data must be expli
 
 ```text
 products [collection=products]
-product-card-1 [item=product]
-product-card-2 [item=product]
+product-card-oak-chair [item=product]
+product-card-wool-lamp [item=product]
 ```
 
-If the card is a component instance and repetition is obvious from the Figma structure, the extra tag is not required.
+The shared `[item=product]` value classifies a repeatable role/type; it is not identity-bearing. Use the stable layer name/`bridgeKey` and structured `designInstance`/`runtimeData` mappings for unique authored and runtime identity. If the card is a component instance and repetition is obvious from the Figma structure, the extra tag is not required.
 
 ### Visual intent
 

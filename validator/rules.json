@@ -1,6 +1,7 @@
 {
+  "$schema": "./rules.schema.json",
   "methodology": "BRIDGE",
-  "version": "0.2.1",
+  "version": "0.4.0",
   "severityLevels": [
     "error",
     "warning",
@@ -25,8 +26,8 @@
       "principle": "Identity",
       "severity": "error",
       "automation": "automatic",
-      "description": "Two elements inside the same breakpoint/view scope must not share one stable identity.",
-      "fix": "Rename identities or add instance indexes such as `product-card-1`, `product-card-2`."
+      "description": "Two elements inside the same breakpoint/view scope must not share one stable design identity.",
+      "fix": "Prefer semantic fixture keys that survive reordering, such as `product-card-sku-blue`; use positional indexes such as `product-card-1` only as a design-fixture fallback. Never treat a positional suffix as a runtime data key."
     },
     {
       "id": "identity.same-identity-different-type",
@@ -49,8 +50,8 @@
       "principle": "Identity",
       "severity": "error",
       "automation": "heuristic",
-      "description": "Repeated list/grid items need stable instance identities.",
-      "fix": "Use indexed identities such as `feature-card-1`, `feature-card-2`."
+      "description": "Authored repeated list or grid occurrences need distinct stable design-instance anchors. `[item=...]` only classifies their shared repeated role or type; it is not an instance identity.",
+      "fix": "Give each occurrence a meaningful stable layer or design-instance key, such as `product-card-oak-chair` and `product-card-wool-lamp`, while both may use `[item=product-card]`. Use numeric fixture suffixes only as a fallback, never as runtime-data identity."
     },
     {
       "id": "identity.multiple-identity-tags",
@@ -627,6 +628,206 @@
       "automation": "automatic",
       "description": "The selected target adapter does not support a declared feature.",
       "fix": "Change the design, add asset fallback, or choose another adapter."
+    },
+    {
+      "id": "data.source-contract-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A runtime data display must declare its source or owner, refresh behavior, and the policy for stale or unavailable data.",
+      "fix": "Add the source dataset or service owner, refresh cadence, freshness threshold, and fallback behavior to the structured data contract."
+    },
+    {
+      "id": "data.schema-contract-incomplete",
+      "principle": "Identity",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A data display must declare stable field, dimension, measure, row, and relationship semantics instead of relying on sample values.",
+      "fix": "Document stable keys, value types, nullability, identifiers, relationships, cardinality, and aggregation semantics in the structured data contract."
+    },
+    {
+      "id": "data.format-contract-missing",
+      "principle": "Dependencies",
+      "severity": "warning",
+      "automation": "manual",
+      "description": "Data values with locale, time, currency, unit, precision, rounding, or missing-value semantics need an explicit format contract.",
+      "fix": "Declare locale and time-zone behavior, currency or unit, notation, precision, rounding, and distinct missing or suppressed value markers."
+    },
+    {
+      "id": "data.required-state-contract-missing",
+      "principle": "Exceptions",
+      "severity": "error",
+      "automation": "heuristic",
+      "description": "A runtime data display must define all applicable loading, empty, error, partial, stale, offline, and unauthorized states and recovery behavior.",
+      "fix": "Add every applicable data state, its message and retained content, recovery action, announcement behavior, and transition back to usable data."
+    },
+    {
+      "id": "data.accessible-equivalent-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A chart, map, canvas, or other complex visual data display must provide an accessible equivalent that exposes the same values and conclusion.",
+      "fix": "Reference a semantic table, list, description, or downloadable dataset and preserve names, relationships, keyboard operation, and the principal finding."
+    },
+    {
+      "id": "responsive.transformation-mapping-incomplete",
+      "principle": "Breakpoints",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A declared responsive structural transformation must map every source identity and meaning to its target composition without silent content or action loss.",
+      "fix": "Record source identities, target composition, activation range, field and action mapping, semantic and focus order, state preservation, and accessible parity."
+    },
+    {
+      "id": "interaction.reaction-guard-ambiguous",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A conditional reaction must define mutually understandable guards, priority, and fallback so the same event cannot resolve ambiguously.",
+      "fix": "Declare each guard from observable state or data, define precedence for overlapping conditions, and add an explicit default or impossible-case rule."
+    },
+    {
+      "id": "interaction.reaction-effect-incomplete",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A reaction must declare every product effect, target, state mutation, navigation, announcement, persistence, and rollback consequence.",
+      "fix": "Complete the ordered effect list and name stable targets, resulting state, user feedback, persisted values, and rollback or compensating behavior."
+    },
+    {
+      "id": "accessibility.reaction-focus-effect-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A reaction that opens, closes, removes, inserts, navigates, or reports content must declare its focus and announcement effects.",
+      "fix": "Specify initial and restored focus, focus order after mutation, live announcement behavior, and how keyboard users reach the resulting content."
+    },
+    {
+      "id": "interaction.async-outcome-missing",
+      "principle": "Exceptions",
+      "severity": "error",
+      "automation": "manual",
+      "description": "An asynchronous reaction must define pending, success, empty, failure, retry, cancellation, timeout, duplicate input, and stale-response behavior where applicable.",
+      "fix": "Model the asynchronous states and transitions, disabled or optimistic controls, retry and cancellation rules, timeout handling, and stale-response suppression."
+    },
+    {
+      "id": "motion.driver-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A motion sequence must identify the time, event, scroll, view, media, data, or system driver that deterministically controls it.",
+      "fix": "Declare the driver type and source, start condition, progress mapping or trigger, repeat policy, and the state reached when the driver ends."
+    },
+    {
+      "id": "motion.range-or-timing-missing",
+      "principle": "Geometry",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A motion track must define its input range or timing, affected properties, values and units, sequencing, easing, and interruption behavior.",
+      "fix": "Record start and end values, units, duration or driver range, delays, easing, iterations, dependencies, coordinate space, cancel, reverse, and re-entry behavior."
+    },
+    {
+      "id": "motion.reduced-motion-strategy-missing",
+      "principle": "Exceptions",
+      "severity": "error",
+      "automation": "manual",
+      "description": "Every nontrivial motion sequence must define a reduced-motion strategy that preserves content, actions, state, focus, and task completion.",
+      "fix": "Declare which movement is removed or replaced and specify the stable reduced-motion composition, timing, controls, completion state, and focus behavior."
+    },
+    {
+      "id": "motion.fallback-missing",
+      "principle": "Exceptions",
+      "severity": "error",
+      "automation": "manual",
+      "description": "Essential content and actions in motion or long-scroll experiences must remain available without the preferred script, API, sticky, or animation mechanism.",
+      "fix": "Provide a normal-flow or static fallback, preserve document and action order, and define initialization for unsupported APIs, deep links, resize, and script failure."
+    },
+    {
+      "id": "motion.essential-content-animation-dependent",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "heuristic",
+      "description": "Essential content, actions, or required product state must not exist only during animation or depend on animation completion events.",
+      "fix": "Represent meaningful still states in the document, keep required controls reachable, and complete product state independently of animation events or playback."
+    },
+    {
+      "id": "accessibility.page-profile-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "Each page or major view must declare its accessibility profile, including language, landmarks, heading outline, reading order, focus flow, and announcement regions.",
+      "fix": "Add the page accessibility profile and review landmarks, one meaningful heading hierarchy, DOM and reading order, skip paths, focus entry, and live regions."
+    },
+    {
+      "id": "accessibility.component-profile-missing",
+      "principle": "Roles",
+      "severity": "warning",
+      "automation": "manual",
+      "description": "A reusable interactive component must declare semantic role, accessible name and description sources, keyboard model, focus behavior, states, and errors.",
+      "fix": "Add a component accessibility profile covering native semantics, name computation, keyboard commands, focus visibility and movement, disabled/loading states, and errors."
+    },
+    {
+      "id": "delivery.required-evidence-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A delivery gate must include traceable evidence for every required contract, review, automated check, supported target, and acceptance decision.",
+      "fix": "Attach versioned artifacts, check outputs, review owners and dates, target results, unresolved risks, and the final acceptance record to the delivery manifest."
+    },
+    {
+      "id": "delivery.deviation-undeclared",
+      "principle": "Exceptions",
+      "severity": "error",
+      "automation": "manual",
+      "description": "Any accepted deviation from the BRIDGE contract must be declared with scope, reason, risk, owner, expiry or review date, mitigation, and evidence.",
+      "fix": "Create a delivery deviation record, link affected identities and targets, assign an accountable owner, set review or expiry, and document mitigation and approval."
+    },
+    {
+      "id": "capability.essential-experience-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "Each delivery target profile must identify the content, actions, data, media, and task outcomes that remain essential under constrained conditions.",
+      "fix": "List the essential BRIDGE identities and outcomes for the target, including low bandwidth, offline, data-saver, and low-power conditions where applicable."
+    },
+    {
+      "id": "capability.unsupported-feature-fallback-missing",
+      "principle": "Exceptions",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A required capability that is unsupported by a target must have an explicit fallback and accountable owner without removing essential experience.",
+      "fix": "Record the unsupported capability, map a semantically equivalent fallback, assign an owner, and verify that essential content, actions, state, and accessibility remain available."
+    },
+    {
+      "id": "capability.asset-delivery-policy-missing",
+      "principle": "Dependencies",
+      "severity": "warning",
+      "automation": "manual",
+      "description": "Media and large visual assets must declare target-aware dimensions, formats, art direction, loading priority, poster or fallback, and quality policy where applicable.",
+      "fix": "Add an asset delivery profile per relevant target and condition; reference the stable element and define dimensions, formats, quality, crop or art direction, priority, and fallback."
+    },
+    {
+      "id": "capability.data-scale-strategy-missing",
+      "principle": "Dependencies",
+      "severity": "warning",
+      "automation": "manual",
+      "description": "A potentially large data surface must declare expected and maximum scale plus pagination, windowing, virtualization, aggregation, or degradation strategy.",
+      "fix": "Record expected and maximum item counts, choose a deterministic scale strategy, preserve accessibility and selection semantics, and include representative scale evidence."
+    },
+    {
+      "id": "delivery.performance-budget-evidence-missing",
+      "principle": "Dependencies",
+      "severity": "error",
+      "automation": "manual",
+      "description": "A declared performance budget must name the metric, numeric limit, accountable owner, measurement context, and delivery evidence from the target implementation.",
+      "fix": "Add each metric and limit with units, owner, device or runtime and percentile context, then link reproducible measurement evidence to the delivery lifecycle."
+    },
+    {
+      "id": "contract.open-question-untracked",
+      "principle": "Exceptions",
+      "severity": "error",
+      "automation": "manual",
+      "description": "Every unresolved unknown that can affect implementation must be tracked as a scoped open question with owner, blocking status, review timing, and fallback.",
+      "fix": "Move TODO, TBD, unknown, and unsupported decisions into `bridge.openQuestions`; reference the affected scope, assign an owner, set due or review timing, and define a fallback when blocking."
     }
   ]
 }
