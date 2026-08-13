@@ -11,23 +11,21 @@ interface Props {
 const { locale } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
 const url = (path: string) => `${base}/${locale}/${path.replace(/^\//u, '')}`;
-const pluginUrl = 'https://www.figma.com/community/plugin/1654485530503673254/bridge';
 
 const copy = locale === 'ru'
   ? {
       eyebrow: 'Методология передачи макетов',
-      title: 'Макет, который не нужно объяснять.',
-      lead: 'BRIDGE фиксирует структуру, адаптивы, действия и исключения до начала разработки — прямо там, где принимаются дизайнерские решения.',
+      title: 'Передача макета без слепых зон.',
+      lead: 'BRIDGE — система, которая связывает структуру, данные, состояния, адаптивы, движение и доступность в один проверяемый контракт до начала разработки.',
       primary: 'Подготовить первый макет',
-      secondary: 'Figma plugin BRIDGE',
-      newTab: 'откроется в новой вкладке',
+      secondary: 'Проверить макет',
       inspectorTitle: 'Сравнение структуры слоёв',
       layersLabel: 'Слои',
       fileLabel: 'Главная · Figma',
       before: 'Без BRIDGE',
       after: 'С BRIDGE',
       beforeNote: 'Названия описывают внешний вид, но не объясняют связи между фреймами.',
-      afterNote: 'Та же структура: страница, адаптив, секция и действие читаются прямо из Layers.',
+      afterNote: 'Два корневых фрейма: в каждом повторяются page и view, меняется только bp, а слои сохраняют имена и родителей.',
       layerHint: 'Нажмите на имя, чтобы переименовать. Перетащите ручку, чтобы поменять порядок соседних слоёв.',
       layerKeyboardHint: 'На ручке нажмите пробел, меняйте порядок стрелками, подтвердите пробелом или отмените Escape.',
       layerReset: 'Сбросить',
@@ -49,25 +47,30 @@ const copy = locale === 'ru'
         ] },
       ] satisfies LayerNode[],
       afterTree: [
-        { id: 'home', type: 'frame', name: 'Главная', tag: '[page=home]', children: [
-          { id: 'desktop', type: 'frame', name: 'Desktop', tag: '[bp=1440] [view=default]', children: [
-            { id: 'hero-desktop', type: 'section', name: 'Первый экран', tag: '[section=home-hero]', children: [
-              { id: 'hero-copy', type: 'group', name: 'hero-copy', children: [
-                { id: 'hero-title', type: 'text', name: 'hero-title' },
-              ] },
-              { id: 'contact-button', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
+        { id: 'home-1440', type: 'frame', name: 'Главная · 1440', tag: '[page=home] [bp=1440] [view=default]', children: [
+          { id: 'home-hero-1440', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
+            { id: 'hero-copy-1440', type: 'group', name: 'hero-copy', children: [
+              { id: 'hero-title-1440', type: 'text', name: 'hero-title' },
             ] },
+            { id: 'contact-button-1440', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
           ] },
-          { id: 'mobile', type: 'frame', name: 'Mobile', tag: '[bp=375] [view=default]', children: [
-            { id: 'hero-mobile', type: 'section', name: 'Первый экран', tag: '[section=home-hero]' },
+          { id: 'contact-modal-1440', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
+        ] },
+        { id: 'home-375', type: 'frame', name: 'Главная · 375', tag: '[page=home] [bp=375] [view=default]', children: [
+          { id: 'home-hero-375', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
+            { id: 'hero-copy-375', type: 'group', name: 'hero-copy', children: [
+              { id: 'hero-title-375', type: 'text', name: 'hero-title' },
+            ] },
+            { id: 'contact-button-375', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
           ] },
+          { id: 'contact-modal-375', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
         ] },
       ] satisfies LayerNode[],
       pathsEyebrow: 'Выберите задачу',
       pathsTitle: 'Начните со своей задачи',
       paths: [
         ['Подготовить макет', 'Проведите первый файл от структуры и адаптивов до проверки по пяти практическим шагам.', 'Открыть быстрый старт', 'start/designer-quick-start/'],
-        ['Проверить файл', 'Добавьте связи, откройте карту файла и запустите проверку страницы прямо в Figma.', 'Открыть плагин', 'check/'],
+        ['Проверить файл', 'Пройдите короткую интерактивную проверку, затем откройте подробный review или плагин.', 'Открыть центр проверки', 'check/'],
         ['Изучить формат данных', 'Сверьте теги, каталог правил и развивающийся контракт до прототипа интеграции. До версии 1.0 схема может меняться.', 'Открыть статус контракта', 'reference/transfer-contract/'],
         ['Внедрить в команду', 'Запустите пилот на одном рабочем файле, зафиксируйте критерий готовности и добавьте проверку в handoff.', 'Открыть план пилота', 'project/team-adoption/'],
       ],
@@ -75,7 +78,7 @@ const copy = locale === 'ru'
       methodTitle: 'Три шага к готовому макету',
       method: [
         ['01', 'Соберите техническую правду', 'Фреймы, Auto Layout, компоненты и геометрия остаются в Figma.'],
-        ['02', 'Добавьте недостающий смысл', 'Теги описывают страницу, действие, цель, декор, экспорт и исключения.'],
+        ['02', 'Добавьте недостающий смысл', 'Теги и структурированные метаданные описывают данные, состояния, движение, доступность и осознанные исключения.'],
         ['03', 'Проверьте без автора', 'Другой человек должен понять файл без созвона и дополнительных пояснений.'],
       ],
       outcomesEyebrow: 'Что меняется для команды',
@@ -105,18 +108,17 @@ const copy = locale === 'ru'
     }
   : {
       eyebrow: 'Open design handoff methodology',
-      title: 'A design that needs no explanation.',
-      lead: 'BRIDGE makes structure, breakpoints, actions, and exceptions explicit before implementation — at the point where design decisions are made.',
+      title: 'Design handoff with no blind spots.',
+      lead: 'BRIDGE is a system that connects structure, data, state, responsive behavior, motion, and accessibility in one checkable contract before implementation starts.',
       primary: 'Prepare your first design',
-      secondary: 'Figma plugin BRIDGE',
-      newTab: 'opens in a new tab',
+      secondary: 'Check a design',
       inspectorTitle: 'Layer structure comparison',
       layersLabel: 'Layers',
       fileLabel: 'Home · Figma',
       before: 'Without BRIDGE',
       after: 'With BRIDGE',
       beforeNote: 'Names describe appearance, but not the relationships between frames.',
-      afterNote: 'The same structure: page, breakpoint, section, and action are visible in Layers.',
+      afterNote: 'Two sibling root frames: each repeats page and view, only bp changes, and the same layers keep their names and parents.',
       layerHint: 'Select a name to rename it. Drag the handle to reorder it among sibling layers.',
       layerKeyboardHint: 'On the reorder handle, press Space, move with Arrow keys, press Space to drop, or Escape to cancel.',
       layerReset: 'Reset',
@@ -138,25 +140,30 @@ const copy = locale === 'ru'
         ] },
       ] satisfies LayerNode[],
       afterTree: [
-        { id: 'home', type: 'frame', name: 'Home', tag: '[page=home]', children: [
-          { id: 'desktop', type: 'frame', name: 'Desktop', tag: '[bp=1440] [view=default]', children: [
-            { id: 'hero-desktop', type: 'section', name: 'Hero', tag: '[section=home-hero]', children: [
-              { id: 'hero-copy', type: 'group', name: 'hero-copy', children: [
-                { id: 'hero-title', type: 'text', name: 'hero-title' },
-              ] },
-              { id: 'contact-button', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
+        { id: 'home-1440', type: 'frame', name: 'Home · 1440', tag: '[page=home] [bp=1440] [view=default]', children: [
+          { id: 'home-hero-1440', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
+            { id: 'hero-copy-1440', type: 'group', name: 'hero-copy', children: [
+              { id: 'hero-title-1440', type: 'text', name: 'hero-title' },
             ] },
+            { id: 'contact-button-1440', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
           ] },
-          { id: 'mobile', type: 'frame', name: 'Mobile', tag: '[bp=375] [view=default]', children: [
-            { id: 'hero-mobile', type: 'section', name: 'Hero', tag: '[section=home-hero]' },
+          { id: 'contact-modal-1440', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
+        ] },
+        { id: 'home-375', type: 'frame', name: 'Home · 375', tag: '[page=home] [bp=375] [view=default]', children: [
+          { id: 'home-hero-375', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
+            { id: 'hero-copy-375', type: 'group', name: 'hero-copy', children: [
+              { id: 'hero-title-375', type: 'text', name: 'hero-title' },
+            ] },
+            { id: 'contact-button-375', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
           ] },
+          { id: 'contact-modal-375', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
         ] },
       ] satisfies LayerNode[],
       pathsEyebrow: 'Choose a task',
       pathsTitle: 'Start with the job in front of you',
       paths: [
         ['Prepare a design', 'Take a first file from structure and breakpoints to review in five practical steps.', 'Open quick start', 'start/designer-quick-start/'],
-        ['Review a Figma file', 'Add relationships, open the file map, and run Page Check directly in Figma.', 'Open plugin', 'check/'],
+        ['Review a Figma file', 'Run the short interactive preflight, then continue to the detailed review or the companion plugin.', 'Open check hub', 'check/'],
         ['Explore the data format', 'Review the tags, rule catalog, and evolving contract before prototyping an integration. The schema may change before 1.0.', 'Open contract status', 'reference/transfer-contract/'],
         ['Adopt it with a team', 'Pilot BRIDGE on one working file, define readiness, and add the check to your handoff.', 'Open pilot plan', 'project/team-adoption/'],
       ],
@@ -164,7 +171,7 @@ const copy = locale === 'ru'
       methodTitle: 'Three steps to a transferable design',
       method: [
         ['01', 'Build technical truth', 'Frames, Auto Layout, components, and geometry remain native Figma data.'],
-        ['02', 'Declare missing intent', 'Tags describe pages, actions, targets, decor, assets, and exceptions.'],
+        ['02', 'Declare missing intent', 'Tags and structured metadata cover data, state, motion, accessibility, and intentional exceptions.'],
         ['03', 'Review without the author', 'Someone else should understand the file without a call or private context.'],
       ],
       outcomesEyebrow: 'What changes for the team',
@@ -195,16 +202,14 @@ const copy = locale === 'ru'
 ---
 
 <div class="bridge-home not-content">
-  <section class="bridge-hero" aria-labelledby="bridge-home-title">
+  <section class="bridge-hero" aria-labelledby="_top">
     <div class="bridge-hero-copy">
       <p class="bridge-eyebrow">{copy.eyebrow}</p>
-      <h1 id="bridge-home-title">{copy.title}</h1>
+      <h1 id="_top">{copy.title}</h1>
       <p class="bridge-lead">{copy.lead}</p>
       <div class="bridge-actions">
         <a class="bridge-button bridge-button-primary" href={url('start/designer-quick-start/')}>{copy.primary}</a>
-        <a class="bridge-button bridge-button-secondary" href={pluginUrl} target="_blank" rel="noopener noreferrer">
-          {copy.secondary}<span aria-hidden="true"> ↗</span><span class="sr-only"> — {copy.newTab}</span>
-        </a>
+        <a class="bridge-button bridge-button-secondary" href={url('check/')}>{copy.secondary}</a>
       </div>
     </div>
 

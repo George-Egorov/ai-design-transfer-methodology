@@ -33,6 +33,15 @@ jobs:
       - name: Check and build
         run: npm test
 
+      - name: Install Chromium for browser checks
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify responsive interaction and accessibility
+        run: npm run test:e2e
+
+      - name: Audit production and development dependencies
+        run: npm audit
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 

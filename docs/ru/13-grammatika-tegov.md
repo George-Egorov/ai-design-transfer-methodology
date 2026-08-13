@@ -241,11 +241,11 @@ country [field=country] [name=country] [field-type=select]
 
 ```text
 products [collection=products]
-product-card-1 [item=product]
-product-card-2 [item=product]
+product-card-oak-chair [item=product]
+product-card-wool-lamp [item=product]
 ```
 
-Если повторение очевидно из структуры и экземпляров компонентов, дополнительные теги не нужны.
+Общее значение `[item=product]` классифицирует повторяемую роль или тип и не является идентификатором. Уникальный экземпляр макета и рабочую запись задают стабильное имя слоя/`bridgeKey` и структурированные сопоставления `designInstance`/`runtimeData`. Если повторение очевидно из структуры и экземпляров компонентов, дополнительные теги не нужны.
 
 ### Контент, декор и экспорт
 

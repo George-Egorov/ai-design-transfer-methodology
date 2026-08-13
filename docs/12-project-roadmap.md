@@ -1,91 +1,97 @@
 # Status and roadmap
 
-**Updated 17 July 2026.** BRIDGE is already a public methodology, bilingual site, rule catalog, and working Figma plugin. It is also still pre-1.0: the transfer data contract is evolving, and the plugin does not automate the full catalog. This page separates shipped capability from planned work.
+**Updated 13 August 2026.** BRIDGE is a public, MIT-licensed methodology and open-source documentation/validator repository. The BRIDGE Assistant plugin is publicly installable from Figma Community, but its implementation repository is private. Public installation does not imply public plugin source, issues, or release history.
 
 ## Current releases
 
-| Product | Release | What it represents |
+| Product | Version | Status |
 | --- | --- | --- |
-| BRIDGE methodology and site | [v0.8.0](https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.8.0) | Bilingual documentation, examples, checklists, an interactive Figma-like layer demo, and the canonical catalog of 77 rules. |
-| BRIDGE Assistant for Figma | [v0.7.0](https://github.com/Poliklot/bridge-figma-assistant/releases/tag/v0.7.0) | Tagging, target connection, file navigation, and local Page Check inside Figma. |
-| Published plugin | [Figma plugin BRIDGE](https://www.figma.com/community/plugin/1654485530503673254/bridge) | The installable public build of BRIDGE Assistant. |
+| BRIDGE methodology and site | **0.9.0** | Bilingual canonical docs, realistic examples, lifecycle, structured contract/schema, tag registry, and validator artifacts. |
+| BRIDGE rule catalog | **0.4.0 — 102 rules** | Explicit automatic, heuristic, and manual coverage across methodology surfaces. |
+| BRIDGE Assistant for Figma | **0.7.0** | Publicly installable build for common tags, target connection, navigation, and page-scoped checking. Implementation remains private. |
 
-The methodology and plugin source are MIT-licensed. Releases before 1.0 may refine the contract, rule wording, and machine-readable formats; changes must be read from the relevant release notes.
+The methodology remains pre-1.0. Pin versions: the structured payload, schema, rules, and wording may change with documented methodology releases.
 
 ## Available now
 
-### A learnable handoff method
+### A complete transfer method
 
-- English and Russian documentation with the same core structure.
-- A five-step [designer quick start](00-designer-quick-start.md), examples, focused guides, and preflight checklists.
-- Explicit rules for identity, responsive variants, interactions, targets, routing, content, wrappers, assets, and intentional exceptions.
-- A practical [one-file team pilot](19-team-adoption.md) that measures the handoff before wider adoption.
+The canonical guidance covers:
 
-### An open contract and catalog
+- short design anchors and five-dimensional identity mapping;
+- viewport/container responsiveness, fluid rules, and declared transformations;
+- content, data displays, tables, grids, charts, provenance, formatting, and failure states;
+- state machines, forms, async behavior, focus, URL/history, and recovery;
+- motion, long-scroll scenes, reverse/re-entry, reduced motion, and fallbacks;
+- WCAG 2.2 AA accessibility profile, RTL/bidirectional context, and target capabilities;
+- design → contract → implementation → QA → deviation lifecycle;
+- explicit open questions so an unknown is owned instead of becoming a blind spot.
 
-- A documented [tag grammar](13-tag-grammar.md) and [transfer contract](04-transfer-contract.md).
-- A machine-readable [catalog of 77 rules](../validator/rules.json), each with an identifier, severity, automation level, explanation, and fix.
-- Rule browsing on the site plus short and full review paths for designers and reviewers.
+### Structured contract and validation artifacts
 
-### A working Figma product
+Version 0.9 introduces a pre-1.0 [structured transfer contract](04-transfer-contract.md) and [JSON Schema](../validator/bridge.schema.json). The repository also publishes:
 
-BRIDGE Assistant 0.7.0 can:
+- a canonical registry for the compact layer-tag grammar;
+- English/Russian rule catalog version 0.4.0;
+- schema and example fixtures;
+- methodology and Page Check coverage manifests;
+- checks for localization, references, examples, coverage, and site content.
 
-- apply and edit common BRIDGE tags without manually composing syntax;
-- connect controls with modal, state, form, reset, route, and anchor targets;
-- show a file map and jump directly to the relevant layer;
-- run Page Check on a selected or inferable BRIDGE page;
-- return findings with rule identifiers and direct layer navigation;
-- work without a BRIDGE account, backend, payments, or network requests.
+Structured metadata supplements Figma/source metadata and short tags. It is not a claim that a universal production adapter already exists.
+
+### Publicly installable Figma helper
+
+[Install BRIDGE Assistant from Figma Community](https://www.figma.com/community/plugin/1654485530503673254/bridge). Version 0.7.0 can support the practical page workflow without a separate BRIDGE account.
+
+The plugin's implementation/source repository, private issues, and internal release records are not public methodology resources. Use the public installation page for availability; use this repository for the public contract, rules, examples, and roadmap.
+
+## Automation scope: 24 of 102
+
+The rule catalog contains **102** rules. Plugin Page Check 0.7.0 covers **24** rule ids: **23 automatic** and **1 heuristic**. Exact machine truth lives in [Page Check coverage](../validator/page-check-coverage.json).
+
+The remaining rules are not “missing errors.” Many require manual product, semantic, content, accessibility, target-capability, performance, or lifecycle judgment. The [methodology coverage manifest](../validator/methodology-coverage.json) makes automatic, heuristic, and manual ownership explicit.
+
+Therefore:
+
+- a clean Page Check result means only that its declared page-scoped checks passed;
+- the full checklist, structured-contract validation, manual review, target QA, and deviation review remain required;
+- automation must never claim that all 102 rules ran when only 24 did.
 
 ## Known limitations
 
-These limits are part of the current product definition, not hidden future work.
+### Pre-1.0 schema compatibility
 
-### Page Check covers 24 of 77 rules
+The 0.9 structured contract is usable and versioned but not frozen. Before 1.0, fields may evolve. Producers and consumers must pin `contractVersion`, reject unsupported shapes visibly, and migrate without losing stable identity/requirement links.
 
-Plugin version 0.7.0 implements 24 catalog rule identifiers: 23 automatic checks and one heuristic check. The exact list is published in the [Page Check coverage file](../validator/page-check-coverage.json).
+### No universal adapter
 
-The other catalog rules still guide manual review or future automation. A clean Page Check report therefore means “no finding in the implemented subset,” not “all 77 rules passed.”
+BRIDGE defines target-independent intent and capability profiles. It does not yet ship one adapter that can generate production-quality output for every web, native, no-code, editor, and design-system target.
 
-### The check is deliberately page-scoped
+### Source-tool checks are intentionally scoped
 
-Page Check inspects the selected or inferable top-level BRIDGE page and its related breakpoint roots. It does not scan every unrelated exploration in the Figma file. Cross-page route and action resolution is currently reported as deferred where the page-local evidence is insufficient.
+Page Check operates on a selected page/root and cannot prove runtime data, browser history, screen-reader output, performance budgets, backend behavior, or production conformance. Those require structured evidence and implementation QA.
 
-### The transfer data contract is a draft
+### Representative examples are not exhaustive product decisions
 
-The current contract document defines required information and shows an example payload. It is not yet a versioned, compatibility-guaranteed JSON schema. Teams may use it to align implementation, but should not treat the example shape as a stable 1.0 integration API.
-
-### There is no universal adapter yet
-
-BRIDGE makes design intent inspectable; it does not promise one-click production code for every target. Target capability profiles, extraction formats, and automated adapters are still future work.
+The methodology defines how to record data, state, motion, accessibility, capability, and lifecycle decisions. Each product must still supply its own values, owners, supported targets, budgets, and safe fallbacks.
 
 ## Before 1.0
 
-The priority is to make today’s method dependable rather than add disconnected features.
-
-1. **Stabilize and version the data contract.** Publish a formal schema, compatibility policy, fixtures, and migration notes for incompatible changes.
-2. **Make automation scope impossible to misunderstand.** Keep the catalog-to-plugin coverage file tested and visible in the site and plugin release process.
-3. **Expand high-confidence checks.** Add deterministic rules where Figma exposes enough evidence; keep contextual product decisions manual or heuristic.
-4. **Harden real-team adoption.** Run representative pilots, publish before/after handoff cases, and turn recurring questions into focused fixes and examples.
-5. **Define adapter capability profiles.** Let a target declare supported actions, layout modes, media, effects, and fallback behavior without changing universal BRIDGE rules.
-6. **Establish change governance.** Maintain a changelog, decision records, rule-versioning policy, and synchronized English/Russian releases.
-
-The 1.0 threshold is not “all 77 rules automated.” It is a stable, versioned contract; honest validation coverage; reproducible handoff; and a documented change process.
+1. Stabilize the structured contract and publish a compatibility/migration policy.
+2. Expand validator rules only where results can remain honest about automatic, heuristic, and manual evidence.
+3. Add validated full fixtures for more platforms, data displays, stateful flows, motion, RTL, and capability profiles.
+4. Define adapter certification: supported contract modules, fallbacks, deviations, and test evidence.
+5. Maintain the public changelog and introduce decision records for methodology/schema/rule changes.
+6. Continue measured pilots and document preparation cost, clarification reduction, defects, and accessibility outcomes.
 
 ## After 1.0
 
-- Add extraction and validation interfaces for external tools and command-line workflows.
-- Publish reference adapter profiles and conformance fixtures for different implementation targets.
-- Broaden automatic and heuristic checks only where results stay explainable and actionable.
-- Support contract migrations across compatible methodology versions.
-- Grow examples from verified production patterns and community proposals.
+Potential work includes target-specific adapters, deeper source-tool inspection, design-system mappings, richer reporting, and ecosystem integrations. These remain proposals until scoped, owned, and published in a methodology release.
 
-Dates for these items will be set only when scope and maintainers are known. Until then, release notes are the source of truth for what actually shipped.
+## Public references
 
-## Follow progress
-
-- [BRIDGE methodology releases](https://github.com/Poliklot/bridge-design-methodology/releases)
-- [BRIDGE Assistant releases](https://github.com/Poliklot/bridge-figma-assistant/releases)
-- [Methodology source and issues](https://github.com/Poliklot/bridge-design-methodology)
-- [Plugin source and issues](https://github.com/Poliklot/bridge-figma-assistant)
+- [Documentation site](https://poliklot.github.io/bridge-design-methodology/)
+- [Public methodology repository](https://github.com/Poliklot/bridge-design-methodology)
+- [Methodology releases](https://github.com/Poliklot/bridge-design-methodology/releases)
+- [Figma Community installation](https://www.figma.com/community/plugin/1654485530503673254/bridge)
+- [Delivery lifecycle](24-delivery-lifecycle.md)

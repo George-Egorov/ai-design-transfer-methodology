@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/tag-examples.schema.json",
+  "title": "Executable BRIDGE layer-tag examples",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schemaVersion", "description", "valid", "invalid"],
+  "properties": {
+    "$schema": { "const": "./tag-examples.schema.json" },
+    "schemaVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "description": { "type": "string", "minLength": 20 },
+    "valid": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/validCase" } },
+    "invalid": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/invalidCase" } }
+  },
+  "$defs": {
+    "baseCase": {
+      "type": "object",
+      "required": ["id", "scope", "layerName"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "scope": { "enum": ["page-root", "variant-root", "layer", "control", "field", "target", "collection", "item"] },
+        "layerName": { "type": "string", "minLength": 3 }
+      }
+    },
+    "validCase": {
+      "allOf": [
+        { "$ref": "#/$defs/baseCase" },
+        { "type": "object", "additionalProperties": false, "required": ["id", "scope", "layerName"], "properties": { "id": true, "scope": true, "layerName": true } }
+      ]
+    },
+    "invalidCase": {
+      "allOf": [
+        { "$ref": "#/$defs/baseCase" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "scope", "layerName", "expectedErrorCodes"],
+          "properties": {
+            "id": true,
+            "scope": true,
+            "layerName": true,
+            "expectedErrorCodes": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "enum": ["unknown-tag", "deprecated-tag", "form-value-required", "form-boolean-required", "invalid-value", "breakpoint-specific-identity", "duplicate-tag", "scope-invalid", "missing-companion", "companion-value-mismatch", "conflicting-tags"]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

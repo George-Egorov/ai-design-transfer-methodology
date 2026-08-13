@@ -1,116 +1,163 @@
-# Responsive breakpoints
+# Responsive and adaptive behavior
 
-## Explicit root frames
+BRIDGE transfers responsive behavior as a set of declared contexts and rules—not as isolated desktop/mobile screenshots.
 
-Create sibling frames for each responsive version:
+![Same-tree responsive behavior and an explicit structural transformation](../assets/diagrams/responsive-transformation.svg)
 
-```text
-Home Page [bp=1920] [view=default] [page=home] [route=/]
-Home Page [bp=1280] [view=default] [page=home] [route=/]
-Home Page [bp=768] [view=default] [page=home] [route=/]
-Home Page [bp=375] [view=default] [page=home] [route=/]
-```
+*Same logical tree is the default. A different composition is valid only through a declared transformation that preserves meaning and task completion.*
 
-A tool may infer the breakpoint from frame width, but an explicit tag is safer for handoff and comparison.
+## Prepared root frames
 
-`[bp=...]` belongs on the responsive root. Child layer names and optional identity values must not repeat the breakpoint name or width.
-
-Bad:
+Create sibling roots for representative design contexts:
 
 ```text
-// root has [bp=768]
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
-
-// root has [bp=375]
-Отзывы мобилка [control=button-reviews-box-375] [action=modal:marketplaces-modal]
+Home [page=home] [route=/] [bp=1440] [view=default]
+Home [page=home] [route=/] [bp=768] [view=default]
+Home [page=home] [route=/] [bp=375] [view=default]
 ```
 
-Good:
+`[bp]` records the authored frame width. It is evidence and a comparison anchor; it does not, by itself, prescribe a media-query boundary. Keep widths/device labels out of child identities.
+
+## Same logical tree is the default
+
+Within one page, view, locale, theme, experiment, role, and data scenario, matching roots preserve:
+
+- important logical elements and stable identities;
+- semantic parent/child relationships;
+- content and runtime-data meaning;
+- actions, targets, form names, and state effects;
+- collection schema/cardinality rules rather than the number that happens to fit a row;
+- accessible names, relationships, reading order, and task completion;
+- content/decor/asset policy.
+
+The following may change without a structural transformation:
+
+- dimensions, gaps, padding, alignment, and constraints;
+- Auto Layout/flex/grid direction and column count;
+- type size within the typography contract and natural wrapping;
+- sibling visual order inside the same semantic parent when reading/focus order remains correct;
+- declared visibility of optional presentation, without replacing it with another identity;
+- sticky behavior, overflow, and geometry when their policy is defined.
+
+“Same tree” means the same logical/semantic entities, not that an implementation must leave visually hidden duplicate DOM nodes. A hidden element may be absent from the rendered/accessibility tree while its contract identity and visibility rule remain traceable.
+
+## Do not make cardinality responsive
+
+A grid changing from four to two columns still represents the same result collection. Do not delete design fixtures to fill the last row:
 
 ```text
-// root has [bp=768]
-Отзывы мобилка [action=modal:marketplaces-modal]
-
-// root has [bp=375]
-Отзывы мобилка [action=modal:marketplaces-modal]
+product-grid
+  product-card-oak-chair
+  product-card-wool-lamp
+  product-card-steel-desk
+  product-card-cork-stool
 ```
 
-## Same element set, different layout
+These are design fixture identities, not array positions. Runtime identity comes from a stable product record key. A different page/window of records requires an explicit pagination/query/data-scenario rule.
 
-A responsive breakpoint is the same screen laid out for another width. It is not a second screen and not a new structure.
+## Viewport and container contexts
 
-Root frames for the same page, state, or section must keep:
+Record the driver for each implementation rule:
 
-- the same important elements with the same keys;
-- the same nesting: an element stays inside the same parent;
-- the same number of list/card items unless the list is explicitly modeled as dynamic;
-- the same actions, targets, and text for the same elements.
+- **viewport** when the whole application shell changes with the available window;
+- **container** when a component changes according to its own allocated inline/block size;
+- **capability** when behavior depends on input, hover, motion, color/contrast, safe area, or target support;
+- **content/data** when intrinsic content or cardinality determines layout without a fixed boundary.
 
-Breakpoints may change sizes, spacing, wrapping, Auto Layout direction, order, visibility, and constraints. They must not silently create elements, remove elements, or move the same element into another parent.
+A reusable card grid should normally follow its container rather than assume the device. Declare the container identity, axis, named range/condition, and expected result. The target may implement this using the [CSS Containment specification](https://www.w3.org/TR/css-contain-3/#container-queries) or an equivalent platform facility.
 
-Order and visibility are breakpoint properties:
+Do not infer a breakpoint boundary merely as the midpoint between two Figma frames. A designer or implementation owner declares it after testing the transition range.
 
-- elements may change order inside the same parent;
-- an element may be hidden on one breakpoint and visible on another;
-- hiding an element does not mean deleting it: the same key should remain in the structure;
-- a visible element must not be replaced by a separate mobile-only or desktop-only copy.
+## Exact, stepped, and fluid properties
 
-The forbidden case is not “the element is currently hidden”. The forbidden case is “this key exists in one breakpoint but is completely absent in another” or “this key moved to another parent”.
+For every property decide whether it is:
 
-Decorative and asset layers follow the same rule. `[decor]` changes semantic importance and accessibility behavior; it does not allow the layer to disappear on mobile. `[asset]` changes transfer/export policy; it does not remove the need for a stable root identity.
+1. **exact at an anchor** — the prepared frame value is an acceptance point;
+2. **stepped** — switches at a declared viewport/container/capability condition;
+3. **fluid** — follows a min/preferred/max rule across a declared range;
+4. **intrinsic** — follows content, wrapping, grid fitting, or target-native layout;
+5. **fixed by exception** — bounded for a stated product/platform reason.
 
-```text
-// desktop
-sneg [decor] [asset]
+A fluid contract records property, context/range, minimum, preferred relationship, maximum, rounding/snap behavior if visible, and behavior outside the range. It does not require a particular CSS formula; web targets may use mechanisms defined in [CSS Values and Units](https://www.w3.org/TR/css-values-4/), while other targets map the same intent natively.
 
-// mobile
-sneg [decor] [asset]
+Test the anchors, just above/below every step, several intermediate values, content extremes, zoom/reflow, and nested-container reuse. “Interpolate everything” is not a valid policy.
+
+## Declared structural transformations
+
+Sometimes the usable presentation really needs another composition:
+
+- comparison table → labeled disclosure cards;
+- persistent sidebar → modal/drawer navigation;
+- multi-panel editor → sequential steps;
+- pinned scroll story → static ordered sections;
+- chart + legend → small multiples + data table.
+
+This is not an ordinary breakpoint difference. Add a structured `responsive.transformations[]` record containing:
+
+- transformation id and source/result identities;
+- viewport, container, writing-mode, or capability condition;
+- complete element/field/series/scene mapping;
+- semantics and content that must remain equivalent;
+- permitted omission and the path to omitted detail;
+- reading, keyboard, and focus order;
+- action, validation, selection, scroll, and state transfer;
+- URL/history/deep-link behavior;
+- accessible equivalent and reduced-motion fallback;
+- reverse transition when the condition changes while the page is open.
+
+If a source identity has no result mapping, record why its meaning is genuinely inapplicable. “There was no room” is not enough. An undeclared topology change is contract drift.
+
+## Direction and writing mode
+
+Locale is not sufficient to describe layout direction. Structured context may declare:
+
+```json
+{
+  "direction": "rtl",
+  "writingMode": "horizontal-tb"
+}
 ```
 
-If `sneg` exists on desktop but is absent on mobile, the validator must report a responsive identity error. If desktop has `sneg [decor] [asset]` but mobile has only `sneg`, the validator must report visual intent drift.
+Prepare and test `ltr` and `rtl`/bidirectional stress fixtures when the product supports them. Declare:
 
-If item count or nesting must change, this is not an ordinary breakpoint. Model it as a state, component variant, collection rule, platform variant, or explicit BRIDGE exception.
+- whether the whole composition mirrors or only logical flow changes;
+- logical start/end alignment and spacing instead of left/right assumptions;
+- which icons mirror (back/forward, indentation) and which do not (brand marks, media controls, clocks, many real-world objects);
+- mixed-direction names, phone numbers, identifiers, code, dates, and numeric values;
+- chart axis direction, category order, legends, tooltips, and positive/negative meaning;
+- semantic reading and keyboard order independent of visual mirroring;
+- screenshots or fixtures covering long RTL copy and mixed Latin/digit runs.
 
-```text
-// desktop
-button-group
-  primary-cta [href=/pricing]
-  secondary-cta [action=modal:contact-modal]
+`direction` and `writingMode` belong in structured context unless a tool has native properties. Do not create device-like flat tags for them. Follow the concepts in [CSS Writing Modes](https://www.w3.org/TR/css-writing-modes-4/) when targeting the web.
 
-// mobile
-button-group
-  primary-cta [href=/pricing]
-  secondary-cta [action=modal:contact-modal]
-```
+## Order and visibility
 
-The group direction and sizes may change in Figma, but the element set and nesting stay the same.
+Visual reordering is allowed only when it preserves a logical reading and focus sequence. Do not use layout order to make keyboard focus jump unpredictably. A responsive implementation must also define focus when:
 
-## Wrapper changes need a reason
+- the focused element becomes hidden;
+- a sidebar becomes a dialog;
+- a table becomes disclosures;
+- resize/container change occurs while a state is open;
+- browser history restores a different presentation.
 
-Do not introduce random wrappers between breakpoints. The element structure is part of the contract, so prefer adding the same meaningful wrapper to every breakpoint and changing only its Figma settings.
+Important content may not disappear solely because the viewport is small. Optional content may be disclosed or relocated through a mapped, reachable presentation.
 
-A wrapper that exists only on one breakpoint is an exception. It is valid only when it represents a real need: grouping, list, grid, clipping area, overlay/decor scope, semantic region, or target-specific grouping. The reason must be explicit.
+## Wrappers, safe areas, and overflow
 
-Bad:
+Prefer the same meaningful wrappers in all contexts. A context-only wrapper is either part of a declared transformation or an explicit structural exception with a real purpose such as clipping, scroll containment, overlay scope, semantic grouping, or target limitation.
 
-```text
-// mobile
-mystery-wrapper
-  hero-title
-```
+Declare safe-area insets, reserved space for sticky/fixed UI, viewport-unit policy, on-screen keyboard behavior, and nested-scroll ownership where relevant. Focus indicators, validation messages, tooltips, and content must not be clipped accidentally.
 
-Good:
+## Responsive review gate
 
-```text
-// mobile
-hero-copy
-  hero-title
-```
+A transfer is ready only when:
 
-## Text meaning must survive the breakpoint
-
-A breakpoint may change size, wrapping, order, and visibility. It must not change element text or structure.
-
-## Exact breakpoints first, fluid behavior later
-
-First transfer exact breakpoint values. Only after that should a system add interpolation, fluid rules, or container-query behavior.
+- prepared roots have explicit, matching context axes;
+- stable identities and meaning match by default;
+- viewport and container drivers are not confused;
+- step boundaries and fluid/intrinsic rules cover intermediate sizes;
+- every topology change has a complete transformation mapping;
+- data cardinality and runtime identity do not depend on columns or fixture order;
+- LTR, RTL/bidirectional, writing mode, zoom, long content, and localization are covered as applicable;
+- reading order, focus, actions, state, history, and accessibility survive every change;
+- unsupported target capabilities have an owned fallback or explicit open question.

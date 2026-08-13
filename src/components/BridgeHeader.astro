@@ -21,7 +21,7 @@ const labels = locale === 'ru'
       overview: 'Обзор',
       start: 'Быстрый старт',
       rules: 'Правила',
-      plugin: 'Плагин',
+      check: 'Проверка',
     }
   : {
       nav: 'Primary navigation',
@@ -30,13 +30,13 @@ const labels = locale === 'ru'
       overview: 'Overview',
       start: 'Quick start',
       rules: 'Rules',
-      plugin: 'Plugin',
+      check: 'Review',
     };
 const items = [
   [labels.overview, `${base}/${locale}/`],
   [labels.start, `${base}/${locale}/start/designer-quick-start/`],
   [labels.rules, `${base}/${locale}/rules/`],
-  [labels.plugin, `${base}/${locale}/check/`],
+  [labels.check, `${base}/${locale}/check/`],
 ];
 const isCurrent = (href: string) => currentPath === href.replace(/\/$/u, '');
 ---

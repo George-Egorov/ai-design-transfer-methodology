@@ -1,51 +1,91 @@
 ---
+import PluginMediaShowcase from './PluginMediaShowcase.astro';
+import PreflightChecklist from './PreflightChecklist.astro';
+
 interface Props {
   locale: 'ru' | 'en';
 }
 
 const { locale } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
+const url = (path: string) => `${base}/${locale}/${path.replace(/^\//u, '')}`;
 const pluginUrl = 'https://www.figma.com/community/plugin/1654485530503673254/bridge';
-const sourceUrl = 'https://github.com/Poliklot/bridge-figma-assistant';
 
 const copy = locale === 'ru'
   ? {
-      eyebrow: 'Инструмент методологии',
-      title: 'Проверяйте готовность макета прямо в Figma.',
-      lead: 'Плагин добавляет теги BRIDGE в имена слоёв, собирает карту файла и проверяет страницы, адаптивы, действия и цели перед передачей в разработку.',
+      eyebrow: 'Центр проверки',
+      title: 'Проверьте макет, а не память команды.',
+      lead: 'Начните с короткой проверки шести областей. Затем откройте детальный чеклист или запустите Page Check в Figma. Каждый шаг оставляет воспроизводимый отчёт.',
+      navLabel: 'Способы проверки',
+      quick: 'Быстрая проверка',
+      designer: 'Чеклист дизайнера',
+      full: 'Полный review',
+      plugin: 'Page Check в Figma',
+      pluginEyebrow: 'Помощник в Figma',
+      pluginTitle: 'Проверяйте ту же систему прямо в файле.',
+      pluginLead: 'Плагин добавляет канонические теги, собирает карту файла и запускает Page Check. Из вопроса можно перейти к точному слою и правилу.',
       open: 'Figma plugin BRIDGE',
       capabilitiesLabel: 'Что делает плагин',
       capabilities: [
-        ['Теги', 'Добавляет page, breakpoint, action и target без ручного набора синтаксиса.'],
-        ['Карта', 'Собирает страницы, цели и черновики в понятную структуру файла.'],
-        ['Проверка', 'Находит разрывы и открывает нужный слой и правило.'],
+        ['Разметка', 'Добавляет page, breakpoint, action и target без ручного набора синтаксиса.'],
+        ['Карта', 'Показывает объявленные страницы, цели и незавершённые черновики.'],
+        ['Проверка', 'Находит пробелы и открывает затронутый слой и каноническое правило.'],
       ],
-      trust: 'Локально в Figma · без аккаунта BRIDGE · без сетевого доступа',
-      source: 'Исходный код',
+      trust: 'Доступен через Figma Community · аккаунт BRIDGE не нужен',
+      privateTitle: 'Что открыто, а что нет',
+      privateNote: 'Методология BRIDGE, документация, чеклисты и каталог правил открыты. Реализация Figma-плагина — частная; публичного репозитория, issue tracker и ленты релизов для неё нет.',
+      rules: 'Открыть каталог правил',
       newTab: 'откроется в новой вкладке',
     }
   : {
-      eyebrow: 'Methodology tool',
-      title: 'Review design readiness directly in Figma.',
-      lead: 'The plugin adds BRIDGE tags to layer names, maps the file, and checks pages, breakpoints, actions, and targets before implementation handoff.',
+      eyebrow: 'Review hub',
+      title: 'Review the design, not the team’s memory.',
+      lead: 'Start with a short review across six coverage areas. Then open the detailed checklist or run Page Check in Figma. Every route leaves a reproducible report.',
+      navLabel: 'Review options',
+      quick: 'Quick preflight',
+      designer: 'Designer checklist',
+      full: 'Full review',
+      plugin: 'Page Check in Figma',
+      pluginEyebrow: 'Figma companion',
+      pluginTitle: 'Review the same system directly in the file.',
+      pluginLead: 'The plugin adds canonical tags, maps the file, and runs Page Check. From a finding, it opens the exact affected layer and canonical rule.',
       open: 'Figma plugin BRIDGE',
       capabilitiesLabel: 'What the plugin does',
       capabilities: [
-        ['Tags', 'Adds page, breakpoint, action, and target tags without handwritten syntax.'],
-        ['Map', 'Collects pages, targets, and drafts into a clear file structure.'],
-        ['Check', 'Finds gaps and opens the relevant layer and rule.'],
+        ['Tag', 'Adds page, breakpoint, action, and target values without handwritten syntax.'],
+        ['Map', 'Shows declared pages and targets alongside drafts that still need a decision.'],
+        ['Check', 'Finds gaps and opens the affected layer and canonical rule.'],
       ],
-      trust: 'Local in Figma · no BRIDGE account · no network access',
-      source: 'Source code',
+      trust: 'Available from Figma Community · no BRIDGE account required',
+      privateTitle: 'What is open, and what is not',
+      privateNote: 'The BRIDGE methodology, documentation, checklists, and rule catalog are open. The Figma plugin implementation is private; it has no public source repository, issue tracker, or release feed.',
+      rules: 'Open rule catalog',
       newTab: 'opens in a new tab',
     };
 ---
 
-<div class="plugin-page not-content">
-  <section class="plugin-brief" aria-labelledby="plugin-title">
+<div class="plugin-page check-hub not-content">
+  <section class="check-hub-hero" aria-labelledby="_top">
+    <p class="bridge-eyebrow">{copy.eyebrow}</p>
+    <h1 id="_top">{copy.title}</h1>
+    <p>{copy.lead}</p>
+    <nav aria-label={copy.navLabel}>
+      <a href="#quick-check"><span>01</span>{copy.quick}</a>
+      <a href={url('check/designer-checklist/')}><span>02</span>{copy.designer}</a>
+      <a href={url('check/full-review/')}><span>03</span>{copy.full}</a>
+      <a href="#figma-page-check"><span>04</span>{copy.plugin}</a>
+    </nav>
+  </section>
+
+  <div id="quick-check" class="check-hub-preflight">
+    <PreflightChecklist locale={locale} embedded />
+  </div>
+
+  <section id="figma-page-check" class="plugin-brief" aria-labelledby="plugin-title">
     <div class="plugin-brief-copy">
-      <p class="bridge-eyebrow">{copy.eyebrow}</p>
-      <h1 id="plugin-title">{copy.title}</h1>
-      <p class="plugin-brief-lead">{copy.lead}</p>
+      <p class="bridge-eyebrow">{copy.pluginEyebrow}</p>
+      <h2 id="plugin-title">{copy.pluginTitle}</h2>
+      <p class="plugin-brief-lead">{copy.pluginLead}</p>
       <a
         class="plugin-brief-cta bridge-button bridge-button-primary"
         href={pluginUrl}
@@ -68,9 +108,17 @@ const copy = locale === 'ru'
 
     <footer class="plugin-brief-meta">
       <p>{copy.trust}</p>
-      <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
-        {copy.source}<span aria-hidden="true"> ↗</span><span class="sr-only"> — {copy.newTab}</span>
-      </a>
     </footer>
+
+    <aside class="plugin-private-note" aria-labelledby="plugin-private-title">
+      <div>
+        <span aria-hidden="true">※</span>
+        <h3 id="plugin-private-title">{copy.privateTitle}</h3>
+      </div>
+      <p>{copy.privateNote}</p>
+      <a href={url('rules/')}>{copy.rules}<span aria-hidden="true"> →</span></a>
+    </aside>
   </section>
+
+  <PluginMediaShowcase locale={locale} />
 </div>

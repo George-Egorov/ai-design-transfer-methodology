@@ -19,8 +19,8 @@ A wrapper is valid when it does one of these jobs:
 
 ```text
 cards-grid
-  product-card-1
-  product-card-2
+  product-card-oak-chair
+  product-card-wool-lamp
 ```
 
 ## Invalid wrappers

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/site-content.schema.json",
+  "title": "BRIDGE canonical documentation manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "locales", "pages"],
+  "properties": {
+    "$schema": { "const": "./site-content.schema.json" },
+    "version": { "type": "string", "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$" },
+    "locales": { "const": ["en", "ru"] },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["route", "order", "source"],
+        "properties": {
+          "route": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9]+(?:-[a-z0-9]+)*/)*[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "order": { "type": "integer", "minimum": 1 },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["en", "ru"],
+            "properties": {
+              "en": { "type": "string", "pattern": "^(?:docs|examples)/.+\\.md$" },
+              "ru": { "type": "string", "pattern": "^(?:docs/ru|examples)/.+\\.md$" }
+            }
+          },
+          "description": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "en": { "type": "string", "minLength": 20, "maxLength": 220 },
+              "ru": { "type": "string", "minLength": 20, "maxLength": 220 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

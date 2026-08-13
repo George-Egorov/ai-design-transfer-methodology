@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/rules.ru.schema.json",
+  "title": "Russian BRIDGE rule copy",
+  "type": "object",
+  "minProperties": 1,
+  "propertyNames": { "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$" },
+  "additionalProperties": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["title", "description", "fix"],
+    "properties": {
+      "title": { "type": "string", "minLength": 5 },
+      "description": { "type": "string", "minLength": 20 },
+      "fix": { "type": "string", "minLength": 20 }
+    }
+  }
+}

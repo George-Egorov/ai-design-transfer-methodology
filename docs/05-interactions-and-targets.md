@@ -1,6 +1,6 @@
 # Interactions and targets
 
-BRIDGE uses one source of truth per interaction. Navigation uses `href`. Non-navigation behavior uses `action`.
+BRIDGE uses one source of truth per interaction anchor. Navigation uses `href`. Non-navigation behavior uses `action`. A nontrivial action then resolves to the structured [reaction/state-machine contract](22-state-machines-and-reactions.md); the short tag is a locator, not the whole behavior specification.
 
 The simple designer path does not require machine ids for ordinary links and buttons.
 
@@ -146,6 +146,38 @@ Mobile Menu [state=mobile-menu-open]
 
 If a modal or state target does not exist, the design is not BRIDGE-ready.
 
+## From action anchor to complete reaction
+
+`[action=submit:lead-form]` answers “which operation starts?” It does not answer what happens during validation, waiting, failure, cancellation, retry, success, or duplicate input. Structured `bridge.interaction.stateMachines[]` records:
+
+- current state, semantic event, and guard;
+- pending state and side effects;
+- every reachable outcome and recovery path;
+- concurrency, cancellation, stale-response, and retry policy;
+- visible feedback and assistive-technology announcement;
+- focus destination/restoration;
+- URL, query, browser history, scroll, and persistence effect.
+
+Do not add flat tags for each event, timeout, error, focus target, and response. Keep stable layer identities and reference them from one versioned reaction graph.
+
+## Forms and async behavior
+
+Fields declare stable binding anchors in the design; the form contract also supplies visible labels, instructions, constraints, autocomplete purpose, validation timing, error relationships, hidden-dependent-value policy, and disabled versus read-only behavior.
+
+Every asynchronous operation covers the applicable path:
+
+```text
+idle → pending → success | empty | partial | failure | cancelled | timed-out
+```
+
+Specify whether old data remains visible/stale, whether repeat input replaces or queues a request, how optimistic updates roll back, which values survive failure, and when retry or undo is available. A spinner or one success screen is not a complete interaction.
+
+## Focus and history are outputs
+
+Every reaction must preserve focus or move it for a declared task reason. Define initial/restored focus for dialogs, validation, deletion, inserted results, disappearing controls, route changes, and responsive transformations.
+
+For shareable filters, tabs, pagination, drawers, and steps, decide path/query/hash or internal state, history `push` versus `replace`, Back/Forward, direct load, refresh, and scroll/focus restoration. Deep links must initialize the state without replaying earlier clicks, and URLs must not expose sensitive values.
+
 ## What validators should check
 
 - `[href=...]` without `[link=...]` is a valid link.
@@ -156,5 +188,8 @@ If a modal or state target does not exist, the design is not BRIDGE-ready.
 - Internal href routes resolve to declared routes when those routes are known.
 - Internal href anchors resolve to declared sections/anchors.
 - Modal/state/submit/reset action targets exist.
+- Nontrivial actions resolve to a reachable reaction/state-machine record with pending, failure, focus, announcement, and history effects as applicable.
+- Forms define labels, validation/error behavior, value preservation, and duplicate submission policy.
+- Async races, cancellation, retry, and stale responses have deterministic outcomes.
 - Social/icon-only links have an accessible label.
 - Page instances do not invent component states; states belong in the UI Kit.

@@ -10,32 +10,30 @@ const { prev, next } = Astro.locals.starlightRoute.pagination;
 const hasPagination = Boolean(prev || next);
 const copy = locale === 'ru'
   ? {
-      description: 'Открытая методология и плагин для передачи интерфейсных макетов без скрытых предположений.',
+      description: 'Открытая методология передачи макетов без скрытых предположений. Реализация Figma-плагина частная.',
       sections: 'Разделы',
       resources: 'Ресурсы',
       overview: 'Обзор',
       start: 'Быстрый старт',
-      plugin: 'Плагин для Figma',
+      plugin: 'Центр проверки',
       rules: 'Каталог правил',
       figma: 'Figma plugin BRIDGE',
       docs: 'Документация на GitHub',
-      support: 'Сообщить о проблеме/идее',
       newTab: 'откроется в новой вкладке',
-      license: 'Открытый проект · MIT License',
+      license: 'Методология и документация · MIT License',
     }
   : {
-      description: 'An open methodology and Figma plugin for handing off interface designs without hidden assumptions.',
+      description: 'An open methodology for handing off interface designs without hidden assumptions. The Figma plugin implementation is private.',
       sections: 'Sections',
       resources: 'Resources',
       overview: 'Overview',
       start: 'Quick start',
-      plugin: 'Figma plugin',
+      plugin: 'Review hub',
       rules: 'Rule catalog',
       figma: 'Figma plugin BRIDGE',
       docs: 'Documentation on GitHub',
-      support: 'Report an issue or idea',
       newTab: 'opens in a new tab',
-      license: 'Open source · MIT License',
+      license: 'Methodology and documentation · MIT License',
     };
 ---
 
@@ -72,9 +70,6 @@ const copy = locale === 'ru'
       </a>
       <a href="https://github.com/Poliklot/bridge-design-methodology" target="_blank" rel="noopener noreferrer">
         {copy.docs} <span aria-hidden="true">↗</span><span class="sr-only"> — {copy.newTab}</span>
-      </a>
-      <a href="https://github.com/Poliklot/bridge-figma-assistant/issues/new" target="_blank" rel="noopener noreferrer">
-        {copy.support} <span aria-hidden="true">↗</span><span class="sr-only"> — {copy.newTab}</span>
       </a>
     </nav>
   </div>

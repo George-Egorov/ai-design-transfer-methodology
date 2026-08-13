@@ -131,7 +131,7 @@ header.header {
 }
 
 /* Custom application pages supply their own semantic hero title. */
-main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-explorer)) > .content-panel:first-child {
+main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-explorer), :has(.tag-registry)) > .content-panel:first-child {
   display: none;
 }
 
@@ -191,21 +191,24 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 .bridge-home,
 .plugin-page,
 .preflight,
-.rules-explorer {
+.rules-explorer,
+.tag-registry {
   color: var(--sl-color-text);
 }
 
 .content-panel:has(.bridge-home),
 .content-panel:has(.plugin-page),
 .content-panel:has(.preflight),
-.content-panel:has(.rules-explorer) {
+.content-panel:has(.rules-explorer),
+.content-panel:has(.tag-registry) {
   padding: 0;
 }
 
 .content-panel:has(.bridge-home) > .sl-container,
 .content-panel:has(.plugin-page) > .sl-container,
 .content-panel:has(.preflight) > .sl-container,
-.content-panel:has(.rules-explorer) > .sl-container {
+.content-panel:has(.rules-explorer) > .sl-container,
+.content-panel:has(.tag-registry) > .sl-container {
   max-width: none;
 }
 
@@ -438,9 +441,9 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 .bridge-layer-row {
   position: relative;
   display: grid;
-  min-height: 1.85rem;
+  min-height: 2.75rem;
   min-width: 0;
-  grid-template-columns: 0.42rem 1rem minmax(3.25rem, auto) minmax(0, 1fr) 1.5rem;
+  grid-template-columns: 0.42rem 1rem minmax(3.25rem, auto) minmax(0, 1fr) 2.75rem;
   align-items: center;
   gap: 0.35rem;
   padding: 0.15rem 0.75rem 0.15rem calc(0.7rem + var(--layer-depth) * 0.9rem);
@@ -505,7 +508,8 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   border: 0;
   border-radius: 0.18rem;
   background: transparent;
-  padding: 0.12rem 0.2rem;
+  min-height: 2.75rem;
+  padding: 0.7rem 0.2rem;
   color: inherit;
   font: inherit;
   line-height: 1.15;
@@ -562,8 +566,8 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 
 .bridge-layer-handle {
   display: grid;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   place-items: center;
   border: 0;
   border-radius: 0.25rem;
@@ -677,8 +681,8 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   display: flex;
   gap: 0.35rem;
   margin-top: 0.32rem;
-  color: #858585;
-  font-size: 0.59rem;
+  color: #a8a8a8;
+  font-size: 0.68rem;
   line-height: 1.4;
 }
 
@@ -1007,6 +1011,69 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   padding-inline: var(--bridge-gutter);
 }
 
+.check-hub-hero {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.check-hub-hero h1 {
+  max-width: 20ch;
+  margin: 0;
+  color: var(--sl-color-white);
+  font-size: clamp(3rem, 5.4vw, 5.35rem);
+  font-weight: 690;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.check-hub-hero > p:last-of-type {
+  max-width: 54rem;
+  margin: clamp(1.25rem, 3vw, 2rem) 0 0;
+  color: var(--bridge-muted);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.62;
+}
+
+.check-hub-hero nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-block: 1px solid var(--bridge-line);
+}
+
+.check-hub-hero nav a {
+  display: grid;
+  min-height: 5.5rem;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+  border-inline-end: 1px solid var(--bridge-line);
+  padding: 1rem;
+  color: var(--sl-color-white);
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.check-hub-hero nav a:last-child {
+  border-inline-end: 0;
+}
+
+.check-hub-hero nav a:hover {
+  background: var(--bridge-sky);
+}
+
+.check-hub-hero nav span {
+  color: var(--bridge-blue-deep);
+  font-family: var(--sl-font-mono);
+  font-size: 0.64rem;
+  font-weight: 400;
+}
+
+.check-hub-preflight {
+  border-top: 1px solid var(--bridge-line);
+}
+
 .plugin-brief {
   width: min(100%, 72rem);
   margin-inline: auto;
@@ -1018,7 +1085,7 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   justify-items: start;
 }
 
-.plugin-brief h1 {
+.plugin-brief :is(h1, h2) {
   max-width: 24ch;
   margin: 0;
   color: var(--sl-color-white);
@@ -1106,13 +1173,52 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   margin: 0;
 }
 
-.plugin-brief-meta a {
-  color: var(--bridge-blue-deep);
-  font-weight: 500;
-  text-decoration: none;
+.plugin-private-note {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1.25fr) auto;
+  gap: 1rem clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+  margin-top: 2rem;
+  border-block: 1px solid var(--bridge-line);
+  padding-block: 1.5rem;
 }
 
-.plugin-brief-meta a:hover {
+.plugin-private-note > div {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: start;
+}
+
+.plugin-private-note > div > span {
+  color: var(--bridge-blue-deep);
+  font-family: var(--sl-font-mono);
+}
+
+.plugin-private-note h3 {
+  margin: 0;
+  color: var(--sl-color-white);
+  font-size: 0.92rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.plugin-private-note p {
+  margin: 0;
+  color: var(--bridge-muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.plugin-private-note > a {
+  color: var(--bridge-blue-deep);
+  font-size: 0.8rem;
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.plugin-private-note > a:hover {
   color: var(--sl-color-white);
 }
 
@@ -1437,7 +1543,6 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   color: var(--sl-color-white);
 }
 
-/* The contract trace is the signature visual: native structure + declared intent = a checkable file. */
 .bridge-contract-heading,
 .plugin-showcase-heading {
   display: block;
@@ -1478,312 +1583,321 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   line-height: 1.65;
 }
 
-.bridge-contract-equation {
+.bridge-contract-model-note {
+  max-width: 74rem;
+  margin: 1.5rem 0 0;
+  border-top: 1px solid var(--bridge-line);
+  padding-top: 0.9rem;
+  color: var(--bridge-muted);
+  font-family: var(--sl-font-mono);
+  font-size: 0.66rem;
+  line-height: 1.55;
+}
+
+/* Six-channel coverage map: one restrained, interactive system view instead of disconnected cards. */
+.bridge-coverage-board {
+  --coverage-active: 0;
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 2.75rem minmax(0, 1fr) 2.75rem minmax(0, 1fr);
-  gap: clamp(0.55rem, 1.4vw, 1.1rem);
+  min-height: 35rem;
+  grid-template-columns: minmax(15rem, 0.82fr) minmax(8.5rem, 0.36fr) minmax(24rem, 1.12fr);
   align-items: stretch;
   margin-top: clamp(2.5rem, 5vw, 4.5rem);
-}
-
-.bridge-contract-equation::before {
-  position: absolute;
-  z-index: 0;
-  top: calc(1.375rem - 1px);
-  right: 8%;
-  left: 8%;
-  height: 2px;
-  background: var(--bridge-blue);
-  content: '';
-}
-
-.bridge-contract-card {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  min-width: 0;
-  min-height: 28rem;
-  flex-direction: column;
+  overflow: hidden;
   border: 1px solid var(--bridge-line);
   border-radius: 0.75rem;
   background: var(--bridge-paper);
-  padding: clamp(1rem, 2vw, 1.4rem);
 }
 
-.bridge-contract-card-head {
-  display: flex;
-  min-height: 2.15rem;
-  gap: 0.75rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.bridge-contract-card-head > span {
+.bridge-coverage-tabs {
   display: grid;
-  width: 2.15rem;
-  height: 2.15rem;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--bridge-paper);
-  box-shadow: 0 0 0 1px var(--bridge-line);
-  color: var(--bridge-blue-deep);
-  font-family: var(--sl-font-mono);
-  font-size: 0.64rem;
+  min-width: 0;
+  grid-template-rows: repeat(6, minmax(4.5rem, 1fr));
+  border-inline-end: 1px solid var(--bridge-line);
 }
 
-.bridge-contract-card.is-intent .bridge-contract-card-head > span,
-.bridge-contract-card.is-result .bridge-contract-card-head > span {
-  background: var(--bridge-blue);
-  box-shadow: none;
-  color: #061016;
-}
-
-.bridge-contract-card-head small {
-  color: var(--bridge-muted);
-  font-family: var(--sl-font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
-  text-align: end;
-  text-transform: uppercase;
-}
-
-.bridge-contract-window,
-.bridge-contract-tags,
-.bridge-contract-status {
-  min-height: 10rem;
-  margin: 1.15rem 0 1.35rem;
-  border-radius: 0.55rem;
-}
-
-.bridge-contract-window {
-  overflow: hidden;
-  border: 1px solid #424242;
-  background: #2c2c2c;
-  color: #eeeeee;
-  font-family: var(--sl-font-mono);
-}
-
-.bridge-contract-window > div {
-  display: flex;
-  min-height: 2.2rem;
-  gap: 0.3rem;
-  align-items: center;
-  border-bottom: 1px solid #444444;
-  padding: 0 0.65rem;
-}
-
-.bridge-contract-window > div i {
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 50%;
-  background: #666666;
-}
-
-.bridge-contract-window > div i:first-child {
-  background: var(--bridge-blue);
-}
-
-.bridge-contract-window > div span {
-  margin-inline-start: auto;
-  color: #9f9f9f;
-  font-size: 0.56rem;
-}
-
-.bridge-contract-window p {
+.bridge-coverage-tabs button {
+  position: relative;
   display: grid;
-  grid-template-columns: 1rem minmax(0, 1fr) auto;
-  gap: 0.4rem;
-  align-items: center;
-  margin: 0;
-  padding: 0.55rem 0.65rem;
-  color: #dddddd;
-  font-size: 0.57rem;
-}
-
-.bridge-contract-window p + p {
-  border-top: 1px solid #383838;
-}
-
-.bridge-contract-window p b {
-  color: var(--bridge-blue);
-  font-weight: 400;
-}
-
-.bridge-contract-window p code {
-  color: #9f9f9f;
-  font-size: 0.51rem;
-}
-
-.bridge-contract-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
+  min-width: 0;
+  min-height: 4.5rem;
+  grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  gap: 0.15rem 0.65rem;
   align-content: center;
-  border: 1px solid color-mix(in srgb, var(--bridge-blue) 35%, var(--bridge-line));
-  background: var(--bridge-sky);
-  padding: 0.8rem;
+  border: 0;
+  border-bottom: 1px solid var(--bridge-line);
+  border-radius: 0;
+  background: transparent;
+  padding: 0.75rem 1rem;
+  color: var(--bridge-muted);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
 }
 
-.bridge-contract-tags code {
-  border: 1px solid color-mix(in srgb, var(--bridge-blue) 25%, var(--bridge-line));
-  border-radius: 0.35rem;
-  background: var(--bridge-paper);
-  padding: 0.45rem 0.55rem;
+.bridge-coverage-tabs button:last-child {
+  border-bottom: 0;
+}
+
+.bridge-coverage-tabs button::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 3px;
+  background: var(--bridge-blue);
+  content: '';
+  opacity: 0;
+}
+
+.bridge-coverage-tabs button:hover {
+  background: color-mix(in srgb, var(--bridge-sky) 55%, transparent);
+  color: var(--sl-color-white);
+}
+
+.bridge-coverage-tabs button[aria-selected='true'] {
+  background: var(--bridge-sky);
+  color: var(--sl-color-white);
+}
+
+.bridge-coverage-tabs button[aria-selected='true']::before {
+  opacity: 1;
+}
+
+.bridge-coverage-tabs button > span {
+  grid-row: 1 / 3;
+  align-self: center;
   color: var(--bridge-blue-deep);
   font-family: var(--sl-font-mono);
-  font-size: 0.57rem;
+  font-size: 0.62rem;
+}
+
+.bridge-coverage-tabs button strong {
+  overflow: hidden;
+  color: currentColor;
+  font-size: 0.92rem;
+  font-weight: 650;
+  line-height: 1.15;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.bridge-contract-status {
-  display: grid;
-  align-content: center;
-  border: 1px solid color-mix(in srgb, var(--bridge-success) 32%, var(--bridge-line));
-  background: color-mix(in srgb, var(--bridge-success) 8%, var(--bridge-paper));
-  padding: 1rem;
-}
-
-.bridge-contract-status > span {
-  display: flex;
-  gap: 0.45rem;
-  align-items: center;
-  color: var(--bridge-success);
-  font-size: 0.72rem;
-  font-weight: 650;
-}
-
-.bridge-contract-status > span i {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.bridge-contract-status strong {
-  margin-top: 1rem;
-  color: var(--sl-color-white);
+.bridge-coverage-tabs button small {
+  color: var(--bridge-muted);
   font-family: var(--sl-font-mono);
-  font-size: clamp(0.7rem, 1vw, 0.84rem);
+  font-size: 0.58rem;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+.bridge-coverage-tabs button i {
+  position: relative;
+  grid-row: 1 / 3;
+  align-self: center;
+  width: 1.75rem;
+  height: 1px;
+  background: var(--bridge-line);
+}
+
+.bridge-coverage-tabs button i::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--bridge-line);
+  content: '';
+  transform: translate(50%, -50%);
+}
+
+.bridge-coverage-tabs button[aria-selected='true'] i,
+.bridge-coverage-tabs button[aria-selected='true'] i::after {
+  background: var(--bridge-blue);
+}
+
+.bridge-coverage-core {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-width: 0;
+  place-content: center;
+  justify-items: center;
+  border-inline-end: 1px solid var(--bridge-line);
+  background:
+    linear-gradient(var(--bridge-line), var(--bridge-line)) center / 1px calc(100% - 5rem) no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 3.75rem, color-mix(in srgb, var(--bridge-line) 50%, transparent) 3.75rem calc(3.75rem + 1px));
+  text-align: center;
+}
+
+.bridge-coverage-core::before {
+  position: absolute;
+  top: calc(8.333% + var(--coverage-active) * 16.666%);
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--bridge-blue);
+  content: '';
+  transform: translateY(-50%);
+  transition: top 0.16s ease-out;
+}
+
+.bridge-coverage-core img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  border-radius: 1rem;
+  box-shadow: 0 0 0 0.8rem var(--bridge-paper);
+}
+
+.bridge-coverage-core strong {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.1rem;
+  color: var(--bridge-blue-deep);
+  font-family: var(--sl-font-mono);
+  font-size: 1.2rem;
   font-weight: 500;
 }
 
-.bridge-contract-status > div {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.35rem;
-  margin-top: 0.65rem;
-}
-
-.bridge-contract-status > div i {
-  height: 0.35rem;
-  border-radius: 1rem;
-  background: var(--bridge-blue);
-}
-
-.bridge-contract-card h3 {
-  margin: auto 0 0;
-  color: var(--sl-color-white);
-  font-size: clamp(1.2rem, 2vw, 1.45rem);
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
-
-.bridge-contract-card ul {
-  display: grid;
-  gap: 0.5rem;
-  margin: 0.9rem 0 0;
-  padding: 0;
+.bridge-coverage-core span {
+  position: relative;
+  z-index: 1;
+  max-width: 9rem;
+  margin-top: 0.35rem;
   color: var(--bridge-muted);
-  font-size: 0.78rem;
-  line-height: 1.4;
+  font-family: var(--sl-font-mono);
+  font-size: 0.58rem;
+  line-height: 1.45;
+}
+
+.bridge-coverage-panels {
+  min-width: 0;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.bridge-coverage-panels article {
+  display: grid;
+  min-height: 100%;
+  align-content: center;
+  animation: bridge-coverage-in 0.16s ease-out both;
+  outline-offset: -4px;
+}
+
+.bridge-coverage-panels article[hidden] {
+  display: none;
+}
+
+.bridge-coverage-panels article > p:first-child {
+  margin: 0;
+  color: var(--bridge-blue-deep);
+  font-family: var(--sl-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bridge-coverage-panels h3 {
+  max-width: 19ch;
+  margin: 1rem 0 0;
+  color: var(--sl-color-white);
+  font-size: clamp(1.8rem, 3.2vw, 3.15rem);
+  font-weight: 680;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.bridge-coverage-panels article > p:nth-of-type(2) {
+  max-width: 45rem;
+  margin: 1.2rem 0 0;
+  color: var(--bridge-muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.bridge-coverage-panels code {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--bridge-blue) 35%, var(--bridge-line));
+  border-radius: 0.4rem;
+  background: var(--bridge-sky);
+  padding: 0.7rem 0.8rem;
+  color: var(--bridge-blue-deep);
+  font-family: var(--sl-font-mono);
+  font-size: 0.66rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bridge-coverage-panels ul {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
   list-style: none;
 }
 
-.bridge-contract-card li {
-  position: relative;
-  padding-inline-start: 1rem;
+.bridge-coverage-panels li {
+  display: flex;
+  gap: 0.65rem;
+  align-items: baseline;
+  color: var(--sl-color-white);
+  font-size: 0.84rem;
+  line-height: 1.35;
 }
 
-.bridge-contract-card li::before {
-  position: absolute;
-  top: 0.55em;
-  left: 0;
-  width: 0.4rem;
-  height: 1px;
-  background: var(--bridge-blue);
-  content: '';
-}
-
-.bridge-contract-operator {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  place-items: start center;
-}
-
-.bridge-contract-operator span {
-  position: relative;
-  display: grid;
-  width: 2.75rem;
-  height: 2.75rem;
-  place-items: center;
+.bridge-coverage-panels li span {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
   border: 1px solid var(--bridge-blue);
   border-radius: 50%;
   background: var(--bridge-paper);
+}
+
+.bridge-contract-proof {
+  display: grid;
+  grid-template-columns: minmax(22rem, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  border-bottom: 1px solid var(--bridge-line);
+  padding: 1.25rem 0;
+}
+
+.bridge-contract-proof > div {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.bridge-contract-proof span {
   color: var(--bridge-blue-deep);
-}
-
-.bridge-contract-operator span::before,
-.bridge-contract-operator span::after {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background: currentColor;
-  content: '';
-  transform: translate(-50%, -50%);
-}
-
-.bridge-contract-operator.is-plus span::before,
-.bridge-contract-operator.is-equals span::before,
-.bridge-contract-operator.is-equals span::after {
-  width: 0.8rem;
-  height: 1px;
-}
-
-.bridge-contract-operator.is-plus span::after {
-  width: 1px;
-  height: 0.8rem;
-}
-
-.bridge-contract-operator.is-equals span::before {
-  margin-top: -0.18rem;
-}
-
-.bridge-contract-operator.is-equals span::after {
-  margin-top: 0.18rem;
-}
-
-.bridge-contract-caption {
-  display: flex;
-  gap: 0.7rem;
-  align-items: baseline;
-  justify-content: flex-end;
-  margin: 1rem 0 0;
-  color: var(--bridge-muted);
   font-family: var(--sl-font-mono);
-  font-size: 0.68rem;
-  text-align: end;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.sl-markdown-content .bridge-contract-caption {
-  max-width: none;
+.bridge-contract-proof code {
+  color: var(--sl-color-white);
+  font-family: var(--sl-font-mono);
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
 }
 
-.bridge-contract-caption span {
-  color: var(--bridge-blue-deep);
+.bridge-contract-proof p {
+  margin: 0;
+  color: var(--bridge-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
 }
 
+@keyframes bridge-coverage-in {
+  from { opacity: 0; transform: translateX(0.4rem); }
+  to { opacity: 1; transform: translateX(0); }
+}
 .plugin-showcase-shell {
   display: grid;
   grid-template-columns: minmax(15rem, 0.34fr) minmax(0, 1fr);
@@ -2211,6 +2325,13 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   padding-block: clamp(3rem, 6vw, 5rem);
 }
 
+.preflight.is-embedded {
+  width: auto;
+  margin-inline: 0;
+  padding-inline: 0;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
 .preflight-intro {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -2218,7 +2339,7 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   align-items: end;
 }
 
-.preflight-intro h1,
+.preflight-intro :is(h1, h2),
 .rules-explorer > header h1 {
   max-width: 21ch;
   margin: 0;
@@ -2274,10 +2395,59 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   transition: width 0.1s ease-in-out;
 }
 
+.preflight-groups {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.preflight-group > header {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+  border-top: 1px solid var(--bridge-line);
+  padding: 1.1rem 0;
+}
+
+.preflight-group > header > span,
+.preflight-group > header > strong {
+  color: var(--bridge-blue-deep);
+  font-family: var(--sl-font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+}
+
+.preflight-group > header > strong {
+  color: var(--bridge-muted);
+  white-space: nowrap;
+}
+
+.preflight-group.is-done > header > strong {
+  color: var(--bridge-success);
+}
+
+.preflight-group :is(h2, h3) {
+  margin: 0;
+  color: var(--sl-color-white);
+  font-size: 1.2rem;
+  font-weight: 660;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.preflight-group header p {
+  max-width: 48rem;
+  margin: 0.35rem 0 0;
+  color: var(--bridge-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
 .preflight-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-top: 1.5rem;
+  margin-top: 0;
   border-top: 1px solid var(--bridge-line);
   border-inline-start: 1px solid var(--bridge-line);
 }
@@ -2384,11 +2554,22 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   gap: 0.7rem;
 }
 
-.preflight-actions > a {
+.preflight-actions > nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  justify-content: flex-end;
+}
+
+.preflight-actions > nav a {
   color: var(--bridge-blue-deep);
   font-size: 0.85rem;
   font-weight: 650;
   text-decoration: none;
+}
+
+.preflight-actions > nav a:hover {
+  color: var(--sl-color-white);
 }
 
 .rules-explorer > header {
@@ -2475,8 +2656,19 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 
 .rule-card {
   position: relative;
+  scroll-margin-top: 7rem;
   padding: 1.35rem 0 1.4rem 1.2rem;
   border-bottom: 1px solid var(--bridge-line);
+}
+
+.rule-card:target {
+  background: var(--bridge-sky);
+  box-shadow: -0.55rem 0 0 var(--bridge-blue);
+}
+
+.rule-card:focus-visible {
+  outline: 2px solid var(--bridge-blue);
+  outline-offset: 0.3rem;
 }
 
 .rule-card::before {
@@ -2553,6 +2745,9 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 }
 
 .rule-card summary {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
   color: var(--bridge-blue-deep);
   font-size: 0.78rem;
   font-weight: 650;
@@ -2615,6 +2810,18 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 }
 
 @media (max-width: 68rem) {
+  .check-hub-hero nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .check-hub-hero nav a:nth-child(2n) {
+    border-inline-end: 0;
+  }
+
+  .check-hub-hero nav a:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--bridge-line);
+  }
+
   .bridge-method,
   .plugin-features,
   .plugin-workflow,
@@ -2700,28 +2907,13 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
     max-width: none;
   }
 
-  .bridge-contract-equation {
-    width: min(100%, 44rem);
-    grid-template-columns: 1fr;
-    margin-inline: auto;
+  .bridge-coverage-board {
+    grid-template-columns: minmax(14rem, 0.75fr) minmax(20rem, 1.25fr);
+    min-height: 32rem;
   }
 
-  .bridge-contract-equation::before {
-    top: 1.375rem;
-    right: auto;
-    bottom: 1.375rem;
-    left: calc(1.375rem - 1px);
-    width: 2px;
-    height: auto;
-  }
-
-  .bridge-contract-card {
-    min-height: 0;
-  }
-
-  .bridge-contract-operator {
-    min-height: 2.75rem;
-    place-items: center start;
+  .bridge-coverage-core {
+    display: none;
   }
 
   .plugin-showcase-shell {
@@ -2943,7 +3135,7 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
     padding-block: 3rem 2.5rem;
   }
 
-  .plugin-brief h1 {
+  .plugin-brief :is(h1, h2) {
     max-width: none;
     font-size: clamp(2.55rem, 11vw, 4.2rem);
     letter-spacing: -0.05em;
@@ -2982,6 +3174,14 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
     display: grid;
     justify-content: start;
     line-height: 1.55;
+  }
+
+  .plugin-private-note {
+    grid-template-columns: 1fr;
+  }
+
+  .plugin-private-note > a {
+    white-space: normal;
   }
 
   .bridge-hero,
@@ -3048,30 +3248,80 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
     line-height: 1.55;
   }
 
-  .bridge-contract-equation {
+  .bridge-coverage-board {
+    display: block;
+    min-height: 0;
     margin-top: 2rem;
-  }
-
-  .bridge-contract-card {
     border-radius: 0.6rem;
-    padding: 1rem;
   }
 
-  .bridge-contract-window,
-  .bridge-contract-tags,
-  .bridge-contract-status {
-    min-height: 8.75rem;
-    margin-block: 1rem;
+  .bridge-coverage-tabs {
+    display: flex;
+    overflow-x: auto;
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--bridge-line);
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scroll-snap-type: x mandatory;
   }
 
-  .bridge-contract-card h3 {
-    font-size: 1.2rem;
+  .bridge-coverage-tabs button {
+    width: 12.5rem;
+    min-width: 12.5rem;
+    min-height: 4.75rem;
+    flex: 0 0 auto;
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    border-right: 1px solid var(--bridge-line);
+    border-bottom: 0;
+    padding: 0.75rem;
+    scroll-snap-align: start;
   }
 
-  .bridge-contract-caption {
-    justify-content: flex-start;
-    font-size: 0.62rem;
-    text-align: start;
+  .bridge-coverage-tabs button:last-child {
+    border-right: 0;
+  }
+
+  .bridge-coverage-tabs button::before {
+    top: auto;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    width: auto;
+    height: 3px;
+  }
+
+  .bridge-coverage-tabs button i {
+    display: none;
+  }
+
+  .bridge-coverage-panels {
+    min-height: 26rem;
+    padding: 1.25rem;
+  }
+
+  .bridge-coverage-panels h3 {
+    max-width: none;
+    font-size: clamp(1.75rem, 8vw, 2.4rem);
+  }
+
+  .bridge-coverage-panels article > p:nth-of-type(2) {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .bridge-coverage-panels code {
+    overflow: visible;
+    margin-top: 1.1rem;
+    font-size: 0.61rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .bridge-contract-proof {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
   }
 
   .plugin-workflow ol {
@@ -3295,7 +3545,7 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
     padding-block: 2.25rem 3rem;
   }
 
-  .preflight-intro h1,
+  .preflight-intro :is(h1, h2),
   .rules-explorer > header h1 {
     font-size: 2.35rem;
     line-height: 1;
@@ -3342,6 +3592,10 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 
   .preflight-actions > div {
     width: 100%;
+  }
+
+  .preflight-actions > nav {
+    justify-content: flex-start;
   }
 
   .preflight-actions .bridge-button {
@@ -3404,7 +3658,7 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   }
 
   .bridge-layer-row {
-    grid-template-columns: 0.42rem 0.9rem minmax(2.75rem, auto) minmax(0, 1fr) 1.45rem;
+    grid-template-columns: 0.42rem 0.9rem minmax(2.75rem, auto) minmax(0, 1fr) 2.75rem;
     padding-inline-end: 0.5rem;
     padding-inline-start: calc(0.5rem + var(--layer-depth) * 0.72rem);
     font-size: 0.65rem;
@@ -3432,7 +3686,7 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   }
 
   .bridge-layer-footer small {
-    font-size: 0.55rem;
+    font-size: 0.65rem;
   }
 
   .plugin-privacy > div:first-child {
@@ -3516,5 +3770,264 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* Canonical tag registry */
+main:has(.tag-registry) {
+  --sl-content-width: 76rem;
+}
+
+.tag-registry {
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 4.5rem) var(--bridge-gutter);
+}
+
+.tag-registry > header {
+  display: grid;
+  max-width: 56rem;
+  gap: 0.85rem;
+}
+
+.tag-registry > header h1 {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(2.35rem, 6vw, 5.25rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+
+.tag-registry > header > p:last-child {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--bridge-muted);
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  line-height: 1.65;
+}
+
+.tag-controls {
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) minmax(12rem, 0.4fr) auto;
+  align-items: end;
+  gap: 0.85rem;
+  border-block: 1px solid var(--bridge-line);
+  margin-top: clamp(2rem, 5vw, 4rem);
+  padding-block: 1rem;
+}
+
+.tag-search,
+.tag-select {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.tag-search > span,
+.tag-select > span {
+  color: var(--bridge-muted);
+  font-family: var(--sl-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tag-search input,
+.tag-select select {
+  min-height: 2.9rem;
+  border: 1px solid var(--bridge-line-strong);
+  border-radius: 0.35rem;
+  background: var(--bridge-panel);
+  color: var(--sl-color-white);
+  font: inherit;
+  padding-inline: 0.9rem;
+}
+
+.tag-authored {
+  display: flex;
+  min-height: 2.9rem;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid var(--bridge-line-strong);
+  border-radius: 0.35rem;
+  padding-inline: 0.9rem;
+  color: var(--bridge-muted);
+  cursor: pointer;
+}
+
+.tag-authored input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--bridge-blue);
+}
+
+.tag-meta {
+  margin: 1rem 0;
+  color: var(--bridge-muted);
+  font-family: var(--sl-font-mono);
+  font-size: 0.72rem;
+}
+
+.tag-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-block: 1px solid var(--bridge-line);
+}
+
+.tag-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  min-width: 0;
+  border-bottom: 1px solid var(--bridge-line);
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.tag-card:nth-child(odd) {
+  border-right: 1px solid var(--bridge-line);
+}
+
+.tag-card[hidden] {
+  display: none;
+}
+
+.tag-card > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.tag-card > header code {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--bridge-blue);
+  font-size: 0.76rem;
+}
+
+.tag-card > header span {
+  flex: none;
+  border: 1px solid var(--bridge-line-strong);
+  border-radius: 999px;
+  padding: 0.22rem 0.52rem;
+  color: var(--bridge-muted);
+  font-family: var(--sl-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tag-card.is-stable > header span {
+  border-color: color-mix(in srgb, var(--bridge-blue) 58%, transparent);
+  color: var(--bridge-blue);
+}
+
+.tag-card.is-deprecated {
+  background: color-mix(in srgb, var(--bridge-panel) 65%, transparent);
+}
+
+.tag-card h2,
+.tag-card p {
+  margin: 0;
+}
+
+.tag-card h2 {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+}
+
+.tag-card > p {
+  color: var(--bridge-muted);
+  line-height: 1.55;
+}
+
+.tag-card dl {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.tag-card dl > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.38fr) 1fr;
+  gap: 0.8rem;
+  border-top: 1px solid var(--bridge-line);
+  padding-top: 0.55rem;
+}
+
+.tag-card dt,
+.tag-relations > strong {
+  color: var(--bridge-muted);
+  font-family: var(--sl-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tag-card dd {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.tag-relations {
+  display: grid;
+  gap: 0.55rem;
+  border-top: 1px solid var(--bridge-line);
+  padding-top: 0.7rem;
+}
+
+.tag-relations ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-relations li {
+  color: var(--bridge-muted);
+  font-size: 0.78rem;
+}
+
+.tag-relations li span {
+  margin-right: 0.35rem;
+}
+
+.tag-relations li code {
+  display: inline-block;
+  margin: 0.12rem 0.18rem 0.12rem 0;
+  color: var(--sl-color-white);
+  font-size: 0.7rem;
+}
+
+.tag-empty {
+  border-bottom: 1px solid var(--bridge-line);
+  margin: 0;
+  padding: 2.5rem 0;
+  color: var(--bridge-muted);
+}
+
+@media (max-width: 50rem) {
+  .tag-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tag-authored {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 40rem) {
+  .tag-controls,
+  .tag-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tag-card:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .tag-card dl > div {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
   }
 }

@@ -4,43 +4,142 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
 
 const copy = locale === 'ru'
   ? {
-      eyebrow: 'Что не теряется при передаче',
-      title: 'Figma хранит макет. BRIDGE фиксирует договорённости.',
-      lead: 'Какая это страница, какие фреймы являются одним адаптивным набором, куда ведёт действие и какие отклонения намеренны — всё это остаётся в файле и проверяется до разработки.',
-      nativeLabel: 'Нативная структура Figma',
-      nativeTitle: 'Техническая правда',
-      nativeItems: ['Auto Layout и размеры', 'Компоненты и варианты', 'Иерархия и стили'],
-      intentLabel: 'Намерение BRIDGE',
-      intentTitle: 'Продуктовый смысл',
-      intentItems: ['Страница и адаптив', 'Действие и цель', 'Роль и исключение'],
-      resultLabel: 'Передаваемый контракт',
-      resultTitle: 'Макет читается без автора',
-      resultItems: ['Один стабильный идентификатор на всех ширинах', 'Каждое действие ведёт к цели', 'Каждый вопрос ведёт к правилу'],
-      ready: 'Готов к проверке',
-      equationPlus: 'плюс',
-      equationEquals: 'равно',
-      caption: 'BRIDGE описывает только то, чего нельзя надёжно вывести из пикселей и структуры слоя.',
+      eyebrow: 'Карта покрытия',
+      title: 'Ни одно решение не должно исчезнуть между макетом и кодом.',
+      lead: 'BRIDGE сводит шесть каналов в один контракт. Выберите канал, чтобы увидеть, какая часть правды остаётся нативной, а какая требует явного решения.',
+      modelNote: 'Это шесть областей полноты, а не расшифровка букв: B–R–I–D–G–E остаются принципами. «Без слепых зон» не значит, что все ответы уже известны: каждый открытый вопрос объявлен и имеет владельца.',
+      tabsLabel: 'Шесть каналов покрытия BRIDGE',
+      coreLabel: 'каналов в одном контракте',
+      channel: 'Канал',
+      proofLabel: 'Исключение — тоже решение',
+      proof: 'Отклонение не прячется в комментарии: каноническая пара фиксирует что сделано не по общему правилу и зачем.',
+      items: [
+        {
+          id: 'structure',
+          label: 'Структура',
+          source: 'Figma + identity',
+          title: 'Однозначно восстановить дерево.',
+          description: 'Иерархия и Auto Layout остаются в Figma. Корневые фреймы, секции и действия получают стабильную идентичность.',
+          evidence: '[page=home] [bp=1440] [view=default]',
+          checks: ['корневые фреймы', 'родители и порядок', 'стабильные имена'],
+        },
+        {
+          id: 'data',
+          label: 'Данные',
+          source: 'структурированные метаданные',
+          title: 'Описать не пример, а диапазон реальных данных.',
+          description: 'Контентная модель, форматы, коллекции и граничные сценарии не выводятся из одного красивого примера — они задаются в контракте.',
+          evidence: 'metadata: data-display · content model · edge cases',
+          checks: ['длинный и пустой контент', 'минимум и максимум элементов', 'форматы и доступный эквивалент'],
+        },
+        {
+          id: 'state',
+          label: 'Состояния',
+          source: 'views + UI Kit',
+          title: 'Показать, что происходит до, во время и после действия.',
+          description: 'Состояния страницы отделяются от вариантов компонента. Загрузка, пустота, ошибка и отклик на действие становятся явными.',
+          evidence: '[view=default] → loading → empty → error',
+          checks: ['состояния страницы', 'состояния компонента', 'реакции и цели'],
+        },
+        {
+          id: 'responsive',
+          label: 'Адаптивы',
+          source: 'одна identity',
+          title: 'Менять геометрию, а преобразование объявлять.',
+          description: 'По умолчанию адаптивы сохраняют одно логическое дерево. Если сетка становится каруселью или таблица — карточками, контракт явно сопоставляет identity, состояния, семантику и фокус.',
+          evidence: '375 ⇄ 768 ⇄ 1440 · identity + declared transform',
+          checks: ['одно дерево по умолчанию', 'объявленное преобразование grid → carousel', 'карта identity, semantics и focus'],
+        },
+        {
+          id: 'motion',
+          label: 'Движение',
+          source: 'timeline + policy',
+          title: 'Передать причину и ход движения, а не только эффект.',
+          description: 'Триггер, временная шкала, ключевые состояния, связь со скроллом и политика reduced motion описывают воспроизводимое поведение.',
+          evidence: 'timeline: scroll-progress · reduced motion',
+          checks: ['триггер и владелец', 'ключевые состояния', 'статичный вариант'],
+        },
+        {
+          id: 'accessibility',
+          label: 'Доступность',
+          source: 'profile + checks',
+          title: 'Задать один профиль качества для дизайна и кода.',
+          description: 'Семантика, имя элемента, фокус, клавиатура, контраст, точность касания и декоративность проверяются как части одного профиля.',
+          evidence: 'profile: WCAG 2.2 AA · focus · touch',
+          checks: ['имя и роль', 'фокус и клавиатура', 'контраст и касание'],
+        },
+      ],
     }
   : {
-      eyebrow: 'What survives the handoff',
-      title: 'Figma stores the design. BRIDGE records the decisions.',
-      lead: 'Which page this is, which frames form one responsive set, where an action leads, and which deviations are intentional—all of it stays in the file and can be checked before implementation.',
-      nativeLabel: 'Native Figma structure',
-      nativeTitle: 'Technical truth',
-      nativeItems: ['Auto Layout and size', 'Components and variants', 'Hierarchy and styles'],
-      intentLabel: 'BRIDGE intent',
-      intentTitle: 'Product meaning',
-      intentItems: ['Page and breakpoint', 'Action and target', 'Role and exception'],
-      resultLabel: 'Transferable contract',
-      resultTitle: 'The design reads without its author',
-      resultItems: ['One stable identity at every width', 'Every action resolves to a target', 'Every issue resolves to a rule'],
-      ready: 'Ready to review',
-      equationPlus: 'plus',
-      equationEquals: 'equals',
-      caption: 'BRIDGE declares only what cannot be inferred reliably from pixels or layer structure.',
+      eyebrow: 'Coverage map',
+      title: 'No decision should disappear between design and code.',
+      lead: 'BRIDGE brings six channels into one contract. Select a channel to see which truth stays native and which decision must be made explicit.',
+      modelNote: 'These are six completeness lenses, not the expansion of the acronym; B–R–I–D–G–E remain the principles. “No blind spots” does not mean every answer is known: every open question is declared and owned.',
+      tabsLabel: 'Six BRIDGE coverage channels',
+      coreLabel: 'channels in one contract',
+      channel: 'Channel',
+      proofLabel: 'An exception is still a decision',
+      proof: 'A deviation does not hide in a comment: the canonical pair records what departs from the shared rule and why.',
+      items: [
+        {
+          id: 'structure',
+          label: 'Structure',
+          source: 'Figma + identity',
+          title: 'Reconstruct the tree without guessing.',
+          description: 'Hierarchy and Auto Layout remain native Figma truth. Root frames, sections, and actions receive stable identities where the relationship would otherwise be ambiguous.',
+          evidence: '[page=home] [bp=1440] [view=default]',
+          checks: ['root frames', 'parents and order', 'stable names'],
+        },
+        {
+          id: 'data',
+          label: 'Data',
+          source: 'structured metadata',
+          title: 'Describe the range, not one polished example.',
+          description: 'The content model, formats, collections, and edge cases cannot be inferred from one ideal fixture, so they belong in the contract.',
+          evidence: 'metadata: data-display · content model · edge cases',
+          checks: ['long and empty content', 'minimum and maximum items', 'formats and accessible equivalent'],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          source: 'views + UI Kit',
+          title: 'Show what happens before, during, and after an action.',
+          description: 'Page states stay separate from component variants. Loading, empty, error, and action reactions become explicit instead of being left to implementation.',
+          evidence: '[view=default] → loading → empty → error',
+          checks: ['page states', 'component states', 'reactions and targets'],
+        },
+        {
+          id: 'responsive',
+          label: 'Responsive',
+          source: 'one identity',
+          title: 'Change geometry; declare a structural transform.',
+          description: 'Responsive views use one logical tree by default. When a grid becomes a carousel or a table becomes cards, the contract explicitly maps identity, state, semantics, and focus.',
+          evidence: '375 ⇄ 768 ⇄ 1440 · identity + declared transform',
+          checks: ['same tree by default', 'declared grid → carousel transform', 'identity, semantics, and focus map'],
+        },
+        {
+          id: 'motion',
+          label: 'Motion',
+          source: 'timeline + policy',
+          title: 'Transfer why and how something moves, not only the effect.',
+          description: 'Trigger, timeline, key states, scroll ownership, and reduced-motion policy describe behavior that can be reproduced rather than approximated.',
+          evidence: 'timeline: scroll-progress · reduced motion',
+          checks: ['trigger and owner', 'key states', 'static fallback'],
+        },
+        {
+          id: 'accessibility',
+          label: 'Accessibility',
+          source: 'profile + checks',
+          title: 'Set one quality profile for design and code.',
+          description: 'Semantics, accessible name, focus, keyboard, contrast, touch accuracy, and decorative intent are reviewed as one shared profile.',
+          evidence: 'profile: WCAG 2.2 AA · focus · touch',
+          checks: ['name and role', 'focus and keyboard', 'contrast and touch'],
+        },
+      ],
     };
 ---
 
@@ -51,61 +150,104 @@ const copy = locale === 'ru'
       <h2 id="bridge-contract-title">{copy.title}</h2>
       <p>{copy.lead}</p>
     </div>
+    <p class="bridge-contract-model-note">{copy.modelNote}</p>
   </header>
 
-  <div class="bridge-contract-equation">
-    <article class="bridge-contract-card is-native">
-      <div class="bridge-contract-card-head">
-        <span>01</span>
-        <small>{copy.nativeLabel}</small>
-      </div>
-      <div class="bridge-contract-window" aria-hidden="true">
-        <div><i></i><i></i><i></i><span>Home / 1440</span></div>
-        <p><b>#</b><span>Hero</span><code>Auto layout</code></p>
-        <p><b>◇</b><span>contact-button</span><code>Instance</code></p>
-        <p><b>T</b><span>hero-title</span><code>48 / 52</code></p>
-      </div>
-      <h3>{copy.nativeTitle}</h3>
-      <ul>{copy.nativeItems.map((item) => <li>{item}</li>)}</ul>
-    </article>
-
-    <div class="bridge-contract-operator is-plus" role="img" aria-label={copy.equationPlus}>
-      <span aria-hidden="true"></span>
+  <div class="bridge-coverage-board" data-coverage-map>
+    <div class="bridge-coverage-tabs" role="tablist" aria-label={copy.tabsLabel}>
+      {copy.items.map((item, index) => (
+        <button
+          id={`coverage-${item.id}-tab`}
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? 'true' : 'false'}
+          aria-controls={`coverage-${item.id}-panel`}
+          tabindex={index === 0 ? '0' : '-1'}
+          data-coverage-tab
+          data-coverage-index={index}
+        >
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <strong>{item.label}</strong>
+          <small>{item.source}</small>
+          <i aria-hidden="true"></i>
+        </button>
+      ))}
     </div>
 
-    <article class="bridge-contract-card is-intent">
-      <div class="bridge-contract-card-head">
-        <span>02</span>
-        <small>{copy.intentLabel}</small>
-      </div>
-      <div class="bridge-contract-tags" aria-hidden="true">
-        <code>[page=home]</code>
-        <code>[bp=1440]</code>
-        <code>[action=modal:contact]</code>
-        <code>[exception=hero-crop]</code>
-      </div>
-      <h3>{copy.intentTitle}</h3>
-      <ul>{copy.intentItems.map((item) => <li>{item}</li>)}</ul>
-    </article>
-
-    <div class="bridge-contract-operator is-equals" role="img" aria-label={copy.equationEquals}>
-      <span aria-hidden="true"></span>
+    <div class="bridge-coverage-core" aria-hidden="true">
+      <img src={`${base}/assets/brand/bridge-mark.svg`} width="72" height="72" alt="" />
+      <strong>6 / 6</strong>
+      <span>{copy.coreLabel}</span>
     </div>
 
-    <article class="bridge-contract-card is-result">
-      <div class="bridge-contract-card-head">
-        <span>03</span>
-        <small>{copy.resultLabel}</small>
-      </div>
-      <div class="bridge-contract-status" aria-hidden="true">
-        <span><i></i>{copy.ready}</span>
-        <strong>375 · 768 · 1280 · 1920</strong>
-        <div><i></i><i></i><i></i><i></i></div>
-      </div>
-      <h3>{copy.resultTitle}</h3>
-      <ul>{copy.resultItems.map((item) => <li>{item}</li>)}</ul>
-    </article>
+    <div class="bridge-coverage-panels">
+      {copy.items.map((item, index) => (
+        <article
+          id={`coverage-${item.id}-panel`}
+          role="tabpanel"
+          aria-labelledby={`coverage-${item.id}-tab`}
+          tabindex="0"
+          data-coverage-panel
+          data-coverage-index={index}
+          hidden={index !== 0}
+        >
+          <p>{copy.channel} {String(index + 1).padStart(2, '0')} / 06</p>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+          <code>{item.evidence}</code>
+          <ul>
+            {item.checks.map((check) => <li><span aria-hidden="true"></span>{check}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
   </div>
 
-  <p class="bridge-contract-caption"><span aria-hidden="true">↳</span>{copy.caption}</p>
+  <div class="bridge-contract-proof">
+    <div>
+      <span>{copy.proofLabel}</span>
+      <code>[bridge-exception=manual-line-break] [reason=brand-lockup]</code>
+    </div>
+    <p>{copy.proof}</p>
+  </div>
 </section>
+
+<script>
+  const initCoverageMap = (root: Element) => {
+    if (!(root instanceof HTMLElement) || root.dataset.coverageReady === 'true') return;
+    root.dataset.coverageReady = 'true';
+
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-coverage-tab]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-coverage-panel]')];
+
+    const activate = (tab: HTMLButtonElement, moveFocus = false) => {
+      const index = Number(tab.dataset.coverageIndex || 0);
+      for (const item of tabs) {
+        const active = item === tab;
+        item.setAttribute('aria-selected', String(active));
+        item.tabIndex = active ? 0 : -1;
+      }
+      for (const panel of panels) panel.hidden = Number(panel.dataset.coverageIndex || 0) !== index;
+      root.style.setProperty('--coverage-active', String(index));
+      if (moveFocus) tab.focus();
+    };
+
+    for (const tab of tabs) {
+      tab.addEventListener('click', () => activate(tab));
+      tab.addEventListener('keydown', (event) => {
+        const current = tabs.indexOf(tab);
+        let next = -1;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (current + 1) % tabs.length;
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        if (next < 0) return;
+        event.preventDefault();
+        const nextTab = tabs[next];
+        if (nextTab) activate(nextTab, true);
+      });
+    }
+  };
+
+  for (const root of document.querySelectorAll('[data-coverage-map]')) initCoverageMap(root);
+</script>

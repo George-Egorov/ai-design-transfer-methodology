@@ -1,11 +1,11 @@
 {
+  "$schema": "./page-check-coverage.schema.json",
   "methodology": "BRIDGE",
   "pluginVersion": "0.7.0",
-  "catalogVersion": "0.2.1",
-  "verifiedAt": "2026-07-17",
-  "source": "https://github.com/Poliklot/bridge-figma-assistant/blob/v0.7.0/src/plugin/parts/70-page-preflight.js",
+  "catalogVersion": "0.4.0",
+  "verifiedAt": "2026-08-13",
   "counts": {
-    "catalogRules": 77,
+    "catalogRules": 102,
     "pageCheckRules": 24,
     "automaticRules": 23,
     "heuristicRules": 1
@@ -37,5 +37,10 @@
   ],
   "heuristicRuleIds": [
     "content.text-changed-between-breakpoints"
-  ]
+  ],
+  "implementation": {
+    "product": "BRIDGE Figma plugin",
+    "feature": "Page Check",
+    "visibility": "private"
+  }
 }

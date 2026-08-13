@@ -122,7 +122,7 @@ The page is ready for handoff when:
 - every reported blocker is fixed, while warnings and exceptions have an explicit decision;
 - the manual items in the [full preflight](08-preflight-checklist.md) have also been reviewed.
 
-Page Check in version 0.7.0 covers 24 of the 77 catalog rules. It shortens the review; it does not replace the remaining manual checks.
+Page Check in version 0.7.0 covers 24 of the 102 catalog rules. It shortens the review; it does not replace the remaining manual checks.
 
 ## Find the right example
 

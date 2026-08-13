@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/page-check-coverage.schema.json",
+  "title": "BRIDGE Figma Page Check coverage snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "methodology", "pluginVersion", "catalogVersion", "verifiedAt", "implementation", "counts", "automaticRuleIds", "heuristicRuleIds"],
+  "properties": {
+    "$schema": { "const": "./page-check-coverage.schema.json" },
+    "methodology": { "const": "BRIDGE" },
+    "pluginVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "catalogVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "verifiedAt": { "type": "string", "format": "date" },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["product", "feature", "visibility"],
+      "properties": {
+        "product": { "const": "BRIDGE Figma plugin" },
+        "feature": { "const": "Page Check" },
+        "visibility": { "enum": ["private", "public"] }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalogRules", "pageCheckRules", "automaticRules", "heuristicRules"],
+      "properties": {
+        "catalogRules": { "type": "integer", "minimum": 1 },
+        "pageCheckRules": { "type": "integer", "minimum": 0 },
+        "automaticRules": { "type": "integer", "minimum": 0 },
+        "heuristicRules": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "automaticRuleIds": { "$ref": "#/$defs/ruleIds" },
+    "heuristicRuleIds": { "$ref": "#/$defs/ruleIds" }
+  },
+  "$defs": {
+    "ruleIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$" }
+    }
+  }
+}

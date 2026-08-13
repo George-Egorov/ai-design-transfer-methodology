@@ -58,7 +58,7 @@ The [BRIDGE Assistant plugin](https://www.figma.com/community/plugin/16544855305
 
 Select the page root and run **Check page** in the plugin. In version 0.7.0 it reports 24 catalog rules: 23 automatic checks and one heuristic check. Review the [coverage file](../validator/page-check-coverage.json) when exact scope matters.
 
-The full [catalog contains 77 rules](../validator/rules.json). Rules outside the current plugin coverage still require the [designer checklist](17-designer-checklist.md), review, or a future automation path. A clean plugin report is therefore not a claim that every catalog rule has been evaluated.
+The full [catalog contains 102 rules](../validator/rules.json). Rules outside current plugin coverage require structured-contract checks, the [designer checklist](17-designer-checklist.md), heuristic/manual review, or target QA according to the [coverage manifest](../validator/methodology-coverage.json). A clean plugin report is therefore not a claim that every catalog rule has been evaluated.
 
 Fix unresolved blockers. Discuss warnings in context. Record intentional exceptions and their reasons instead of hiding them.
 
@@ -70,7 +70,7 @@ Give the prepared file to the receiver again. The receiver should be able to fin
 2. corresponding elements across breakpoints;
 3. each link or action and its target;
 4. content, decoration, and exportable assets;
-5. any documented exception that changes implementation.
+5. any documented exception, transformation, open question, or capability fallback that changes implementation.
 
 Record the same time and question counts as in the baseline. If a core answer still has to be supplied verbally, the contract is incomplete.
 
@@ -79,7 +79,7 @@ Record the same time and question counts as in the baseline. If a core answer st
 Classify the findings with the team:
 
 - **blocking** — implementation would otherwise require guessing;
-- **review** — the intent is visible, but a product or technical decision remains;
+- **open question** — the unknown is explicit, scoped, owned, classified as blocking/non-blocking, assigned a review point, and given a safe fallback;
 - **accepted exception** — the deviation is intentional and has a reason;
 - **workflow improvement** — a reusable convention, template, or checklist change.
 
@@ -91,7 +91,7 @@ Set the threshold before the pilot. A practical starting point is:
 
 - the receiver answers the five handoff questions in five minutes without the author;
 - no unresolved blocking result remains in the plugin report;
-- every known manual concern or exception has an owner and a written decision;
+- every known manual concern, exception, or open question has an owner, scope, blocking status, review point, and written decision or safe fallback;
 - the number of clarification questions and total handoff time are recorded before and after;
 - the developer can start implementation without private context that exists only in chat or a meeting.
 
@@ -115,17 +115,19 @@ Apply BRIDGE to active work as it changes. There is no need to rewrite an archiv
 - Do not rename the whole library before the first measured handoff.
 - Do not treat every warning as a blocker without product and technical context.
 - Do not use a polished toy file that avoids real states and interactions.
-- Do not present the 24 Page Check rules as automation of the full 77-rule catalog.
+- Do not present the 24 Page Check rules as automation of the full 102-rule catalog.
 - Do not turn BRIDGE into a separate specification that drifts away from the design.
 
 ## Cost, infrastructure, and data
 
 | Question | Current answer |
 | --- | --- |
-| License and payment | The methodology and plugin source are MIT-licensed. Plugin version 0.7.0 requests no payments and has no paid BRIDGE account. |
+| License and payment | The methodology and this public repository are MIT-licensed; the plugin implementation is private. Plugin version 0.7.0 requests no payments and has no paid BRIDGE account. |
 | Infrastructure | No BRIDGE backend or team server is required. The published plugin declares no network access. |
 | Stored data | Language and the copied target are stored locally in Figma client storage. Explicit actions may rename selected layers or attach BRIDGE metadata to the document. Nothing is sent to an external BRIDGE service. |
 | Migration | No archive migration is required. Start with one active file and expand only where the workflow proves useful. |
+
+The plugin facts in this table describe the published 0.7.0 build. The plugin implementation repository is private; the public methodology repository remains the source for contract, coverage, and process claims.
 
 Figma itself remains the host product and is governed by the workspace plan and policies your organization already uses.
 
