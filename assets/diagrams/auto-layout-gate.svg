@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">BRIDGE Auto Layout gate</title>
+  <desc id="desc">A blind-spot Figma frame with manual coordinates and a group enters Page Check. The gate requires Auto Layout on page, section, and content containers, rejects groups outside assets, and accepts a ready hierarchy with an absolute decorative layer and an opaque asset.</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1l9 5-9 5z" fill="#0D99FF"/>
+    </marker>
+  </defs>
+  <style>
+    text{font-family:Arial,sans-serif}
+    .display{font-size:44px;font-weight:700;fill:#1E1E1E}
+    .heading{font-size:25px;font-weight:700;fill:#1E1E1E}
+    .body{font-size:18px;font-weight:500;fill:#283137}
+    .small{font-size:15px;font-weight:500;fill:#5C6874}
+    .label{font-family:"Courier New",monospace;font-size:14px;font-weight:700;letter-spacing:1.4px;fill:#006FC4}
+    .mono{font-family:"Courier New",monospace;font-size:15px;font-weight:700;fill:#1E1E1E}
+    .mono-small{font-family:"Courier New",monospace;font-size:13px;font-weight:700;fill:#283137}
+    .white-heading{font-size:25px;font-weight:700;fill:#FFFFFF}
+    .white-body{font-size:17px;font-weight:500;fill:#FFFFFF}
+    .white-mono{font-family:"Courier New",monospace;font-size:14px;font-weight:700;fill:#FFFFFF}
+    .blue-mono{font-family:"Courier New",monospace;font-size:13px;font-weight:700;fill:#70C3FF}
+    .panel{fill:#FFFFFF;stroke:#DCE4E9;stroke-width:2}
+    .node{fill:#F2F6F8;stroke:#DCE4E9;stroke-width:2}
+    .node-ready{fill:#FFFFFF;stroke:#0D99FF;stroke-width:2}
+    .line{fill:none;stroke:#DCE4E9;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .blue-line{fill:none;stroke:#0D99FF;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+
+  <rect width="1440" height="900" fill="#FBFCFD"/>
+
+  <text x="64" y="66" class="label">AUTO LAYOUT GATE</text>
+  <text x="64" y="119" class="display">Coordinates are not a layout contract.</text>
+  <text x="64" y="154" class="small">Page Check separates editable content flow from intentional visual exceptions.</text>
+
+  <!-- Blind spot -->
+  <rect x="64" y="196" width="390" height="566" rx="28" class="panel"/>
+  <rect x="64" y="196" width="10" height="566" rx="5" fill="#1E1E1E"/>
+  <text x="100" y="240" class="label">BLIND SPOT</text>
+  <text x="100" y="278" class="heading">Manual coordinates</text>
+  <text x="100" y="307" class="small">Structure looks composed, but cannot reflow.</text>
+
+  <rect x="100" y="342" width="318" height="359" rx="20" fill="#F2F6F8" stroke="#283137" stroke-width="2"/>
+  <text x="122" y="376" class="mono">FRAME · page</text>
+  <rect x="283" y="353" width="113" height="32" rx="16" fill="#283137"/>
+  <text x="339.5" y="374" class="white-mono" text-anchor="middle">NONE</text>
+
+  <path d="M126 401v231M126 432h22M126 515h22M126 612h22" class="line"/>
+
+  <rect x="148" y="407" width="236" height="70" rx="14" class="node"/>
+  <text x="168" y="435" class="mono-small">FRAME · section</text>
+  <text x="168" y="459" class="small">layoutMode=NONE</text>
+
+  <rect x="148" y="490" width="236" height="103" rx="14" class="node"/>
+  <text x="168" y="518" class="mono-small">FRAME · content</text>
+  <text x="168" y="542" class="small">2 direct children</text>
+  <circle cx="176" cy="566" r="6" fill="#5C6874"/>
+  <circle cx="202" cy="566" r="6" fill="#5C6874"/>
+  <text x="224" y="571" class="small">free-positioned</text>
+
+  <rect x="148" y="606" width="236" height="70" rx="35" fill="#FFFFFF" stroke="#283137" stroke-width="3" stroke-dasharray="8 7"/>
+  <text x="168" y="636" class="mono-small">GROUP</text>
+  <text x="168" y="660" class="small">no layout contract</text>
+
+  <rect x="99" y="716" width="320" height="30" rx="15" fill="#1E1E1E"/>
+  <text x="259" y="736" class="white-mono" text-anchor="middle">BLOCKING ERRORS</text>
+
+  <!-- Flow arrows -->
+  <path d="M454 480h57" class="blue-line" marker-end="url(#arrow-blue)"/>
+  <path d="M929 480h57" class="blue-line" marker-end="url(#arrow-blue)"/>
+
+  <!-- Page Check gate -->
+  <rect x="525" y="196" width="390" height="566" rx="28" fill="#1E1E1E"/>
+  <rect x="525" y="196" width="10" height="566" rx="5" fill="#0D99FF"/>
+  <text x="565" y="240" class="blue-mono">PAGE CHECK</text>
+  <text x="565" y="278" class="white-heading">Transfer gate</text>
+  <text x="565" y="307" class="white-body">Native Figma metadata is the evidence.</text>
+
+  <rect x="565" y="342" width="310" height="58" rx="14" fill="#283137" stroke="#0D99FF" stroke-width="2"/>
+  <text x="586" y="367" class="white-mono">PAGE ROOT</text>
+  <text x="854" y="367" class="blue-mono" text-anchor="end">AUTO LAYOUT</text>
+  <text x="586" y="388" class="blue-mono">0..n children · unconditional</text>
+
+  <rect x="565" y="414" width="310" height="58" rx="14" fill="#283137" stroke="#0D99FF" stroke-width="2"/>
+  <text x="586" y="439" class="white-mono">SECTION</text>
+  <text x="854" y="439" class="blue-mono" text-anchor="end">AUTO LAYOUT</text>
+  <text x="586" y="460" class="blue-mono">editable root · unconditional</text>
+
+  <rect x="565" y="486" width="310" height="58" rx="14" fill="#283137" stroke="#0D99FF" stroke-width="2"/>
+  <text x="586" y="511" class="white-mono">CONTENT</text>
+  <text x="854" y="511" class="blue-mono" text-anchor="end">AUTO LAYOUT</text>
+  <text x="586" y="532" class="blue-mono">meaningful direct children ≥ 2</text>
+
+  <rect x="565" y="558" width="310" height="58" rx="14" fill="#283137" stroke="#FFFFFF" stroke-width="2"/>
+  <text x="586" y="583" class="white-mono">GROUP</text>
+  <text x="854" y="583" class="white-mono" text-anchor="end">ERROR</text>
+  <text x="586" y="604" class="blue-mono">unless inside opaque [asset]</text>
+
+  <rect x="565" y="630" width="310" height="88" rx="14" fill="#283137" stroke="#DCE4E9" stroke-width="2"/>
+  <text x="586" y="655" class="white-mono">EXCEPTIONS</text>
+  <text x="586" y="680" class="blue-mono">[asset] = opaque · not PAGE ROOT</text>
+  <text x="586" y="702" class="blue-mono">ABSOLUTE = exact-node intent</text>
+
+  <!-- Ready hierarchy -->
+  <rect x="986" y="196" width="390" height="566" rx="28" class="panel"/>
+  <rect x="986" y="196" width="10" height="566" rx="5" fill="#0D99FF"/>
+  <text x="1022" y="240" class="label">READY</text>
+  <text x="1022" y="278" class="heading">Explicit content flow</text>
+  <text x="1022" y="307" class="small">Every editable boundary declares behavior.</text>
+
+  <rect x="1022" y="342" width="318" height="359" rx="20" fill="#EAF6FF" stroke="#0D99FF" stroke-width="3"/>
+  <text x="1044" y="376" class="mono">FRAME · page</text>
+  <rect x="1191" y="353" width="127" height="32" rx="16" fill="#0D99FF"/>
+  <text x="1254.5" y="374" class="white-mono" text-anchor="middle">VERTICAL</text>
+
+  <path d="M1048 401v248M1048 432h22M1048 515h22M1048 600h22M1048 649h22" class="blue-line"/>
+
+  <rect x="1070" y="407" width="236" height="70" rx="14" class="node-ready"/>
+  <text x="1090" y="435" class="mono-small">FRAME · section</text>
+  <text x="1090" y="459" class="small">layoutMode=VERTICAL</text>
+
+  <rect x="1070" y="490" width="236" height="70" rx="14" class="node-ready"/>
+  <text x="1090" y="518" class="mono-small">FRAME · content</text>
+  <text x="1090" y="542" class="small">layoutMode=HORIZONTAL</text>
+
+  <rect x="1070" y="573" width="236" height="49" rx="14" fill="#FFFFFF" stroke="#0D99FF" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="1090" y="603" class="mono-small">decor · ABSOLUTE</text>
+
+  <rect x="1070" y="635" width="236" height="49" rx="14" fill="#283137"/>
+  <text x="1090" y="665" class="white-mono">artwork [asset] · OPAQUE</text>
+
+  <circle cx="1307" cy="716" r="15" fill="#16845B"/>
+  <path d="M1300 716l5 5 10-12" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1279" y="742" class="label" text-anchor="end">TRANSFERABLE</text>
+
+  <!-- Boundary invariants -->
+  <path d="M64 810h1312" class="line"/>
+  <text x="64" y="849" class="label">BOUNDARIES</text>
+  <text x="233" y="849" class="mono">[asset] = opaque · not PAGE ROOT</text>
+  <circle cx="514" cy="844" r="4" fill="#0D99FF"/>
+  <text x="536" y="849" class="mono">INSTANCE = atomic</text>
+  <circle cx="723" cy="844" r="4" fill="#0D99FF"/>
+  <text x="745" y="849" class="mono">[decor] ≠ exemption</text>
+  <circle cx="976" cy="844" r="4" fill="#0D99FF"/>
+  <text x="998" y="849" class="mono">manual-layout = evidence only</text>
+</svg>

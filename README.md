@@ -129,7 +129,7 @@ No accidental free-floating layers. No mystery buttons. No responsive versions t
 
 [BRIDGE Assistant](https://www.figma.com/community/plugin/1654485530503673254/bridge) is the companion Figma plugin. Its installable build is public in Figma Community, while its implementation repository is private. The methodology, documentation, schemas, checklists, and rule catalog in this repository remain open under MIT.
 
-The catalog contains **102 rules**. Plugin Page Check 0.7.0 covers **24** (23 automatic and 1 heuristic); structured and manual coverage remains explicit.
+The catalog contains **107 rules**. Plugin Page Check 0.8.0 covers **30** (29 automatic and 1 heuristic), including the blocking native Auto Layout and non-asset GROUP rules; structured and manual coverage remains explicit.
 
 ## Local development
 

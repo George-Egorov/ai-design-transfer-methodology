@@ -1,6 +1,6 @@
 # BRIDGE terminology
 
-This glossary defines the canonical terms used by BRIDGE 0.9. Use these meanings in design evidence, structured contracts, implementation notes, QA, and deviations.
+This glossary defines the canonical terms used by BRIDGE 0.10. Use these meanings in design evidence, structured contracts, implementation notes, QA, and deviations.
 
 ## Usage rule
 
@@ -109,7 +109,7 @@ Human-facing explanations may be localized. Machine-readable layer tags, JSON fi
 
 | Term | Meaning |
 | --- | --- |
-| **Accessibility profile** | The target standard/version/level and the semantic, input, visual, media, motion, responsive, and QA requirements for the delivered scope. BRIDGE 0.9 uses WCAG 2.2 Level AA as its default web profile. |
+| **Accessibility profile** | The target standard/version/level and the semantic, input, visual, media, motion, responsive, and QA requirements for the delivered scope. BRIDGE 0.10 uses WCAG 2.2 Level AA as its default web profile. |
 | **Conformance target** | The standard a complete implementation aims to meet. It is not a conformance claim for a mockup, isolated component, automated score, or unfinished process. |
 | **Accessible name/description** | The programmatically exposed label and supporting explanation for an element; visible text, label-in-name, and repeated-control context remain aligned. |
 | **Reading order** | The semantic order in which content relationships are exposed, independent of purely visual placement. |

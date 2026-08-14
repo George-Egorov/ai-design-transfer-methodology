@@ -51,6 +51,10 @@
           "bp",
           "view"
         ]
+      },
+      "notes": {
+        "en": "A BRIDGE page root always uses native Auto Layout and must never carry [asset].",
+        "ru": "Корень страницы BRIDGE всегда использует нативный Auto Layout и никогда не содержит [asset]."
       }
     },
     {
@@ -202,6 +206,10 @@
           "item",
           "form"
         ]
+      },
+      "notes": {
+        "en": "A frame-built section or editable Page Sections source root uses native Auto Layout unless the exact section is a genuine opaque whole-visual asset. Page Check treats a placed INSTANCE as atomic; audit its source separately.",
+        "ru": "Секция-фрейм или редактируемый исходный корень Page Sections использует нативный Auto Layout, кроме точной секции, которая является настоящим непрозрачным цельным визуальным ресурсом. Page Check считает размещённый INSTANCE атомарным; его источник проверяется отдельно."
       }
     },
     {
@@ -611,8 +619,8 @@
       "identityBearing": false,
       "companions": {},
       "notes": {
-        "en": "Prefer the boolean form with a stable layer name; the value is only an identity fallback.",
-        "ru": "Предпочитайте булеву форму со стабильным именем слоя; значение служит только резервным идентификатором."
+        "en": "Prefer the boolean form with a stable layer name. Outside an asset, [decor] belongs only on the exact intended absolute visual node and never exempts a container or GROUP from structural rules.",
+        "ru": "Предпочитайте булеву форму со стабильным именем слоя. Вне ресурса [decor] ставится только на точный намеренный абсолютный визуальный узел и никогда не освобождает контейнер или GROUP от структурных правил."
       }
     },
     {
@@ -635,8 +643,8 @@
       "identityBearing": false,
       "companions": {},
       "notes": {
-        "en": "Prefer the boolean form with a stable layer name; [decor] and [asset] may be combined.",
-        "ru": "Предпочитайте булеву форму со стабильным именем слоя; теги [decor] и [asset] можно сочетать."
+        "en": "Prefer the boolean form with a stable layer name. An asset is one opaque visual subtree whose root remains in the parent flow; [decor] and [asset] may be combined. Page roots cannot be assets.",
+        "ru": "Предпочитайте булеву форму со стабильным именем слоя. Ресурс является одним непрозрачным визуальным поддеревом, чей корень остаётся в потоке родителя; [decor] и [asset] можно сочетать. Корень страницы не может быть ресурсом."
       }
     },
     {
@@ -745,6 +753,10 @@
         "requires": [
           "reason"
         ]
+      },
+      "notes": {
+        "en": "Overlay may satisfy exact-node absolute positioning intent. Manual-layout documents a proposed structural deviation but does not suppress page, section, container, or GROUP errors.",
+        "ru": "Overlay может подтвердить назначение точного абсолютного узла. Manual-layout документирует предлагаемое структурное отклонение, но не подавляет ошибки страницы, секции, контейнера или GROUP."
       }
     },
     {
@@ -971,8 +983,8 @@
       "identityBearing": false,
       "companions": {},
       "notes": {
-        "en": "Use frames, groups, and Auto Layout.",
-        "ru": "Используйте фреймы, группы и Auto Layout."
+        "en": "Use frames or components with native Auto Layout. GROUP is valid only inside an opaque [asset] subtree.",
+        "ru": "Используйте фреймы или компоненты с нативным Auto Layout. GROUP допустим только внутри непрозрачного поддерева [asset]."
       }
     },
     {

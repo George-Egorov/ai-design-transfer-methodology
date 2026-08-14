@@ -152,30 +152,36 @@ The id after `modal:` must match `[modal=...]`. The modal component must define 
 
 **Goal:** group a hero heading, text, and controls.
 
-❌ Accidental siblings and wrappers:
+❌ Manual coordinates and a non-asset GROUP:
 
 ```text
-hero
-  Frame 18
-    Frame 19
+Home [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
+  hero [section=hero] (FRAME, layoutMode NONE)
+    Group 19
       hero-title
-  hero-subtitle
-  primary-cta
+      hero-subtitle
+    primary-cta
 ```
 
-✅ Parents explain relationships:
+This produces blocking page, section, and GROUP findings. `[decor]` on `Group 19` would not make it valid.
+
+✅ Parents explain relationships with native Auto Layout:
 
 ```text
-hero
-  hero-copy
-    hero-title
-    hero-subtitle
-  hero-actions
-    primary-cta
-    secondary-cta
+Home [page=home] [bp=1440] [view=default] (FRAME, vertical Auto Layout)
+  hero [section=hero] (FRAME, vertical Auto Layout)
+    hero-copy (FRAME, vertical Auto Layout)
+      hero-title
+      hero-subtitle
+    hero-actions (FRAME, horizontal Auto Layout)
+      primary-cta
+      secondary-cta
+    hero-glow [decor] (ABSOLUTE visual leaf)
 ```
 
-`hero-copy` and `hero-actions` have clear jobs. A wrapper is unnecessary when it does not provide grouping, layout, clipping, a shared background, a target, or another real responsibility.
+Page and frame-built section roots use Auto Layout even with zero or one child. Generic containers use it when at least two visible meaningful direct children participate in content flow. Primitive/leaf geometry is exempt. A complex freeform visual may be `[asset]`; its internals are opaque, but its root remains one child in the parent's Auto Layout.
+
+Every Figma GROUP outside an `[asset]` subtree remains a blocking error. `[bridge-exception=manual-layout] [reason=...]` can document a proposed deviation on the exact GROUP, but Page Check still reports it for separate acceptance.
 
 [Full rule: wrappers](../docs/06-wrapper-policy.md)
 
@@ -216,10 +222,10 @@ complex-illustration [decor] [asset]
 ```
 
 - `product-photo` is a content image with stable identity;
-- `glow [decor]` has no product or accessibility semantics;
-- `complex-illustration [decor] [asset]` is decoration exported as one asset.
+- `glow [decor]` is the exact intended absolute visual leaf and has no product or accessibility semantics;
+- `complex-illustration [decor] [asset]` is an absolute decorative composition exported as one opaque asset.
 
-`[decor]` does not mean the layer may silently disappear on mobile, and `[asset]` does not replace a stable layer name.
+`[decor]` does not authorize a freeform container/GROUP and does not mean the layer may silently disappear on mobile. `[asset]` does not replace a stable layer name; it only makes a genuine visual subtree opaque, and it is forbidden on a BRIDGE page root.
 
 [Full rule: image, decor, and asset](../docs/01-design-rules.md#4-image-decor-and-asset-mean-different-things)
 

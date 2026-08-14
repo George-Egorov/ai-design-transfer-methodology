@@ -7,7 +7,7 @@ BRIDGE should become comfortable because a designer can run a preflight check be
 1. **Syntax validation** — tags, boolean visual-intent/draft flags, optional tag values, keys, href/action syntax, breakpoint tags.
 2. **Identity validation** — identity uniqueness, identity stability, breakpoint-neutral identity values, type stability, and correct exclusion of `[decor]`/`[asset]` flags from identity-tag counting.
 3. **Responsive validation** — identity coverage, tree topology/cardinality, parent-child stability, visibility changes, visual-intent drift, content drift, order changes, breakpoint completeness.
-4. **Structure validation** — Figma structure, wrappers, clipping, positioning intent, fixed heights, overlaps.
+4. **Structure validation** — page/section/content-container Auto Layout, forbidden non-asset GROUP nodes, wrappers, clipping, positioning intent, fixed heights, overlaps.
 5. **Interaction graph validation** — href links, draft link/control markers, actions, targets, modals, states, forms.
 6. **Content validation** — text equality, strict legal/price content, rich text, localization risk; skip product-content drift checks for text inside decorative/root asset visuals.
 7. **Asset validation** — asset policy, native text misuse, export settings, focal points.
@@ -37,7 +37,10 @@ extract design tree
   -> compare responsive tree cardinality and parent identities only inside one page/view group
   -> compare visibility, sibling order, and visual-intent flags inside each parent
   -> compare product content across breakpoints, excluding decorative/root asset visuals
-  -> classify structure, wrappers, and positioning intent
+  -> classify page, section, generic content-container, primitive/leaf, component-instance, and opaque asset boundaries
+  -> inspect native node type and layout mode; require Auto Layout and reject non-asset GROUP nodes
+  -> validate exact-node absolute decor/overlay intent without treating [decor] as a structural exemption
+  -> classify remaining wrappers and positioning intent
   -> build href/action-target graph
   -> inspect geometry, overflow, and fixed heights
   -> check assets and component states
@@ -59,6 +62,12 @@ The machine-readable seed lives in [`../validator/rules.json`](../validator/rule
 | Syntax | `syntax.identity-value-not-kebab-case` | warning | automatic |
 | Syntax | `syntax.duplicate-tag` | error | automatic |
 | Syntax | `syntax.figma-metadata-tag-invalid` | error | automatic |
+| Structure | `layout.page-root-missing-auto-layout` | error | automatic |
+| Structure | `layout.page-root-cannot-be-asset` | error | automatic |
+| Structure | `layout.section-missing-auto-layout` | error | automatic |
+| Structure | `layout.container-missing-auto-layout` | error | automatic |
+| Structure | `layout.group-outside-asset` | error | automatic |
+| Structure | `layout.positioned-without-intent` | warning | automatic |
 | Section | `section.component-source-unclassified` | warning | heuristic |
 | Section | `section.redundant-instance-section-tag` | warning | heuristic |
 | Component | `component.ui-kit-used-as-section` | warning | heuristic |
@@ -92,6 +101,8 @@ The machine-readable seed lives in [`../validator/rules.json`](../validator/rule
 | Asset | `asset.raster-text-without-reason` | error | heuristic/manual |
 | Accessibility | `accessibility.decorative-layer-exposed` | warning | automatic |
 | Interaction | `interaction.form-field-missing-label` | warning | automatic |
+
+For `layout.section-missing-auto-layout`, automatic means a non-page FRAME or COMPONENT carrying `[section]` is present in the audited tree. A placed INSTANCE is atomic: Page Check 0.8 neither resolves its source component nor emits a section-layout finding for the instance. Select and audit the editable source tree separately.
 
 ## Suggested report format
 
@@ -156,6 +167,11 @@ Use to prove that a target implementation path supports BRIDGE:
 - Responsive trees compared across different `[view=...]` values. Each view is a separate responsive contract and is compared only across its own breakpoints.
 - Breakpoint-specific optional identity value, for example `[control=button-reviews-box-375]` inside a `[bp=375]` root.
 - Same identity used for different logical types.
+- Page root has native Auto Layout disabled; zero/one child, `[asset]`, `[decor]`, or exception metadata on the page root does not suppress the rule.
+- Page root carries `[asset]`; this is a separate blocker, does not create an opaque boundary, and does not stop descendant validation.
+- Frame-built section has native Auto Layout disabled, unless that exact section is a legitimate opaque whole-visual `[asset]` with no live content flow.
+- Generic Auto Layout-capable container has two or more visible meaningful direct flow children while Auto Layout is disabled.
+- Figma `GROUP` exists outside an opaque `[asset]` subtree. Manual-layout plus reason documents a proposed deviation but does not suppress the structural error.
 - Stable decorative/asset root identity missing on a required breakpoint.
 - Responsive element tree cardinality or parent-child topology changes without a structural exception.
 - Visual intent drift such as `sneg [decor] [asset]` on desktop becoming plain `sneg` on mobile.
@@ -175,7 +191,7 @@ Use to prove that a target implementation path supports BRIDGE:
 A validator should prefer useful friction over silent failure. False positives are acceptable if the report explains how to mark an intentional exception:
 
 ```text
-[bridge-exception=overlap] [reason=decorative-layered-composition]
+[bridge-exception=overlay] [reason=decorative-layered-composition]
 ```
 
-The goal is not to forbid complex design. The goal is to make complexity explicit.
+The goal is not to forbid complex design. The goal is to make complexity explicit. Structural Auto Layout/GROUP errors remain reported even when `[bridge-exception=manual-layout] [reason=...]` is present; those tags provide evidence for a separate deviation-acceptance gate rather than a Page Check pass. `[bridge-exception=overlay] [reason=...]` may satisfy positioning intent for the exact absolute overlay node.

@@ -56,9 +56,9 @@ The [BRIDGE Assistant plugin](https://www.figma.com/community/plugin/16544855305
 
 ### 3. Check the page
 
-Select the page root and run **Check page** in the plugin. In version 0.7.0 it reports 24 catalog rules: 23 automatic checks and one heuristic check. Review the [coverage file](../validator/page-check-coverage.json) when exact scope matters.
+Select the page root and run **Check page** in the plugin. In version 0.8.0 it reports 30 catalog rules: 29 automatic checks and one heuristic check. Review the [coverage file](../validator/page-check-coverage.json) when exact scope matters.
 
-The full [catalog contains 102 rules](../validator/rules.json). Rules outside current plugin coverage require structured-contract checks, the [designer checklist](17-designer-checklist.md), heuristic/manual review, or target QA according to the [coverage manifest](../validator/methodology-coverage.json). A clean plugin report is therefore not a claim that every catalog rule has been evaluated.
+The full [catalog contains 107 rules](../validator/rules.json). Rules outside current plugin coverage require structured-contract checks, the [designer checklist](17-designer-checklist.md), heuristic/manual review, or target QA according to the [coverage manifest](../validator/methodology-coverage.json). A clean plugin report is therefore not a claim that every catalog rule has been evaluated. Page Check also treats a placed INSTANCE as atomic; audit an editable source component separately when its section structure matters.
 
 Fix unresolved blockers. Discuss warnings in context. Record intentional exceptions and their reasons instead of hiding them.
 
@@ -115,19 +115,19 @@ Apply BRIDGE to active work as it changes. There is no need to rewrite an archiv
 - Do not rename the whole library before the first measured handoff.
 - Do not treat every warning as a blocker without product and technical context.
 - Do not use a polished toy file that avoids real states and interactions.
-- Do not present the 24 Page Check rules as automation of the full 102-rule catalog.
+- Do not present the 30 Page Check rules as automation of the full 107-rule catalog.
 - Do not turn BRIDGE into a separate specification that drifts away from the design.
 
 ## Cost, infrastructure, and data
 
 | Question | Current answer |
 | --- | --- |
-| License and payment | The methodology and this public repository are MIT-licensed; the plugin implementation is private. Plugin version 0.7.0 requests no payments and has no paid BRIDGE account. |
+| License and payment | The methodology and this public repository are MIT-licensed; the plugin implementation is private. Plugin version 0.8.0 requests no payments and has no paid BRIDGE account. |
 | Infrastructure | No BRIDGE backend or team server is required. The published plugin declares no network access. |
 | Stored data | Language and the copied target are stored locally in Figma client storage. Explicit actions may rename selected layers or attach BRIDGE metadata to the document. Nothing is sent to an external BRIDGE service. |
 | Migration | No archive migration is required. Start with one active file and expand only where the workflow proves useful. |
 
-The plugin facts in this table describe the published 0.7.0 build. The plugin implementation repository is private; the public methodology repository remains the source for contract, coverage, and process claims.
+The plugin facts in this table describe the published 0.8.0 build. The plugin implementation repository is private; the public methodology repository remains the source for contract, coverage, and process claims.
 
 Figma itself remains the host product and is governed by the workspace plan and policies your organization already uses.
 

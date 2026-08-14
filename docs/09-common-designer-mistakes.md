@@ -34,7 +34,7 @@ Fix: prefer hug/content-driven sizing or declare fixed-height reasons and overfl
 
 Problem: related elements are loose siblings and cannot adapt reliably.
 
-Fix: assemble them with meaningful Figma frames/groups/components using Auto Layout or clear constraints.
+Fix: use native Auto Layout on every page/section root and on generic containers with two or more visible meaningful flow children. Replace every non-asset Figma GROUP with an Auto Layout frame/component. Keep `[decor]` only on the exact intended absolute visual layer; use `[decor] [asset]` for a complex opaque visual.
 
 ## 7. Images instead of editable text
 
