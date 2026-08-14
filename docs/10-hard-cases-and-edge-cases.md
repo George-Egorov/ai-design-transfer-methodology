@@ -37,11 +37,15 @@ BRIDGE becomes useful only if it covers ugly real-world design situations, not j
 
 | Case | Why it is dangerous | BRIDGE response | Auto-check |
 | --- | --- | --- | --- |
-| Related items are free-floating siblings | Responsive transfer cannot infer grouping. | Meaningful Figma structure: frames/groups/components, Auto Layout, or constraints. | Geometry clustering heuristic. |
+| Page or section root has Auto Layout disabled | Its content flow is only a snapshot of coordinates. | Enable native Auto Layout unconditionally, even with zero or one child. | `layout.page-root-missing-auto-layout` / `layout.section-missing-auto-layout`. |
+| BRIDGE page root carries `[asset]` | The entire live page is hidden behind an opaque-export claim. | Remove `[asset]`; keep checking descendants and report missing root Auto Layout separately when applicable. | `layout.page-root-cannot-be-asset`. |
+| Generic content container has two or more visible meaningful flow children but no Auto Layout | Responsive transfer cannot reproduce direction, gap, wrapping, or sizing deterministically. | Enable native Auto Layout; primitives and leaf geometry remain exempt. | `layout.container-missing-auto-layout`. |
+| Figma GROUP exists outside an asset | A GROUP preserves geometry but exposes no transferable layout contract. | Replace it with an Auto Layout frame/component or make a genuine opaque subtree `[asset]`. Manual-layout plus reason records a deviation but does not suppress the error. | `layout.group-outside-asset`. |
 | Wrapper maze | Layout tree is deep but meaningless. | Keep only wrappers with a real grouping, layout, clipping, surface, semantic, or interaction function; do not invent a wrapper tag. | Detect one-child/deep wrappers. |
 | Fixed height clips real content | Localization/CMS content breaks layout. | Use hug/min-height or explicit overflow policy. | Fixed-height text/card checks. |
-| Visually detached element behaves like ordinary content | It will not adapt with the group. | Move it into the shared structure or mark intent as `[decor]`, `[asset]`, `[modal=...]`, or an exception. | Positioning + intent check. |
-| Overlap is accidental | z-order differs across targets. | Declare overlay/decor/asset intent or collision reason. | Bounding-box overlap heuristic. |
+| Visually detached element behaves like ordinary content | It will not adapt with the flow. | Move it into the Auto Layout structure or put intent on the exact absolute node: `[decor]`, `[asset]`, a target, or overlay plus reason. | `layout.positioned-without-intent`. |
+| `[decor]` is placed on a freeform container | The tag hides broken structure instead of describing one visual layer. | Put `[decor]` only on the exact absolute visual node; use `[decor] [asset]` for a complex opaque visual. | Layout rules still run; decor is not an exemption. |
+| Overlap is accidental | z-order differs across targets. | Declare overlay, exact absolute decor, opaque asset, target, or collision reason. | Bounding-box overlap heuristic. |
 | Parent clips child unintentionally | Decor, tooltip, focus ring, or text is cut. | Declare overflow policy. | Clip + child overflow check. |
 | Negative spacing or constraints fight Auto Layout | The adapter cannot reproduce intent deterministically. | Use tokens/gaps or mark exception. | Geometry + layout metadata. |
 | Sticky/fixed element overlaps content | Header, cookie bar, nav, or sidebar hides section content. | Declare fixed behavior and reserved space. | Manual/adapter check. |

@@ -1,6 +1,6 @@
 # Full BRIDGE preflight
 
-Use this gate before implementation begins and again before release. It evaluates the complete BRIDGE 0.9 transfer: source design, structured contract, target capability profile, implementation evidence, QA, open questions, and deviations.
+Use this gate before implementation begins and again before release. It evaluates the complete BRIDGE 0.10 transfer: source design, structured contract, target capability profile, implementation evidence, QA, open questions, and deviations.
 
 The shorter [designer checklist](17-designer-checklist.md) is a preparation aid. It does not replace this gate.
 
@@ -33,6 +33,9 @@ The affected scope cannot pass its gate when any of these applies:
 - a required action or link has no known destination, reaction, or reachable target;
 - runtime data meaning, provenance, key, format, state, or privacy behavior must be invented;
 - responsive topology differs without a complete declared transformation;
+- a page root or frame-built section has native Auto Layout disabled;
+- a generic Auto Layout-capable container with at least two visible meaningful flow children has Auto Layout disabled;
+- a Figma `GROUP` exists outside an opaque `[asset]` subtree; a documented manual-layout deviation does not suppress the blocker;
 - an essential task or content disappears in a breakpoint, capability, reduced-motion, RTL, offline, or failure context without a mapped alternative;
 - a form or async path lacks validation, pending, failure, recovery, focus, or announcement behavior;
 - applicable WCAG 2.2 A/AA requirements have no implementation path or safe fallback;
@@ -69,14 +72,22 @@ See [Layer naming and identity](02-layer-naming-and-identity.md) and the [transf
 
 ## 3. Source structure, components, and wrappers
 
-- [ ] Related elements use meaningful frames, groups, components, Auto Layout, constraints, and clipping in the source tool.
+- [ ] Every BRIDGE page root uses native Auto Layout even with zero or one child; the root cannot declare itself `[asset]` to bypass the check.
+- [ ] Every frame-built section uses native Auto Layout even with zero or one child, except a narrowly legitimate whole-visual `[asset]` section with no live content flow.
+- [ ] Every generic Auto Layout-capable container with at least two visible meaningful direct flow children uses native Auto Layout.
+- [ ] Primitive and leaf geometry is exempt; an opaque `[asset]` subtree may keep its internal composition, while its root remains one child in the parent's Auto Layout.
+- [ ] No Figma `GROUP` exists outside an `[asset]` subtree. `[decor]` is not an exemption; manual-layout plus reason documents a deviation but leaves the finding blocking.
+- [ ] Related elements use meaningful frames, components, Auto Layout, constraints, and clipping in the source tool.
 - [ ] Layer tags do not duplicate node type, geometry, component source, variants, or other native source metadata.
 - [ ] Each wrapper has a grouping, layout, clipping, surface, semantic, export, or interaction responsibility.
 - [ ] Page-level reusable sections come from `Page Sections` or use an explicit `[section=...]` when the source is ambiguous.
+- [ ] The source root of every `Page Sections` component satisfies the section Auto Layout rule in a separate source audit; Page Check 0.8 neither resolves the source from a placed INSTANCE nor treats instance internals as editable page structure.
 - [ ] UI controls inherit a pinned component/template contract; instance overrides are intentional and visible.
 - [ ] Component states are not modeled as unrelated page roots, and page/data views are not hidden inside one component variant.
 - [ ] Detached component copies, flattened assets, rasterized text, and hidden source-of-truth layers have explicit reasons or are removed.
 - [ ] Component/system inheritance and instance-specific overrides do not contradict each other.
+
+An intended absolute ornament carries `[decor]` on that exact absolute visual node. `[decor]` does not legalize a freeform container or subtree. Use `[decor] [asset]` for a complex decorative visual transferred as one opaque unit, and `[bridge-exception=overlay] [reason=...]` only for an intentional overlay that needs documented intent.
 
 ## 4. Responsive, fluid, container, and directional behavior
 
@@ -201,8 +212,8 @@ See the [Delivery lifecycle](24-delivery-lifecycle.md).
 ## 12. Validation coverage and evidence
 
 - [ ] The canonical tag registry, JSON Schema, rule catalog, localization, examples, content manifest, and coverage manifests validate.
-- [ ] Page Check scope is represented honestly: plugin 0.7.0 covers 24 of 102 rules—23 automatic and 1 heuristic.
-- [ ] Rules outside those 24 have structured, heuristic, manual, implementation, or runtime evidence according to the coverage manifest.
+- [ ] Page Check scope is represented honestly: plugin 0.8.0 covers 30 of 107 rules—29 automatic and 1 heuristic.
+- [ ] Rules outside those 30 have structured, heuristic, manual, implementation, or runtime evidence according to the coverage manifest.
 - [ ] A clean Page Check report is not presented as full BRIDGE or WCAG validation.
 - [ ] Automatic, heuristic, manual, and runtime results name environment, expected result, actual result, and evidence.
 - [ ] Every applicable acceptance criterion is `pass`, `fail`, `not-applicable`, `blocked`, or linked to an accepted deviation.

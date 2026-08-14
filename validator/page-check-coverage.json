@@ -1,13 +1,13 @@
 {
   "$schema": "./page-check-coverage.schema.json",
   "methodology": "BRIDGE",
-  "pluginVersion": "0.7.0",
-  "catalogVersion": "0.4.0",
-  "verifiedAt": "2026-08-13",
+  "pluginVersion": "0.8.0",
+  "catalogVersion": "0.5.0",
+  "verifiedAt": "2026-08-14",
   "counts": {
-    "catalogRules": 102,
-    "pageCheckRules": 24,
-    "automaticRules": 23,
+    "catalogRules": 107,
+    "pageCheckRules": 30,
+    "automaticRules": 29,
     "heuristicRules": 1
   },
   "automaticRuleIds": [
@@ -33,7 +33,13 @@
     "routing.default-view-missing",
     "routing.href-internal-route-missing",
     "routing.href-anchor-missing",
-    "routing.page-view-route-drift"
+    "routing.page-view-route-drift",
+    "layout.page-root-missing-auto-layout",
+    "layout.page-root-cannot-be-asset",
+    "layout.section-missing-auto-layout",
+    "layout.container-missing-auto-layout",
+    "layout.group-outside-asset",
+    "layout.positioned-without-intent"
   ],
   "heuristicRuleIds": [
     "content.text-changed-between-breakpoints"

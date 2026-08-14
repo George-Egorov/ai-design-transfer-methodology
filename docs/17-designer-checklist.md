@@ -38,7 +38,12 @@ For a strict review, use the [full preflight checklist](08-preflight-checklist.m
 
 ## 6. Build meaningful structure
 
-- [ ] Related elements have a meaningful parent.
+- [ ] Every page root and frame-built section uses native Auto Layout, even with zero or one child.
+- [ ] A BRIDGE page root never carries `[asset]`; only genuine descendant visuals may create opaque asset boundaries.
+- [ ] Every generic content container with at least two visible meaningful direct flow children uses native Auto Layout.
+- [ ] Related elements have a meaningful frame/component parent; no Figma `GROUP` exists outside an opaque `[asset]` subtree.
+- [ ] Primitive and leaf geometry is exempt; a descendant `[asset]` root remains one item in its parent's Auto Layout.
+- [ ] `[decor]` marks only the exact intended absolute visual layer and never excuses a freeform container or GROUP.
 - [ ] Every wrapper has a real layout, grouping, clipping, surface, or interaction purpose.
 - [ ] One-breakpoint-only wrappers are explained.
 
@@ -59,8 +64,8 @@ For a strict review, use the [full preflight checklist](08-preflight-checklist.m
 ## 9. Distinguish content, decor, and assets
 
 - [ ] Content images have stable names.
-- [ ] Decorative layers use `[decor]`.
-- [ ] Whole exported visuals use `[asset]`.
+- [ ] Intended absolute decorative visual layers use `[decor]` on the exact positioned node.
+- [ ] Whole exported visuals use `[asset]`; complex decorative assets use `[decor] [asset]`.
 - [ ] Editable text is not rasterized without an explicit reason.
 
 ## 10. Make states explicit

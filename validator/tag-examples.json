@@ -69,6 +69,16 @@
       "layerName": "brand-lockup [bridge-exception=raster-text] [reason=approved-brand-lockup]"
     },
     {
+      "id": "manual-layout-deviation-evidence",
+      "scope": "layer",
+      "layerName": "legacy-lockup [bridge-exception=manual-layout] [reason=vendor-master-art]"
+    },
+    {
+      "id": "absolute-overlay-intent",
+      "scope": "layer",
+      "layerName": "guided-tour [bridge-exception=overlay] [reason=product-onboarding]"
+    },
+    {
       "id": "locale-axis",
       "scope": "variant-root",
       "layerName": "Contacts [locale=ru-RU] [theme=dark]"
@@ -203,6 +213,14 @@
       "expectedErrorCodes": [
         "scope-invalid",
         "missing-companion"
+      ]
+    },
+    {
+      "id": "page-root-cannot-be-asset",
+      "scope": "page-root",
+      "layerName": "Home [page=home] [bp=1440] [view=default] [asset]",
+      "expectedErrorCodes": [
+        "scope-invalid"
       ]
     },
     {

@@ -18,6 +18,8 @@ Home [page=home] [route=/] [bp=375] [view=default]
 
 `[bp]` records the authored frame width. It is evidence and a comparison anchor; it does not, by itself, prescribe a media-query boundary. Keep widths/device labels out of child identities.
 
+Every prepared page root uses native Auto Layout at every breakpoint. Frame-built sections also use Auto Layout, and generic containers with at least two visible meaningful flow children do the same. Responsive differences may change Auto Layout direction, wrapping, gap, and sizing; they do not justify `layoutMode=NONE` or a non-asset Figma GROUP.
+
 ## Same logical tree is the default
 
 Within one page, view, locale, theme, experiment, role, and data scenario, matching roots preserve:

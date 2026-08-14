@@ -277,9 +277,11 @@ A decorative visual is marked with `[decor]`.
 
 - the layer is decorative;
 - it is not product content;
+- outside an opaque asset, it is the exact intended absolute visual node rather than a flow container or GROUP;
 - it should not enter the accessibility tree and may be `aria-hidden`;
 - it does not require alt/content semantics;
-- it still preserves stable responsive identity and must not disappear between breakpoints.
+- it still preserves stable responsive identity and must not disappear between breakpoints;
+- it never disables Auto Layout or GROUP validation for itself, an ancestor, or an arbitrary subtree.
 
 ```text
 sneg [decor]
@@ -293,7 +295,9 @@ A whole exported visual is marked with `[asset]`.
 
 - export or use the visual as one whole unit;
 - do not rebuild it from internal layers;
-- the root asset still preserves stable responsive identity between breakpoints.
+- treat its internal composition as opaque for structural layout checks;
+- the root asset still preserves stable responsive identity between breakpoints and remains one item in its parent's Auto Layout;
+- never mark an entire BRIDGE page root `[asset]` to bypass layout checks.
 
 ```text
 promo-poster [asset]
@@ -343,7 +347,8 @@ description [height=fixed] [overflow=truncate] [lines=3]
 
 ```text
 [bridge-exception=raster-text]
-[bridge-exception=overlap]
+[bridge-exception=overlay]
+[bridge-exception=manual-layout]
 [bridge-exception=fixed-height]
 [bridge-exception=manual-line-break]
 [bridge-exception=unsupported-effect]
@@ -355,6 +360,8 @@ Rules:
 
 - every exception requires `[reason=...]`;
 - `[bridge-exception=manual-line-break]` is allowed only when the line break is semantic or an approved brand lockup, not a workaround for dynamic text;
+- `[bridge-exception=overlay] [reason=...]` may satisfy positioning intent only on the exact absolute overlay node;
+- `[bridge-exception=manual-layout] [reason=...]` on an exact GROUP or manual container documents a proposed deviation but does not suppress page/section/container/GROUP structural errors;
 - exceptions do not make a design better, they only make complexity explicit.
 
 ## Tags not written in Figma
@@ -377,7 +384,8 @@ Rules:
 - a TEXT node gets identity from the layer name;
 - a content image gets identity from the layer name;
 - an icon gets identity from the layer name and/or component metadata;
-- structure is authored with frames, groups, components, and Auto Layout in Figma;
+- page roots, frame-built sections, and multi-child content-flow containers use native Auto Layout in Figma;
+- GROUP nodes are allowed only inside opaque `[asset]` subtrees; primitives and leaf geometry remain exempt from owning Auto Layout;
 - positioning is authored in Figma;
 - component source, variants, and states come from UI Kit component metadata;
 - navigation destination is always `[href=...]`, not `[to=...]`.
@@ -411,10 +419,22 @@ content [container=content] [layout=stack]
 Invalid for Figma structure: use a `content` frame and Auto Layout in Figma.
 
 ```text
+Group 91 [decor]
+```
+
+Invalid outside an asset subtree: `[decor]` does not turn a GROUP into a layout contract. Replace it with an Auto Layout frame, or use `artwork [decor] [asset]` when the whole visual is genuinely transferred as one opaque unit.
+
+```text
+legacy-lockup [bridge-exception=manual-layout] [reason=vendor-master-art]
+```
+
+Valid exception syntax, but it does not make a non-asset GROUP pass structural validation. The blocking finding proceeds to the separate deviation-acceptance gate.
+
+```text
 snow-bg [decor] [abs]
 ```
 
-Invalid: `decor` is intent; positioning comes from Figma. Use `snow-bg [decor]`.
+Invalid: `decor` is intent; positioning comes from Figma. Use `snow-bg [decor]` only on the exact visual node whose native positioning is absolute.
 
 ```text
 FAQ [to=anchor:contacts-faq] [href=/contacts#faq]

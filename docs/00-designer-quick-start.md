@@ -84,6 +84,8 @@ Add `[route=/production-path]` only when the real route is known.
 
 ### 2. Match the breakpoints
 
+First make the source layout deterministic: every page root and frame-built section uses native Auto Layout even with zero or one child; a generic container uses it when at least two visible meaningful direct children participate in flow. Replace every Figma GROUP outside an opaque `[asset]` subtree. Put `[decor]` only on the exact intended absolute visual layer—never on a container to bypass structure checks.
+
 Compare desktop and mobile layer by layer. The same logical element keeps the same name, parent, content meaning, and action. Dimensions, Auto Layout direction, spacing, order, and visibility may change.
 
 ### 3. Give important elements stable names
@@ -98,7 +100,7 @@ Use short English `kebab-case` names such as `hero-title`, `product-grid`, and `
 | Auto Layout, gap, padding | route and breakpoint: `[route]`, `[bp]` |
 | size, position, constraints | link or action: `[href]`, `[action]` |
 | fill, stroke, effect, mask | target: `[modal]`, `[state]` |
-| frame and group hierarchy | transfer intent: `[section]`, `[decor]`, `[asset]` |
+| frame and component hierarchy | transfer intent: `[section]`, `[decor]`, `[asset]` |
 
 ### 5. Test without the author
 
@@ -117,12 +119,13 @@ Open the [BRIDGE Assistant workflow](https://poliklot.github.io/bridge-design-me
 The page is ready for handoff when:
 
 - the page, view, and required breakpoint roots are unambiguous;
+- page/section/content flows use required native Auto Layout, and no non-asset GROUP remains;
 - stable identities still refer to the same elements across breakpoints;
 - links and controls have known destinations, and available targets resolve;
 - every reported blocker is fixed, while warnings and exceptions have an explicit decision;
 - the manual items in the [full preflight](08-preflight-checklist.md) have also been reviewed.
 
-Page Check in version 0.7.0 covers 24 of the 102 catalog rules. It shortens the review; it does not replace the remaining manual checks.
+Page Check in version 0.8.0 covers 30 of the 107 catalog rules: 29 automatic checks and one heuristic check. It shortens the review; it does not replace the remaining structured and manual checks.
 
 ## Find the right example
 

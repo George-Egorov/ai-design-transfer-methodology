@@ -893,6 +893,34 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   line-height: 1.55;
 }
 
+.bridge-contract-rule {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border-block: 1px solid var(--bridge-line);
+  padding: 1rem 0;
+  color: var(--sl-color-white);
+  text-decoration: none;
+}
+
+.bridge-contract-rule span {
+  max-width: 62ch;
+  line-height: 1.5;
+}
+
+.bridge-contract-rule strong {
+  flex: none;
+  color: var(--bridge-blue-deep);
+  font-size: 0.82rem;
+}
+
+.bridge-contract-rule:hover strong,
+.bridge-contract-rule:focus-visible strong {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .bridge-principles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -3365,6 +3393,11 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
 
   .bridge-method {
     gap: 2rem;
+  }
+
+  .bridge-contract-rule {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .bridge-method li {

@@ -1,7 +1,7 @@
 {
   "$schema": "./rules.schema.json",
   "methodology": "BRIDGE",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "severityLevels": [
     "error",
     "warning",
@@ -158,12 +158,52 @@
       "fix": "Fix the Figma structure/metadata first; add BRIDGE tags only for product or transfer intent such as `[section=...]`, `[href=...]`, `[link]`, `[action=...]`, `[control]`, `[field=...]`, `[decor]`, `[asset]`, `[modal=...]`, or `[state=...]`."
     },
     {
+      "id": "layout.page-root-missing-auto-layout",
+      "principle": "Geometry",
+      "severity": "error",
+      "automation": "automatic",
+      "description": "Every BRIDGE page root must use native Figma Auto Layout, even when it has zero or one child. A page root is a responsive content container, not primitive or leaf geometry, and cannot mark itself `[asset]` to bypass the rule.",
+      "fix": "Enable vertical, horizontal, or grid Auto Layout on the page root and define its padding, gap, alignment, and wrapping in Figma. `[asset]`, `[decor]`, absolute positioning, and an exception tag on the page root do not suppress this blocking finding."
+    },
+    {
+      "id": "layout.page-root-cannot-be-asset",
+      "principle": "Geometry",
+      "severity": "error",
+      "automation": "automatic",
+      "description": "A BRIDGE page root must not carry `[asset]`. A page is a live responsive content contract, never one opaque exported visual; root-level `[asset]` does not create an opaque boundary and descendants must still be validated.",
+      "fix": "Remove `[asset]` from the page root, keep native Auto Layout on the root, and apply `[asset]` only to genuine descendant visuals transferred as opaque units. Report the Auto Layout finding separately when the same page root also has layout mode NONE."
+    },
+    {
+      "id": "layout.section-missing-auto-layout",
+      "principle": "Geometry",
+      "severity": "error",
+      "automation": "automatic",
+      "description": "Every non-page FRAME or COMPONENT encountered in the audited page tree with a `[section]` tag must use native Figma Auto Layout, even with zero or one child, unless that exact node is a legitimate opaque whole-visual `[asset]` with no live content flow. A placed INSTANCE is atomic and excluded from this rule; Page Check does not resolve or inspect its source component.",
+      "fix": "Enable Auto Layout on the encountered `[section]` FRAME or COMPONENT. Audit a placed instance's editable source component separately; do not flatten or detach the instance as a workaround. `[decor]` and exception tags do not waive the section layout contract; use `[asset]` only for a genuinely opaque whole-visual section."
+    },
+    {
+      "id": "layout.container-missing-auto-layout",
+      "principle": "Geometry",
+      "severity": "error",
+      "automation": "automatic",
+      "description": "An Auto Layout-capable content container outside an `[asset]` subtree with at least two visible meaningful direct children participating in content flow must use native Figma Auto Layout. Primitive and leaf geometry are exempt.",
+      "fix": "Enable native Auto Layout and express direction, padding, gap, alignment, wrapping, and sizing in Figma. Intended absolute visual children may remain absolute inside that parent, but `[decor]` and exception tags do not turn the parent into a manual-layout container or suppress this finding."
+    },
+    {
+      "id": "layout.group-outside-asset",
+      "principle": "Geometry",
+      "severity": "error",
+      "automation": "automatic",
+      "description": "A Figma GROUP outside an `[asset]` subtree is invalid because it encodes geometry without a transferable layout contract. `[decor]` alone is not an exemption, and `[bridge-exception=manual-layout] [reason=...]` records a proposed deviation without suppressing this blocking finding.",
+      "fix": "Replace the GROUP with a frame or component using native Auto Layout. If the whole subtree is transferred as one opaque visual, mark its root `[asset]` and add `[decor]` only when it is ornamental. When conversion is genuinely impossible, record manual-layout and a specific reason on that GROUP, then process the still-reported finding through the separate deviation-acceptance gate."
+    },
+    {
       "id": "layout.positioned-without-intent",
       "principle": "Exceptions",
       "severity": "warning",
       "automation": "automatic",
-      "description": "Visually detached or overlapping elements must have clear intent.",
-      "fix": "Use Figma positioning for geometry and add intent only when needed: `[decor]`, `[asset]`, `[modal=...]`, `[state=...]`, or `[bridge-exception=...] [reason=...]`."
+      "description": "An absolutely positioned, visually detached, or overlapping element outside an `[asset]` subtree must have clear intent on that exact node. `[decor]` is valid only for the intended absolute visual layer and does not exempt a parent or freeform subtree from Auto Layout and GROUP rules.",
+      "fix": "Keep geometry in native Figma positioning. Mark an intended absolute ornament `[decor]`, a whole opaque visual `[asset]`, or use an appropriate modal/state target. For an intentional overlay that cannot be modeled otherwise, use `[bridge-exception=overlay] [reason=...]`; never put `[decor]` on a container merely to silence layout errors."
     },
     {
       "id": "layout.one-child-wrapper-without-role",
@@ -186,8 +226,8 @@
       "principle": "Geometry",
       "severity": "warning",
       "automation": "heuristic",
-      "description": "Overlapping bounds require clear overlay/decor/asset intent or an explicit exception.",
-      "fix": "Declare `[decor]`, `[asset]`, a target tag, or a BRIDGE exception reason. Positioning comes from Figma metadata."
+      "description": "Overlapping bounds require clear overlay, absolute decor, whole-asset, target, or explicit exception intent on the overlapping node.",
+      "fix": "Declare `[decor]` only on the intended absolute visual layer, use `[asset]` for an opaque visual subtree, add the appropriate target tag, or record `[bridge-exception=overlay] [reason=...]`. Positioning still comes from Figma metadata."
     },
     {
       "id": "layout.z-index-ambiguous",

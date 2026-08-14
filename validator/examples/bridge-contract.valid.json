@@ -2,8 +2,8 @@
   "$schema": "../bridge.schema.json",
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.9.0",
-    "rulesVersion": "0.4.0",
+    "methodologyVersion": "0.10.0",
+    "rulesVersion": "0.5.0",
     "source": {
       "tool": "Figma",
       "documentId": "example-design-file",

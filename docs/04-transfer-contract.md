@@ -1,6 +1,6 @@
 # BRIDGE transfer contract
 
-The BRIDGE Contract is the versioned, target-independent record that connects design evidence to implementation and QA. Version 0.9 introduces the structured pre-1.0 contract and its [JSON Schema](../validator/bridge.schema.json). The shape is usable for tooling, but fields may still evolve before 1.0; pin `contractVersion`, `methodologyVersion`, and `rulesVersion` in every exchange.
+The BRIDGE Contract is the versioned, target-independent record that connects design evidence to implementation and QA. Version 0.9 introduced the structured pre-1.0 contract and its [JSON Schema](../validator/bridge.schema.json); version 0.10 adds blocking source-structure rules for native Auto Layout and non-asset GROUP nodes. The shape is usable for tooling, but fields may still evolve before 1.0; pin `contractVersion`, `methodologyVersion`, and `rulesVersion` in every exchange.
 
 ## Two complementary surfaces
 
@@ -44,7 +44,7 @@ A complete payload has a `bridge` root. The core envelope includes:
 | `source` | Tool, file/page, immutable revision, and capture context. |
 | `context` | Product page/view and the axes included in this transfer. |
 | `identity` | Mapping across role, template, design instance, runtime data, and target implementation. |
-| `structure` | Logical trees in declared responsive/data contexts. |
+| `structure` | Logical trees in declared responsive/data contexts. Native Figma node type, layout mode, positioning, and asset boundaries remain source evidence validated alongside this tree. |
 | Contract modules | `data`, `responsive`, `interaction`, `motion`, `accessibility`, `capabilities`, and `lifecycle` as applicable. |
 | `openQuestions` | Known unknowns with owner, scope, blocking status, review point, and fallback. |
 | `exceptions` | Intentional source/contract exceptions with impact and mitigation. |
@@ -75,8 +75,8 @@ This example is intentionally broad enough to show the composition of modules. R
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.9.0",
-    "rulesVersion": "0.4.0",
+    "methodologyVersion": "0.10.0",
+    "rulesVersion": "0.5.0",
     "source": {
       "tool": "figma",
       "fileKey": "example-file-key",
@@ -243,6 +243,19 @@ The layer tags in the example remain the human-visible anchors; the payload adds
 `responsive.defaultPolicy` is `same-tree`. Geometry, Auto Layout direction, wrapping, order inside the same logical parent, and declared visibility may change without a structural mapping.
 
 A topology or presentation change is valid only as a `responsive.transformations[]` record. It names source and result identities, the viewport/container condition, field/scene/action mapping, semantics preserved, reading and focus order, state transfer, and history behavior. If no transformation covers a difference, the difference is contract drift.
+
+### Native layout remains required source evidence
+
+The structured `bridge.structure` tree does not duplicate Figma's native `layoutMode`, node type, or positioning fields. A source validator reads those fields directly and applies the rule catalog:
+
+- page roots always use native Auto Layout and cannot be `[asset]`;
+- frame-built section roots and `Page Sections` source roots use Auto Layout unless the exact section is a legitimate opaque whole-visual asset;
+- generic Auto Layout-capable containers with at least two visible meaningful flow children use Auto Layout;
+- GROUP nodes are valid only inside a genuine opaque `[asset]` subtree;
+- primitive/leaf geometry and placed INSTANCE internals are not treated as content-flow containers;
+- `[decor]` identifies only the exact intended absolute visual node and never creates a structural exemption.
+
+Page Check treats a placed INSTANCE as atomic and does not resolve its source component for the section-layout rule; audit the editable source root separately. An asset root still appears as one identity in the logical tree and one item in its parent's Auto Layout. A manual-layout exception with a reason may accompany a reported structural deviation, but it does not change the source evidence or turn a failing Page Check into a pass.
 
 ## Explicit unknowns: no untracked blind spots
 

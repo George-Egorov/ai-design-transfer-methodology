@@ -17,15 +17,17 @@ const copy = locale === 'ru'
       channel: 'Канал',
       proofLabel: 'Исключение — тоже решение',
       proof: 'Отклонение не прячется в комментарии: каноническая пара фиксирует что сделано не по общему правилу и зачем.',
+      structureRule: 'Auto Layout обязателен для page, section и контейнеров содержимого. GROUP допустим только внутри [asset].',
+      structureRuleAction: 'Открыть правила структуры',
       items: [
         {
           id: 'structure',
           label: 'Структура',
           source: 'Figma + identity',
           title: 'Однозначно восстановить дерево.',
-          description: 'Иерархия и Auto Layout остаются в Figma. Корневые фреймы, секции и действия получают стабильную идентичность.',
+          description: 'Нативный Auto Layout обязателен для page, section и контейнеров содержимого. GROUP допустим только внутри непрозрачного [asset].',
           evidence: '[page=home] [bp=1440] [view=default]',
-          checks: ['корневые фреймы', 'родители и порядок', 'стабильные имена'],
+          checks: ['Auto Layout на page / section / container', 'GROUP только внутри [asset]', 'стабильные имена и порядок'],
         },
         {
           id: 'data',
@@ -84,15 +86,17 @@ const copy = locale === 'ru'
       channel: 'Channel',
       proofLabel: 'An exception is still a decision',
       proof: 'A deviation does not hide in a comment: the canonical pair records what departs from the shared rule and why.',
+      structureRule: 'Auto Layout is required for page, section, and content containers. GROUP is allowed only inside [asset].',
+      structureRuleAction: 'Open structure rules',
       items: [
         {
           id: 'structure',
           label: 'Structure',
           source: 'Figma + identity',
           title: 'Reconstruct the tree without guessing.',
-          description: 'Hierarchy and Auto Layout remain native Figma truth. Root frames, sections, and actions receive stable identities where the relationship would otherwise be ambiguous.',
+          description: 'Native Auto Layout is required for page, section, and content containers. GROUP is allowed only inside an opaque [asset].',
           evidence: '[page=home] [bp=1440] [view=default]',
-          checks: ['root frames', 'parents and order', 'stable names'],
+          checks: ['Auto Layout on page / section / container', 'GROUP only inside [asset]', 'stable names and order'],
         },
         {
           id: 'data',
@@ -202,6 +206,11 @@ const copy = locale === 'ru'
       ))}
     </div>
   </div>
+
+  <a class="bridge-contract-rule" href={`${base}/${locale}/guides/design-rules/`}>
+    <span>{copy.structureRule}</span>
+    <strong>{copy.structureRuleAction}<span aria-hidden="true"> →</span></strong>
+  </a>
 
   <div class="bridge-contract-proof">
     <div>

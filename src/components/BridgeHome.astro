@@ -25,7 +25,7 @@ const copy = locale === 'ru'
       before: 'Без BRIDGE',
       after: 'С BRIDGE',
       beforeNote: 'Названия описывают внешний вид, но не объясняют связи между фреймами.',
-      afterNote: 'Два корневых фрейма: в каждом повторяются page и view, меняется только bp, а слои сохраняют имена и родителей.',
+      afterNote: 'Два корня с нативным Auto Layout: page, section и контейнеры сохраняют поток, а GROUP допустим только внутри [asset].',
       layerHint: 'Нажмите на имя, чтобы переименовать. Перетащите ручку, чтобы поменять порядок соседних слоёв.',
       layerKeyboardHint: 'На ручке нажмите пробел, меняйте порядок стрелками, подтвердите пробелом или отмените Escape.',
       layerReset: 'Сбросить',
@@ -49,7 +49,7 @@ const copy = locale === 'ru'
       afterTree: [
         { id: 'home-1440', type: 'frame', name: 'Главная · 1440', tag: '[page=home] [bp=1440] [view=default]', children: [
           { id: 'home-hero-1440', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-1440', type: 'group', name: 'hero-copy', children: [
+            { id: 'hero-copy-1440', type: 'frame', name: 'hero-copy', children: [
               { id: 'hero-title-1440', type: 'text', name: 'hero-title' },
             ] },
             { id: 'contact-button-1440', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
@@ -58,7 +58,7 @@ const copy = locale === 'ru'
         ] },
         { id: 'home-375', type: 'frame', name: 'Главная · 375', tag: '[page=home] [bp=375] [view=default]', children: [
           { id: 'home-hero-375', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-375', type: 'group', name: 'hero-copy', children: [
+            { id: 'hero-copy-375', type: 'frame', name: 'hero-copy', children: [
               { id: 'hero-title-375', type: 'text', name: 'hero-title' },
             ] },
             { id: 'contact-button-375', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
@@ -77,7 +77,7 @@ const copy = locale === 'ru'
       methodEyebrow: 'Как это работает',
       methodTitle: 'Три шага к готовому макету',
       method: [
-        ['01', 'Соберите техническую правду', 'Фреймы, Auto Layout, компоненты и геометрия остаются в Figma.'],
+        ['01', 'Соберите техническую правду', 'Нативный Auto Layout обязателен для page, section и контейнеров содержимого; GROUP допустим только внутри [asset].'],
         ['02', 'Добавьте недостающий смысл', 'Теги и структурированные метаданные описывают данные, состояния, движение, доступность и осознанные исключения.'],
         ['03', 'Проверьте без автора', 'Другой человек должен понять файл без созвона и дополнительных пояснений.'],
       ],
@@ -118,7 +118,7 @@ const copy = locale === 'ru'
       before: 'Without BRIDGE',
       after: 'With BRIDGE',
       beforeNote: 'Names describe appearance, but not the relationships between frames.',
-      afterNote: 'Two sibling root frames: each repeats page and view, only bp changes, and the same layers keep their names and parents.',
+      afterNote: 'Two native Auto Layout roots: page, section, and content containers preserve flow; GROUP is allowed only inside [asset].',
       layerHint: 'Select a name to rename it. Drag the handle to reorder it among sibling layers.',
       layerKeyboardHint: 'On the reorder handle, press Space, move with Arrow keys, press Space to drop, or Escape to cancel.',
       layerReset: 'Reset',
@@ -142,7 +142,7 @@ const copy = locale === 'ru'
       afterTree: [
         { id: 'home-1440', type: 'frame', name: 'Home · 1440', tag: '[page=home] [bp=1440] [view=default]', children: [
           { id: 'home-hero-1440', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-1440', type: 'group', name: 'hero-copy', children: [
+            { id: 'hero-copy-1440', type: 'frame', name: 'hero-copy', children: [
               { id: 'hero-title-1440', type: 'text', name: 'hero-title' },
             ] },
             { id: 'contact-button-1440', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
@@ -151,7 +151,7 @@ const copy = locale === 'ru'
         ] },
         { id: 'home-375', type: 'frame', name: 'Home · 375', tag: '[page=home] [bp=375] [view=default]', children: [
           { id: 'home-hero-375', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-375', type: 'group', name: 'hero-copy', children: [
+            { id: 'hero-copy-375', type: 'frame', name: 'hero-copy', children: [
               { id: 'hero-title-375', type: 'text', name: 'hero-title' },
             ] },
             { id: 'contact-button-375', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
@@ -170,7 +170,7 @@ const copy = locale === 'ru'
       methodEyebrow: 'How it works',
       methodTitle: 'Three steps to a transferable design',
       method: [
-        ['01', 'Build technical truth', 'Frames, Auto Layout, components, and geometry remain native Figma data.'],
+        ['01', 'Build technical truth', 'Native Auto Layout is required for page, section, and content containers; GROUP is allowed only inside [asset].'],
         ['02', 'Declare missing intent', 'Tags and structured metadata cover data, state, motion, accessibility, and intentional exceptions.'],
         ['03', 'Review without the author', 'Someone else should understand the file without a call or private context.'],
       ],

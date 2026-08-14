@@ -13,6 +13,8 @@ This separation prevents designers from repeating `[section=...]` on every secti
 
 A section component is identified by its source component, not by its position inside the page tree.
 
+The editable source root of every component classified under `Page Sections` uses native Auto Layout even with zero or one child, unless the entire source root is a legitimate opaque whole-visual `[asset]` with no live content flow. A placed INSTANCE is an atomic page-tree boundary: Page Check 0.8 does not resolve its source or report its internals as page findings. Audit the source component separately by selecting an editable FRAME or COMPONENT tree; detaching the instance is not a workaround.
+
 ## Two library levels
 
 The Figma library should separate ordinary UI components from page section components.
@@ -125,6 +127,8 @@ page-root
 `dark-area` is a wrapper, not a section.
 
 `reviews` and `faq` remain sections when their source components live in `Page Sections`.
+
+`page-root` and the `dark-area` content wrapper follow the Auto Layout policy. Neither may become a Figma GROUP merely because the visual geometry already looks correct.
 
 ## UI Kit responsibility
 

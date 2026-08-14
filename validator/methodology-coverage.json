@@ -1,9 +1,48 @@
 {
   "$schema": "./methodology-coverage.schema.json",
   "schemaVersion": "1.0.0",
-  "catalogVersion": "0.4.0",
+  "catalogVersion": "0.5.0",
   "description": "Explicit validation ownership for every readiness area added by the expanded BRIDGE contract. Manual means a reviewer must record evidence; it does not mean optional.",
   "areas": [
+    {
+      "id": "source-auto-layout",
+      "source": {
+        "en": "docs/01-design-rules.md",
+        "ru": "docs/ru/01-pravila-dizajna.md"
+      },
+      "checks": [
+        {
+          "concern": "page roots use native Auto Layout and cannot become opaque assets",
+          "level": "automatic",
+          "ruleIds": [
+            "layout.page-root-missing-auto-layout",
+            "layout.page-root-cannot-be-asset"
+          ]
+        },
+        {
+          "concern": "non-page FRAME or COMPONENT nodes with [section] encountered in the audited tree use native Auto Layout; placed INSTANCE source audits remain separate",
+          "level": "automatic",
+          "ruleIds": [
+            "layout.section-missing-auto-layout"
+          ]
+        },
+        {
+          "concern": "generic multi-child content-flow containers use native Auto Layout",
+          "level": "automatic",
+          "ruleIds": [
+            "layout.container-missing-auto-layout"
+          ]
+        },
+        {
+          "concern": "GROUP nodes remain inside opaque assets and absolute layers carry exact-node intent",
+          "level": "automatic",
+          "ruleIds": [
+            "layout.group-outside-asset",
+            "layout.positioned-without-intent"
+          ]
+        }
+      ]
+    },
     {
       "id": "data-and-visualization",
       "source": {
