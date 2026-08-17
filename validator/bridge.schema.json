@@ -159,8 +159,206 @@
             "$ref": "#/$defs/nonEmpty"
           },
           "uniqueItems": true
+        },
+        "scope": {
+          "$ref": "#/$defs/sectionScope"
+        },
+        "externalDependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/externalDependency"
+          }
         }
       }
+    },
+    "sectionScope": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "kind",
+        "rootIdentity",
+        "boundary",
+        "assetBoundary",
+        "hostCompliance",
+        "selectionMode",
+        "contextIds",
+        "readinessClaim"
+      ],
+      "properties": {
+        "kind": {
+          "const": "section"
+        },
+        "rootIdentity": {
+          "$ref": "#/$defs/ref"
+        },
+        "boundary": {
+          "const": "selected-subtree"
+        },
+        "assetBoundary": {
+          "enum": [
+            "none",
+            "selected-root-opaque"
+          ]
+        },
+        "hostCompliance": {
+          "enum": [
+            "legacy-out-of-scope",
+            "bridge-out-of-scope",
+            "unknown-out-of-scope"
+          ]
+        },
+        "selectionMode": {
+          "enum": [
+            "single-root",
+            "explicit-variants"
+          ]
+        },
+        "contextIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "readinessClaim": {
+          "const": "section-source-only"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "selectionMode": {
+                "const": "single-root"
+              }
+            },
+            "required": [
+              "selectionMode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "contextIds": {
+                "type": "array",
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "selectionMode": {
+                "const": "explicit-variants"
+              }
+            },
+            "required": [
+              "selectionMode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "contextIds": {
+                "type": "array",
+                "minItems": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    "externalDependency": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "kind",
+        "reference",
+        "status",
+        "owner"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "route",
+            "anchor",
+            "modal",
+            "state",
+            "form",
+            "reset",
+            "component",
+            "data",
+            "host-layout",
+            "other"
+          ]
+        },
+        "reference": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "status": {
+          "enum": [
+            "resolved",
+            "deferred",
+            "unverified"
+          ]
+        },
+        "owner": {
+          "$ref": "#/$defs/owner"
+        },
+        "contractUri": {
+          "$ref": "#/$defs/uriReference"
+        },
+        "reviewAt": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "evidence": {
+          "$ref": "#/$defs/refList"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "resolved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "contractUri"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "deferred",
+                  "unverified"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "reviewAt"
+            ]
+          }
+        }
+      ]
     },
     "identity": {
       "type": "object",
@@ -508,6 +706,15 @@
         "width": {
           "type": "number",
           "exclusiveMinimum": 0
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "labelSource": {
+          "enum": [
+            "declared",
+            "inferred-from-selected-root-width"
+          ]
         }
       }
     },

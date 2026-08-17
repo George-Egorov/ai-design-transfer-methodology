@@ -47,6 +47,34 @@ extract design tree
   -> emit report with rule IDs, severity, location, and fix hints
 ```
 
+## Check selected section
+
+**Check selected section** is a separate audit mode for a new BRIDGE section inside a legacy/non-BRIDGE host. It must not run the page pipeline with fabricated metadata.
+
+```text
+read explicit selection
+  -> resolve each selected node to its nearest own/ancestor [section=<stable-id>] boundary
+  -> reject empty/untagged selection, a page root, mixed section ids, or a section below an inherited [asset] as Blocked scope
+  -> deduplicate normalized roots; traverse only those roots and descendants
+  -> treat [asset] as opaque, descendant INSTANCE as a trusted atomic boundary, and [decor] as traversed intent
+  -> run local identity, syntax, structure, content, and internal-target checks
+  -> compare only explicitly selected variants of one section when 2+ usable roots exist
+  -> defer only references that require lookup outside selected roots plus file/page/integration concerns
+  -> emit scope-qualified Ready, Partial, or Blocked plus a persistent coverage matrix
+```
+
+An editable `FRAME` or `COMPONENT` root receives full subtree inspection. A selected `GROUP` may be normalized so the report can emit the existing blocking `layout.group-outside-asset` finding; it cannot become Ready outside an opaque asset. If the normalized selected section root itself is an `INSTANCE`, it exposes only boundary evidence and the result is Partial. Ordinary descendant instances are trusted atomic boundaries: their internals are not applicable to this traversal and do not lower Ready. An exact `[section=id] [asset]` root is valid and opaque, so internal layout coverage is N/A. A section below a different asset ancestor is Blocked before traversal; inherited opacity is not an exemption. `[decor]` alone never stops traversal.
+
+One normalized root declares one requested context and can be Ready when that declared context is clean. Absence of variants the user did not request is `not requested`, not Partial or a missing-breakpoint error. Two or more explicitly selected roots must share one section id; they become declared selected variants. A context label inferred from root/container width is marked inferred, and the validator never discovers neighboring legacy frames to manufacture coverage.
+
+| Coverage class | Selected-section meaning |
+| --- | --- |
+| Local | The selected subtree can prove intrinsic tag/identity and action/href syntax, source structure, content evidence, targets inside the roots, and complete valid `http:`, `https:`, `mailto:`, or `tel:` href values. Incomplete/malformed external values are blocking, not Deferred. |
+| Selected variants | Identity/type, logical tree/cardinality, parents, product text, and visual intent are compared only across explicitly selected usable variants. |
+| Deferred | Internal routes/anchors and action/component/data targets requiring lookup outside selected roots, plus page root, page/view/route completeness, required page breakpoints, global uniqueness, host placement, page semantics, runtime, production accessibility, and WCAG conformance require separate evidence. |
+
+Exact implemented rule IDs and applicability live in the [selected-section coverage manifest](../validator/section-check-coverage.json). Its exact union is tracked independently from Page Check and the two counts must not be added.
+
 ## Rule catalog overview
 
 The machine-readable seed lives in [`../validator/rules.json`](../validator/rules.json).
@@ -102,7 +130,7 @@ The machine-readable seed lives in [`../validator/rules.json`](../validator/rule
 | Accessibility | `accessibility.decorative-layer-exposed` | warning | automatic |
 | Interaction | `interaction.form-field-missing-label` | warning | automatic |
 
-For `layout.section-missing-auto-layout`, automatic means a non-page FRAME or COMPONENT carrying `[section]` is present in the audited tree. A placed INSTANCE is atomic: Page Check 0.8 neither resolves its source component nor emits a section-layout finding for the instance. Select and audit the editable source tree separately.
+For `layout.section-missing-auto-layout`, automatic means a non-page FRAME or COMPONENT carrying `[section]` is present in the audited tree. A placed INSTANCE is atomic: Page Check 0.9 neither resolves its source component nor emits a section-layout finding for the instance. Select and audit the editable source tree separately.
 
 ## Suggested report format
 
@@ -127,6 +155,30 @@ For `layout.section-missing-auto-layout`, automatic means a non-page FRAME or CO
   ]
 }
 ```
+
+For a section-scoped report, include the boundary and unfinished evidence rather than reducing everything to issue counts:
+
+```json
+{
+  "methodology": "BRIDGE",
+  "mode": "section",
+  "status": "partial",
+  "scope": {
+    "kind": "section",
+    "rootIdentity": "checkout-summary",
+    "boundary": "selected-subtree",
+    "readinessClaim": "section-source-only"
+  },
+  "coverage": {
+    "evaluated": ["local-structure", "local-syntax"],
+    "notRequested": ["selected-variant-comparison"],
+    "deferred": ["file-resolved-targets", "host-integration"]
+  },
+  "issues": []
+}
+```
+
+`Ready` requires no errors, warnings/TODOs, selected-root source gaps, or deferred checks in the declared selected scope; trusted descendant instances and unrequested variants do not lower it. `Partial` has no blocking local error but retains a selected-root `INSTANCE`, an indistinguishable selected context, or another warning/deferred gap. `Blocked` means a missing/invalid tagged boundary, nested/mixed section roots, or a blocking finding. These labels never imply page, implementation, product, or WCAG readiness.
 
 ## Checklist modes
 

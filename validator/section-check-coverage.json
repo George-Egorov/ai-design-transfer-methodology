@@ -1,0 +1,185 @@
+{
+  "$schema": "./section-check-coverage.schema.json",
+  "methodology": "BRIDGE",
+  "pluginVersion": "0.9.0",
+  "catalogVersion": "0.5.0",
+  "verifiedAt": "2026-08-17",
+  "implementation": {
+    "product": "BRIDGE Figma plugin",
+    "feature": "Check selected section",
+    "commandId": "check-section",
+    "coverageBasis": "exact-emitted-rule-union",
+    "visibility": "private"
+  },
+  "scope": {
+    "rootTag": "section",
+    "boundary": "selected-subtree",
+    "normalization": "nearest-tagged-own-or-ancestor",
+    "pageRootHandling": "use-page-check",
+    "pageTagsAllowed": false,
+    "discoversSiblings": false,
+    "externalResolution": "deferred-outside-section-check",
+    "completeExternalHrefs": "authored-resolved",
+    "nonPageRootAncestorAssetBoundary": "blocked-before-traversal",
+    "selectedRootAsset": "opaque-layout-not-applicable",
+    "descendantInstances": "trusted-atomic-boundary",
+    "selectedRootInstance": "partial-source-boundary",
+    "singleRootVariantComparison": "not-requested",
+    "indistinguishableSelectedContexts": "partial"
+  },
+  "counts": {
+    "catalogRules": 107,
+    "sectionCheckRules": 26,
+    "automaticRules": 24,
+    "heuristicRules": 2,
+    "localRules": 20,
+    "selectedVariantRules": 6
+  },
+  "coverageAreas": [
+    {
+      "id": "boundary",
+      "applicability": "always",
+      "behavior": "scope-precondition",
+      "automaticRuleIds": [],
+      "heuristicRuleIds": []
+    },
+    {
+      "id": "intrinsic",
+      "applicability": "always",
+      "behavior": "local-rules",
+      "automaticRuleIds": [
+        "syntax.figma-metadata-tag-invalid",
+        "syntax.duplicate-tag",
+        "identity.missing-stable-identity",
+        "syntax.identity-value-not-kebab-case",
+        "identity.breakpoint-specific-id",
+        "interaction.optional-id-value-invalid",
+        "syntax.decor-asset-value-not-kebab-case",
+        "identity.multiple-identity-tags",
+        "identity.duplicate-identity"
+      ],
+      "heuristicRuleIds": [
+        "component.page-instance-declares-component-tag"
+      ]
+    },
+    {
+      "id": "layout",
+      "applicability": "always",
+      "behavior": "local-rules",
+      "automaticRuleIds": [
+        "layout.section-missing-auto-layout",
+        "layout.container-missing-auto-layout",
+        "layout.group-outside-asset",
+        "layout.positioned-without-intent"
+      ],
+      "heuristicRuleIds": []
+    },
+    {
+      "id": "interactions",
+      "applicability": "always",
+      "behavior": "local-rules-with-outbound-deferral",
+      "automaticRuleIds": [
+        "interaction.link-without-href",
+        "interaction.link-has-second-destination",
+        "interaction.href-invalid",
+        "interaction.control-without-action",
+        "interaction.control-action-duplicate",
+        "interaction.action-invalid"
+      ],
+      "heuristicRuleIds": []
+    },
+    {
+      "id": "variants",
+      "applicability": "selected-variants",
+      "behavior": "conditional-rules",
+      "automaticRuleIds": [
+        "responsive.identity-missing-in-required-breakpoint",
+        "responsive.tree-cardinality-changed",
+        "responsive.parent-changed-across-breakpoints",
+        "identity.same-identity-different-type",
+        "responsive.visual-intent-drift"
+      ],
+      "heuristicRuleIds": [
+        "content.text-changed-between-breakpoints"
+      ]
+    },
+    {
+      "id": "instance",
+      "applicability": "when-selected-root-is-instance",
+      "behavior": "atomic-boundary",
+      "automaticRuleIds": [],
+      "heuristicRuleIds": []
+    }
+  ],
+  "deferredChecks": [
+    {
+      "id": "file-reference-resolution",
+      "reason": "Internal routes, anchors, modal/state/form/reset targets, components, and data outside selected roots require the separate file or host integration check; complete http, https, mailto, and tel hrefs are authored-resolved, while incomplete or malformed values are blocking syntax errors."
+    },
+    {
+      "id": "page-and-routing",
+      "reason": "Page roots, views, routes, and route consistency are outside a selected section boundary."
+    },
+    {
+      "id": "required-page-breakpoints",
+      "reason": "A selected section does not declare or discover the host page's required breakpoint roots."
+    },
+    {
+      "id": "global-identity",
+      "reason": "Identity uniqueness outside the selected subtree requires file-level evidence."
+    },
+    {
+      "id": "host-placement",
+      "reason": "Parent flow, clipping, stacking, sticky behavior, and legacy siblings require host integration evidence."
+    },
+    {
+      "id": "product-runtime-and-wcag",
+      "reason": "Complete journeys, runtime behavior, production accessibility, and WCAG conformance cannot be proven from a selected source subtree."
+    }
+  ],
+  "notablePageOrFileRuleIdsNotEmitted": [
+    "responsive.missing-breakpoint-root",
+    "responsive.view-missing-required-breakpoint",
+    "interaction.modal-target-missing",
+    "interaction.state-target-missing",
+    "interaction.form-target-missing",
+    "interaction.reset-target-missing",
+    "routing.page-root-required",
+    "routing.default-view-missing",
+    "routing.href-internal-route-missing",
+    "routing.href-anchor-missing",
+    "routing.page-view-route-drift",
+    "layout.page-root-missing-auto-layout",
+    "layout.page-root-cannot-be-asset"
+  ],
+  "resultStatuses": {
+    "ready": {
+      "label": "Ready",
+      "conditions": [
+        "valid tagged selected scope",
+        "no findings or TODO markers",
+        "no deferred checks in the declared scope",
+        "unrequested variants may remain not requested"
+      ],
+      "claim": "section-source-only"
+    },
+    "partial": {
+      "label": "Partial",
+      "conditions": [
+        "no blocking local finding",
+        "warning, TODO, selected-root atomic instance, deferred file-resolved reference, or indistinguishable selected context remains"
+      ],
+      "claim": "section-source-only"
+    },
+    "blocked": {
+      "label": "Blocked",
+      "conditions": [
+        "missing or invalid tagged boundary",
+        "selected section nested below an inherited opaque asset boundary",
+        "nested roots or mixed section identities",
+        "blocking local finding remains"
+      ],
+      "claim": "section-source-only"
+    }
+  }
+}

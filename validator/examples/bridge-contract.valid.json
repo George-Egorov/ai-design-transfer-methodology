@@ -2,7 +2,7 @@
   "$schema": "../bridge.schema.json",
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.10.0",
+    "methodologyVersion": "0.11.0",
     "rulesVersion": "0.5.0",
     "source": {
       "tool": "Figma",

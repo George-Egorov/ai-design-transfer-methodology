@@ -70,6 +70,19 @@ A transfer unit—page, flow, section, or component—has one lifecycle record:
 
 Names are illustrative. A repository, issue tracker, design plugin, or build system may store the record, but it must be versioned, linkable, and delivered with the transfer unit.
 
+## Selected section inside a legacy host
+
+A section-scope lifecycle has two distinct source/integration gates:
+
+1. **selected-section source gate** — pins the `[section=<stable-id>]` root(s), selected-subtree boundary, selected contexts, source revision, local findings, and deferred dependencies;
+2. **file/host integration gate** — verifies internal routes/anchors and action/component/data targets requiring lookup outside selected roots, parent placement and clipping/stacking, route/page relationships, required product contexts, page semantics, runtime behavior, and implementation accessibility. Complete valid `http:`, `https:`, `mailto:`, and `tel:` hrefs are already authored-resolved at the source gate; incomplete or malformed external values block that gate rather than defer.
+
+The source gate is invalid when a selected section lies below a different opaque `[asset]` ancestor; that scope is Blocked before traversal. An exact `[section=id] [asset]` selected root remains a valid opaque whole-visual source with internal layout coverage N/A.
+
+**Check selected section** can produce Ready, Partial, or Blocked evidence for the first gate. Store that label with its scope and coverage matrix; do not replace `bridge.lifecycle.status` with it and do not use it as evidence that the second gate passed. A Ready single-context section source is valid when only that context was requested. A deferred file-resolved reference or selected section root that is itself an `INSTANCE` makes the source result Partial until the linked gate supplies evidence. Ordinary descendant instances are trusted atomic boundaries and do not lower Ready.
+
+The legacy host is a declared boundary, not an accepted BRIDGE deviation and not a hidden migration requirement. The lifecycle record must say `hostCompliance: legacy-out-of-scope`, link every external dependency to an owner/review point, and prevent “section source ready” from becoming “page/product ready” in downstream status or release notes.
+
 ## Stage 1: design
 
 The design owner prepares representative, production-relevant evidence:
@@ -242,6 +255,8 @@ A deviation that prevents WCAG 2.2 AA cannot be relabeled as conforming. Securit
 - [ ] Every remaining unknown/unsupported item is a scoped, owned, reviewable open question with a safe tested fallback.
 - [ ] Target capabilities, essential media/experience, data volume, degradation conditions, and implementation-owned budgets are declared.
 - [ ] Candidate deviations have not been hidden as “implementation details.”
+
+For a selected-section transfer, Ready from the source check satisfies only the source-evidence part of this list. The unit is Ready for implementation only when every blocking/deferred dependency required by the planned implementation has linked evidence or an owned safe fallback. Page/product/WCAG readiness remains a later scoped decision.
 
 ### Done for release
 

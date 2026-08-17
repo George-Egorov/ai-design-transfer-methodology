@@ -4,6 +4,19 @@ Use this short checklist before handing a design to a developer, an AI agent, or
 
 For a strict review, use the [full preflight checklist](08-preflight-checklist.md).
 
+## Choose the review scope first
+
+For a full BRIDGE page, continue with the numbered page checklist below. For one new section inside a legacy host, use this section path instead of inventing page metadata:
+
+- [ ] The selected boundary is a source root with `[section=<stable-id>]`; it has no fake `[page]`, `[bp]`, `[view]`, or `[route]`.
+- [ ] One root declares one requested context. Responsive comparison uses only two or more explicitly selected roots with that same section id.
+- [ ] The selected subtree satisfies the applicable identity, structure, content, asset/decor, interaction, component, and state items below.
+- [ ] Targets inside the selected roots resolve locally; complete valid `http:`, `https:`, `mailto:`, and `tel:` hrefs are authored-resolved, while malformed external values block; only references requiring file/host lookup outside the roots are deferred.
+- [ ] An exact `[section=id] [asset]` root may be the selected opaque whole visual with layout N/A; a section below a different asset ancestor is Blocked. `[decor]` remains traversed. A selected-root `INSTANCE` is Partial; an ordinary descendant instance is a trusted atomic boundary and does not lower Ready.
+- [ ] **Check selected section** reports Ready, Partial, or Blocked for the section source only; the result is not presented as page/product/WCAG readiness.
+
+See the [selected-section preflight profile](08-preflight-checklist.md#selected-section-profile-for-a-legacy-host). Page-only checklist items remain out of this audit scope; do not mark them passed.
+
 ## 1. Identify the page
 
 - [ ] Each root frame has stable `[page]`, `[bp]`, and `[view]` values.

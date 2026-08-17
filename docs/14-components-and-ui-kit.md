@@ -13,7 +13,7 @@ This separation prevents designers from repeating `[section=...]` on every secti
 
 A section component is identified by its source component, not by its position inside the page tree.
 
-The editable source root of every component classified under `Page Sections` uses native Auto Layout even with zero or one child, unless the entire source root is a legitimate opaque whole-visual `[asset]` with no live content flow. A placed INSTANCE is an atomic page-tree boundary: Page Check 0.8 does not resolve its source or report its internals as page findings. Audit the source component separately by selecting an editable FRAME or COMPONENT tree; detaching the instance is not a workaround.
+The editable source root of every component classified under `Page Sections` uses native Auto Layout even with zero or one child, unless the entire source root is a legitimate opaque whole-visual `[asset]` with no live content flow. A placed INSTANCE is an atomic page-tree boundary: Page Check 0.9 does not resolve its source or report its internals as page findings. Audit the source component separately by selecting an editable FRAME or COMPONENT tree; detaching the instance is not a workaround.
 
 ## Two library levels
 

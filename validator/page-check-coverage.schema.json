@@ -14,10 +14,11 @@
     "implementation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["product", "feature", "visibility"],
+      "required": ["product", "feature", "coverageBasis", "visibility"],
       "properties": {
         "product": { "const": "BRIDGE Figma plugin" },
         "feature": { "const": "Page Check" },
+        "coverageBasis": { "const": "exact-emitted-rule-union" },
         "visibility": { "enum": ["private", "public"] }
       }
     },

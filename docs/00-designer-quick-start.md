@@ -116,6 +116,25 @@ Open the [BRIDGE Assistant workflow](https://poliklot.github.io/bridge-design-me
 4. open each finding, jump to the affected layer, and read the linked rule and fix;
 5. rerun the check after resolving or documenting the finding.
 
+### Check only a new section in a legacy host
+
+When the surrounding page is not BRIDGE and only the new section is in scope, do not add fake page metadata. Give the source boundary one stable section tag:
+
+```text
+Checkout summary [section=checkout-summary]
+```
+
+Then:
+
+1. select the tagged section root and run **Check selected section**;
+2. to compare responsive variants, explicitly select two or more roots with that same section id—never add `[bp]`, `[view]`, `[route]`, or `[page]` to them;
+3. review only the selected subtree findings and the clearly listed deferred file/host checks;
+4. run the separate file/integration check for internal routes/anchors or action targets outside the selected roots and before claiming that host placement resolves. Complete valid `http:`, `https:`, `mailto:`, and `tel:` hrefs are already authored-resolved for this source scope; incomplete or malformed values are blocking syntax errors rather than Deferred references.
+
+An untagged frame is not silently accepted; use the plugin's existing **Draft Section** action or add `[section=<stable-id>]`. A selected editable `FRAME`/`COMPONENT` is fully traversed, and `[decor]` remains inside traversal. An exact `[section=id] [asset]` root may be a valid opaque whole visual with layout coverage N/A; a tagged section nested below a different `[asset]` ancestor is Blocked before traversal because the check cannot pierce that inherited boundary. A selected section root that is itself an `INSTANCE` yields Partial boundary evidence; ordinary descendant instances are trusted atomic boundaries and do not lower Ready. A single selected root can be ready for its one declared context; variants that were never requested are not missing coverage.
+
+The result is **Ready**, **Partial**, or **Blocked** for the selected section source only. Ready never upgrades the legacy page, route, full responsive set, implementation, product, or WCAG status. See [incremental adoption](19-team-adoption.md#when-the-host-product-is-legacy) and the [selected-section coverage contract](../validator/section-check-coverage.json).
+
 The page is ready for handoff when:
 
 - the page, view, and required breakpoint roots are unambiguous;
@@ -125,7 +144,7 @@ The page is ready for handoff when:
 - every reported blocker is fixed, while warnings and exceptions have an explicit decision;
 - the manual items in the [full preflight](08-preflight-checklist.md) have also been reviewed.
 
-Page Check in version 0.8.0 covers 30 of the 107 catalog rules: 29 automatic checks and one heuristic check. It shortens the review; it does not replace the remaining structured and manual checks.
+The plugin 0.9.0 coverage snapshots record exact, non-additive emitted-rule unions for both commands: Page Check covers 42 of the 107 catalog rules (40 automatic and 2 heuristic), while **Check selected section** covers 26 (24 automatic and 2 heuristic; 20 local and 6 selected-variant). They shorten review; they do not replace the remaining structured and manual checks.
 
 ## Find the right example
 

@@ -27,6 +27,7 @@ const schemaPairs = [
   ['validator/tags.schema.json', 'validator/tags.json'],
   ['validator/tag-examples.schema.json', 'validator/tag-examples.json'],
   ['validator/page-check-coverage.schema.json', 'validator/page-check-coverage.json'],
+  ['validator/section-check-coverage.schema.json', 'validator/section-check-coverage.json'],
   ['validator/site-content.schema.json', 'validator/site-content.json'],
   ['validator/methodology-coverage.schema.json', 'validator/methodology-coverage.json'],
   ['validator/bridge.schema.json', 'validator/examples/bridge-contract.valid.json'],
@@ -92,6 +93,65 @@ if (bridgeSchema) {
     }
     if (fixture.bridge?.contractVersion !== canonicalContractVersion) {
       problems.push(`${docsPath}: contractVersion ${fixture.bridge?.contractVersion} does not match canonical ${canonicalContractVersion}`);
+    }
+  }
+
+  const sectionFixturePath = 'validator/examples/bridge-section-contract.valid.json';
+  const sectionFixture = readJson(sectionFixturePath);
+  if (sectionFixture) {
+    if (!validateBridge(sectionFixture)) {
+      for (const error of validateBridge.errors || []) {
+        problems.push(`${sectionFixturePath}${error.instancePath || '/'}: ${error.message}`);
+      }
+    } else {
+      const contract = sectionFixture.bridge;
+      const scope = contract.context.scope;
+      const elements = new Map(contract.identity.elements.map((element) => [element.bridgeKey, element]));
+      const structureContexts = new Map((contract.structure?.contexts || []).map((context) => [context.id, context]));
+      const responsiveContexts = new Map((contract.responsive?.contexts || []).map((context) => [context.id, context]));
+      if (!elements.has(scope.rootIdentity)) {
+        problems.push(`${sectionFixturePath}: scope.rootIdentity ${scope.rootIdentity} is not declared in identity.elements`);
+      }
+      for (const contextId of scope.contextIds) {
+        if (!structureContexts.has(contextId)) {
+          problems.push(`${sectionFixturePath}: scope context ${contextId} has no structure context`);
+        }
+        if (!responsiveContexts.has(contextId)) {
+          problems.push(`${sectionFixturePath}: scope context ${contextId} has no responsive context`);
+        }
+        if (structureContexts.get(contextId)?.rootIdentity !== scope.rootIdentity) {
+          problems.push(`${sectionFixturePath}: structure context ${contextId} does not use scope root ${scope.rootIdentity}`);
+        }
+      }
+      const rootSourceNodes = elements.get(scope.rootIdentity)?.designInstance?.sourceNodes || [];
+      const rootContextIds = new Set(rootSourceNodes.map(({ contextId }) => contextId));
+      for (const contextId of scope.contextIds) {
+        if (!rootContextIds.has(contextId)) {
+          problems.push(`${sectionFixturePath}: scope root has no source node for context ${contextId}`);
+        }
+      }
+      for (const sourceNode of rootSourceNodes) {
+        const terminalLayer = String(sourceNode.layerPath || '').split('/').at(-1)?.trim() || '';
+        if (!terminalLayer.includes(`[section=${scope.rootIdentity}]`)) {
+          problems.push(`${sectionFixturePath}: selected root path for ${sourceNode.contextId} must terminate at [section=${scope.rootIdentity}]`);
+        }
+      }
+      for (const context of responsiveContexts.values()) {
+        if (context.labelSource === 'inferred-from-selected-root-width' && context.width === undefined) {
+          problems.push(`${sectionFixturePath}: inferred context ${context.id} must record its selected root width`);
+        }
+      }
+    }
+
+    const invalidSectionFixture = structuredClone(sectionFixture);
+    delete invalidSectionFixture.bridge.context.scope.rootIdentity;
+    if (validateBridge(invalidSectionFixture)) {
+      problems.push(`${sectionFixturePath}: section scope without rootIdentity unexpectedly validates`);
+    }
+    const inheritedAssetFixture = structuredClone(sectionFixture);
+    inheritedAssetFixture.bridge.context.scope.assetBoundary = 'ancestor-opaque';
+    if (validateBridge(inheritedAssetFixture)) {
+      problems.push(`${sectionFixturePath}: section scope below an ancestor asset unexpectedly validates`);
     }
   }
 
@@ -227,7 +287,7 @@ if (tagRegistry) {
 }
 
 const tagPattern = /\[([a-z][a-z0-9-]*)(?:=([^\]\r\n]*))?\]/gu;
-function validateLayerName(layerName, scope) {
+function validateLayerName(layerName, scope, ancestorLayerNames = []) {
   const errors = [];
   const parsed = [];
   for (const match of layerName.matchAll(tagPattern)) parsed.push({ key: match[1], value: match[2] });
@@ -281,6 +341,14 @@ function validateLayerName(layerName, scope) {
       }
     }
   }
+  if (byKey.has('section') && ancestorLayerNames.some((name) => {
+    const ancestorKeys = new Set([...name.matchAll(tagPattern)].map((match) => match[1]));
+    // A page root carrying [asset] is already invalid and never becomes opaque;
+    // mirror the plugin's page-root exception instead of hiding descendants.
+    return ancestorKeys.has('asset') && !ancestorKeys.has('page');
+  })) {
+    errors.push({ code: 'scope-invalid', key: 'section' });
+  }
   return errors;
 }
 
@@ -288,11 +356,11 @@ if (tagExamples && tagRegistry) {
   const caseIds = [...tagExamples.valid, ...tagExamples.invalid].map(({ id }) => id);
   for (const id of duplicates(caseIds)) problems.push(`validator/tag-examples.json: duplicate case id ${id}`);
   for (const example of tagExamples.valid) {
-    const errors = validateLayerName(example.layerName, example.scope);
+    const errors = validateLayerName(example.layerName, example.scope, example.ancestorLayerNames);
     if (errors.length) problems.push(`validator/tag-examples.json valid/${example.id}: ${errors.map(({ code, key }) => `${code}:${key}`).join(', ')}`);
   }
   for (const example of tagExamples.invalid) {
-    const actual = [...new Set(validateLayerName(example.layerName, example.scope).map(({ code }) => code))].sort();
+    const actual = [...new Set(validateLayerName(example.layerName, example.scope, example.ancestorLayerNames).map(({ code }) => code))].sort();
     const expected = [...example.expectedErrorCodes].sort();
     if (JSON.stringify(actual) !== JSON.stringify(expected)) {
       problems.push(`validator/tag-examples.json invalid/${example.id}: expected ${expected.join(', ')}, received ${actual.join(', ') || 'no errors'}`);

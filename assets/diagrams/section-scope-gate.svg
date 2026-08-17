@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">BRIDGE selected-section scope gate</title>
+  <desc id="desc">A selected section forms a checked BRIDGE island inside a legacy Figma page. Editable section structure and decorative layers are traversed, asset subtrees are opaque, component instances are atomic, and references outside the selection remain deferred. The report distinguishes scoped ready, partial, and blocked outcomes without claiming that the whole page is ready.</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1l9 5-9 5z" fill="#0D99FF"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1l9 5-9 5z" fill="#5C6874"/>
+    </marker>
+  </defs>
+  <style>
+    text{font-family:Arial,sans-serif}
+    .display{font-size:42px;font-weight:700;fill:#1E1E1E}
+    .heading{font-size:25px;font-weight:700;fill:#1E1E1E}
+    .body{font-size:18px;font-weight:500;fill:#283137}
+    .small{font-size:16px;font-weight:500;fill:#5C6874}
+    .label{font-family:"Courier New",monospace;font-size:14px;font-weight:700;letter-spacing:1.4px;fill:#006FC4}
+    .mono{font-family:"Courier New",monospace;font-size:16px;font-weight:700;fill:#1E1E1E}
+    .mono-small{font-family:"Courier New",monospace;font-size:14px;font-weight:700;fill:#283137}
+    .white-heading{font-size:25px;font-weight:700;fill:#FFFFFF}
+    .white-body{font-size:17px;font-weight:500;fill:#FFFFFF}
+    .white-mono{font-family:"Courier New",monospace;font-size:14px;font-weight:700;fill:#FFFFFF}
+    .blue-mono{font-family:"Courier New",monospace;font-size:14px;font-weight:700;fill:#70C3FF}
+    .panel{fill:#FFFFFF;stroke:#DCE4E9;stroke-width:2}
+    .node{fill:#FFFFFF;stroke:#DCE4E9;stroke-width:2}
+    .checked{fill:#FFFFFF;stroke:#0D99FF;stroke-width:2}
+    .line{fill:none;stroke:#DCE4E9;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .blue-line{fill:none;stroke:#0D99FF;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .muted-line{fill:none;stroke:#5C6874;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+
+  <rect width="1440" height="900" fill="#FBFCFD"/>
+
+  <text x="64" y="60" class="label">SECTION-SCOPED GATE</text>
+  <text x="64" y="111" class="display">A selected section becomes a BRIDGE island.</text>
+  <text x="64" y="148" class="small">Legacy context stays outside. The report names exactly what was checked, opaque, atomic, or deferred.</text>
+
+  <!-- Legacy page and selected island -->
+  <rect x="64" y="188" width="895" height="540" rx="28" class="panel"/>
+  <rect x="64" y="188" width="10" height="540" rx="5" fill="#5C6874"/>
+  <text x="100" y="230" class="label">LEGACY FIGMA PAGE</text>
+  <text x="100" y="263" class="heading">No page contract required</text>
+  <text x="895" y="260" class="small" text-anchor="end">unselected context</text>
+
+  <rect x="100" y="286" width="820" height="408" rx="22" fill="#F2F6F8" stroke="#DCE4E9" stroke-width="2"/>
+  <text x="126" y="319" class="mono-small">FRAME · 1440</text>
+
+  <rect x="126" y="338" width="768" height="48" rx="12" fill="#FFFFFF" stroke="#DCE4E9" stroke-width="2"/>
+  <text x="150" y="368" class="small">header · outside selected scope</text>
+
+  <rect x="126" y="405" width="590" height="235" rx="20" fill="#EAF6FF" stroke="#0D99FF" stroke-width="4"/>
+  <rect x="126" y="405" width="590" height="43" rx="18" fill="#0D99FF"/>
+  <path d="M126 430h590v18H126z" fill="#0D99FF"/>
+  <text x="150" y="433" class="white-mono">hero [section=hero] · SELECTED SCOPE</text>
+
+  <rect x="150" y="468" width="210" height="142" rx="14" class="checked"/>
+  <text x="169" y="496" class="mono-small">FRAME · CHECKED</text>
+  <text x="169" y="520" class="small">editable structure</text>
+  <rect x="169" y="539" width="172" height="16" rx="8" fill="#DCE4E9"/>
+  <rect x="169" y="566" width="116" height="16" rx="8" fill="#DCE4E9"/>
+  <circle cx="328" cy="574" r="10" fill="#0D99FF"/>
+  <path d="M323 574l4 4 7-9" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="380" y="468" width="146" height="62" rx="14" fill="#FFFFFF" stroke="#0D99FF" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="398" y="494" class="mono-small">[decor]</text>
+  <text x="398" y="516" class="small">TRAVERSED</text>
+
+  <rect x="380" y="548" width="146" height="62" rx="14" fill="#283137"/>
+  <text x="398" y="574" class="white-mono">[asset]</text>
+  <text x="398" y="596" class="blue-mono">OPAQUE</text>
+
+  <rect x="546" y="468" width="146" height="142" rx="14" fill="#FFFFFF" stroke="#5C6874" stroke-width="3"/>
+  <rect x="564" y="488" width="110" height="46" rx="10" fill="#F2F6F8" stroke="#DCE4E9" stroke-width="2"/>
+  <rect x="564" y="544" width="110" height="20" rx="10" fill="#DCE4E9"/>
+  <text x="619" y="586" class="mono-small" text-anchor="middle">INSTANCE</text>
+  <text x="619" y="605" class="small" text-anchor="middle">ATOMIC</text>
+
+  <rect x="150" y="619" width="272" height="1" fill="#0D99FF"/>
+  <path d="M348 595C430 664 654 655 752 529" class="muted-line" stroke-dasharray="7 7" marker-end="url(#arrow-muted)"/>
+
+  <rect x="752" y="448" width="142" height="96" rx="16" fill="#FFFFFF" stroke="#5C6874" stroke-width="2" stroke-dasharray="7 6"/>
+  <text x="823" y="478" class="mono-small" text-anchor="middle">OUT-OF-SCOPE</text>
+  <text x="823" y="502" class="small" text-anchor="middle">reference</text>
+  <rect x="768" y="514" width="110" height="22" rx="11" fill="#F2F6F8"/>
+  <text x="823" y="530" class="mono-small" text-anchor="middle">DEFERRED</text>
+
+  <rect x="126" y="659" width="768" height="20" rx="10" fill="#DCE4E9"/>
+  <text x="895" y="708" class="small" text-anchor="end">page readiness not claimed</text>
+
+  <!-- Scope gate -->
+  <path d="M959 458h22" class="blue-line" marker-end="url(#arrow-blue)"/>
+  <rect x="995" y="188" width="381" height="540" rx="28" fill="#1E1E1E"/>
+  <rect x="995" y="188" width="10" height="540" rx="5" fill="#0D99FF"/>
+  <text x="1034" y="230" class="blue-mono">CHECK SELECTED SECTION</text>
+  <text x="1034" y="266" class="white-heading">Exact scope evidence</text>
+  <text x="1034" y="293" class="white-body">One root or explicitly selected variants.</text>
+
+  <rect x="1034" y="326" width="303" height="72" rx="14" fill="#283137" stroke="#0D99FF" stroke-width="2"/>
+  <text x="1054" y="352" class="white-mono">BOUNDARY</text>
+  <text x="1317" y="352" class="blue-mono" text-anchor="end">SELECTED</text>
+  <text x="1054" y="379" class="white-body">No inferred page-wide claim</text>
+
+  <rect x="1034" y="412" width="303" height="72" rx="14" fill="#283137" stroke="#0D99FF" stroke-width="2"/>
+  <text x="1054" y="438" class="white-mono">STRUCTURE</text>
+  <text x="1317" y="438" class="blue-mono" text-anchor="end">CHECKED</text>
+  <text x="1054" y="465" class="white-body">Root + editable descendants</text>
+
+  <rect x="1034" y="498" width="303" height="72" rx="14" fill="#283137" stroke="#FFFFFF" stroke-width="2"/>
+  <text x="1054" y="524" class="white-mono">BOUNDARIES</text>
+  <text x="1317" y="524" class="white-mono" text-anchor="end">HONORED</text>
+  <text x="1054" y="551" class="white-body">Opaque asset · atomic instance</text>
+
+  <rect x="1034" y="584" width="303" height="98" rx="14" fill="#283137" stroke="#DCE4E9" stroke-width="2"/>
+  <text x="1054" y="610" class="white-mono">REFERENCES</text>
+  <text x="1317" y="610" class="white-mono" text-anchor="end">DEFERRED</text>
+  <text x="1054" y="637" class="white-body">Outside selection → Partial</text>
+  <text x="1054" y="663" class="blue-mono">FILE RESOLUTION = SEPARATE CHECK</text>
+
+  <!-- Scoped statuses -->
+  <text x="64" y="773" class="label">OUTCOME · SELECTED SCOPE ONLY</text>
+
+  <rect x="64" y="793" width="414" height="83" rx="20" fill="#FFFFFF" stroke="#16845B" stroke-width="3"/>
+  <circle cx="100" cy="834" r="16" fill="#16845B"/>
+  <path d="M93 834l5 5 10-12" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="130" y="826" class="heading">SCOPED READY</text>
+  <text x="130" y="853" class="small">checked · no findings · no deferred</text>
+
+  <rect x="496" y="793" width="414" height="83" rx="20" fill="#FFFFFF" stroke="#0D99FF" stroke-width="3"/>
+  <circle cx="532" cy="834" r="16" fill="#0D99FF"/>
+  <path d="M532 824v13" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="532" cy="843" r="2" fill="#FFFFFF"/>
+  <text x="562" y="826" class="heading">PARTIAL</text>
+  <text x="562" y="853" class="small">warning · TODO · deferred · root INSTANCE</text>
+
+  <rect x="928" y="793" width="448" height="83" rx="20" fill="#FFFFFF" stroke="#283137" stroke-width="3"/>
+  <rect x="950" y="812" width="34" height="34" rx="8" fill="#283137"/>
+  <path d="M960 822l14 14M974 822l-14 14" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <text x="1000" y="826" class="heading">BLOCKED</text>
+  <text x="1000" y="853" class="small">error · invalid or ambiguous scope</text>
+</svg>
