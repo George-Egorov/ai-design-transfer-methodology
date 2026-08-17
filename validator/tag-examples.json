@@ -49,6 +49,24 @@
       "layerName": "snow-bg [decor] [asset]"
     },
     {
+      "id": "selected-section-root",
+      "scope": "layer",
+      "layerName": "Checkout summary [section=checkout-summary]"
+    },
+    {
+      "id": "selected-opaque-asset-section-root",
+      "scope": "layer",
+      "layerName": "Campaign illustration [section=campaign-illustration] [asset]"
+    },
+    {
+      "id": "page-root-asset-does-not-hide-section",
+      "scope": "layer",
+      "layerName": "Checkout summary [section=checkout-summary]",
+      "ancestorLayerNames": [
+        "Invalid host root [page=legacy-host] [route=/legacy] [bp=1440] [view=default] [asset]"
+      ]
+    },
+    {
       "id": "visual-fallback",
       "scope": "layer",
       "layerName": "Frame 182 [decor=snow-bg]"
@@ -140,6 +158,25 @@
       "layerName": "Hero [section=Главный экран]",
       "expectedErrorCodes": [
         "invalid-value"
+      ]
+    },
+    {
+      "id": "page-tags-on-section-root",
+      "scope": "layer",
+      "layerName": "Checkout summary [section=checkout-summary] [page=checkout] [route=/checkout] [bp=360] [view=default]",
+      "expectedErrorCodes": [
+        "scope-invalid"
+      ]
+    },
+    {
+      "id": "selected-section-inside-asset",
+      "scope": "layer",
+      "layerName": "Checkout summary [section=checkout-summary]",
+      "ancestorLayerNames": [
+        "Legacy campaign art [asset]"
+      ],
+      "expectedErrorCodes": [
+        "scope-invalid"
       ]
     },
     {

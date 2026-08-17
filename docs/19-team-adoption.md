@@ -1,6 +1,6 @@
-# Adopt BRIDGE with one real file
+# Adopt BRIDGE with one real scope
 
-Do not begin by renaming a library or migrating an archive. Run a small pilot on one production page, let someone other than its designer use the result, and decide from evidence whether BRIDGE belongs in the team workflow.
+Do not begin by renaming a library or migrating an archive. Run a small pilot on one production page or one new selected section, let someone other than its designer use the result, and decide from evidence whether BRIDGE belongs in the team workflow.
 
 ## What the pilot should answer
 
@@ -24,6 +24,30 @@ Use one active page that is small enough to review in a session and rich enough 
 - content plus either decoration or an exported asset.
 
 Avoid a toy screen created only for the pilot. Do not migrate old files first: an untouched archive is not a blocker.
+
+### When the host product is legacy
+
+Do not retrofit page tags onto an otherwise non-BRIDGE file merely to validate one new section. Create or select an explicit boundary such as:
+
+```text
+Checkout summary [section=checkout-summary]
+```
+
+Select that root and run **Check selected section**. For responsive evidence, explicitly select two or more roots with the same `[section]` value; the command compares only those selected variants and never discovers legacy siblings. Do not add `[page]`, `[bp]`, `[view]`, or `[route]` to the section. A single selected root declares one requested source context and does not fail merely because unrequested variants are absent. The selected root may itself be `[section=id] [asset]` when the entire section is one opaque visual, but a section nested below a different asset ancestor is Blocked because the audit cannot pierce that boundary.
+
+![Selected-section gate isolating one BRIDGE section inside a legacy page, with asset and instance boundaries and file/host-dependent references outside the selected roots deferred](../assets/diagrams/section-scope-gate.svg)
+
+*Only the selected section subtree is checked. Opaque assets stop traversal, descendant instances are trusted atomic boundaries, decorative layers remain traversed, and file/host resolution is a separate check.*
+
+The result is intentionally narrow:
+
+- **Ready** — no blocking findings, warnings/TODOs, or deferred checks remain for the declared selected scope;
+- **Partial** — the selected source has no blocking error but still has a warning/TODO, a selected-root `INSTANCE`, an indistinguishable selected context, or a deferred reference that needs file/host lookup;
+- **Blocked** — the tagged boundary is missing/invalid or lies below an inherited opaque asset boundary, selected roots are nested or mix section identities, or a blocking finding remains.
+
+Complete valid `http:`, `https:`, `mailto:`, and `tel:` hrefs are authored-resolved and do not cause Partial; incomplete or malformed external hrefs are blocking syntax errors, not Deferred. A normal descendant instance is a trusted atomic boundary and also does not lower Ready; only a selected section root that is itself an `INSTANCE` is partial source evidence.
+
+Ready means **section source ready for the declared contexts**, not that the host page, route, complete responsive set, journey, implementation, product, or WCAG conformance is ready. Resolve only file/host-dependent references outside the selected roots plus host placement in a separate file/integration check. See the [transfer contract](04-transfer-contract.md#selected-section-scope-inside-a-legacy-host) and [section-scope preflight](08-preflight-checklist.md#selected-section-profile-for-a-legacy-host).
 
 ## Assign three roles
 
@@ -54,9 +78,11 @@ Follow the [designer quick start](00-designer-quick-start.md). Keep geometry, Au
 
 The [BRIDGE Assistant plugin](https://www.figma.com/community/plugin/1654485530503673254/bridge) can apply common tags, connect controls to targets, and show the file map. It does not require a separate BRIDGE account.
 
-### 3. Check the page
+### 3. Check the declared scope
 
-Select the page root and run **Check page** in the plugin. In version 0.8.0 it reports 30 catalog rules: 29 automatic checks and one heuristic check. Review the [coverage file](../validator/page-check-coverage.json) when exact scope matters.
+For a BRIDGE page, select the page root and run **Check page**. For the legacy-host profile above, select the tagged section root or its explicitly chosen variants and run **Check selected section**. The two commands have separate coverage contracts; do not turn a section into a fake page to reuse Page Check.
+
+The plugin 0.9.0 coverage snapshots record exact emitted-rule unions for both commands: Page Check reports 42 catalog rules (40 automatic and 2 heuristic), while **Check selected section** reports 26 (24 automatic and 2 heuristic; 20 local and 6 selected-variant). The counts are not additive because the scopes overlap. Review the [Page Check coverage file](../validator/page-check-coverage.json) or the separate [selected-section coverage file](../validator/section-check-coverage.json) when exact scope matters.
 
 The full [catalog contains 107 rules](../validator/rules.json). Rules outside current plugin coverage require structured-contract checks, the [designer checklist](17-designer-checklist.md), heuristic/manual review, or target QA according to the [coverage manifest](../validator/methodology-coverage.json). A clean plugin report is therefore not a claim that every catalog rule has been evaluated. Page Check also treats a placed INSTANCE as atomic; audit an editable source component separately when its section structure matters.
 
@@ -102,7 +128,7 @@ Change the time threshold for the complexity of your work, but keep the measurem
 If the pilot works:
 
 1. add the [designer checklist](17-designer-checklist.md) to design review;
-2. run **Check page** before a file enters handoff;
+2. run **Check page** for a page scope or **Check selected section** for an isolated section scope before handoff;
 3. reuse the proven names and tags in new pages and templates;
 4. review exceptions in the same place as other implementation decisions;
 5. evaluate another representative page after one or two delivery cycles.
@@ -115,19 +141,19 @@ Apply BRIDGE to active work as it changes. There is no need to rewrite an archiv
 - Do not rename the whole library before the first measured handoff.
 - Do not treat every warning as a blocker without product and technical context.
 - Do not use a polished toy file that avoids real states and interactions.
-- Do not present the 30 Page Check rules as automation of the full 107-rule catalog.
+- Do not present the 42 Page Check rules or the 26 selected-section rules as automation of the full 107-rule catalog.
 - Do not turn BRIDGE into a separate specification that drifts away from the design.
 
 ## Cost, infrastructure, and data
 
 | Question | Current answer |
 | --- | --- |
-| License and payment | The methodology and this public repository are MIT-licensed; the plugin implementation is private. Plugin version 0.8.0 requests no payments and has no paid BRIDGE account. |
+| License and payment | The methodology and this public repository are MIT-licensed; the plugin implementation is private. Plugin version 0.9.0 requests no payments and has no paid BRIDGE account. |
 | Infrastructure | No BRIDGE backend or team server is required. The published plugin declares no network access. |
 | Stored data | Language and the copied target are stored locally in Figma client storage. Explicit actions may rename selected layers or attach BRIDGE metadata to the document. Nothing is sent to an external BRIDGE service. |
-| Migration | No archive migration is required. Start with one active file and expand only where the workflow proves useful. |
+| Migration | No archive migration is required. Start with one active page or one explicitly selected new section and expand only where the workflow proves useful. |
 
-The plugin facts in this table describe the published 0.8.0 build. The plugin implementation repository is private; the public methodology repository remains the source for contract, coverage, and process claims.
+The plugin facts and coverage snapshots in this repository describe version 0.9.0. The Figma Community page remains authoritative for the currently installable build because publication is a separate manual step. The plugin implementation repository is private; the public methodology repository remains the source for contract, coverage, and process claims.
 
 Figma itself remains the host product and is governed by the workspace plan and policies your organization already uses.
 
@@ -138,5 +164,6 @@ Figma itself remains the host product and is governed by the workspace plan and 
 - [Designer checklist](17-designer-checklist.md)
 - [Full rule catalog](../validator/rules.json)
 - [Page Check coverage](../validator/page-check-coverage.json)
+- [Selected-section coverage](../validator/section-check-coverage.json)
 - [Transfer contract](04-transfer-contract.md)
 - [Current status and roadmap](12-project-roadmap.md)

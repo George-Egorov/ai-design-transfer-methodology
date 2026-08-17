@@ -208,8 +208,8 @@
         ]
       },
       "notes": {
-        "en": "A frame-built section or editable Page Sections source root uses native Auto Layout unless the exact section is a genuine opaque whole-visual asset. Page Check treats a placed INSTANCE as atomic; audit its source separately.",
-        "ru": "Секция-фрейм или редактируемый исходный корень Page Sections использует нативный Auto Layout, кроме точной секции, которая является настоящим непрозрачным цельным визуальным ресурсом. Page Check считает размещённый INSTANCE атомарным; его источник проверяется отдельно."
+        "en": "A stable [section] value is the required boundary for Check selected section; never add page/bp/view/route tags to a section. A frame-built section or editable Page Sections source root uses native Auto Layout unless that exact selected root also carries [asset] and is a genuine opaque whole visual. A section nested below a different non-page-root opaque [asset] ancestor is an invalid blocked selection because the audit cannot pierce the inherited boundary. An invalid [asset] on a page root never creates opacity. Placed INSTANCE nodes are atomic and their source is audited separately.",
+        "ru": "Стабильное значение [section] является обязательной границей для проверки выбранной секции; теги page/bp/view/route нельзя добавлять секции. Секция-фрейм или редактируемый исходный корень Page Sections использует нативный Auto Layout, кроме случая, когда сам выбранный корень также содержит [asset] и является настоящим непрозрачным цельным визуальным ресурсом. Секция под другим непрозрачным родительским [asset], не являющимся корнем страницы, является недопустимым заблокированным выбором: проверка не проходит сквозь унаследованную границу. Недопустимый [asset] на корне страницы никогда не создаёт непрозрачность. Размещённые INSTANCE атомарны, а их источник проверяется отдельно."
       }
     },
     {

@@ -1,6 +1,6 @@
 # BRIDGE transfer contract
 
-The BRIDGE Contract is the versioned, target-independent record that connects design evidence to implementation and QA. Version 0.9 introduced the structured pre-1.0 contract and its [JSON Schema](../validator/bridge.schema.json); version 0.10 adds blocking source-structure rules for native Auto Layout and non-asset GROUP nodes. The shape is usable for tooling, but fields may still evolve before 1.0; pin `contractVersion`, `methodologyVersion`, and `rulesVersion` in every exchange.
+The BRIDGE Contract is the versioned, target-independent record that connects design evidence to implementation and QA. Version 0.9 introduced the structured pre-1.0 contract and its [JSON Schema](../validator/bridge.schema.json); version 0.10 added blocking source-structure rules for native Auto Layout and non-asset GROUP nodes; version 0.11 adds a selected-section scope for new BRIDGE work inside a legacy host. The shape is usable for tooling, but fields may still evolve before 1.0; pin `contractVersion`, `methodologyVersion`, and `rulesVersion` in every exchange.
 
 ## Two complementary surfaces
 
@@ -42,7 +42,7 @@ A complete payload has a `bridge` root. The core envelope includes:
 | `methodologyVersion` | BRIDGE release used to prepare the transfer. |
 | `rulesVersion` | Rule catalog version used for validation. |
 | `source` | Tool, file/page, immutable revision, and capture context. |
-| `context` | Product page/view and the axes included in this transfer. |
+| `context` | Declared transfer scope, product/page context when applicable, included axes, and external dependencies. |
 | `identity` | Mapping across role, template, design instance, runtime data, and target implementation. |
 | `structure` | Logical trees in declared responsive/data contexts. Native Figma node type, layout mode, positioning, and asset boundaries remain source evidence validated alongside this tree. |
 | Contract modules | `data`, `responsive`, `interaction`, `motion`, `accessibility`, `capabilities`, and `lifecycle` as applicable. |
@@ -50,6 +50,69 @@ A complete payload has a `bridge` root. The core envelope includes:
 | `exceptions` | Intentional source/contract exceptions with impact and mitigation. |
 
 An omitted module means “not applicable” only when the scope proves that it is not applicable. It must not mean “nobody checked.”
+
+## Selected-section scope inside a legacy host
+
+A team may apply BRIDGE to one new section without migrating the surrounding product. The boundary is an explicitly selected source root carrying a stable section identity:
+
+```text
+Checkout summary [section=checkout-summary]
+```
+
+Do not turn the section into a fake page. `[page]`, `[bp]`, `[view]`, and `[route]` remain page-root tags and must not be added merely to run validation. **Check selected section** traverses only the normalized selected root and its descendants. A selected editable `FRAME` or `COMPONENT` receives the full local source audit; a `GROUP` remains a blocking structural finding. When the normalized selected section root itself is an `INSTANCE`, only boundary evidence is available and the result is Partial. An ordinary descendant `INSTANCE` is a trusted atomic boundary whose internals are not applicable to this selected-source traversal and does not lower Ready. An exact `[section=id] [asset]` root is a valid opaque whole-visual boundary with internal layout N/A. A section below a different non-page-root `[asset]` ancestor is instead an invalid Blocked scope: the check cannot pierce an inherited opaque boundary. An illegal `[asset]` on a page root never creates opacity; Page Check reports that root separately and descendants remain inspectable. `[decor]` alone never stops traversal.
+
+The structured scope records what was selected and what remains outside it. This is a **non-standalone fragment**; insert it into the required `bridge` envelope:
+
+```json
+{
+  "context": {
+    "project": "Legacy storefront section adoption",
+    "scope": {
+      "kind": "section",
+      "rootIdentity": "checkout-summary",
+      "boundary": "selected-subtree",
+      "assetBoundary": "none",
+      "hostCompliance": "legacy-out-of-scope",
+      "selectionMode": "explicit-variants",
+      "contextIds": ["summary-container-360", "summary-container-1200"],
+      "readinessClaim": "section-source-only"
+    },
+    "externalDependencies": [{
+      "id": "checkout-route-dependency",
+      "kind": "route",
+      "reference": "/checkout",
+      "status": "deferred",
+      "owner": "storefront-platform",
+      "reviewAt": "host integration gate"
+    }]
+  },
+  "responsive": {
+    "defaultPolicy": "same-tree",
+    "contexts": [
+      {
+        "id": "summary-container-360",
+        "driver": "container",
+        "width": 360,
+        "label": "Container 360",
+        "labelSource": "inferred-from-selected-root-width"
+      },
+      {
+        "id": "summary-container-1200",
+        "driver": "container",
+        "width": 1200,
+        "label": "Container 1200",
+        "labelSource": "inferred-from-selected-root-width"
+      }
+    ]
+  }
+}
+```
+
+`assetBoundary` is `none` for an editable or atomic source root and `selected-root-opaque` only when that exact selected section root carries `[asset]`. An ancestor asset boundary cannot form a valid section-scope contract. `single-root` declares one requested context and can be source-ready without inventing unrequested variants. `explicit-variants` means that the user explicitly selected two or more roots with the same `[section]` identity for comparison; the validator must not discover legacy siblings and silently expand scope. When a tool derives a context label from a selected root or container width, it records `labelSource: inferred-from-selected-root-width` rather than presenting the label as authored intent.
+
+An action target resolved inside the selected roots is local. A complete valid `http:`, `https:`, `mailto:`, or `tel:` href is authored-resolved for section-source scope and does not cause Partial; its runtime availability remains outside source validation. An incomplete or malformed external href is a blocking `interaction.href-invalid` finding, not Deferred. Internal routes/anchors, modal/state/form/reset targets, components, and data that require lookup outside the selected roots are neither “missing” nor proven: link an external contract or record them in `externalDependencies` as deferred/unverified, then resolve them at the separate file/host integration check. The complete executable example is [`bridge-section-contract.valid.json`](../validator/examples/bridge-section-contract.valid.json).
+
+A successful section-scope contract means **section source ready for the declared selected contexts**. It never means that the legacy host page, routes, complete responsive set, end-to-end journey, implementation, product, or WCAG conformance is BRIDGE-ready.
 
 ## Identity is a mapping, not one overloaded id
 
@@ -75,7 +138,7 @@ This example is intentionally broad enough to show the composition of modules. R
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.10.0",
+    "methodologyVersion": "0.11.0",
     "rulesVersion": "0.5.0",
     "source": {
       "tool": "figma",

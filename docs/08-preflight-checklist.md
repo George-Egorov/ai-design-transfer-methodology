@@ -1,6 +1,6 @@
 # Full BRIDGE preflight
 
-Use this gate before implementation begins and again before release. It evaluates the complete BRIDGE 0.10 transfer: source design, structured contract, target capability profile, implementation evidence, QA, open questions, and deviations.
+Use this gate before implementation begins and again before release. It evaluates the complete BRIDGE 0.11 transfer: source design, structured contract, target capability profile, implementation evidence, QA, open questions, and deviations.
 
 The shorter [designer checklist](17-designer-checklist.md) is a preparation aid. It does not replace this gate.
 
@@ -56,6 +56,41 @@ The affected scope cannot pass its gate when any of these applies:
 - [ ] Requirements and acceptance criteria have stable ids and evidence locations.
 - [ ] Unprepared context combinations inherit deterministically or are explicit open questions.
 
+## Selected-section profile for a legacy host
+
+Use this profile when the surrounding file/product is not BRIDGE and the transfer unit is one new section. It narrows evidence; it does not waive local BRIDGE requirements or convert the host page to BRIDGE.
+
+### Boundary and evidence
+
+- [ ] Every selected root resolves to the same explicit `[section=<stable-id>]`; an untagged frame is not silently accepted.
+- [ ] No selected section sits below a different opaque `[asset]` ancestor. An exact `[section=id] [asset]` root is allowed only as the selected opaque whole visual; an inherited asset boundary makes the scope Blocked before traversal.
+- [ ] The section carries no invented `[page]`, `[bp]`, `[view]`, or `[route]` tags. A selected page root is reviewed with **Check page**, not this profile.
+- [ ] `bridge.context.scope` records `kind: section`, `boundary: selected-subtree`, `assetBoundary: none|selected-root-opaque`, the root identity, host status, selection mode, context ids, and `readinessClaim: section-source-only`.
+- [ ] Source document, selected node(s), layer paths, and immutable revision are pinned.
+- [ ] One selected root declares one requested context. Two or more explicitly selected roots share the same section id and declare the variants to compare; legacy siblings are not discovered implicitly.
+- [ ] A context label inferred from selected root/container width is marked `labelSource: inferred-from-selected-root-width` rather than presented as authored intent.
+
+### Required inside the selected subtree
+
+- [ ] The editable section root and every eligible local content container satisfy the native Auto Layout rules; no non-asset `GROUP` remains.
+- [ ] An exact selected-root `[asset]` stops internal traversal and makes layout N/A while keeping that root as one flow item; `[decor]` alone remains traversed and is valid only on the intended visual layer.
+- [ ] A selected section root that is itself an `INSTANCE` is reported as a Partial source boundary. Ordinary descendant instances are trusted atomic boundaries: their internals are not applicable to this traversal, they do not lower Ready, and they are never detached to make the result look complete.
+- [ ] Stable identities are unique inside each declared selected context; local syntax, content, overflow, components, actions, and targets are reviewed.
+- [ ] Targets located inside the selected roots resolve locally. Complete valid `http:`, `https:`, `mailto:`, and `tel:` hrefs are authored-resolved; incomplete or malformed external values are blocking syntax errors, not Deferred. Internal routes/anchors, modal/state/form/reset targets, components, and data requiring lookup outside the roots are listed in `externalDependencies` with owner, status, and a file/integration review point.
+- [ ] When selected variants were requested, their identity/type, logical tree/cardinality, parentage, product text, and visual-intent policy are compared. An unrequested variant is `not requested`, not a missing breakpoint.
+
+### Deferred or global evidence
+
+Do not count the following as passed by a selected-section check: host page-root structure, page/view/route completeness, required page breakpoint roots, global identity uniqueness, outward route/anchor/modal/state/form resolution, parent placement and clipping/stacking/sticky behavior, page landmarks and full reading/focus order, complete journeys, runtime behavior, performance, production accessibility, or WCAG conformance. Record the relevant item as `deferred`, `unverified-external`, or `not evaluated: requires host/page evidence`, then run the separate file/integration and implementation gates.
+
+### Section result
+
+- **Ready** — the selected source has no error, warning/TODO, selected-root source gap, or deferred check in the declared scope. A single requested context may be Ready, and trusted descendant instances do not lower it.
+- **Partial** — there is no blocking local error, but a warning/TODO, selected-root `INSTANCE`, deferred file-resolved reference, or indistinguishable selected context remains.
+- **Blocked** — the tagged boundary is missing/invalid or lies below an inherited opaque asset boundary, selected roots are nested or use different section ids, or any blocking local finding remains.
+
+All three statuses are scope-qualified. “Ready” means **section source ready for the declared selected contexts** and never page-, product-, implementation-, or WCAG-ready. Exact automated coverage is published separately in the [selected-section manifest](../validator/section-check-coverage.json).
+
 ## 2. Identity and source mapping
 
 - [ ] Important authored elements have stable English `kebab-case` design identities or an allowed fallback tag.
@@ -81,7 +116,7 @@ See [Layer naming and identity](02-layer-naming-and-identity.md) and the [transf
 - [ ] Layer tags do not duplicate node type, geometry, component source, variants, or other native source metadata.
 - [ ] Each wrapper has a grouping, layout, clipping, surface, semantic, export, or interaction responsibility.
 - [ ] Page-level reusable sections come from `Page Sections` or use an explicit `[section=...]` when the source is ambiguous.
-- [ ] The source root of every `Page Sections` component satisfies the section Auto Layout rule in a separate source audit; Page Check 0.8 neither resolves the source from a placed INSTANCE nor treats instance internals as editable page structure.
+- [ ] The source root of every `Page Sections` component satisfies the section Auto Layout rule in a separate source audit; Page Check 0.9 neither resolves the source from a placed INSTANCE nor treats instance internals as editable page structure.
 - [ ] UI controls inherit a pinned component/template contract; instance overrides are intentional and visible.
 - [ ] Component states are not modeled as unrelated page roots, and page/data views are not hidden inside one component variant.
 - [ ] Detached component copies, flattened assets, rasterized text, and hidden source-of-truth layers have explicit reasons or are removed.
@@ -212,8 +247,9 @@ See the [Delivery lifecycle](24-delivery-lifecycle.md).
 ## 12. Validation coverage and evidence
 
 - [ ] The canonical tag registry, JSON Schema, rule catalog, localization, examples, content manifest, and coverage manifests validate.
-- [ ] Page Check scope is represented honestly: plugin 0.8.0 covers 30 of 107 rules—29 automatic and 1 heuristic.
-- [ ] Rules outside those 30 have structured, heuristic, manual, implementation, or runtime evidence according to the coverage manifest.
+- [ ] Page Check scope is represented honestly: plugin 0.9.0 has an exact emitted-rule union of 42 of 107 rules—40 automatic and 2 heuristic.
+- [ ] **Check selected section** is represented separately: its exact emitted-rule union is 26 rules—24 automatic and 2 heuristic; 20 local and 6 selected-variant.
+- [ ] Rules outside each declared union have structured, heuristic, manual, implementation, or runtime evidence according to the coverage manifest; the two counts are not added because the scopes overlap.
 - [ ] A clean Page Check report is not presented as full BRIDGE or WCAG validation.
 - [ ] Automatic, heuristic, manual, and runtime results name environment, expected result, actual result, and evidence.
 - [ ] Every applicable acceptance criterion is `pass`, `fail`, `not-applicable`, `blocked`, or linked to an accepted deviation.

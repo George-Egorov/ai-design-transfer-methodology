@@ -85,8 +85,10 @@ const schemaSources = readdirSync(validatorRoot, { withFileTypes: true })
 const publicDataFiles = new Map([
   [join(validatorRoot, 'rules.json'), 'bridge-rules.json'],
   [join(validatorRoot, 'page-check-coverage.json'), 'page-check-coverage.json'],
+  [join(validatorRoot, 'section-check-coverage.json'), 'section-check-coverage.json'],
   [join(validatorRoot, 'methodology-coverage.json'), 'methodology-coverage.json'],
   [join(validatorRoot, 'tags.json'), 'tags.json'],
+  [join(validatorRoot, 'examples', 'bridge-section-contract.valid.json'), 'bridge-section-contract.valid.json'],
 ]);
 
 // Canonical Markdown links point at the schema endpoint declared by each `$id`.
@@ -215,7 +217,17 @@ function readPreviousGeneratedFiles() {
 function publicCopies() {
   const copies = new Map();
   for (const [source, name] of publicDataFiles) {
-    if (existsSync(source)) copies.set(join(publicData, name), readFileSync(source));
+    if (!existsSync(source)) continue;
+    if (name === 'bridge-section-contract.valid.json') {
+      const fixture = JSON.parse(readFileSync(source, 'utf8'));
+      // The canonical fixture lives under validator/examples and resolves its
+      // schema one directory up. Its public copy is flattened into /data, where
+      // the generated schema alias is a sibling instead.
+      fixture.$schema = './bridge.schema.json';
+      copies.set(join(publicData, name), Buffer.from(`${JSON.stringify(fixture, null, 2)}\n`));
+      continue;
+    }
+    copies.set(join(publicData, name), readFileSync(source));
   }
   for (const [source, name] of schemaSources) {
     if (!existsSync(source)) continue;

@@ -1,6 +1,6 @@
 {
   "name": "bridge-design-methodology",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,7 +10,7 @@
     "content:sync": "node scripts/sync-site-content.mjs",
     "lint:ru": "node scripts/check-russian-copy.mjs",
     "lint:rules": "node scripts/check-rule-localization.mjs",
-    "lint:coverage": "node scripts/check-page-check-coverage.mjs",
+    "lint:coverage": "node scripts/check-page-check-coverage.mjs && node scripts/check-section-check-coverage.mjs",
     "predev": "npm run content:sync",
     "dev": "astro dev",
     "prebuild": "npm run content:sync",

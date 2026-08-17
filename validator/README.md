@@ -8,8 +8,10 @@ This directory is the canonical machine-readable surface of BRIDGE. It separates
 - [`tag-examples.json`](tag-examples.json) — executable valid and invalid tag examples.
 - [`bridge.schema.json`](bridge.schema.json) — the namespaced structured `bridge` contract for identity, data, responsive transformations, reactions, motion, accessibility, capability profiles, lifecycle evidence, exceptions, and tracked open questions.
 - [`examples/bridge-contract.valid.json`](examples/bridge-contract.valid.json) — a complete schema-valid reference envelope.
+- [`examples/bridge-section-contract.valid.json`](examples/bridge-section-contract.valid.json) — a schema-valid selected-section transfer inside a declared legacy host, with explicit selected contexts and deferred dependencies.
 - [`rules.json`](rules.json) and [`rules.schema.json`](rules.schema.json) — stable validator rule vocabulary.
 - [`page-check-coverage.json`](page-check-coverage.json) — verified Page Check implementation snapshot. It intentionally discloses no private source path.
+- [`section-check-coverage.json`](section-check-coverage.json) — separate **Check selected section** implementation snapshot with local, selected-variant, deferred, and notable non-emitted page/file coverage boundaries.
 - [`methodology-coverage.json`](methodology-coverage.json) — explicit automatic, heuristic, or manual validation ownership for the expanded methodology. Manual checks still require recorded evidence.
 - [`site-content.json`](site-content.json) — canonical EN/RU route/source manifest used by the site generator.
 

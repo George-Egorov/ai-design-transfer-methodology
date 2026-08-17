@@ -1,18 +1,26 @@
 {
   "$schema": "./page-check-coverage.schema.json",
   "methodology": "BRIDGE",
-  "pluginVersion": "0.8.0",
+  "pluginVersion": "0.9.0",
   "catalogVersion": "0.5.0",
-  "verifiedAt": "2026-08-14",
+  "verifiedAt": "2026-08-17",
   "counts": {
     "catalogRules": 107,
-    "pageCheckRules": 30,
-    "automaticRules": 29,
-    "heuristicRules": 1
+    "pageCheckRules": 42,
+    "automaticRules": 40,
+    "heuristicRules": 2
   },
   "automaticRuleIds": [
+    "syntax.figma-metadata-tag-invalid",
+    "syntax.duplicate-tag",
+    "syntax.identity-value-not-kebab-case",
+    "syntax.decor-asset-value-not-kebab-case",
+    "identity.missing-stable-identity",
+    "identity.breakpoint-specific-id",
+    "identity.multiple-identity-tags",
     "identity.duplicate-identity",
     "identity.same-identity-different-type",
+    "interaction.optional-id-value-invalid",
     "responsive.missing-breakpoint-root",
     "responsive.view-missing-required-breakpoint",
     "responsive.identity-missing-in-required-breakpoint",
@@ -30,6 +38,9 @@
     "interaction.form-target-missing",
     "interaction.reset-target-missing",
     "routing.page-root-required",
+    "routing.page-route-missing",
+    "routing.route-not-production-url",
+    "routing.duplicate-route",
     "routing.default-view-missing",
     "routing.href-internal-route-missing",
     "routing.href-anchor-missing",
@@ -42,11 +53,13 @@
     "layout.positioned-without-intent"
   ],
   "heuristicRuleIds": [
+    "component.page-instance-declares-component-tag",
     "content.text-changed-between-breakpoints"
   ],
   "implementation": {
     "product": "BRIDGE Figma plugin",
     "feature": "Page Check",
+    "coverageBasis": "exact-emitted-rule-union",
     "visibility": "private"
   }
 }

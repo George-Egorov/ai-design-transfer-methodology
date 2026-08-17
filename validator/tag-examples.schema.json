@@ -19,13 +19,17 @@
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
         "scope": { "enum": ["page-root", "variant-root", "layer", "control", "field", "target", "collection", "item"] },
-        "layerName": { "type": "string", "minLength": 3 }
+        "layerName": { "type": "string", "minLength": 3 },
+        "ancestorLayerNames": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3 }
+        }
       }
     },
     "validCase": {
       "allOf": [
         { "$ref": "#/$defs/baseCase" },
-        { "type": "object", "additionalProperties": false, "required": ["id", "scope", "layerName"], "properties": { "id": true, "scope": true, "layerName": true } }
+        { "type": "object", "additionalProperties": false, "required": ["id", "scope", "layerName"], "properties": { "id": true, "scope": true, "layerName": true, "ancestorLayerNames": true } }
       ]
     },
     "invalidCase": {
@@ -39,6 +43,7 @@
             "id": true,
             "scope": true,
             "layerName": true,
+            "ancestorLayerNames": true,
             "expectedErrorCodes": {
               "type": "array",
               "minItems": 1,

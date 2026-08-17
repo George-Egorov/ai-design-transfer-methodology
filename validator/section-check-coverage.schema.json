@@ -1,0 +1,308 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/section-check-coverage.schema.json",
+  "title": "BRIDGE Figma Check selected section coverage snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "methodology",
+    "pluginVersion",
+    "catalogVersion",
+    "verifiedAt",
+    "implementation",
+    "scope",
+    "counts",
+    "coverageAreas",
+    "deferredChecks",
+    "notablePageOrFileRuleIdsNotEmitted",
+    "resultStatuses"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "./section-check-coverage.schema.json"
+    },
+    "methodology": {
+      "const": "BRIDGE"
+    },
+    "pluginVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "catalogVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product",
+        "feature",
+        "commandId",
+        "coverageBasis",
+        "visibility"
+      ],
+      "properties": {
+        "product": {
+          "const": "BRIDGE Figma plugin"
+        },
+        "feature": {
+          "const": "Check selected section"
+        },
+        "commandId": {
+          "const": "check-section"
+        },
+        "coverageBasis": {
+          "const": "exact-emitted-rule-union"
+        },
+        "visibility": {
+          "enum": [
+            "private",
+            "public"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rootTag",
+        "boundary",
+        "normalization",
+        "pageRootHandling",
+        "pageTagsAllowed",
+        "discoversSiblings",
+        "externalResolution",
+        "completeExternalHrefs",
+        "nonPageRootAncestorAssetBoundary",
+        "selectedRootAsset",
+        "descendantInstances",
+        "selectedRootInstance",
+        "singleRootVariantComparison",
+        "indistinguishableSelectedContexts"
+      ],
+      "properties": {
+        "rootTag": {
+          "const": "section"
+        },
+        "boundary": {
+          "const": "selected-subtree"
+        },
+        "normalization": {
+          "const": "nearest-tagged-own-or-ancestor"
+        },
+        "pageRootHandling": {
+          "const": "use-page-check"
+        },
+        "pageTagsAllowed": {
+          "const": false
+        },
+        "discoversSiblings": {
+          "const": false
+        },
+        "externalResolution": {
+          "const": "deferred-outside-section-check"
+        },
+        "completeExternalHrefs": {
+          "const": "authored-resolved"
+        },
+        "nonPageRootAncestorAssetBoundary": {
+          "const": "blocked-before-traversal"
+        },
+        "selectedRootAsset": {
+          "const": "opaque-layout-not-applicable"
+        },
+        "descendantInstances": {
+          "const": "trusted-atomic-boundary"
+        },
+        "selectedRootInstance": {
+          "const": "partial-source-boundary"
+        },
+        "singleRootVariantComparison": {
+          "const": "not-requested"
+        },
+        "indistinguishableSelectedContexts": {
+          "const": "partial"
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalogRules",
+        "sectionCheckRules",
+        "automaticRules",
+        "heuristicRules",
+        "localRules",
+        "selectedVariantRules"
+      ],
+      "properties": {
+        "catalogRules": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sectionCheckRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "automaticRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "heuristicRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "localRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "selectedVariantRules": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "coverageAreas": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "applicability",
+          "behavior",
+          "automaticRuleIds",
+          "heuristicRuleIds"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "boundary",
+              "intrinsic",
+              "layout",
+              "interactions",
+              "variants",
+              "instance"
+            ]
+          },
+          "applicability": {
+            "enum": [
+              "always",
+              "selected-variants",
+              "when-selected-root-is-instance"
+            ]
+          },
+          "behavior": {
+            "enum": [
+              "scope-precondition",
+              "local-rules",
+              "local-rules-with-outbound-deferral",
+              "conditional-rules",
+              "atomic-boundary"
+            ]
+          },
+          "automaticRuleIds": {
+            "$ref": "#/$defs/ruleIds"
+          },
+          "heuristicRuleIds": {
+            "$ref": "#/$defs/ruleIds"
+          }
+        }
+      }
+    },
+    "deferredChecks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "reason"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 20
+          }
+        }
+      }
+    },
+    "notablePageOrFileRuleIdsNotEmitted": {
+      "$ref": "#/$defs/ruleIds"
+    },
+    "resultStatuses": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ready",
+        "partial",
+        "blocked"
+      ],
+      "properties": {
+        "ready": {
+          "$ref": "#/$defs/resultStatus"
+        },
+        "partial": {
+          "$ref": "#/$defs/resultStatus"
+        },
+        "blocked": {
+          "$ref": "#/$defs/resultStatus"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "ruleIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$"
+      }
+    },
+    "resultStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "conditions",
+        "claim"
+      ],
+      "properties": {
+        "label": {
+          "enum": [
+            "Ready",
+            "Partial",
+            "Blocked"
+          ]
+        },
+        "conditions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          }
+        },
+        "claim": {
+          "const": "section-source-only"
+        }
+      }
+    }
+  }
+}

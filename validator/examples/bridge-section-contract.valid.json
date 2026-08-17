@@ -1,0 +1,129 @@
+{
+  "$schema": "../bridge.schema.json",
+  "bridge": {
+    "contractVersion": "0.2.0",
+    "methodologyVersion": "0.11.0",
+    "rulesVersion": "0.5.0",
+    "source": {
+      "tool": "Figma",
+      "documentId": "legacy-storefront",
+      "revision": "figma-version-2026-08-14T12:00Z"
+    },
+    "context": {
+      "project": "Legacy storefront section adoption",
+      "scope": {
+        "kind": "section",
+        "rootIdentity": "checkout-summary",
+        "boundary": "selected-subtree",
+        "assetBoundary": "none",
+        "hostCompliance": "legacy-out-of-scope",
+        "selectionMode": "explicit-variants",
+        "contextIds": [
+          "summary-container-360",
+          "summary-container-1200"
+        ],
+        "readinessClaim": "section-source-only"
+      },
+      "externalDependencies": [
+        {
+          "id": "checkout-route-dependency",
+          "kind": "route",
+          "reference": "/checkout",
+          "status": "deferred",
+          "owner": "storefront-platform",
+          "reviewAt": "host integration gate"
+        }
+      ]
+    },
+    "identity": {
+      "elements": [
+        {
+          "bridgeKey": "checkout-summary",
+          "role": {
+            "kind": "section",
+            "semantics": "Checkout summary section source"
+          },
+          "designInstance": {
+            "designInstanceKey": "checkout-summary-source",
+            "sourceNodes": [
+              {
+                "contextId": "summary-container-360",
+                "nodeId": "41:360",
+                "layerPath": "Page Sections / Checkout summary 360 [section=checkout-summary]"
+              },
+              {
+                "contextId": "summary-container-1200",
+                "nodeId": "41:1200",
+                "layerPath": "Page Sections / Checkout summary 1200 [section=checkout-summary]"
+              }
+            ]
+          }
+        },
+        {
+          "bridgeKey": "checkout-summary-cta",
+          "role": {
+            "kind": "control"
+          },
+          "designInstance": {
+            "designInstanceKey": "checkout-summary-cta-source",
+            "sourceNodes": [
+              {
+                "contextId": "summary-container-360",
+                "nodeId": "42:360",
+                "layerPath": "Page Sections / Checkout summary 360 [section=checkout-summary] / Checkout"
+              },
+              {
+                "contextId": "summary-container-1200",
+                "nodeId": "42:1200",
+                "layerPath": "Page Sections / Checkout summary 1200 [section=checkout-summary] / Checkout"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "structure": {
+      "contexts": [
+        {
+          "id": "summary-container-360",
+          "rootIdentity": "checkout-summary",
+          "tree": {
+            "identity": "checkout-summary",
+            "children": [
+              "checkout-summary-cta"
+            ]
+          }
+        },
+        {
+          "id": "summary-container-1200",
+          "rootIdentity": "checkout-summary",
+          "tree": {
+            "identity": "checkout-summary",
+            "children": [
+              "checkout-summary-cta"
+            ]
+          }
+        }
+      ]
+    },
+    "responsive": {
+      "defaultPolicy": "same-tree",
+      "contexts": [
+        {
+          "id": "summary-container-360",
+          "driver": "container",
+          "width": 360,
+          "label": "Container 360",
+          "labelSource": "inferred-from-selected-root-width"
+        },
+        {
+          "id": "summary-container-1200",
+          "driver": "container",
+          "width": 1200,
+          "label": "Container 1200",
+          "labelSource": "inferred-from-selected-root-width"
+        }
+      ]
+    }
+  }
+}

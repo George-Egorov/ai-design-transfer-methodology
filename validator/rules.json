@@ -26,7 +26,7 @@
       "principle": "Identity",
       "severity": "error",
       "automation": "automatic",
-      "description": "Two elements inside the same breakpoint/view scope must not share one stable design identity.",
+      "description": "Two elements inside the same declared audit context—such as one page breakpoint/view or one selected-section variant—must not share one stable design identity.",
       "fix": "Prefer semantic fixture keys that survive reordering, such as `product-card-sku-blue`; use positional indexes such as `product-card-1` only as a design-fixture fallback. Never treat a positional suffix as a runtime data key."
     },
     {
@@ -34,8 +34,8 @@
       "principle": "Identity",
       "severity": "error",
       "automation": "automatic",
-      "description": "The same identity must not resolve to different logical element types across breakpoints.",
-      "fix": "Keep the Figma node/component type stable or model a separate entity."
+      "description": "The same identity must not resolve to different logical element types across comparable declared responsive contexts, including explicitly selected variants of one section.",
+      "fix": "Keep the Figma node/component type stable across the declared contexts or model a separate entity. Do not invent page or breakpoint tags on a selected section."
     },
     {
       "id": "identity.breakpoint-specific-id",
@@ -178,8 +178,8 @@
       "principle": "Geometry",
       "severity": "error",
       "automation": "automatic",
-      "description": "Every non-page FRAME or COMPONENT encountered in the audited page tree with a `[section]` tag must use native Figma Auto Layout, even with zero or one child, unless that exact node is a legitimate opaque whole-visual `[asset]` with no live content flow. A placed INSTANCE is atomic and excluded from this rule; Page Check does not resolve or inspect its source component.",
-      "fix": "Enable Auto Layout on the encountered `[section]` FRAME or COMPONENT. Audit a placed instance's editable source component separately; do not flatten or detach the instance as a workaround. `[decor]` and exception tags do not waive the section layout contract; use `[asset]` only for a genuinely opaque whole-visual section."
+      "description": "Every editable non-page FRAME or COMPONENT carrying `[section]` that is encountered in a declared audit tree—either a page tree or a selected-section subtree—must use native Figma Auto Layout, even with zero or one child, unless that exact node is a legitimate opaque whole-visual `[asset]` with no live content flow. For selected-section entry, `[asset]` must be on that exact section root; a section below a different non-page-root opaque asset ancestor is a blocked scope precondition, not an inherited exemption. An invalid page-root `[asset]` never creates opacity. A placed INSTANCE is atomic and excluded from this rule; source-tool checks do not resolve or inspect its source component.",
+      "fix": "Enable Auto Layout on the encountered `[section]` FRAME or COMPONENT. Audit a placed instance's editable source component separately; do not flatten or detach the instance as a workaround. `[decor]` and exception tags do not waive the section layout contract; use `[asset]` only on a genuinely opaque whole-visual section root, and move a live section outside any ancestor asset boundary."
     },
     {
       "id": "layout.container-missing-auto-layout",
@@ -258,24 +258,24 @@
       "principle": "Breakpoints",
       "severity": "error",
       "automation": "automatic",
-      "description": "An important identity exists on one breakpoint but is missing on another required breakpoint.",
-      "fix": "Keep the same identity in the same parent and change breakpoint visibility instead of deleting it, or model a separate state/variant/collection rule/structural exception."
+      "description": "An important identity exists in one required comparable responsive context but is missing from another explicitly declared context for the same page/view or selected section.",
+      "fix": "Keep the same identity in the same parent and change responsive visibility instead of deleting it, or model a separate state, variant, collection rule, or structural exception. An unrequested section variant is not a missing context."
     },
     {
       "id": "responsive.tree-cardinality-changed",
       "principle": "Breakpoints",
       "severity": "error",
       "automation": "automatic",
-      "description": "Responsive breakpoint roots for the same view do not preserve the same logical element tree/cardinality.",
-      "fix": "Keep the same transferable identities across breakpoints, or model the difference as a collection rule, state, variant, or structural exception."
+      "description": "Comparable responsive roots for the same page/view or explicitly selected section variants do not preserve the same logical element tree/cardinality.",
+      "fix": "Keep the same transferable identities across the declared responsive contexts, or model the difference as a collection rule, state, variant, or structural exception."
     },
     {
       "id": "responsive.parent-changed-across-breakpoints",
       "principle": "Breakpoints",
       "severity": "error",
       "automation": "automatic",
-      "description": "A transferable identity changes parent identity across breakpoints.",
-      "fix": "Preserve parent-child topology, use shared wrappers, or declare an explicit structural exception."
+      "description": "A transferable identity changes parent identity across comparable declared responsive contexts, including explicitly selected variants of one section.",
+      "fix": "Preserve parent-child topology across the declared contexts, use shared wrappers, or declare an explicit structural exception."
     },
     {
       "id": "responsive.order-changed-without-reason",
@@ -290,16 +290,16 @@
       "principle": "Breakpoints",
       "severity": "error",
       "automation": "automatic",
-      "description": "The same responsive identity has different visual-intent/policy tags across breakpoints, for example `sneg [decor] [asset]` on desktop and plain `sneg` on mobile.",
-      "fix": "Keep visual-intent flags stable across breakpoints, or model the difference as an explicit state, variant, target-specific rule, or BRIDGE exception."
+      "description": "The same identity has different visual-intent/policy tags across comparable declared responsive contexts, for example `sneg [decor] [asset]` in one selected variant and plain `sneg` in another.",
+      "fix": "Keep visual-intent flags stable across the declared contexts, or model the difference as an explicit state, variant, target-specific rule, or BRIDGE exception."
     },
     {
       "id": "content.text-changed-between-breakpoints",
       "principle": "Identity",
       "severity": "error",
       "automation": "heuristic",
-      "description": "The same product text identity has different content across breakpoints. Text inside decorative or root asset visuals is excluded from product-content drift checks.",
-      "fix": "Keep responsive product text identical. Model locale, experiment, or product variants outside breakpoint variants. For decorative or root asset visuals, preserve the root identity and visual-intent tags instead of comparing inner text as product content."
+      "description": "The same product text identity has different content across comparable declared responsive contexts, including explicitly selected variants of one section. Text inside decorative or root asset visuals is excluded from product-content drift checks.",
+      "fix": "Keep responsive product text identical. Model locale, experiment, or product variants outside responsive variants. For decorative or root asset visuals, preserve the root identity and visual-intent tags instead of comparing inner text as product content."
     },
     {
       "id": "content.decorative-asset-text-excluded-from-product-drift",
