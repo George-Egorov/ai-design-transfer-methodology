@@ -82,6 +82,8 @@ Name [page=page-id] [bp=width] [view=default]
 
 Add `[route=/production-path]` only when the real route is known.
 
+The root frame may sit directly on the Figma page or inside a native Figma **Section** used only to organize the canvas. Figma Sections are transparent organizers: they may group desktop/mobile areas, clients, flows, or review batches, but they do not replace the root frame, contribute BRIDGE context, or waive Auto Layout inside it. Do not use an ordinary `FRAME` or `GROUP` as an outer canvas organizer around a page root.
+
 ### 2. Match the breakpoints
 
 First make the source layout deterministic: every page root and frame-built section uses native Auto Layout even with zero or one child; a generic container uses it when at least two visible meaningful direct children participate in flow. Replace every Figma GROUP outside an opaque `[asset]` subtree. Put `[decor]` only on the exact intended absolute visual layer—never on a container to bypass structure checks.
@@ -111,7 +113,7 @@ Ask another person to identify the page, its breakpoints, every interaction resu
 Open the [BRIDGE Assistant workflow](https://poliklot.github.io/bridge-design-methodology/en/check/) and install the plugin. In Figma:
 
 1. open **BRIDGE**;
-2. select the top-level frame with the `[page]` tag;
+2. select the root frame with the `[page]` tag (directly on the Figma page or inside a native Figma Section);
 3. run **Check page**;
 4. open each finding, jump to the affected layer, and read the linked rule and fix;
 5. rerun the check after resolving or documenting the finding.
@@ -144,7 +146,7 @@ The page is ready for handoff when:
 - every reported blocker is fixed, while warnings and exceptions have an explicit decision;
 - the manual items in the [full preflight](08-preflight-checklist.md) have also been reviewed.
 
-The plugin 0.9.0 coverage snapshots record exact, non-additive emitted-rule unions for both commands: Page Check covers 42 of the 107 catalog rules (40 automatic and 2 heuristic), while **Check selected section** covers 26 (24 automatic and 2 heuristic; 20 local and 6 selected-variant). They shorten review; they do not replace the remaining structured and manual checks.
+The plugin 0.9.1 coverage snapshots record exact, non-additive emitted-rule unions for both commands: Page Check covers 42 of the 107 catalog rules (40 automatic and 2 heuristic), while **Check selected section** covers 26 (24 automatic and 2 heuristic; 20 local and 6 selected-variant). They shorten review; they do not replace the remaining structured and manual checks.
 
 ## Find the right example
 

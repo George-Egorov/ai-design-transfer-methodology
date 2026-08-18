@@ -82,7 +82,7 @@ The [BRIDGE Assistant plugin](https://www.figma.com/community/plugin/16544855305
 
 For a BRIDGE page, select the page root and run **Check page**. For the legacy-host profile above, select the tagged section root or its explicitly chosen variants and run **Check selected section**. The two commands have separate coverage contracts; do not turn a section into a fake page to reuse Page Check.
 
-The plugin 0.9.0 coverage snapshots record exact emitted-rule unions for both commands: Page Check reports 42 catalog rules (40 automatic and 2 heuristic), while **Check selected section** reports 26 (24 automatic and 2 heuristic; 20 local and 6 selected-variant). The counts are not additive because the scopes overlap. Review the [Page Check coverage file](../validator/page-check-coverage.json) or the separate [selected-section coverage file](../validator/section-check-coverage.json) when exact scope matters.
+The plugin 0.9.1 coverage snapshots record exact emitted-rule unions for both commands: Page Check reports 42 catalog rules (40 automatic and 2 heuristic), while **Check selected section** reports 26 (24 automatic and 2 heuristic; 20 local and 6 selected-variant). The counts are not additive because the scopes overlap. Review the [Page Check coverage file](../validator/page-check-coverage.json) or the separate [selected-section coverage file](../validator/section-check-coverage.json) when exact scope matters.
 
 The full [catalog contains 107 rules](../validator/rules.json). Rules outside current plugin coverage require structured-contract checks, the [designer checklist](17-designer-checklist.md), heuristic/manual review, or target QA according to the [coverage manifest](../validator/methodology-coverage.json). A clean plugin report is therefore not a claim that every catalog rule has been evaluated. Page Check also treats a placed INSTANCE as atomic; audit an editable source component separately when its section structure matters.
 
@@ -148,12 +148,12 @@ Apply BRIDGE to active work as it changes. There is no need to rewrite an archiv
 
 | Question | Current answer |
 | --- | --- |
-| License and payment | The methodology and this public repository are MIT-licensed; the plugin implementation is private. Plugin version 0.9.0 requests no payments and has no paid BRIDGE account. |
+| License and payment | The methodology and this public repository are MIT-licensed; the plugin implementation is private. Plugin version 0.9.1 requests no payments and has no paid BRIDGE account. |
 | Infrastructure | No BRIDGE backend or team server is required. The published plugin declares no network access. |
 | Stored data | Language and the copied target are stored locally in Figma client storage. Explicit actions may rename selected layers or attach BRIDGE metadata to the document. Nothing is sent to an external BRIDGE service. |
 | Migration | No archive migration is required. Start with one active page or one explicitly selected new section and expand only where the workflow proves useful. |
 
-The plugin facts and coverage snapshots in this repository describe version 0.9.0. The Figma Community page remains authoritative for the currently installable build because publication is a separate manual step. The plugin implementation repository is private; the public methodology repository remains the source for contract, coverage, and process claims.
+The plugin facts and coverage snapshots in this repository describe version 0.9.1. The Figma Community page remains authoritative for the currently installable build because publication is a separate manual step. The plugin implementation repository is private; the public methodology repository remains the source for contract, coverage, and process claims.
 
 Figma itself remains the host product and is governed by the workspace plan and policies your organization already uses.
 

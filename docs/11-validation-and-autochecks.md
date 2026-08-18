@@ -31,6 +31,7 @@ BRIDGE should become comfortable because a designer can run a preflight check be
 ```text
 extract design tree
   -> normalize names, boolean visual-intent tags, optional tag values, keys, and Figma metadata
+  -> discover page roots among direct Figma-page children and through native Figma SECTION organizers only
   -> group roots by page, then by view, then by breakpoint
   -> build identity map and type map
   -> check optional identity-bearing values against current breakpoint names/widths
@@ -46,6 +47,8 @@ extract design tree
   -> check assets and component states
   -> emit report with rule IDs, severity, location, and fix hints
 ```
+
+Native Figma Sections are transparent only during page-root discovery. The validator does not inherit their names/tags, serialize them into the BRIDGE page tree, or use them to suppress layout rules. It stops root discovery at ordinary `FRAME`/`GROUP` wrappers, then validates only the discovered tagged roots and their own subtrees.
 
 ## Check selected section
 

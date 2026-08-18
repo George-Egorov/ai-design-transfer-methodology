@@ -40,6 +40,8 @@ Home [page=home] [route=/] [bp=375] [view=default]
 
 `page` and `view` stay the same because the product page and state are the same. `bp` changes with width. `route` is present because the production route is known.
 
+Both roots may be direct children of the Figma page or may be placed inside native Figma Sections such as `Desktop variants` and `Mobile variants`. Those canvas organizers are transparent: keep the BRIDGE tags on the actual root frames. An ordinary outer FRAME/GROUP is not equivalent to a Figma Section organizer.
+
 [Full rule: responsive breakpoints](../docs/03-responsive-breakpoints.md)
 
 ---

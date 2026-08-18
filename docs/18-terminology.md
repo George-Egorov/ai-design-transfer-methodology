@@ -23,6 +23,7 @@ Human-facing explanations may be localized. Machine-readable layer tags, JSON fi
 | --- | --- |
 | **Design/source evidence** | The versioned source file, page, node, component, native metadata, fixture, prototype, annotation, or asset that demonstrates authored intent. Figma is one possible source, not a requirement of the methodology. |
 | **Root** | The top-level source object for a page, view, responsive context, or standalone section. |
+| **Figma Section organizer** | A native Figma `SECTION` used to group objects on the canvas. It is transparent during BRIDGE page-root discovery and is not the same as a product section carrying `[section=...]`. Its name/tags do not become page context. |
 | **Stable layer name** | A human-visible English `kebab-case` design anchor that does not encode viewport width, device label, or runtime list position. |
 | **Short layer tag** | A canonical bracketed marker such as `[page=catalog]`, `[href=/catalog]`, or `[item=product]` used only for concise intent that must remain visible in the layer tree. |
 | **Structured `bridge` metadata** | Namespaced data for relationships too rich for layer names: identity mappings, data displays, responsive transformations, reactions, motion, accessibility, capabilities, lifecycle, questions, and exceptions. |

@@ -141,6 +141,8 @@ Group 91 [asset=promo-poster]
 
 The root frame should carry stable page/view/breakpoint data. Add `[route=...]` only when the real production route is known:
 
+On the Figma canvas, this root may be a direct child of the Figma page or a descendant reached only through native Figma `SECTION` organizers. Those Sections are outside the transferred page hierarchy: their names and tags are not inherited, and they do not relax the root's Auto Layout contract. An ordinary `FRAME` or `GROUP` outside the tagged root is not a transparent organizer.
+
 ```text
 Home Page [bp=1920] [view=default] [page=home] [route=/]
 Home Page [bp=375] [view=default] [page=home] [route=/]
