@@ -586,8 +586,8 @@
       "principle": "Dependencies",
       "severity": "error",
       "automation": "automatic",
-      "description": "Page preflight requires at least one root frame with a stable `[page=...]` identity.",
-      "fix": "Add `[page=page-id]` to every responsive root frame that belongs to the page, then run preflight for that page identity."
+      "description": "Page preflight requires at least one root frame with a stable `[page=...]` identity. A root may be a direct child of the Figma page or reached only through native Figma SECTION canvas organizers.",
+      "fix": "Add `[page=page-id]` to every responsive root frame that belongs to the page. Keep each root directly on the Figma page or under native Figma SECTION organizers; do not wrap it in an ordinary FRAME/GROUP, then run preflight for that page identity."
     },
     {
       "id": "routing.default-view-missing",

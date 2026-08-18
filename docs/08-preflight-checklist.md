@@ -107,6 +107,7 @@ See [Layer naming and identity](02-layer-naming-and-identity.md) and the [transf
 
 ## 3. Source structure, components, and wrappers
 
+- [ ] Each page root is either a direct child of the Figma page or reached only through native Figma `SECTION` canvas organizers. Organizer Sections carry no inherited BRIDGE context and do not replace the root; ordinary outer `FRAME`/`GROUP` wrappers are not transparent.
 - [ ] Every BRIDGE page root uses native Auto Layout even with zero or one child; the root cannot declare itself `[asset]` to bypass the check.
 - [ ] Every frame-built section uses native Auto Layout even with zero or one child, except a narrowly legitimate whole-visual `[asset]` section with no live content flow.
 - [ ] Every generic Auto Layout-capable container with at least two visible meaningful direct flow children uses native Auto Layout.
@@ -247,7 +248,7 @@ See the [Delivery lifecycle](24-delivery-lifecycle.md).
 ## 12. Validation coverage and evidence
 
 - [ ] The canonical tag registry, JSON Schema, rule catalog, localization, examples, content manifest, and coverage manifests validate.
-- [ ] Page Check scope is represented honestly: plugin 0.9.0 has an exact emitted-rule union of 42 of 107 rules—40 automatic and 2 heuristic.
+- [ ] Page Check scope is represented honestly: plugin 0.9.1 has an exact emitted-rule union of 42 of 107 rules—40 automatic and 2 heuristic.
 - [ ] **Check selected section** is represented separately: its exact emitted-rule union is 26 rules—24 automatic and 2 heuristic; 20 local and 6 selected-variant.
 - [ ] Rules outside each declared union have structured, heuristic, manual, implementation, or runtime evidence according to the coverage manifest; the two counts are not added because the scopes overlap.
 - [ ] A clean Page Check report is not presented as full BRIDGE or WCAG validation.

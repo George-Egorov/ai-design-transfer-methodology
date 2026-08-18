@@ -20,6 +20,7 @@ See the [selected-section preflight profile](08-preflight-checklist.md#selected-
 ## 1. Identify the page
 
 - [ ] Each root frame has stable `[page]`, `[bp]`, and `[view]` values.
+- [ ] The root is direct on the Figma page or organized only by native Figma Sections; no ordinary outer `FRAME`/`GROUP` stands between the Figma page and the root.
 - [ ] `[route]` is present only when the real production route is known.
 - [ ] Breakpoints of one page keep the same `[page]` and `[view]`.
 

@@ -53,8 +53,8 @@
         ]
       },
       "notes": {
-        "en": "A BRIDGE page root always uses native Auto Layout and must never carry [asset].",
-        "ru": "Корень страницы BRIDGE всегда использует нативный Auto Layout и никогда не содержит [asset]."
+        "en": "A BRIDGE page root always uses native Auto Layout and must never carry [asset]. It may sit directly on the Figma page or below native Figma SECTION canvas organizers; those organizers are transparent and contribute no BRIDGE context.",
+        "ru": "Корень страницы BRIDGE всегда использует нативный Auto Layout и никогда не содержит [asset]. Он может лежать прямо на странице Figma или под нативными организаторами SECTION Figma; такие организаторы прозрачны и не передают контекст BRIDGE."
       }
     },
     {

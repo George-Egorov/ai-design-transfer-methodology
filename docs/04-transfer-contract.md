@@ -138,7 +138,7 @@ This example is intentionally broad enough to show the composition of modules. R
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.0",
+    "methodologyVersion": "0.11.1",
     "rulesVersion": "0.5.0",
     "source": {
       "tool": "figma",

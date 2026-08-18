@@ -2,6 +2,15 @@
 
 All notable changes to the public BRIDGE methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
 
+## [0.11.1] — 2026-08-18
+
+### Changed
+
+- Native Figma Sections are now canonical transparent canvas organizers for BRIDGE page-root discovery. Responsive roots may sit directly on the Figma page or below one or more native `SECTION` nodes without turning those organizers into product structure.
+- Organizer names/tags never become inherited BRIDGE context, while ordinary outer `FRAME`/`GROUP` wrappers remain non-transparent and invalid around page roots.
+- Bilingual quick starts, design/responsive rules, checklists, validation pipeline, terminology, hard cases, examples, tag notes, and `routing.page-root-required` now describe the same boundary.
+- BRIDGE Assistant 0.9.1 discovers direct and Section-organized roots together, accepts an unambiguous selected organizer, and preserves bounded scanning of unrelated canvas trees. Rule catalog 0.5.0 and exact Page/Section Check rule counts are unchanged.
+
 ## [0.11.0] — 2026-08-17
 
 ### Added
@@ -59,6 +68,7 @@ All notable changes to the public BRIDGE methodology, schemas, rule catalog, and
 
 - Added the interactive layer inspector, focused Figma companion workflow, bilingual site, and the original 77-rule catalog.
 
+[0.11.1]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.1
 [0.11.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.0
 [0.10.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.10.0
 [0.9.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.9.0
