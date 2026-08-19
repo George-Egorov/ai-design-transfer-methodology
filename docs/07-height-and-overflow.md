@@ -1,100 +1,26 @@
-# Height and overflow
+# Content and overflow
 
-Fixed height is one of the most common sources of transfer bugs. BRIDGE requires height intent to be explicit.
+Dynamic content should be allowed to use the space it needs. A fixed height is a product decision, not a shortcut for matching one screenshot.
 
-## Default preference
+## Prefer content-driven height
 
-Prefer content-driven sizing:
+Let text, data, and lists grow. Test long words, prices, names, localization, errors, and empty states.
 
-- text layers hug content;
-- cards grow with content;
-- sections define padding and min-height rather than clipping content;
-- repeated cards align through grid rules, not hidden overflow.
+## When a fixed height is valid
 
-## When fixed height is allowed
+Use it when the product needs a known viewport, crop, media frame, or scroll region. Record what happens when content does not fit:
 
-Fixed height is valid for:
+- wrap or grow;
+- clip with a visible reason;
+- scroll inside a named region;
+- truncate with an accessible way to read the rest.
 
-- root breakpoint canvases;
-- buttons and controls with a design-system size;
-- icons and images with fixed aspect ratio;
-- bounded cards when equal height is intentional;
-- masks, posters, and exported visual assets;
-- scrollable areas with an explicit overflow strategy.
+Do not use manual line breaks or separate mobile text only to preserve a composition.
 
-Declare the reason:
+## Check the edges
 
-```text
-feature-card [height=fixed] [reason=equal-card-grid]
-```
+Verify that content, focus, validation messages, and interactive targets are not clipped accidentally. See [responsive behavior](03-responsive-breakpoints.md) for intermediate widths.
 
-## Text and fixed height
+## Ready
 
-A text layer with fixed height must define what happens when content changes.
-
-Bad:
-
-```text
-description [height=fixed]
-```
-
-Good:
-
-```text
-description [height=hug]
-```
-
-Or, if clipping is intentional:
-
-```text
-description [height=fixed] [overflow=truncate] [lines=3]
-```
-
-## Text wrapping and manual line breaks
-
-Manual line breaks are not layout.
-
-Do not use forced line breaks in a text layer, `<br>`, or breakpoint-specific copy splits to make dynamic content look correct. If the text comes from a CMS, admin panel, localization file, product catalog, or any other editable source, it must wrap by the container.
-
-Bad:
-
-```text
-hero-title
-"Launch your winter
-business faster"
-```
-
-when the break is only a visual workaround.
-
-Good:
-
-```text
-hero-title [height=hug]
-```
-
-The text area width, not the copy, defines the wrapping behavior:
-
-- set an intentional width/max-width;
-- allow normal wrapping;
-- use hug/min-height when the block can grow;
-- use `[overflow=truncate] [lines=...]` only when truncation is a product decision;
-- tolerate long words, names, URLs, and localized text.
-
-Forced line breaks are valid only when they are part of the content semantics or an approved brand lockup: postal addresses, poems, legal copy with prescribed formatting, or a campaign headline that must break in a specific place. Mark that as an exception:
-
-```text
-campaign-title [bridge-exception=manual-line-break] [reason=brand-lockup]
-```
-
-## Overflow policy
-
-Use explicit overflow tags:
-
-```text
-[overflow=visible]
-[overflow=hidden]
-[overflow=scroll]
-[overflow=truncate]
-```
-
-If an item overflows visually, place it at the hierarchy level where that overflow is intended.
+The rule is ready when the team knows how the block behaves with normal, long, empty, and error data.
