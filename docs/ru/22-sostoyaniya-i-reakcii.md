@@ -16,10 +16,10 @@
 Существующие теги обозначают опорные элементы:
 
 ```text
-Почта [field=email] [name=email]
-Отправить [action=submit:lead-form]
-Форма [state=lead-form-idle]
-Успех [state=lead-form-success]
+email [field=email] [name=email]
+submit [action=submit:lead-form]
+lead-form [state=lead-form-idle]
+success [state=lead-form-success]
 ```
 
 Связи прототипа могут быть дополнительным свидетельством. Не добавляйте отдельный тег для каждого события, условия, таймаута, фокуса, объявления и кода ответа. Храните эти связи в структурированных метаданных BRIDGE, ссылающихся на стабильные идентификаторы.

@@ -57,7 +57,7 @@ feature-story
 В макете используйте обычные стабильные идентификаторы:
 
 ```text
-История [section=feature-story]
+feature-story [section=feature-story]
   story-visual
   scene-intro
   scene-compare

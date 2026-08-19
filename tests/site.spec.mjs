@@ -8,7 +8,7 @@ for (const locale of ['ru', 'en', 'zh']) {
     await page.goto(`${base}/${locale}/`);
     await expect(page.locator('h1#_top')).toBeVisible();
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('[data-coverage-map]')).toBeVisible();
+    await expect(page.locator('.bridge-handoff-map')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     const result = await new AxeBuilder({ page }).analyze();
     expect(result.violations.filter(({ impact }) => impact === 'critical' || impact === 'serious')).toEqual([]);
@@ -25,28 +25,25 @@ for (const locale of ['ru', 'en', 'zh']) {
   });
 }
 
-test('coverage tabs are keyboard operable', async ({ page }) => {
+test('primary quick-start action is keyboard operable', async ({ page }) => {
   await page.goto(`${base}/ru/`);
-  const first = page.locator('[data-coverage-tab]').first();
-  await first.focus();
-  await page.keyboard.press('ArrowDown');
-  const second = page.locator('[data-coverage-tab]').nth(1);
-  await expect(second).toBeFocused();
-  await expect(second).toHaveAttribute('aria-selected', 'true');
-  await expect(page.locator('[data-coverage-panel]').nth(1)).toBeVisible();
+  const quickStart = page.locator('.bridge-actions .bridge-button-primary');
+  await quickStart.focus();
+  await expect(quickStart).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(new RegExp(`${base}/ru/start/designer-quick-start/?$`));
 });
 
-test('preflight persists progress and copies a reproducible report', async ({ page, context }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+test('check hub exposes three clear review paths', async ({ page }) => {
   await page.goto(`${base}/ru/check/`);
   await expect(page.locator('h1')).toHaveCount(1);
-  const first = page.locator('[data-preflight] input[type="checkbox"]').first();
-  await first.check();
-  await expect(page.locator('[data-progress-value]')).toHaveText('8%');
-  await page.reload();
-  await expect(page.locator('[data-preflight] input[type="checkbox"]').first()).toBeChecked();
-  await page.locator('[data-copy]').click();
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('Быстрая проверка BRIDGE');
+  const paths = page.locator('.check-hub-hero nav a');
+  await expect(paths).toHaveCount(3);
+  await expect(paths.nth(1)).toHaveAttribute('href', `${base}/ru/check/designer-checklist/`);
+  await expect(paths.nth(2)).toHaveAttribute('href', `${base}/ru/check/full-review/`);
+  await paths.first().click();
+  await expect(page.locator('#figma-page-check')).toBeVisible();
+  await expect(page.locator('.plugin-brief-cta')).toHaveAttribute('href', /figma\.com\/community\/plugin\//);
 });
 
 test('tag registry filters and rule deep links resolve', async ({ page }) => {
@@ -63,6 +60,6 @@ test('tag registry filters and rule deep links resolve', async ({ page }) => {
 test('reduced motion disables nonessential animations', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto(`${base}/ru/`);
-  const duration = await page.locator('.bridge-layers-panel:visible').evaluate((element) => getComputedStyle(element).animationDuration);
+  const duration = await page.locator('.bridge-handoff-map').evaluate((element) => getComputedStyle(element).animationDuration);
   expect(Number.parseFloat(duration)).toBeLessThanOrEqual(0.001);
 });

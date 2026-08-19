@@ -5,16 +5,41 @@ import { Icon } from '@astrojs/starlight/components';
 const links = config.social || [];
 ---
 
-{links.map(({ label, href, icon }) => (
-  <a href={href} target="_blank" rel="me noopener noreferrer" class="bridge-social-link">
-    <span class="sr-only">{label}</span>
-    <Icon name={icon} />
-  </a>
-))}
+{links.map(({ label, href, icon }) =>
+  href === 'https://github.com/Poliklot/bridge-design-methodology' ? (
+    <span class="bridge-github-social">
+      <a href={href} target="_blank" rel="me noopener noreferrer" class="bridge-social-link">
+        <span class="sr-only">{label}</span>
+        <Icon name={icon} />
+      </a>
+      <a
+        href={`${href}/stargazers`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bridge-github-stars-link"
+        aria-label="GitHub stars"
+      >
+        <img
+          class="bridge-github-stars"
+          src="https://img.shields.io/github/stars/Poliklot/bridge-design-methodology?style=social"
+          alt="GitHub stars"
+          loading="lazy"
+        />
+      </a>
+    </span>
+  ) : (
+    <a href={href} target="_blank" rel="me noopener noreferrer" class="bridge-social-link">
+      <span class="sr-only">{label}</span>
+      <Icon name={icon} />
+    </a>
+  ),
+)}
 
 <style>
   .bridge-social-link {
     display: inline-flex;
+    gap: 0.28rem;
+    align-items: center;
     padding: 0.5em;
     margin: -0.5em;
     color: var(--sl-color-text-accent);
@@ -22,5 +47,28 @@ const links = config.social || [];
 
   .bridge-social-link:hover {
     color: var(--sl-color-white);
+  }
+
+  .bridge-github-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .bridge-github-stars-link {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.3rem;
+    transition: opacity 0.2s ease;
+  }
+
+  .bridge-github-stars-link:hover {
+    opacity: 0.82;
+  }
+
+  .bridge-github-stars {
+    display: block;
+    height: 1.25rem;
+    width: auto;
   }
 </style>

@@ -15,8 +15,10 @@
         "ru": "docs/ru/00-bystryj-start-dlya-dizajnera.md",
         "zh": "docs/zh/00-designer-quick-start.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Quick start",
+        "ru": "Быстрый старт",
+        "zh": "快速起步"
       }
     },
     {
@@ -27,8 +29,10 @@
         "ru": "docs/ru/01-pravila-dizajna.md",
         "zh": "docs/zh/01-design-rules.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Structure",
+        "ru": "Структура",
+        "zh": "结构"
       }
     },
     {
@@ -39,8 +43,10 @@
         "ru": "docs/ru/02-imena-sloev-i-identichnost.md",
         "zh": "docs/zh/02-layer-naming-and-identity.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Layer names",
+        "ru": "Имена слоёв",
+        "zh": "图层命名"
       }
     },
     {
@@ -51,8 +57,10 @@
         "ru": "docs/ru/03-adaptivy-i-breakpointy.md",
         "zh": "docs/zh/03-responsive-breakpoints.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Responsive",
+        "ru": "Адаптивы",
+        "zh": "响应式"
       }
     },
     {
@@ -63,8 +71,10 @@
         "ru": "docs/ru/04-kontrakt-perenosa.md",
         "zh": "docs/zh/04-transfer-contract.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Integration contract",
+        "ru": "Контракт интеграции",
+        "zh": "集成契约"
       }
     },
     {
@@ -75,8 +85,10 @@
         "ru": "docs/ru/05-interaktivnost-i-celi.md",
         "zh": "docs/zh/05-interactions-and-targets.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Actions",
+        "ru": "Действия",
+        "zh": "动作"
       }
     },
     {
@@ -87,8 +99,10 @@
         "ru": "docs/ru/06-politika-obertok.md",
         "zh": "docs/zh/06-wrapper-policy.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Wrappers",
+        "ru": "Обёртки",
+        "zh": "包装器"
       }
     },
     {
@@ -99,8 +113,10 @@
         "ru": "docs/ru/07-vysoty-i-overflow.md",
         "zh": "docs/zh/07-height-and-overflow.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Content",
+        "ru": "Контент",
+        "zh": "内容"
       }
     },
     {
@@ -113,8 +129,12 @@
       },
       "description": {
         "en": "A strict preflight review and foundation for automated validation.",
-        "ru": "Строгая проверка макета и основа для автоматического валидатора.",
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+        "ru": "Строгая проверка макета и основа для автоматического валидатора."
+      },
+      "sidebarLabel": {
+        "en": "Full audit",
+        "ru": "Полный аудит",
+        "zh": "完整审核"
       }
     },
     {
@@ -125,8 +145,10 @@
         "ru": "docs/ru/09-tipichnye-oshibki-dizajnerov.md",
         "zh": "docs/zh/09-common-designer-mistakes.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Mistakes",
+        "ru": "Ошибки",
+        "zh": "错误"
       }
     },
     {
@@ -137,8 +159,10 @@
         "ru": "docs/ru/10-slozhnye-kejsy-i-edge-cases.md",
         "zh": "docs/zh/10-hard-cases-and-edge-cases.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Edge cases",
+        "ru": "Пограничные случаи",
+        "zh": "边界情况"
       }
     },
     {
@@ -149,8 +173,10 @@
         "ru": "docs/ru/11-validaciya-i-avtoproverki.md",
         "zh": "docs/zh/11-validation-and-autochecks.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Validator",
+        "ru": "Валидатор",
+        "zh": "验证器"
       }
     },
     {
@@ -161,8 +187,10 @@
         "ru": "docs/ru/19-vnedrenie-v-komandu.md",
         "zh": "docs/zh/19-team-adoption.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Pilot",
+        "ru": "Пилот",
+        "zh": "试点"
       }
     },
     {
@@ -173,8 +201,10 @@
         "ru": "docs/ru/12-roadmap-proekta.md",
         "zh": "docs/zh/12-project-roadmap.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Roadmap",
+        "ru": "План развития",
+        "zh": "路线图"
       }
     },
     {
@@ -185,8 +215,10 @@
         "ru": "docs/ru/13-grammatika-tegov.md",
         "zh": "docs/zh/13-tag-grammar.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Tags",
+        "ru": "Теги",
+        "zh": "标签"
       }
     },
     {
@@ -197,8 +229,10 @@
         "ru": "docs/ru/14-komponenty-i-ui-kit.md",
         "zh": "docs/zh/14-components-and-ui-kit.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Components & sections",
+        "ru": "Компоненты и секции",
+        "zh": "组件与区块"
       }
     },
     {
@@ -209,8 +243,10 @@
         "ru": "docs/ru/15-marshruty-stranic-i-sostoyaniya.md",
         "zh": "docs/zh/15-page-routing-and-views.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Routes",
+        "ru": "Маршруты",
+        "zh": "路由"
       }
     },
     {
@@ -221,8 +257,10 @@
         "ru": "docs/ru/16-osi-variativnosti.md",
         "zh": "docs/zh/16-variation-axes.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Variation",
+        "ru": "Что меняется",
+        "zh": "变化"
       }
     },
     {
@@ -235,8 +273,12 @@
       },
       "description": {
         "en": "A concise checklist to use before design handoff.",
-        "ru": "Короткий чеклист перед передачей макета.",
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+        "ru": "Короткий чеклист перед передачей макета."
+      },
+      "sidebarLabel": {
+        "en": "Checklist",
+        "ru": "Чеклист",
+        "zh": "清单"
       }
     },
     {
@@ -249,8 +291,12 @@
       },
       "description": {
         "en": "Canonical BRIDGE terminology and precise definitions.",
-        "ru": "Единый язык русской документации BRIDGE.",
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+        "ru": "Единый язык русской документации BRIDGE."
+      },
+      "sidebarLabel": {
+        "en": "Glossary",
+        "ru": "Словарь",
+        "zh": "术语表"
       }
     },
     {
@@ -261,8 +307,10 @@
         "ru": "docs/ru/brend-sistema.md",
         "zh": "docs/zh/brand-system.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Brand",
+        "ru": "Бренд",
+        "zh": "品牌"
       }
     },
     {
@@ -275,8 +323,12 @@
       },
       "description": {
         "en": "Short BRIDGE recipes in a problem-to-solution format.",
-        "ru": "Короткие решения BRIDGE в формате «неудачно → правильно».",
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+        "ru": "Короткие решения BRIDGE в формате «неудачно → правильно»."
+      },
+      "sidebarLabel": {
+        "en": "BRIDGE examples",
+        "ru": "Примеры BRIDGE",
+        "zh": "BRIDGE 示例"
       }
     },
     {
@@ -287,8 +339,10 @@
         "ru": "docs/ru/20-dannye-i-vizualizaciya.md",
         "zh": "docs/zh/20-data-and-visualization.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Data",
+        "ru": "Данные",
+        "zh": "数据"
       }
     },
     {
@@ -299,8 +353,10 @@
         "ru": "docs/ru/21-motion-i-scroll.md",
         "zh": "docs/zh/21-motion-and-scroll.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Motion",
+        "ru": "Движение",
+        "zh": "动效"
       }
     },
     {
@@ -311,8 +367,10 @@
         "ru": "docs/ru/22-sostoyaniya-i-reakcii.md",
         "zh": "docs/zh/22-state-machines-and-reactions.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "States",
+        "ru": "Состояния",
+        "zh": "状态"
       }
     },
     {
@@ -323,8 +381,10 @@
         "ru": "docs/ru/23-profil-dostupnosti.md",
         "zh": "docs/zh/23-accessibility-profile.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Accessibility",
+        "ru": "Доступность",
+        "zh": "无障碍"
       }
     },
     {
@@ -335,8 +395,10 @@
         "ru": "docs/ru/24-zhiznennyj-cikl-peredachi.md",
         "zh": "docs/zh/24-delivery-lifecycle.md"
       },
-      "description": {
-        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
+      "sidebarLabel": {
+        "en": "Delivery",
+        "ru": "Передача",
+        "zh": "交付"
       }
     }
   ]

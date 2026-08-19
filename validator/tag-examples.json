@@ -6,12 +6,12 @@
     {
       "id": "page-root",
       "scope": "page-root",
-      "layerName": "Home [page=home] [route=/] [bp=1440] [view=default]"
+      "layerName": "home [page=home] [route=/] [bp=1440] [view=default]"
     },
     {
       "id": "dynamic-route",
       "scope": "page-root",
-      "layerName": "Product [page=product-detail] [route-pattern=/catalog/:slug] [bp=1280] [view=default]"
+      "layerName": "product [page=product-detail] [route-pattern=/catalog/:slug] [bp=1280] [view=default]"
     },
     {
       "id": "known-link",
@@ -51,19 +51,19 @@
     {
       "id": "selected-section-root",
       "scope": "layer",
-      "layerName": "Checkout summary [section=checkout-summary]"
+      "layerName": "checkout-summary [section=checkout-summary]"
     },
     {
       "id": "selected-opaque-asset-section-root",
       "scope": "layer",
-      "layerName": "Campaign illustration [section=campaign-illustration] [asset]"
+      "layerName": "campaign-illustration [section=campaign-illustration] [asset]"
     },
     {
       "id": "page-root-asset-does-not-hide-section",
       "scope": "layer",
-      "layerName": "Checkout summary [section=checkout-summary]",
+      "layerName": "checkout-summary [section=checkout-summary]",
       "ancestorLayerNames": [
-        "Invalid host root [page=legacy-host] [route=/legacy] [bp=1440] [view=default] [asset]"
+        "invalid-host-root [page=legacy-host] [route=/legacy] [bp=1440] [view=default] [asset]"
       ]
     },
     {
@@ -99,12 +99,12 @@
     {
       "id": "locale-axis",
       "scope": "variant-root",
-      "layerName": "Contacts [locale=ru-RU] [theme=dark]"
+      "layerName": "contacts [locale=ru-RU] [theme=dark]"
     },
     {
       "id": "asset-target",
       "scope": "target",
-      "layerName": "Contact Modal [modal=contact-modal]"
+      "layerName": "contact-modal [modal=contact-modal]"
     },
     {
       "id": "repeated-item-role",
@@ -137,7 +137,7 @@
     {
       "id": "property-value-missing",
       "scope": "page-root",
-      "layerName": "Home [page]",
+      "layerName": "home [page]",
       "expectedErrorCodes": [
         "form-value-required",
         "missing-companion"
@@ -155,7 +155,7 @@
     {
       "id": "invalid-kebab",
       "scope": "layer",
-      "layerName": "Hero [section=Главный экран]",
+      "layerName": "hero [section=Главный экран]",
       "expectedErrorCodes": [
         "invalid-value"
       ]
@@ -163,7 +163,7 @@
     {
       "id": "page-tags-on-section-root",
       "scope": "layer",
-      "layerName": "Checkout summary [section=checkout-summary] [page=checkout] [route=/checkout] [bp=360] [view=default]",
+      "layerName": "checkout-summary [section=checkout-summary] [page=checkout] [route=/checkout] [bp=360] [view=default]",
       "expectedErrorCodes": [
         "scope-invalid"
       ]
@@ -171,9 +171,9 @@
     {
       "id": "selected-section-inside-asset",
       "scope": "layer",
-      "layerName": "Checkout summary [section=checkout-summary]",
+      "layerName": "checkout-summary [section=checkout-summary]",
       "ancestorLayerNames": [
-        "Legacy campaign art [asset]"
+        "legacy-campaign-art [asset]"
       ],
       "expectedErrorCodes": [
         "scope-invalid"
@@ -182,7 +182,7 @@
     {
       "id": "breakpoint-identity",
       "scope": "control",
-      "layerName": "Reviews [control=reviews-button-375]",
+      "layerName": "reviews [control=reviews-button-375]",
       "expectedErrorCodes": [
         "breakpoint-specific-identity"
       ]
@@ -255,7 +255,7 @@
     {
       "id": "page-root-cannot-be-asset",
       "scope": "page-root",
-      "layerName": "Home [page=home] [bp=1440] [view=default] [asset]",
+      "layerName": "home [page=home] [bp=1440] [view=default] [asset]",
       "expectedErrorCodes": [
         "scope-invalid"
       ]

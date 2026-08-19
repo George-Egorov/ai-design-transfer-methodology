@@ -9,15 +9,15 @@ BRIDGE считает страницы, рабочие маршруты, яко�
 Маршрут известен:
 
 ```text
-Контакты [page=contacts] [route=/contacts] [bp=1200] [view=default]
-Контакты [page=contacts] [route=/contacts] [bp=320] [view=default]
+contacts [page=contacts] [route=/contacts] [bp=1200] [view=default]
+contacts [page=contacts] [route=/contacts] [bp=320] [view=default]
 ```
 
 Маршрут пока неизвестен:
 
 ```text
-Контакты [page=contacts] [bp=1200] [view=default]
-Контакты [page=contacts] [bp=320] [view=default]
+contacts [page=contacts] [bp=1200] [view=default]
+contacts [page=contacts] [bp=320] [view=default]
 ```
 
 Правила:
@@ -50,10 +50,10 @@ BRIDGE считает страницы, рабочие маршруты, яко�
 `[view=...]` описывает состояние страницы или данных, а не состояние отдельного компонента.
 
 ```text
-Каталог [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Пустой каталог [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Загрузка каталога [page=catalog] [route=/catalog] [bp=1200] [view=loading]
-Ошибка каталога [page=catalog] [route=/catalog] [bp=1200] [view=error]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=loading]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
 Типовые значения:
@@ -83,15 +83,15 @@ success
 Плохо:
 
 ```text
-Каталог [page=catalog] [route=/catalog] [view=default]
-Пустой каталог [page=catalog-empty] [route=/catalog-empty]
+catalog [page=catalog] [route=/catalog] [view=default]
+catalog-empty [page=catalog-empty] [route=/catalog-empty]
 ```
 
 Хорошо:
 
 ```text
-Каталог [page=catalog] [route=/catalog] [view=default]
-Пустой каталог [page=catalog] [route=/catalog] [view=empty]
+catalog [page=catalog] [route=/catalog] [view=default]
+catalog [page=catalog] [route=/catalog] [view=empty]
 ```
 
 Если маршрут неизвестен, сохраните один идентификатор страницы и просто не добавляйте `[route]`.
@@ -101,16 +101,16 @@ success
 Адресуемая секция может иметь одновременно секционный ключ и якорь:
 
 ```text
-Вопросы о контактах [section=contacts-faq] [anchor=faq]
+contacts-faq [section=contacts-faq] [anchor=faq]
 ```
 
 `[section]` описывает повторно используемый тип секции. Название конкретного блока и его содержимое могут отличаться:
 
 ```text
-Каталог [section=product-slider]
-Похожие товары [section=product-slider]
-Рекомендованные товары [section=product-slider]
-Первый экран [section=home-hero]
+catalog [section=product-slider]
+related-products [section=product-slider]
+recommended-products [section=product-slider]
+hero [section=home-hero]
 ```
 
 Правила:
@@ -125,10 +125,10 @@ success
 ## Как разрешаются ссылки
 
 ```text
-Контакты [href=/contacts]
-Вопросы и ответы [href=/contacts#faq]
-К вопросам на этой странице [href=#faq]
-Telegram [href=https://t.me/company]
+contacts [href=/contacts]
+faq [href=/contacts#faq]
+same-page-faq [href=#faq]
+telegram [href=https://t.me/company]
 ```
 
 Если адрес неизвестен, используйте `[link]`. Не используйте `[href=#]` как заглушку.

@@ -2,6 +2,19 @@
 
 All notable changes to the public BRIDGE methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
 
+## [0.11.5] — 2026-08-19
+
+### Changed
+
+- Rebuilt the public entry path around a concise homepage, practical quick start, focused examples, and a shorter designer checklist.
+- Simplified navigation and core guidance while keeping advanced contracts, validation, accessibility, motion, data, and lifecycle references available outside the beginner path.
+- Applied the same documentation structure and intent across English, Russian, and Chinese, including shorter sidebar labels and localized review paths.
+- Replaced the generic homepage placeholder with a design map that shows responsive views and an action-to-modal relationship.
+
+### Added
+
+- Automated concision, heading-parity, and beginner-page checks across all three locales.
+
 ## [0.11.4] — 2026-08-19
 
 ### Added
@@ -95,8 +108,9 @@ All notable changes to the public BRIDGE methodology, schemas, rule catalog, and
 
 - Added the interactive layer inspector, focused Figma companion workflow, bilingual site, and the original 77-rule catalog.
 
-[0.11.3]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.3
+[0.11.5]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.5
 [0.11.4]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.4
+[0.11.3]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.3
 [0.11.2]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.2
 [0.11.1]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.1
 [0.11.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.0

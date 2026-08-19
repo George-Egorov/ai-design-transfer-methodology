@@ -57,7 +57,7 @@ feature-story
 在设计中使用普通稳定恒等式：
 
 ```text
-Story [section=feature-story]
+story [section=feature-story]
   story-visual
   scene-intro
   scene-compare

@@ -16,10 +16,10 @@ Do not confuse a screenshot named “success” with a complete success reaction
 Existing tags locate interaction anchors:
 
 ```text
-Email [field=email] [name=email]
-Send [action=submit:lead-form]
-Lead Form [state=lead-form-idle]
-Success [state=lead-form-success]
+email [field=email] [name=email]
+send [action=submit:lead-form]
+lead-form [state=lead-form-idle]
+success [state=lead-form-success]
 ```
 
 Prototype connections may supply additional evidence. Do not add a tag for every event, guard, timeout, focus destination, announcement, and HTTP status. Put those relationships in structured BRIDGE metadata keyed by stable identities.

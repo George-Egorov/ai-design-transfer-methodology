@@ -133,7 +133,7 @@ The machine-readable seed lives in [`../validator/rules.json`](../validator/rule
 | Accessibility | `accessibility.decorative-layer-exposed` | warning | automatic |
 | Interaction | `interaction.form-field-missing-label` | warning | automatic |
 
-For `layout.section-missing-auto-layout`, automatic means a non-page FRAME or COMPONENT carrying `[section]` is present in the audited tree. A placed INSTANCE is atomic: Page Check 0.9 neither resolves its source component nor emits a section-layout finding for the instance. Select and audit the editable source tree separately.
+For `layout.section-missing-auto-layout`, automatic means a non-page FRAME or COMPONENT carrying `[section]` is present in the audited tree. A placed INSTANCE is atomic: Page Check neither resolves its source component nor emits a section-layout finding for the instance. Select and audit the editable source tree separately.
 
 ## Suggested report format
 

@@ -40,6 +40,15 @@
               "ru": { "type": "string", "minLength": 20, "maxLength": 220 }
               ,"zh": { "type": "string", "minLength": 20, "maxLength": 220 }
             }
+          },
+          "sidebarLabel": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "en": { "type": "string", "minLength": 1, "maxLength": 80 },
+              "ru": { "type": "string", "minLength": 1, "maxLength": 80 },
+              "zh": { "type": "string", "minLength": 1, "maxLength": 80 }
+            }
           }
         }
       }

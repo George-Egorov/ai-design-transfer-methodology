@@ -40,7 +40,7 @@ Figma 中的示例值是固定装置。它们不是模式、最大长度、精�
 层名称和现有的 BRIDGE 标签应仅公开审阅者在设计中需要的锚点：
 
 ```text
-Revenue [section=revenue-overview]
+revenue [section=revenue-overview]
   period-filter
   revenue-chart
   revenue-table

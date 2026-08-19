@@ -1,10 +1,10 @@
-# Full BRIDGE preflight
+# Full review
 
-Use this gate before implementation begins and again before release. It evaluates the complete BRIDGE 0.11 transfer: source design, structured contract, target capability profile, implementation evidence, QA, open questions, and deviations.
+Use this page when a team needs an exhaustive review from design through release. It is not required for a first handoff; start with the [designer checklist](17-designer-checklist.md).
 
-The shorter [designer checklist](17-designer-checklist.md) is a preparation aid. It does not replace this gate.
+The review covers the source design, structured data, implementation, QA, open questions, and intentional deviations.
 
-## Gate stages and evidence
+## Four review stages
 
 Run the same checklist at four stages:
 
@@ -117,7 +117,7 @@ See [Layer naming and identity](02-layer-naming-and-identity.md) and the [transf
 - [ ] Layer tags do not duplicate node type, geometry, component source, variants, or other native source metadata.
 - [ ] Each wrapper has a grouping, layout, clipping, surface, semantic, export, or interaction responsibility.
 - [ ] Page-level reusable sections come from `Page Sections` or use an explicit `[section=...]` when the source is ambiguous.
-- [ ] The source root of every `Page Sections` component satisfies the section Auto Layout rule in a separate source audit; Page Check 0.9 neither resolves the source from a placed INSTANCE nor treats instance internals as editable page structure.
+- [ ] The source root of every `Page Sections` component satisfies the section Auto Layout rule in a separate source audit; Page Check neither resolves the source from a placed INSTANCE nor treats instance internals as editable page structure.
 - [ ] UI controls inherit a pinned component/template contract; instance overrides are intentional and visible.
 - [ ] Component states are not modeled as unrelated page roots, and page/data views are not hidden inside one component variant.
 - [ ] Detached component copies, flattened assets, rasterized text, and hidden source-of-truth layers have explicit reasons or are removed.
@@ -248,7 +248,7 @@ See the [Delivery lifecycle](24-delivery-lifecycle.md).
 ## 12. Validation coverage and evidence
 
 - [ ] The canonical tag registry, JSON Schema, rule catalog, localization, examples, content manifest, and coverage manifests validate.
-- [ ] Page Check scope is represented honestly: plugin 0.9.3 has an exact emitted-rule union of 42 of 107 rules—40 automatic and 2 heuristic.
+- [ ] Page Check scope is represented honestly: it has an exact emitted-rule union of 42 of 107 rules—40 automatic and 2 heuristic.
 - [ ] **Check selected section** is represented separately: its exact emitted-rule union is 26 rules—24 automatic and 2 heuristic; 20 local and 6 selected-variant.
 - [ ] Rules outside each declared union have structured, heuristic, manual, implementation, or runtime evidence according to the coverage manifest; the two counts are not added because the scopes overlap.
 - [ ] A clean Page Check report is not presented as full BRIDGE or WCAG validation.

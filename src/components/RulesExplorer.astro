@@ -70,7 +70,7 @@ const chineseSearchAliases = (id: string) => [
 
 const copy = locale === 'ru'
   ? {
-      eyebrow: `Открытый каталог · версия ${catalog.version}`,
+      eyebrow: 'Открытый каталог',
       title: 'Каталог правил валидатора',
       lead: `Найдите, почему макет не проходит проверку и что именно исправить. В каталоге ${catalog.rules.length} правил с постоянными идентификаторами, серьёзностью и способом проверки.`,
       search: 'Поиск по правилу',
@@ -88,7 +88,7 @@ const copy = locale === 'ru'
     }
   : locale === 'zh'
     ? {
-      eyebrow: `机器可读参考 · 版本 ${catalog.version}`,
+      eyebrow: '机器可读参考',
       title: '校验规则目录',
       lead: `在这个包含 ${catalog.rules.length} 条规则的目录里，按 ID、原则、严重程度和执行方式查找问题及修复方法。`,
       search: '搜索规则',
