@@ -2,6 +2,15 @@
 
 All notable changes to the public BRIDGE methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
 
+## [0.11.2] — 2026-08-19
+
+### Fixed
+
+- Page Check and Check selected section now bind change detection to the exact audited BRIDGE roots instead of treating any change on a large mixed Figma canvas as a stale result.
+- A one-off relevant change triggers one automatic fresh read. Only repeated changes inside the audited scope stop the check, with copy that explains that BRIDGE did not edit the file.
+- Extracted page facts are cached only when the document revision stays stable throughout traversal, preventing a mid-scan change from leaving stale evidence for the next run.
+- Coverage snapshots now describe BRIDGE Assistant 0.9.2; the exact Page Check 42/107 and Section Check 26/107 rule sets and catalog 0.5.0 are unchanged.
+
 ## [0.11.1] — 2026-08-18
 
 ### Changed
@@ -68,6 +77,7 @@ All notable changes to the public BRIDGE methodology, schemas, rule catalog, and
 
 - Added the interactive layer inspector, focused Figma companion workflow, bilingual site, and the original 77-rule catalog.
 
+[0.11.2]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.2
 [0.11.1]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.1
 [0.11.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.0
 [0.10.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.10.0

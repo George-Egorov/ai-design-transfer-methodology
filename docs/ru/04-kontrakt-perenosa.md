@@ -138,7 +138,7 @@ BRIDGE намеренно не превращает имена слоёв в б�
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.1",
+    "methodologyVersion": "0.11.2",
     "rulesVersion": "0.5.0",
     "source": {
       "tool": "figma",
