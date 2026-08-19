@@ -1,10 +1,4 @@
 ---
-import BridgeContractGraphic from './BridgeContractGraphic.astro';
-import BridgeLayerTree from './BridgeLayerTree.astro';
-import PluginMediaShowcase from './PluginMediaShowcase.astro';
-import type { LayerNode } from './BridgeLayerTree.astro';
-import { createHomeLayerTrees } from '../data/home-layer-tree';
-
 interface Props {
   locale: 'ru' | 'en' | 'zh';
 }
@@ -12,176 +6,159 @@ interface Props {
 const { locale } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
 const url = (path: string) => `${base}/${locale}/${path.replace(/^\//u, '')}`;
-const canonicalLayerTrees = createHomeLayerTrees(locale);
 
 const copy = locale === 'ru'
   ? {
-      eyebrow: 'Методология передачи макетов',
-      title: 'Передача макета без слепых зон.',
-      lead: 'BRIDGE — система, которая связывает структуру, данные, состояния, адаптивы, движение и доступность в один проверяемый контракт до начала разработки.',
-      primary: 'Подготовить первый макет',
-      secondary: 'Проверить макет',
-      inspectorTitle: 'Сравнение структуры слоёв',
-      layersLabel: 'Слои',
-      fileLabel: 'Главная · Figma',
-      before: 'Без BRIDGE',
-      after: 'С BRIDGE',
-      beforeNote: 'Названия описывают внешний вид, но не объясняют связи между фреймами.',
-      layerKeyboardHint: 'На ручке нажмите пробел, меняйте порядок стрелками, подтвердите пробелом или отмените Escape.',
-      layerReset: 'Сбросить',
-      pathsEyebrow: 'Выберите задачу',
-      pathsTitle: 'Начните со своей задачи',
+      eyebrow: 'Методология передачи макета',
+      title: 'Макет, который можно понять без созвона.',
+      lead: 'BRIDGE помогает показать структуру страницы, адаптивы, действия и состояния прямо в Figma — до начала разработки.',
+      primary: 'Подготовить макет',
+      secondary: 'Проверить в Figma',
+      compareEyebrow: 'Один макет — одна понятная структура',
+      compareTitle: 'Что меняется после BRIDGE',
+      without: 'Без BRIDGE',
+      with: 'С BRIDGE',
+      withoutNote: 'Названия показывают внешний вид, но не объясняют связи и действия.',
+      withNote: 'Страница, элементы и цель действия читаются по файлу.',
+      beforeTree: ['desktop', '  frame-42', '    heading', '    button', '', 'mobile-final-2', '  group-91', '    title'],
+      afterTree: [
+        'home [page=home] [bp=1440]',
+        '  hero [section=home-hero]',
+        '    hero-title',
+        '    contact-button [action=modal:contact-modal]',
+        '',
+        'home [page=home] [bp=375]',
+        '  hero [section=home-hero]',
+        '    hero-title',
+        '',
+        'contact-modal [modal=contact-modal]',
+      ],
+      stepsEyebrow: 'Как начать',
+      stepsTitle: 'Три действия до передачи',
+      steps: [
+        ['01', 'Покажите структуру', 'Свяжите элементы и подготовьте нужные ширины.'],
+        ['02', 'Назовите смысл', 'Дайте стабильные имена и укажите ссылки, действия и состояния.'],
+        ['03', 'Проверьте файл', 'Попросите другого человека понять макет без устных пояснений.'],
+      ],
+      pathsEyebrow: 'Выберите следующий шаг',
       paths: [
-        ['Подготовить макет', 'Проведите первый файл от структуры и адаптивов до проверки по пяти практическим шагам.', 'Открыть быстрый старт', 'start/designer-quick-start/'],
-        ['Проверить файл', 'Пройдите короткую интерактивную проверку, затем откройте подробный review или плагин.', 'Открыть центр проверки', 'check/'],
-        ['Изучить формат данных', 'Сверьте теги, каталог правил и развивающийся контракт до прототипа интеграции. До версии 1.0 схема может меняться.', 'Открыть статус контракта', 'reference/transfer-contract/'],
-        ['Внедрить в команду', 'Начните с рабочей страницы или новой выбранной секции внутри унаследованного продукта — без миграции всего файла.', 'Открыть план пилота', 'project/team-adoption/'],
+        ['Подготовить макет', 'Короткий путь для первого файла.', 'Открыть быстрый старт', 'start/designer-quick-start/'],
+        ['Проверить файл', 'Чеклист, полная проверка и плагин в Figma.', 'Открыть проверку', 'check/'],
+        ['Посмотреть примеры', 'Готовые варианты тегов и структуры.', 'Открыть примеры', 'examples/'],
       ],
-      methodEyebrow: 'Как это работает',
-      methodTitle: 'Три шага к готовому макету',
-      method: [
-        ['01', 'Соберите понятную структуру', 'Слои и связи должны быть понятны без устных пояснений автора.'],
-        ['02', 'Добавьте недостающий смысл', 'Теги и структурированные метаданные описывают данные, состояния, движение, доступность и осознанные исключения.'],
-        ['03', 'Проверьте без автора', 'Другой человек должен понять файл без созвона и дополнительных пояснений.'],
-      ],
-      outcomesEyebrow: 'Что меняется для команды',
-      outcomesTitle: 'Передача перестаёт зависеть от памяти автора.',
-      outcomesIntro: 'Один и тот же файл отвечает на разные рабочие вопросы — до созвона и до начала реализации.',
+      outcomesEyebrow: 'Что получает команда',
+      outcomesTitle: 'Меньше догадок, больше решений в самом файле.',
       outcomes: [
-        ['Дизайнер', 'Видит незаданные адаптивы, действия и цели до передачи макета.'],
-        ['Разработчик', 'Переходит из вопроса к точному слою и правилу, а не ищет контекст в переписке.'],
-        ['Лид и PM', 'Получает единый критерий готовности и список явно принятых исключений.'],
-        ['Студия', 'Сохраняет продуктовые решения в файле, даже когда состав команды меняется.'],
+        ['Дизайнер', 'Видит пропуски до передачи макета.'],
+        ['Разработчик', 'Находит нужный слой, действие и состояние.'],
+        ['Команда', 'Использует один понятный критерий готовности.'],
       ],
-      principlesEyebrow: 'Шесть принципов',
-      principlesTitle: 'Что означает каждая буква BRIDGE',
-      principlesIntro: 'BRIDGE — это первые буквы шести английских терминов. Для каждого показаны оригинальное название, русский смысл и вопрос, на который должен отвечать макет.',
-      translationLabel: 'По-русски',
-      principles: [
-        ['B', 'Breakpoints', 'Адаптивы и контрольные ширины', 'Какие ширины и состояния подготовлены?'],
-        ['R', 'Roles', 'Назначение слоёв', 'Для чего нужен каждый значимый слой?'],
-        ['I', 'Identity', 'Стабильные идентификаторы', 'Как узнать один элемент на разных ширинах?'],
-        ['D', 'Dependencies', 'Связи и действия', 'Куда ведут ссылки и что делают кнопки?'],
-        ['G', 'Geometry', 'Воспроизводимая геометрия', 'Можно ли повторить размеры, отступы и параметры текста?'],
-        ['E', 'Exceptions', 'Осознанные исключения', 'Какие отклонения сделаны намеренно?'],
-      ],
-      finalTitle: 'Начните с одной страницы или секции.',
-      finalText: 'Не нужно переводить весь архив или перестраивать библиотеку компонентов. Проверьте реальную страницу целиком либо новую секцию как изолированный выбранный источник; готовность секции не выдавайте за готовность унаследованной страницы.',
-      finalAction: 'Открыть план пилота',
+      finalTitle: 'Начните с одной страницы.',
+      finalText: 'Не нужно переносить весь архив. Возьмите реальный файл, подготовьте его по быстрому старту и проверьте передачу без автора.',
+      finalAction: 'Открыть быстрый старт',
     }
   : locale === 'zh'
     ? {
-      eyebrow: '界面交付方法论',
-      title: '无需再做说明的设计。',
-      lead: 'BRIDGE 在开始实现前就把结构、响应式、行为和例外条件写清楚——就在设计决策形成的地方。',
-      primary: '准备你的第一份设计',
-      secondary: 'Figma 插件 BRIDGE',
-      newTab: '将在新标签页打开',
-      inspectorTitle: '图层结构对比',
-      layersLabel: '图层',
-      fileLabel: '主页 · Figma',
-      before: '未使用 BRIDGE 时',
-      after: '使用 BRIDGE 后',
-      beforeNote: '名称描述了外观，但没有说明不同帧之间的关联。',
-      layerKeyboardHint: '在手柄上按空格，使用方向键移动，再按空格确认；按 Escape 取消。',
-      layerReset: '重置',
-      pathsEyebrow: '选择你的任务',
-      pathsTitle: '从当前任务开始',
-      paths: [
-        ['准备设计', '从结构到响应式再到检查按 5 个实用步骤快速完成第一次文件处理。', '打开快速起步', 'start/designer-quick-start/'],
-        ['检查文件', '补充关系、查看文件地图，并直接在 Figma 中运行页面检查。', '打开插件', 'check/'],
-        ['学习数据格式', '在集成原型前先对齐标签、规则目录和持续演化的约定。到 1.0 前，方案仍可能更新。', '查看合同状态', 'reference/transfer-contract/'],
-        ['团队落地', '在一个真实文件上进行试点，固定验收标准，并把检查加入交付流程。', '打开试点方案', 'project/team-adoption/'],
+      eyebrow: '设计交付方法论',
+      title: '无需会议也能看懂的设计。',
+      lead: 'BRIDGE 帮助你在 Figma 中写清页面结构、响应式、动作和状态，并在开发前完成检查。',
+      primary: '准备设计',
+      secondary: '在 Figma 中检查',
+      compareEyebrow: '一份设计 — 一套清晰结构',
+      compareTitle: '使用 BRIDGE 后有什么不同',
+      without: '未使用 BRIDGE',
+      with: '使用 BRIDGE',
+      withoutNote: '名称描述外观，却没有说明关系和动作。',
+      withNote: '页面、元素和动作目标都能直接从文件中读懂。',
+      beforeTree: ['desktop', '  frame-42', '    heading', '    button', '', 'mobile-final-2', '  group-91', '    title'],
+      afterTree: [
+        'home [page=home] [bp=1440]',
+        '  hero [section=home-hero]',
+        '    hero-title',
+        '    contact-button [action=modal:contact-modal]',
+        '',
+        'home [page=home] [bp=375]',
+        '  hero [section=home-hero]',
+        '    hero-title',
+        '',
+        'contact-modal [modal=contact-modal]',
       ],
-      methodEyebrow: '如何工作',
-      methodTitle: '让设计可交付的三步',
-      method: [
-        ['01', '建立清晰结构', '无需作者解释，也能看懂图层和它们之间的关系。'],
-        ['02', '补充缺失语义', '用标签表达页面、动作、目标、装饰、导出项和例外。'],
-        ['03', '无作者复核', '别人无需会议或上下文解释，也能读懂该文件。'],
+      stepsEyebrow: '如何开始',
+      stepsTitle: '交付前的三个动作',
+      steps: [
+        ['01', '展示结构', '连接相关元素并准备需要的宽度。'],
+        ['02', '说明含义', '使用稳定名称，写清链接、动作和状态。'],
+        ['03', '检查文件', '请不了解设计的人独立读懂文件。'],
+      ],
+      pathsEyebrow: '选择下一步',
+      paths: [
+        ['准备设计', '从第一份文件开始。', '打开快速起步', 'start/designer-quick-start/'],
+        ['检查文件', '查看清单、完整检查或 Figma 插件。', '打开检查', 'check/'],
+        ['查看示例', '查看标签和结构的实际用法。', '打开示例', 'examples/'],
       ],
       outcomesEyebrow: '团队收益',
-      outcomesTitle: '交付不再依赖作者记忆。',
-      outcomesIntro: '同一份文件可在协作会议前和开发前回答各种岗位问题。',
+      outcomesTitle: '减少猜测，让决定留在文件中。',
       outcomes: [
-        ['设计师', '在交付前识别未声明的断点、动作和目标。'],
-        ['开发', '从问题直接跳到准确图层和规则，不再在聊天记录里找上下文。'],
-        ['负责人和 PM', '拥有统一的“可交付”定义和可见的例外清单。'],
-        ['工作室', '即使人员变动，产品决策依然留在文件中。'],
+        ['设计师', '在交付前发现缺失信息。'],
+        ['开发', '直接找到图层、动作和状态。'],
+        ['团队', '使用统一而清晰的完成标准。'],
       ],
-      principlesEyebrow: '六大原则',
-      principlesTitle: 'BRIDGE 每个字母代表的含义',
-      principlesIntro: 'BRIDGE 是六个英文术语的首字母缩写。每一项都对应交付合同中的一个问题。',
-      translationLabel: '',
-      principles: [
-        ['B', 'Breakpoints', '响应式断点', '都准备了哪些宽度和状态？'],
-        ['R', 'Roles', '图层职责', '每个关键图层的用途是什么？'],
-        ['I', 'Identity', '稳定标识', '在不同断点里同一元素如何识别？'],
-        ['D', 'Dependencies', '关系与动作', '链接和按钮分别指向哪里？'],
-        ['G', 'Geometry', '可复现布局', '尺寸、间距和文本度量值是否可复现？'],
-        ['E', 'Exceptions', '刻意例外', '哪些偏差是故意的？'],
-      ],
-      finalTitle: '从一个真实文件开始。',
-      finalText: '不需要重构素材库或重建组件库。先拿一页真实页面，交给未参与设计的人，并验证其是否能在不通话的情况下回答实现问题。',
-      finalAction: '打开试点方案',
+      finalTitle: '从一个真实页面开始。',
+      finalText: '不需要迁移整个存档。选一份真实文件，按快速起步准备，再让作者以外的人独立完成检查。',
+      finalAction: '打开快速起步',
     }
   : {
-      eyebrow: 'Open design handoff methodology',
-      title: 'Design handoff with no blind spots.',
-      lead: 'BRIDGE is a system that connects structure, data, state, responsive behavior, motion, and accessibility in one checkable contract before implementation starts.',
-      primary: 'Prepare your first design',
-      secondary: 'Check a design',
-      inspectorTitle: 'Layer structure comparison',
-      layersLabel: 'Layers',
-      fileLabel: 'Home · Figma',
-      before: 'Without BRIDGE',
-      after: 'With BRIDGE',
-      beforeNote: 'Names describe appearance, but not the relationships between frames.',
-      layerKeyboardHint: 'On the reorder handle, press Space, move with Arrow keys, press Space to drop, or Escape to cancel.',
-      layerReset: 'Reset',
-      pathsEyebrow: 'Choose a task',
-      pathsTitle: 'Start with the job in front of you',
+      eyebrow: 'Design handoff methodology',
+      title: 'A design file people can understand without a call.',
+      lead: 'BRIDGE makes page structure, responsive behavior, actions, and states clear in Figma before implementation starts.',
+      primary: 'Prepare a design',
+      secondary: 'Check in Figma',
+      compareEyebrow: 'One design — one clear structure',
+      compareTitle: 'What changes with BRIDGE',
+      without: 'Without BRIDGE',
+      with: 'With BRIDGE',
+      withoutNote: 'Names describe appearance, but not relationships or actions.',
+      withNote: 'The page, its elements, and action targets can be read from the file.',
+      beforeTree: ['desktop', '  frame-42', '    heading', '    button', '', 'mobile-final-2', '  group-91', '    title'],
+      afterTree: [
+        'home [page=home] [bp=1440]',
+        '  hero [section=home-hero]',
+        '    hero-title',
+        '    contact-button [action=modal:contact-modal]',
+        '',
+        'home [page=home] [bp=375]',
+        '  hero [section=home-hero]',
+        '    hero-title',
+        '',
+        'contact-modal [modal=contact-modal]',
+      ],
+      stepsEyebrow: 'How to start',
+      stepsTitle: 'Three actions before handoff',
+      steps: [
+        ['01', 'Show the structure', 'Connect related elements and prepare the needed widths.'],
+        ['02', 'Declare the meaning', 'Use stable names and describe links, actions, and states.'],
+        ['03', 'Check the file', 'Ask someone else to understand the design without a private explanation.'],
+      ],
+      pathsEyebrow: 'Choose the next step',
       paths: [
-        ['Prepare a design', 'Take a first file from structure and breakpoints to review in five practical steps.', 'Open quick start', 'start/designer-quick-start/'],
-        ['Review a Figma file', 'Run the short interactive preflight, then continue to the detailed review or the companion plugin.', 'Open check hub', 'check/'],
-        ['Explore the data format', 'Review the tags, rule catalog, and evolving contract before prototyping an integration. The schema may change before 1.0.', 'Open contract status', 'reference/transfer-contract/'],
-        ['Adopt it with a team', 'Start with one working page or one new selected section inside a legacy host—without migrating the whole file.', 'Open pilot plan', 'project/team-adoption/'],
+        ['Prepare a design', 'A short path for the first file.', 'Open quick start', 'start/designer-quick-start/'],
+        ['Review a file', 'The checklist, full review, and Figma plugin.', 'Open review', 'check/'],
+        ['See examples', 'Practical tag and structure examples.', 'Open examples', 'examples/'],
       ],
-      methodEyebrow: 'How it works',
-      methodTitle: 'Three steps to a transferable design',
-      method: [
-        ['01', 'Build a clear structure', 'Layers and relationships should be understandable without a private explanation from the author.'],
-        ['02', 'Declare missing intent', 'Tags and structured metadata cover data, state, motion, accessibility, and intentional exceptions.'],
-        ['03', 'Review without the author', 'Someone else should understand the file without a call or private context.'],
-      ],
-      outcomesEyebrow: 'What changes for the team',
-      outcomesTitle: 'Handoff no longer depends on the author’s memory.',
-      outcomesIntro: 'The same file answers each role’s working questions before a call and before implementation starts.',
+      outcomesEyebrow: 'What the team gets',
+      outcomesTitle: 'Fewer guesses, more decisions in the file.',
       outcomes: [
-        ['Designer', 'Finds undeclared breakpoints, actions, and targets before handing off the design.'],
-        ['Developer', 'Jumps from an issue to the exact layer and rule instead of searching chat history.'],
-        ['Lead and PM', 'Gets one definition of ready and a visible list of intentional exceptions.'],
-        ['Studio', 'Keeps product decisions in the file even when the people on the project change.'],
+        ['Designer', 'Finds missing information before handoff.'],
+        ['Developer', 'Finds the exact layer, action, and state.'],
+        ['Team', 'Uses one clear definition of ready.'],
       ],
-      principlesEyebrow: 'Six principles',
-      principlesTitle: 'What every BRIDGE letter means',
-      principlesIntro: 'BRIDGE takes its name from six English terms. Each one names a part of the handoff contract and a question the design must answer.',
-      translationLabel: '',
-      principles: [
-        ['B', 'Breakpoints', '', 'Which widths and responsive states exist?'],
-        ['R', 'Roles', '', 'What is every important layer for?'],
-        ['I', 'Identity', '', 'How is one element recognized across variants?'],
-        ['D', 'Dependencies', '', 'Where do links and actions lead?'],
-        ['G', 'Geometry', '', 'Can size, spacing, and text metrics be reproduced?'],
-        ['E', 'Exceptions', '', 'Which deviations are intentional?'],
-      ],
-      finalTitle: 'Start with one page or section.',
-      finalText: 'You do not need to migrate the archive or rebuild the component library. Check a real page as a whole or a new section as an isolated selected source; never present section readiness as readiness of its legacy host page.',
-      finalAction: 'Open pilot plan',
+      finalTitle: 'Start with one page.',
+      finalText: 'You do not need to migrate the archive. Take a real file, follow the quick start, and test the handoff without the author.',
+      finalAction: 'Open quick start',
     };
 ---
 
-<div class="bridge-home not-content">
+<div class="bridge-home bridge-home-simple not-content">
   <section class="bridge-hero" aria-labelledby="_top">
     <div class="bridge-hero-copy">
       <p class="bridge-eyebrow">{copy.eyebrow}</p>
@@ -192,44 +169,44 @@ const copy = locale === 'ru'
         <a class="bridge-button bridge-button-secondary" href={url('check/')}>{copy.secondary}</a>
       </div>
     </div>
-
-    <div class="bridge-inspector" data-inspector data-locale={locale}>
-      <div class="bridge-inspector-bar">
-        <strong><span class="bridge-figma-mark" aria-hidden="true">F</span>{copy.layersLabel}</strong>
-        <span>{copy.fileLabel}</span>
-      </div>
-      <div class="bridge-inspector-tabs" role="tablist" aria-label={copy.inspectorTitle}>
-        <button id="layers-before-tab" type="button" role="tab" data-inspector-mode="before" aria-selected="false" aria-controls="layers-before-panel" tabindex="-1">{copy.before}</button>
-        <button id="layers-after-tab" type="button" role="tab" data-inspector-mode="after" aria-selected="true" aria-controls="layers-after-panel">{copy.after}</button>
-      </div>
-      <div id="layers-before-panel" class="bridge-layers-panel" role="tabpanel" aria-labelledby="layers-before-tab" data-inspector-panel="before" hidden>
-        <div class="bridge-layer-tree" data-layer-tree>
-          <p id="layers-before-help" class="sr-only">{copy.layerKeyboardHint}</p>
-          <BridgeLayerTree nodes={canonicalLayerTrees.beforeTree as LayerNode[]} locale={locale} helpId="layers-before-help" />
-          <span class="sr-only" aria-live="polite" data-layer-live></span>
-        </div>
-        <div class="bridge-layer-footer">
-          <div><p>{copy.beforeNote}</p></div>
-          <button type="button" data-layer-reset hidden>{copy.layerReset}</button>
-        </div>
-      </div>
-      <div id="layers-after-panel" class="bridge-layers-panel is-active" role="tabpanel" aria-labelledby="layers-after-tab" data-inspector-panel="after">
-        <div class="bridge-layer-tree" data-layer-tree>
-          <p id="layers-after-help" class="sr-only">{copy.layerKeyboardHint}</p>
-          <BridgeLayerTree nodes={canonicalLayerTrees.afterTree as LayerNode[]} locale={locale} helpId="layers-after-help" />
-          <span class="sr-only" aria-live="polite" data-layer-live></span>
-        </div>
-        <div class="bridge-layer-footer bridge-layer-footer--actions">
-          <button type="button" data-layer-reset hidden>{copy.layerReset}</button>
-        </div>
-      </div>
+    <div class="bridge-home-promise" aria-label={copy.compareTitle}>
+      <span aria-hidden="true">F</span>
+      <p>{copy.withNote}</p>
     </div>
+  </section>
+
+  <section class="bridge-section bridge-home-compare" aria-labelledby="compare-title">
+    <p class="bridge-eyebrow">{copy.compareEyebrow}</p>
+    <h2 id="compare-title">{copy.compareTitle}</h2>
+    <div class="bridge-compare-grid">
+      <article class="bridge-compare-card">
+        <header><span>01</span><h3>{copy.without}</h3></header>
+        <pre>{copy.beforeTree.join('\n')}</pre>
+        <p>{copy.withoutNote}</p>
+      </article>
+      <article class="bridge-compare-card bridge-compare-card--good">
+        <header><span>02</span><h3>{copy.with}</h3></header>
+        <pre>{copy.afterTree.join('\n')}</pre>
+        <p>{copy.withNote}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="bridge-section bridge-method" aria-labelledby="method-title">
+    <div>
+      <p class="bridge-eyebrow">{copy.stepsEyebrow}</p>
+      <h2 id="method-title">{copy.stepsTitle}</h2>
+    </div>
+    <ol>
+      {copy.steps.map(([number, title, description]) => (
+        <li><span>{number}</span><div><h3>{title}</h3><p>{description}</p></div></li>
+      ))}
+    </ol>
   </section>
 
   <section class="bridge-section" aria-labelledby="paths-title">
     <p class="bridge-eyebrow">{copy.pathsEyebrow}</p>
-    <h2 id="paths-title">{copy.pathsTitle}</h2>
-    <div class="bridge-paths">
+    <div class="bridge-paths" id="paths-title">
       {copy.paths.map(([title, description, action, href]) => (
         <a class="bridge-path" href={url(href)}>
           <h3>{title}</h3>
@@ -240,491 +217,119 @@ const copy = locale === 'ru'
     </div>
   </section>
 
-  <BridgeContractGraphic locale={locale} />
-
-  <section class="bridge-section bridge-method" aria-labelledby="method-title">
-    <div>
-      <p class="bridge-eyebrow">{copy.methodEyebrow}</p>
-      <h2 id="method-title">{copy.methodTitle}</h2>
-    </div>
-    <ol>
-      {copy.method.map(([number, title, description]) => (
-        <li><span>{number}</span><div><h3>{title}</h3><p>{description}</p></div></li>
-      ))}
-    </ol>
-  </section>
-
-  <PluginMediaShowcase locale={locale} compact />
-
   <section class="bridge-section bridge-outcomes" aria-labelledby="outcomes-title">
     <header>
       <p class="bridge-eyebrow">{copy.outcomesEyebrow}</p>
       <h2 id="outcomes-title">{copy.outcomesTitle}</h2>
-      <p>{copy.outcomesIntro}</p>
     </header>
     <div>
-      {copy.outcomes.map(([role, outcome]) => (
-        <article><h3>{role}</h3><p>{outcome}</p></article>
-      ))}
-    </div>
-  </section>
-
-  <section class="bridge-section" aria-labelledby="principles-title">
-    <p class="bridge-eyebrow">{copy.principlesEyebrow}</p>
-    <h2 id="principles-title">{copy.principlesTitle}</h2>
-    <p class="bridge-principles-intro">{copy.principlesIntro}</p>
-    <div class="bridge-principles">
-      {copy.principles.map(([letter, english, translation, description]) => (
-        <article>
-          <span>{letter}</span>
-          <div class="bridge-principle-copy">
-            <h3>
-              <span lang="en">{english}</span>
-              {translation && <small><em>{copy.translationLabel}:</em> {translation}</small>}
-            </h3>
-            <p>{description}</p>
-          </div>
-        </article>
-      ))}
+      {copy.outcomes.map(([role, outcome]) => <article><h3>{role}</h3><p>{outcome}</p></article>)}
     </div>
   </section>
 
   <section class="bridge-final" id="bridge-final">
     <div><h2>{copy.finalTitle}</h2><p>{copy.finalText}</p></div>
-    <a class="bridge-button bridge-button-primary" href={url('project/team-adoption/')}>{copy.finalAction}</a>
+    <a class="bridge-button bridge-button-primary" href={url('start/designer-quick-start/')}>{copy.finalAction}</a>
   </section>
 </div>
 
-<script>
-  type PointerDrag = {
-    item: HTMLElement;
-    list: HTMLOListElement;
-    tree: HTMLElement;
-    handle: HTMLButtonElement;
-    pointerId: number;
-    startX: number;
-    startY: number;
-    offsetY: number;
-    active: boolean;
-    ghost: HTMLElement | null;
-    target: HTMLElement | null;
-    before: boolean;
-  };
+<style>
+  .bridge-home-promise {
+    display: grid;
+    min-height: 15rem;
+    place-items: center;
+    border: 1px solid var(--bridge-line);
+    border-radius: 0.75rem;
+    background: linear-gradient(145deg, var(--bridge-sky), var(--bridge-surface));
+    padding: 2rem;
+    text-align: center;
+  }
 
-  type KeyboardGrab = {
-    item: HTMLElement;
-    list: HTMLOListElement;
-    tree: HTMLElement;
-    handle: HTMLButtonElement;
-    originalNext: Element | null;
-    moved: boolean;
-  };
+  .bridge-home-promise > span {
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    place-items: center;
+    border-radius: 0.75rem;
+    background: var(--bridge-blue);
+    color: #061016;
+    font-size: 1.5rem;
+    font-weight: 750;
+  }
 
-  const directItems = (list: HTMLOListElement) => [...list.children].filter(
-    (child): child is HTMLElement => child instanceof HTMLElement && child.hasAttribute('data-layer-item'),
-  );
+  .bridge-home-promise p {
+    max-width: 18rem;
+    margin: 1rem 0 0;
+    font-weight: 650;
+  }
 
-  const initInspectors = () => {
-    for (const staleGhost of document.querySelectorAll('.bridge-layer-ghost')) staleGhost.remove();
+  .bridge-home-compare h2 {
+    margin-top: 0;
+  }
 
-    for (const inspector of document.querySelectorAll<HTMLElement>('[data-inspector]')) {
-      if (inspector.dataset.inspectorReady === 'true') continue;
-      inspector.dataset.inspectorReady = 'true';
+  .bridge-compare-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
 
-      const locale = inspector.dataset.locale === 'en'
-        ? 'en'
-        : inspector.dataset.locale === 'zh'
-          ? 'zh'
-          : 'ru';
-      const messages = locale === 'ru'
-        ? {
-            rename: (name: string) => `Переименовать слой «${name}»`,
-            input: (name: string) => `Новое название слоя «${name}»`,
-            reorder: (name: string, position: number, total: number) => `Изменить порядок слоя «${name}». Позиция ${position} из ${total}`,
-            renamed: (before: string, after: string) => `Слой переименован: «${before}» → «${after}».`,
-            empty: 'Введите название слоя.',
-            emptyRestored: 'Пустое название не сохранено. Сохранено прежнее название слоя.',
-            picked: (name: string) => `Слой «${name}» выбран. Меняйте порядок стрелками, подтвердите пробелом или отмените Escape.`,
-            position: (name: string, position: number, total: number) => `Слой «${name}»: позиция ${position} из ${total}.`,
-            cancelled: (name: string) => `Изменение порядка слоя «${name}» отменено.`,
-            reset: 'Исходный порядок и названия восстановлены.',
-          }
-        : locale === 'zh'
-          ? {
-              rename: (name: string) => `重命名图层“${name}”`,
-              input: (name: string) => `请输入图层新名称“${name}”`,
-              reorder: (name: string, position: number, total: number) => `调整图层“${name}”顺序。当前 ${position} / ${total}`,
-              renamed: (before: string, after: string) => `图层重命名：“${before}” → “${after}”。`,
-              empty: '请输入图层名称。',
-              emptyRestored: '未保存空名称，已保留此前的图层名称。',
-              picked: (name: string) => `已选择图层“${name}”。请使用方向键移动，空格确认或按 Escape 取消。`,
-              position: (name: string, position: number, total: number) => `图层“${name}”：第 ${position} 位，共 ${total} 个。`,
-              cancelled: (name: string) => `已取消图层“${name}”的顺序调整。`,
-              reset: '已恢复原始图层顺序和名称。',
-            }
-        : {
-            rename: (name: string) => `Rename layer “${name}”`,
-            input: (name: string) => `New name for layer “${name}”`,
-            reorder: (name: string, position: number, total: number) => `Reorder layer “${name}”. Position ${position} of ${total}`,
-            renamed: (before: string, after: string) => `Layer renamed: “${before}” → “${after}”.`,
-            empty: 'Enter a layer name.',
-            emptyRestored: 'The empty name was not saved. The previous layer name was kept.',
-            picked: (name: string) => `Layer “${name}” selected. Use the arrow keys to move it, press Space to drop, or Escape to cancel.`,
-            position: (name: string, position: number, total: number) => `Layer “${name}”: position ${position} of ${total}.`,
-            cancelled: (name: string) => `Reordering layer “${name}” was cancelled.`,
-            reset: 'The original order and names have been restored.',
-          };
+  .bridge-compare-card {
+    overflow: hidden;
+    border: 1px solid var(--bridge-line);
+    border-radius: 0.65rem;
+    background: var(--bridge-surface);
+  }
 
-      const buttons = [...inspector.querySelectorAll<HTMLButtonElement>('[data-inspector-mode]')];
-      const panels = [...inspector.querySelectorAll<HTMLElement>('[data-inspector-panel]')];
-      let pointerDrag: PointerDrag | null = null;
-      let keyboardGrab: KeyboardGrab | null = null;
+  .bridge-compare-card--good {
+    border-color: color-mix(in srgb, var(--bridge-blue) 60%, var(--bridge-line));
+    background: var(--bridge-sky);
+  }
 
-      const layerName = (item: HTMLElement) => item.querySelector<HTMLButtonElement>('[data-layer-rename]')?.textContent?.trim() || '';
+  .bridge-compare-card header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--bridge-line);
+    padding: 0.85rem 1rem;
+  }
 
-      const announce = (tree: HTMLElement, message: string) => {
-        const live = tree.querySelector<HTMLElement>('[data-layer-live]');
-        if (!live) return;
-        live.textContent = '';
-        window.setTimeout(() => { live.textContent = message; }, 10);
-      };
+  .bridge-compare-card header span {
+    color: var(--bridge-blue-deep);
+    font-family: var(--sl-font-mono);
+    font-size: 0.75rem;
+  }
 
-      const updateLabels = (tree: HTMLElement) => {
-        for (const list of tree.querySelectorAll<HTMLOListElement>('.bridge-layer-list')) {
-          const items = directItems(list);
-          items.forEach((item, index) => {
-            const name = layerName(item);
-            const rename = item.querySelector<HTMLButtonElement>(':scope > .bridge-layer-row [data-layer-rename]');
-            const input = item.querySelector<HTMLInputElement>(':scope > .bridge-layer-row [data-layer-input]');
-            const handle = item.querySelector<HTMLButtonElement>(':scope > .bridge-layer-row [data-layer-handle]');
-            rename?.setAttribute('aria-label', messages.rename(name));
-            input?.setAttribute('aria-label', messages.input(name));
-            if (handle) {
-              handle.disabled = items.length < 2;
-              handle.setAttribute('aria-label', messages.reorder(name, index + 1, items.length));
-            }
-          });
-        }
-      };
+  .bridge-compare-card h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
 
-      const markDirty = (tree: HTMLElement) => {
-        tree.dataset.layerDirty = 'true';
-        const reset = tree.closest('[data-inspector-panel]')?.querySelector<HTMLButtonElement>('[data-layer-reset]');
-        if (reset) reset.hidden = false;
-      };
+  .bridge-compare-card pre {
+    min-height: 13rem;
+    margin: 0;
+    overflow-x: auto;
+    padding: 1rem;
+    color: var(--sl-color-white);
+    font: 0.78rem/1.7 var(--sl-font-mono);
+    white-space: pre;
+  }
 
-      const clearDropMarker = (list: HTMLOListElement) => {
-        for (const item of directItems(list)) item.classList.remove('is-drop-before', 'is-drop-after');
-      };
+  .bridge-compare-card p {
+    margin: 0;
+    border-top: 1px solid var(--bridge-line);
+    padding: 0.9rem 1rem 1rem;
+    color: var(--bridge-muted);
+    font-size: 0.92rem;
+  }
 
-      const cleanPointerDrag = () => {
-        if (!pointerDrag) return;
-        clearDropMarker(pointerDrag.list);
-        pointerDrag.item.classList.remove('is-dragging');
-        pointerDrag.handle.setAttribute('aria-pressed', 'false');
-        pointerDrag.ghost?.remove();
-        if (pointerDrag.handle.hasPointerCapture(pointerDrag.pointerId)) {
-          pointerDrag.handle.releasePointerCapture(pointerDrag.pointerId);
-        }
-        pointerDrag = null;
-      };
-
-      const finishKeyboardGrab = (commit: boolean) => {
-        if (!keyboardGrab) return;
-        const state = keyboardGrab;
-        const name = layerName(state.item);
-        if (!commit && state.moved) state.list.insertBefore(state.item, state.originalNext);
-        state.item.classList.remove('is-keyboard-dragging');
-        state.handle.setAttribute('aria-pressed', 'false');
-        updateLabels(state.tree);
-        const siblings = directItems(state.list);
-        const position = siblings.indexOf(state.item) + 1;
-        if (commit && state.moved) {
-          markDirty(state.tree);
-          announce(state.tree, messages.position(name, position, siblings.length));
-        } else if (!commit) {
-          announce(state.tree, messages.cancelled(name));
-        }
-        keyboardGrab = null;
-        state.handle.focus();
-      };
-
-      const openEditor = (button: HTMLButtonElement) => {
-        const item = button.closest<HTMLElement>('[data-layer-item]');
-        const tree = button.closest<HTMLElement>('[data-layer-tree]');
-        const input = item?.querySelector<HTMLInputElement>(':scope > .bridge-layer-row [data-layer-input]');
-        if (!item || !tree || !input || item.classList.contains('is-editing')) return;
-        if (keyboardGrab) finishKeyboardGrab(true);
-        item.classList.add('is-editing');
-        input.value = button.textContent?.trim() || '';
-        button.hidden = true;
-        input.hidden = false;
-        input.focus();
-        input.select();
-      };
-
-      const closeEditor = (input: HTMLInputElement, cancel = false, restoreFocus = false) => {
-        const item = input.closest<HTMLElement>('[data-layer-item]');
-        const tree = input.closest<HTMLElement>('[data-layer-tree]');
-        const button = item?.querySelector<HTMLButtonElement>(':scope > .bridge-layer-row [data-layer-rename]');
-        if (!item || !tree || !button || !item.classList.contains('is-editing')) return;
-        const before = button.textContent?.trim() || '';
-        const candidate = input.value.trim();
-        if (!cancel && !candidate && restoreFocus) {
-          announce(tree, messages.empty);
-          input.focus();
-          input.select();
-          return;
-        }
-        const after = cancel || !candidate ? before : candidate;
-        if (!cancel && !candidate) announce(tree, messages.emptyRestored);
-        if (after !== before) {
-          button.textContent = after;
-          input.value = after;
-          input.setAttribute('value', after);
-          markDirty(tree);
-          announce(tree, messages.renamed(before, after));
-        } else {
-          input.value = before;
-        }
-        item.classList.remove('is-editing');
-        input.hidden = true;
-        button.hidden = false;
-        updateLabels(tree);
-        if (restoreFocus) button.focus();
-      };
-
-      for (const panel of panels) {
-        const tree = panel.querySelector<HTMLElement>('[data-layer-tree]');
-        const rootList = tree?.querySelector<HTMLOListElement>(':scope > .bridge-layer-list');
-        const reset = panel.querySelector<HTMLButtonElement>('[data-layer-reset]');
-        if (!tree || !rootList || !reset) continue;
-        const initialMarkup = rootList.innerHTML;
-        updateLabels(tree);
-
-        tree.addEventListener('click', (event) => {
-          if (!(event.target instanceof Element)) return;
-          const rename = event.target.closest<HTMLButtonElement>('[data-layer-rename]');
-          if (rename) openEditor(rename);
-        });
-
-        tree.addEventListener('focusout', (event) => {
-          if (!(event.target instanceof HTMLInputElement) || !event.target.matches('[data-layer-input]')) return;
-          closeEditor(event.target);
-        });
-
-        tree.addEventListener('keydown', (event) => {
-          if (!(event.target instanceof Element)) return;
-          const input = event.target.closest<HTMLInputElement>('[data-layer-input]');
-          if (input) {
-            if (event.isComposing) return;
-            if (event.key === 'Enter') {
-              event.preventDefault();
-              closeEditor(input, false, true);
-            } else if (event.key === 'Escape') {
-              event.preventDefault();
-              closeEditor(input, true, true);
-            }
-            return;
-          }
-
-          const rename = event.target.closest<HTMLButtonElement>('[data-layer-rename]');
-          if (rename && event.key === 'F2') {
-            event.preventDefault();
-            openEditor(rename);
-            return;
-          }
-
-          const handle = event.target.closest<HTMLButtonElement>('[data-layer-handle]');
-          if (!handle || handle.disabled) return;
-          const item = handle.closest<HTMLElement>('[data-layer-item]');
-          const list = item?.parentElement;
-          if (!item || !(list instanceof HTMLOListElement)) return;
-
-          if (event.key === ' ' || event.key === 'Enter') {
-            event.preventDefault();
-            if (keyboardGrab?.handle === handle) {
-              finishKeyboardGrab(true);
-            } else {
-              if (keyboardGrab) finishKeyboardGrab(true);
-              keyboardGrab = { item, list, tree, handle, originalNext: item.nextElementSibling, moved: false };
-              item.classList.add('is-keyboard-dragging');
-              handle.setAttribute('aria-pressed', 'true');
-              announce(tree, messages.picked(layerName(item)));
-            }
-            return;
-          }
-
-          if (keyboardGrab?.handle !== handle) return;
-          if (event.key === 'Escape') {
-            event.preventDefault();
-            finishKeyboardGrab(false);
-            return;
-          }
-          if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
-          event.preventDefault();
-          const first = directItems(list)[0];
-          const last = directItems(list).at(-1);
-          let moved = false;
-          if (event.key === 'ArrowUp' && item.previousElementSibling) {
-            list.insertBefore(item, item.previousElementSibling);
-            moved = true;
-          } else if (event.key === 'ArrowDown' && item.nextElementSibling) {
-            list.insertBefore(item.nextElementSibling, item);
-            moved = true;
-          } else if (event.key === 'Home' && first && first !== item) {
-            list.insertBefore(item, first);
-            moved = true;
-          } else if (event.key === 'End' && last && last !== item) {
-            list.append(item);
-            moved = true;
-          }
-          if (moved && keyboardGrab) {
-            keyboardGrab.moved = true;
-            updateLabels(tree);
-            const siblings = directItems(list);
-            announce(tree, messages.position(layerName(item), siblings.indexOf(item) + 1, siblings.length));
-            handle.focus();
-          }
-        });
-
-        tree.addEventListener('pointerdown', (event) => {
-          if (!(event.target instanceof Element) || (event.pointerType === 'mouse' && event.button !== 0)) return;
-          const handle = event.target.closest<HTMLButtonElement>('[data-layer-handle]');
-          if (!handle || handle.disabled) return;
-          const item = handle.closest<HTMLElement>('[data-layer-item]');
-          const list = item?.parentElement;
-          const row = item?.querySelector<HTMLElement>(':scope > .bridge-layer-row');
-          if (!item || !(list instanceof HTMLOListElement) || !row) return;
-          if (keyboardGrab) finishKeyboardGrab(true);
-          cleanPointerDrag();
-          const rect = row.getBoundingClientRect();
-          pointerDrag = {
-            item,
-            list,
-            tree,
-            handle,
-            pointerId: event.pointerId,
-            startX: event.clientX,
-            startY: event.clientY,
-            offsetY: event.clientY - rect.top,
-            active: false,
-            ghost: null,
-            target: null,
-            before: true,
-          };
-          handle.setPointerCapture(event.pointerId);
-          event.preventDefault();
-        });
-
-        tree.addEventListener('pointermove', (event) => {
-          if (!pointerDrag || event.pointerId !== pointerDrag.pointerId) return;
-          const distance = Math.hypot(event.clientX - pointerDrag.startX, event.clientY - pointerDrag.startY);
-          if (!pointerDrag.active && distance < 6) return;
-          if (!pointerDrag.active) {
-            const row = pointerDrag.item.querySelector<HTMLElement>(':scope > .bridge-layer-row');
-            if (!row) return;
-            const rect = row.getBoundingClientRect();
-            const ghost = row.cloneNode(true) as HTMLElement;
-            ghost.className = 'bridge-layer-ghost';
-            ghost.style.width = `${rect.width}px`;
-            ghost.style.left = `${rect.left}px`;
-            ghost.style.top = `${event.clientY - pointerDrag.offsetY}px`;
-            for (const control of ghost.querySelectorAll<HTMLElement>('button, input')) control.tabIndex = -1;
-            document.body.append(ghost);
-            pointerDrag.ghost = ghost;
-            pointerDrag.active = true;
-            pointerDrag.item.classList.add('is-dragging');
-            pointerDrag.handle.setAttribute('aria-pressed', 'true');
-          }
-          event.preventDefault();
-          if (pointerDrag.ghost) pointerDrag.ghost.style.top = `${event.clientY - pointerDrag.offsetY}px`;
-          clearDropMarker(pointerDrag.list);
-          const siblings = directItems(pointerDrag.list).filter((item) => item !== pointerDrag?.item);
-          if (!siblings.length) return;
-          let target = siblings.at(-1) || null;
-          let before = false;
-          for (const sibling of siblings) {
-            const rect = sibling.querySelector<HTMLElement>(':scope > .bridge-layer-row')?.getBoundingClientRect();
-            if (rect && event.clientY < rect.top + rect.height / 2) {
-              target = sibling;
-              before = true;
-              break;
-            }
-          }
-          pointerDrag.target = target;
-          pointerDrag.before = before;
-          target?.classList.add(before ? 'is-drop-before' : 'is-drop-after');
-        });
-
-        const finishPointer = (event: PointerEvent, commit: boolean) => {
-          if (!pointerDrag || event.pointerId !== pointerDrag.pointerId) return;
-          const state = pointerDrag;
-          if (commit && state.active && state.target) {
-            const previousIndex = directItems(state.list).indexOf(state.item);
-            let reference: Element | null = state.before ? state.target : state.target.nextElementSibling;
-            if (reference === state.item) reference = state.item.nextElementSibling;
-            state.list.insertBefore(state.item, reference);
-            updateLabels(state.tree);
-            const siblings = directItems(state.list);
-            const nextIndex = siblings.indexOf(state.item);
-            if (nextIndex !== previousIndex) {
-              markDirty(state.tree);
-              announce(state.tree, messages.position(layerName(state.item), nextIndex + 1, siblings.length));
-            }
-          }
-          cleanPointerDrag();
-        };
-
-        tree.addEventListener('pointerup', (event) => finishPointer(event, true));
-        tree.addEventListener('pointercancel', (event) => finishPointer(event, false));
-
-        reset.addEventListener('click', () => {
-          if (pointerDrag?.tree === tree) cleanPointerDrag();
-          if (keyboardGrab?.tree === tree) finishKeyboardGrab(false);
-          rootList.innerHTML = initialMarkup;
-          tree.dataset.layerDirty = 'false';
-          reset.hidden = true;
-          updateLabels(tree);
-          announce(tree, messages.reset);
-        });
-      }
-
-      const activate = (button: HTMLButtonElement) => {
-        cleanPointerDrag();
-        if (keyboardGrab) finishKeyboardGrab(true);
-        const mode = button.dataset.inspectorMode;
-        for (const item of buttons) {
-          const active = item === button;
-          item.setAttribute('aria-selected', String(active));
-          item.tabIndex = active ? 0 : -1;
-        }
-        for (const panel of panels) {
-          const active = panel.dataset.inspectorPanel === mode;
-          panel.hidden = !active;
-          panel.classList.toggle('is-active', active);
-        }
-      };
-
-      for (const button of buttons) {
-        button.addEventListener('click', () => activate(button));
-        button.addEventListener('keydown', (event) => {
-          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-          event.preventDefault();
-          let index = buttons.indexOf(button);
-          if (event.key === 'Home') index = 0;
-          else if (event.key === 'End') index = buttons.length - 1;
-          else index = (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
-          const next = buttons[index];
-          if (next) {
-            activate(next);
-            next.focus();
-          }
-        });
-      }
+  @media (max-width: 48rem) {
+    .bridge-compare-grid {
+      grid-template-columns: 1fr;
     }
-  };
 
-  initInspectors();
-  document.addEventListener('astro:page-load', initInspectors);
-</script>
+    .bridge-home-promise {
+      min-height: 10rem;
+    }
+  }
+</style>
