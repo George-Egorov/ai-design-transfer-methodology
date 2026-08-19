@@ -9,7 +9,7 @@ export interface LayerNode {
 
 interface Props {
   nodes: LayerNode[];
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
   helpId: string;
   depth?: number;
 }
@@ -20,6 +20,12 @@ const labels = locale === 'ru'
       rename: (name: string) => `Переименовать слой «${name}»`,
       input: (name: string) => `Новое название слоя «${name}»`,
       reorder: (name: string, position: number, total: number) => `Изменить порядок слоя «${name}». Позиция ${position} из ${total}`,
+    }
+  : locale === 'zh'
+    ? {
+      rename: (name: string) => `重命名图层“${name}”`,
+      input: (name: string) => `请输入新的图层名称“${name}”`,
+      reorder: (name: string, position: number, total: number) => `调整图层“${name}”顺序。当前 ${position} / ${total}`,
     }
   : {
       rename: (name: string) => `Rename layer “${name}”`,

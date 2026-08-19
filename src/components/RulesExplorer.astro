@@ -1,9 +1,10 @@
 ---
 import catalog from '../../validator/rules.json';
 import ruRules from '../data/rules.ru.json';
+import zhRules from '../data/rules.zh.json';
 
 interface Props {
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
 }
 
 const { locale } = Astro.props;
@@ -29,6 +30,13 @@ const automationRu: Record<string, string> = {
   manual: 'Вручную',
 };
 
+const principleZh: Record<string, string> = {
+  Breakpoints: '断点', Roles: '角色', Identity: '标识', Dependencies: '依赖', Geometry: '几何', Exceptions: '例外',
+};
+
+const severityZh: Record<string, string> = { error: '错误', warning: '警告', info: '说明' };
+const automationZh: Record<string, string> = { automatic: '自动', heuristic: '启发式', manual: '手动' };
+
 const humanize = (id: string) => {
   const text = id.split('.').at(-1)?.replaceAll('-', ' ') || id;
   return text.charAt(0).toUpperCase() + text.slice(1);
@@ -45,6 +53,19 @@ const russianSearchAliases = (id: string) => [
   /(route|routing)/u.test(id) && 'маршрут страница адрес',
   /(asset|image|media)/u.test(id) && 'изображение ресурс экспорт',
   /(overflow|height)/u.test(id) && 'переполнение высота',
+].filter(Boolean).join(' ');
+
+const chineseSearchAliases = (id: string) => [
+  id.includes('modal') && '模态框 弹窗',
+  /(responsive|breakpoint)/u.test(id) && '响应式 断点',
+  /(text|content)/u.test(id) && '文本 内容',
+  /(interaction|action|href|link)/u.test(id) && '交互 链接 动作',
+  /(identity|naming)/u.test(id) && '标识 命名',
+  /(layout|wrapper)/u.test(id) && '布局 容器',
+  id.includes('component') && '组件',
+  /(route|routing)/u.test(id) && '路由 页面 地址',
+  /(asset|image|media)/u.test(id) && '图片 资源',
+  /(overflow|height)/u.test(id) && '溢出 高度',
 ].filter(Boolean).join(' ');
 
 const copy = locale === 'ru'
@@ -64,6 +85,24 @@ const copy = locale === 'ru'
       canonical: 'Почему это мешает передаче',
       fix: 'Как исправить',
       empty: 'Правила с такими условиями не найдены.',
+    }
+  : locale === 'zh'
+    ? {
+      eyebrow: `机器可读参考 · 版本 ${catalog.version}`,
+      title: '校验规则目录',
+      lead: `在这个包含 ${catalog.rules.length} 条规则的目录里，按 ID、原则、严重程度和执行方式查找问题及修复方法。`,
+      search: '搜索规则',
+      searchPlaceholder: '例如：模态框、断点、文本……',
+      severityLabel: '严重程度',
+      automationLabel: '执行方式',
+      severity: '全部严重程度',
+      automation: '全部执行方式',
+      shown: '显示',
+      of: '共',
+      loadMore: '加载更多',
+      canonical: '为什么会阻碍交付',
+      fix: '如何修复',
+      empty: '没有符合条件的规则。',
     }
   : {
       eyebrow: 'Machine-readable reference',
@@ -100,14 +139,18 @@ const copy = locale === 'ru'
       <span>{copy.severityLabel}</span>
       <select data-rule-severity>
         <option value="">{copy.severity}</option>
-        {catalog.severityLevels.map((level) => <option value={level}>{locale === 'ru' ? severityRu[level] : level}</option>)}
+        {catalog.severityLevels.map((level) => (
+          <option value={level}>{locale === 'ru' ? severityRu[level] : locale === 'zh' ? severityZh[level] : level}</option>
+        ))}
       </select>
     </label>
     <label class="rules-select">
       <span>{copy.automationLabel}</span>
       <select data-rule-automation>
         <option value="">{copy.automation}</option>
-        {catalog.automationLevels.map((level) => <option value={level}>{locale === 'ru' ? automationRu[level] : level}</option>)}
+        {catalog.automationLevels.map((level) => (
+          <option value={level}>{locale === 'ru' ? automationRu[level] : locale === 'zh' ? automationZh[level] : level}</option>
+        ))}
       </select>
     </label>
   </div>
@@ -118,12 +161,20 @@ const copy = locale === 'ru'
 
   <div class="rules-list">
     {catalog.rules.map((rule, index) => {
-      const title = locale === 'ru' ? (ruRules[rule.id as keyof typeof ruRules]?.title || humanize(rule.id)) : humanize(rule.id);
-      const localizedRule = locale === 'ru' ? ruRules[rule.id as keyof typeof ruRules] : undefined;
+      const title = locale === 'ru'
+        ? (ruRules[rule.id as keyof typeof ruRules]?.title || humanize(rule.id))
+        : locale === 'zh'
+          ? (zhRules[rule.id as keyof typeof zhRules]?.title || humanize(rule.id))
+          : humanize(rule.id);
+      const localizedRule = locale === 'ru'
+        ? ruRules[rule.id as keyof typeof ruRules]
+        : locale === 'zh'
+          ? zhRules[rule.id as keyof typeof zhRules]
+          : undefined;
       const searchable = [
         rule.id,
         title,
-        locale === 'ru' ? russianSearchAliases(rule.id) : '',
+        locale === 'ru' ? russianSearchAliases(rule.id) : locale === 'zh' ? chineseSearchAliases(rule.id) : '',
         rule.principle,
         rule.severity,
         rule.automation,
@@ -147,9 +198,9 @@ const copy = locale === 'ru'
               <h2>{title}</h2>
             </div>
             <div class="rule-badges">
-              <span>{locale === 'ru' ? (principleRu[rule.principle] || rule.principle) : rule.principle}</span>
-              <span>{locale === 'ru' ? severityRu[rule.severity] : rule.severity}</span>
-              <span>{locale === 'ru' ? automationRu[rule.automation] : rule.automation}</span>
+              <span>{locale === 'ru' ? (principleRu[rule.principle] || rule.principle) : locale === 'zh' ? (principleZh[rule.principle] || rule.principle) : rule.principle}</span>
+              <span>{locale === 'ru' ? severityRu[rule.severity] : locale === 'zh' ? severityZh[rule.severity] : rule.severity}</span>
+              <span>{locale === 'ru' ? automationRu[rule.automation] : locale === 'zh' ? automationZh[rule.automation] : rule.automation}</span>
             </div>
           </div>
           {locale === 'en' ? (

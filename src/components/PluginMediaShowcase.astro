@@ -1,6 +1,6 @@
 ---
 interface Props {
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
   compact?: boolean;
 }
 
@@ -81,6 +81,80 @@ const copy = locale === 'ru'
           description: 'Если нужен контекст, вопрос ведёт не в начало документации, а сразу к правилу с причиной и исправлением.',
           evidence: 'issue → rule → fix',
           alt: 'Переход из вопроса BRIDGE к точному правилу в каталоге методологии',
+        },
+      },
+  }
+  : locale === 'zh'
+    ? {
+      home: {
+        eyebrow: 'BRIDGE 检查内容',
+        title: '先指出设计问题，再开始实现。',
+        lead: '先给图层设置角色，再把动作绑定到目标，无需手写标记语法。BRIDGE 会生成文件地图、比对断点并准确告诉你：缺少什么、缺在何层、该按哪个规则修复。',
+        action: 'Figma plugin BRIDGE',
+        stageLabel: '页面检查 → 图层角色 → 目标',
+      },
+      plugin: {
+        eyebrow: '从标记到修复',
+        title: '不只是错误列表，而是精确到图层和规则。',
+        lead: 'BRIDGE 会标出结构或关系断开的部分。从报告中可直接跳转到受影响图层，再跳到对应规则与修复说明。',
+        action: '',
+        stageLabel: '页面检查 → 标记 → 地图 → 修复',
+      },
+      tabsLabel: 'BRIDGE 工作流画面',
+      newTab: '将在新标签页打开',
+      previous: '上一步',
+      next: '下一步',
+      screen: '页面',
+      of: '共',
+      slides: {
+        intent: {
+          title: '定义图层职责',
+          label: '选中图层',
+          description: '设置该图层的职责。BRIDGE 会自动生成可用标记并写入图层名称。',
+          evidence: '[action=modal:contact-modal]',
+          alt: 'BRIDGE 界面：为所选图层添加角色和动作',
+        },
+        targets: {
+          title: '绑定目标',
+          label: '已声明标识符',
+          description: '复制页面、区块或弹窗后粘贴关系，无需再次输入 ID。',
+          evidence: 'contact-button → contact-modal',
+          alt: 'BRIDGE 界面显示可复制的已声明目标',
+        },
+        map: {
+          title: '查看文件地图',
+          label: '地图与草稿',
+          description: '地图展示已声明的页面和目标，并标出仍需确认的草稿。',
+          evidence: '3 个页面 · 2 个弹窗 · 2 个草稿',
+          alt: 'BRIDGE 文件地图：展示页面、目标与待处理草稿',
+        },
+        responsive: {
+          title: '比对断点',
+          label: '单页',
+          description: 'BRIDGE 在每个声明宽度上同步对比 identity、结构、内容和视觉意图。',
+          evidence: '375 · 768 · 1280 · 1920',
+          alt: 'BRIDGE 检查一页在四个响应宽度下的差异',
+        },
+        preflight: {
+          title: '提前发现空白',
+          label: '页面检查',
+          description: '检查会区分错误、草稿与警告，避免文件进入开发前带着问题流转。',
+          evidence: '错误 · 草稿 · 警告',
+          alt: 'BRIDGE 页面检查报告，包含错误、草稿与警告',
+        },
+        layer: {
+          title: '跳到精确图层',
+          label: '从报告到 Figma',
+          description: '从单个问题直接打开对应图层，不必手动在页面和帧中逐一查找。',
+          evidence: 'issue → layer → fix',
+          alt: 'BRIDGE 错误详情并跳转到 Figma 的受影响图层',
+        },
+        rule: {
+          title: '打开精确规则',
+          label: '规范修复',
+          description: '需要上下文时，问题会直接打开对应规则，而不是文档首页。',
+          evidence: 'issue → rule → fix',
+          alt: 'BRIDGE 问题详情直接链接到方法论目录中的精确规则',
         },
       },
     }
@@ -224,12 +298,12 @@ const heading = copy[mode];
           data-showcase-index={index}
           hidden={index !== 0}
         >
-          <picture>
+            <picture>
             <source
               media="(max-width: 60rem)"
               srcset={asset(slide.mobile)}
-              width={locale === 'ru' ? 900 : slide.mobileWidth}
-              height={locale === 'ru' ? 1200 : slide.mobileHeight}
+              width={locale === 'ru' || locale === 'zh' ? 900 : slide.mobileWidth}
+              height={locale === 'ru' || locale === 'zh' ? 1200 : slide.mobileHeight}
             />
             <img
               src={asset(slide.desktop)}

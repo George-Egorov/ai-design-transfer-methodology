@@ -1,8 +1,16 @@
 ---
 import config from 'virtual:starlight/user-config';
 
-const locale = Astro.locals.starlightRoute.locale === 'en' ? 'en' : 'ru';
-const label = locale === 'ru' ? 'Язык сайта' : 'Site language';
+const locale = Astro.locals.starlightRoute.locale === 'zh'
+  ? 'zh'
+  : Astro.locals.starlightRoute.locale === 'en'
+    ? 'en'
+    : 'ru';
+const label = locale === 'ru'
+  ? 'Язык сайта'
+  : locale === 'zh'
+    ? '网站语言'
+    : 'Site language';
 const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
 const localizedPathname = (code: string) => {
   const marker = `/${locale}/`;

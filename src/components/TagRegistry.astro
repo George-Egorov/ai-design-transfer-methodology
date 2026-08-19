@@ -2,7 +2,7 @@
 import registry from '../../validator/tags.json';
 
 interface Props {
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
 }
 
 const { locale } = Astro.props;
@@ -40,6 +40,38 @@ const copy = locale === 'ru'
       scopes: {
         'page-root': 'корень страницы', 'variant-root': 'корень варианта', layer: 'слой', control: 'элемент управления',
         field: 'поле', target: 'цель', collection: 'коллекция', item: 'элемент коллекции',
+      },
+    }
+  : locale === 'zh'
+    ? {
+      eyebrow: `规范标签注册表 · schema ${registry.schemaVersion}`,
+      title: 'BRIDGE 标签参考',
+      lead: `${registry.tags.length} 个标签，包含书写形式、适用范围和关系。稳定标签可以写入图层名称；复杂数据、动效和场景应保存在结构化契约中。`,
+      search: '搜索标签',
+      placeholder: '例如：页面、动作、模态框……',
+      status: '状态',
+      allStatuses: '全部状态',
+      authored: '仅显示可写入图层名称的标签',
+      shown: '显示',
+      of: '共',
+      scope: '适用范围',
+      form: '形式',
+      relations: '关系',
+      requires: '必须包含',
+      requiresAny: '至少需要一个',
+      conflicts: '不可同时使用',
+      recommended: '建议搭配',
+      value: '值',
+      noValue: '无值',
+      empty: '没有符合条件的标签。',
+      source: '真实来源',
+      sourceBridge: 'BRIDGE 标签',
+      sourceFigma: 'Figma 元数据',
+      statuses: { stable: '稳定', experimental: '实验性', deprecated: '已弃用' },
+      forms: { boolean: '布尔值', property: '属性', 'boolean-or-property': '布尔值或属性' },
+      scopes: {
+        'page-root': '页面根节点', 'variant-root': '变体根节点', layer: '图层', control: '控件',
+        field: '字段', target: '目标', collection: '集合', item: '集合项',
       },
     }
   : {

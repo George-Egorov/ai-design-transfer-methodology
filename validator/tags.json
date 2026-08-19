@@ -32,7 +32,8 @@
       "key": "page",
       "title": {
         "en": "Page identity",
-        "ru": "Идентификатор страницы"
+        "ru": "Идентификатор страницы",
+        "zh": "页面标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -54,14 +55,16 @@
       },
       "notes": {
         "en": "A BRIDGE page root always uses native Auto Layout and must never carry [asset]. It may sit directly on the Figma page or below native Figma SECTION canvas organizers; those organizers are transparent and contribute no BRIDGE context.",
-        "ru": "Корень страницы BRIDGE всегда использует нативный Auto Layout и никогда не содержит [asset]. Он может лежать прямо на странице Figma или под нативными организаторами SECTION Figma; такие организаторы прозрачны и не передают контекст BRIDGE."
+        "ru": "Корень страницы BRIDGE всегда использует нативный Auto Layout и никогда не содержит [asset]. Он может лежать прямо на странице Figma или под нативными организаторами SECTION Figma; такие организаторы прозрачны и не передают контекст BRIDGE.",
+        "zh": "BRIDGE 页面根始终使用本机自动布局并且绝不能携带 [asset]。它可以直接位于 Figma 页面上或本地 Figma SECTION 画布组织者下方；这些组织者是透明的，不会贡献 BRIDGE 背景。"
       }
     },
     {
       "key": "route",
       "title": {
         "en": "Production route",
-        "ru": "Рабочий маршрут"
+        "ru": "Рабочий маршрут",
+        "zh": "生产路线"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -88,7 +91,8 @@
       "key": "route-pattern",
       "title": {
         "en": "Dynamic route pattern",
-        "ru": "Шаблон динамического маршрута"
+        "ru": "Шаблон динамического маршрута",
+        "zh": "动态路线模式"
       },
       "status": "experimental",
       "authoredInLayerName": true,
@@ -115,7 +119,8 @@
       "key": "bp",
       "title": {
         "en": "Control width",
-        "ru": "Контрольная ширина"
+        "ru": "Контрольная ширина",
+        "zh": "控制宽度"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -139,7 +144,8 @@
       "key": "view",
       "title": {
         "en": "Page view",
-        "ru": "Вид страницы"
+        "ru": "Вид страницы",
+        "zh": "页面浏览量"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -163,7 +169,8 @@
       "key": "anchor",
       "title": {
         "en": "Anchor target",
-        "ru": "Цель якоря"
+        "ru": "Цель якоря",
+        "zh": "锚定目标"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -183,7 +190,8 @@
       "key": "section",
       "title": {
         "en": "Page section identity",
-        "ru": "Идентификатор секции"
+        "ru": "Идентификатор секции",
+        "zh": "页面区块标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -209,14 +217,16 @@
       },
       "notes": {
         "en": "A stable [section] value is the required boundary for Check selected section; never add page/bp/view/route tags to a section. A frame-built section or editable Page Sections source root uses native Auto Layout unless that exact selected root also carries [asset] and is a genuine opaque whole visual. A section nested below a different non-page-root opaque [asset] ancestor is an invalid blocked selection because the audit cannot pierce the inherited boundary. An invalid [asset] on a page root never creates opacity. Placed INSTANCE nodes are atomic and their source is audited separately.",
-        "ru": "Стабильное значение [section] является обязательной границей для проверки выбранной секции; теги page/bp/view/route нельзя добавлять секции. Секция-фрейм или редактируемый исходный корень Page Sections использует нативный Auto Layout, кроме случая, когда сам выбранный корень также содержит [asset] и является настоящим непрозрачным цельным визуальным ресурсом. Секция под другим непрозрачным родительским [asset], не являющимся корнем страницы, является недопустимым заблокированным выбором: проверка не проходит сквозь унаследованную границу. Недопустимый [asset] на корне страницы никогда не создаёт непрозрачность. Размещённые INSTANCE атомарны, а их источник проверяется отдельно."
+        "ru": "Стабильное значение [section] является обязательной границей для проверки выбранной секции; теги page/bp/view/route нельзя добавлять секции. Секция-фрейм или редактируемый исходный корень Page Sections использует нативный Auto Layout, кроме случая, когда сам выбранный корень также содержит [asset] и является настоящим непрозрачным цельным визуальным ресурсом. Секция под другим непрозрачным родительским [asset], не являющимся корнем страницы, является недопустимым заблокированным выбором: проверка не проходит сквозь унаследованную границу. Недопустимый [asset] на корне страницы никогда не создаёт непрозрачность. Размещённые INSTANCE атомарны, а их источник проверяется отдельно.",
+        "zh": "稳定的[截面]值是检查所选截面所需的边界；切勿将 page/bp/view/route 标签添加到某个部分。框架构建的部分或可编辑的页面部分源根使用本机自动布局，除非该确切选定的根也带有[资产]并且是真正的不透明整体视觉效果。嵌套在不同的非页面根不透明[资产]祖先下面的部分是无效的阻止选择，因为审核无法穿透继承的边界。页面根目录上的无效[资源]永远不会产生不透明度。放置的 INSTANCE 节点是原子的，并且它们的源是单独审核的。"
       }
     },
     {
       "key": "href",
       "title": {
         "en": "Navigation destination",
-        "ru": "Адрес перехода"
+        "ru": "Адрес перехода",
+        "zh": "导航目的地"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -241,7 +251,8 @@
       "key": "link",
       "title": {
         "en": "Draft link or advanced link identity",
-        "ru": "Черновая ссылка или расширенный идентификатор ссылки"
+        "ru": "Черновая ссылка или расширенный идентификатор ссылки",
+        "zh": "草稿链接或高级链接标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -264,14 +275,16 @@
       },
       "notes": {
         "en": "Prefer [href=...] when the destination is known; the value form is an advanced override.",
-        "ru": "Когда адрес известен, используйте [href=...]; форма со значением предназначена только для расширенного переопределения."
+        "ru": "Когда адрес известен, используйте [href=...]; форма со значением предназначена только для расширенного переопределения.",
+        "zh": "当目的地已知时首选 [href=...]；值形式是高级覆盖。"
       }
     },
     {
       "key": "open",
       "title": {
         "en": "Link opening behavior",
-        "ru": "Способ открытия ссылки"
+        "ru": "Способ открытия ссылки",
+        "zh": "链接打开行为"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -298,7 +311,8 @@
       "key": "a11y-label",
       "title": {
         "en": "Accessible control label",
-        "ru": "Доступное название элемента управления"
+        "ru": "Доступное название элемента управления",
+        "zh": "无障碍控制标签"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -325,7 +339,8 @@
       "key": "action",
       "title": {
         "en": "Non-navigation action",
-        "ru": "Ненавигационное действие"
+        "ru": "Ненавигационное действие",
+        "zh": "非导航动作"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -350,7 +365,8 @@
       "key": "control",
       "title": {
         "en": "Draft control or advanced control identity",
-        "ru": "Черновой элемент управления или его расширенный идентификатор"
+        "ru": "Черновой элемент управления или его расширенный идентификатор",
+        "zh": "草稿控件或高级控件标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -372,14 +388,16 @@
       },
       "notes": {
         "en": "Prefer [action=...] when behavior is known; the value form is an advanced override.",
-        "ru": "Когда действие известно, используйте [action=...]; форма со значением предназначена только для расширенного переопределения."
+        "ru": "Когда действие известно, используйте [action=...]; форма со значением предназначена только для расширенного переопределения.",
+        "zh": "当行为已知时更喜欢 [action=...]；值形式是高级覆盖。"
       }
     },
     {
       "key": "field",
       "title": {
         "en": "Field identity",
-        "ru": "Идентификатор поля"
+        "ru": "Идентификатор поля",
+        "zh": "字段标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -406,7 +424,8 @@
       "key": "name",
       "title": {
         "en": "Data binding name",
-        "ru": "Имя привязки данных"
+        "ru": "Имя привязки данных",
+        "zh": "数据绑定名称"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -430,7 +449,8 @@
       "key": "field-type",
       "title": {
         "en": "Field type override",
-        "ru": "Переопределение типа поля"
+        "ru": "Переопределение типа поля",
+        "zh": "字段类型覆盖"
       },
       "status": "experimental",
       "authoredInLayerName": true,
@@ -454,7 +474,8 @@
       "key": "form",
       "title": {
         "en": "Form target identity",
-        "ru": "Идентификатор формы"
+        "ru": "Идентификатор формы",
+        "zh": "形成目标身份"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -483,7 +504,8 @@
       "key": "modal",
       "title": {
         "en": "Modal target identity",
-        "ru": "Идентификатор модального окна"
+        "ru": "Идентификатор модального окна",
+        "zh": "模态目标身份"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -512,7 +534,8 @@
       "key": "state",
       "title": {
         "en": "State target identity",
-        "ru": "Идентификатор состояния"
+        "ru": "Идентификатор состояния",
+        "zh": "陈述目标身份"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -541,7 +564,8 @@
       "key": "collection",
       "title": {
         "en": "Collection identity",
-        "ru": "Идентификатор коллекции"
+        "ru": "Идентификатор коллекции",
+        "zh": "收藏标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -570,7 +594,8 @@
       "key": "item",
       "title": {
         "en": "Repeated role or type",
-        "ru": "Роль или тип повторяющегося элемента"
+        "ru": "Роль или тип повторяющегося элемента",
+        "zh": "重复角色或类型"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -596,14 +621,16 @@
       },
       "notes": {
         "en": "The value classifies a repeated role or type; stable design-instance and runtime-data identities remain separate.",
-        "ru": "Значение классифицирует повторяемую роль или тип; стабильные идентификаторы экземпляра макета и рабочих данных задаются отдельно."
+        "ru": "Значение классифицирует повторяемую роль или тип; стабильные идентификаторы экземпляра макета и рабочих данных задаются отдельно.",
+        "zh": "该值对重复的角色或类型进行分类；稳定的设计实例和运行时数据身份保持分离。"
       }
     },
     {
       "key": "decor",
       "title": {
         "en": "Decorative intent",
-        "ru": "Декоративное назначение"
+        "ru": "Декоративное назначение",
+        "zh": "装饰意图"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -620,14 +647,16 @@
       "companions": {},
       "notes": {
         "en": "Prefer the boolean form with a stable layer name. Outside an asset, [decor] belongs only on the exact intended absolute visual node and never exempts a container or GROUP from structural rules.",
-        "ru": "Предпочитайте булеву форму со стабильным именем слоя. Вне ресурса [decor] ставится только на точный намеренный абсолютный визуальный узел и никогда не освобождает контейнер или GROUP от структурных правил."
+        "ru": "Предпочитайте булеву форму со стабильным именем слоя. Вне ресурса [decor] ставится только на точный намеренный абсолютный визуальный узел и никогда не освобождает контейнер или GROUP от структурных правил.",
+        "zh": "更喜欢具有稳定层名称的布尔形式。在资产之外，[decor] 仅属于确切预期的绝对视觉节点，并且永远不会使容器或组免受结构规则的约束。"
       }
     },
     {
       "key": "asset",
       "title": {
         "en": "Whole-export policy",
-        "ru": "Политика цельного экспорта"
+        "ru": "Политика цельного экспорта",
+        "zh": "整体导出策略"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -644,14 +673,16 @@
       "companions": {},
       "notes": {
         "en": "Prefer the boolean form with a stable layer name. An asset is one opaque visual subtree whose root remains in the parent flow; [decor] and [asset] may be combined. Page roots cannot be assets.",
-        "ru": "Предпочитайте булеву форму со стабильным именем слоя. Ресурс является одним непрозрачным визуальным поддеревом, чей корень остаётся в потоке родителя; [decor] и [asset] можно сочетать. Корень страницы не может быть ресурсом."
+        "ru": "Предпочитайте булеву форму со стабильным именем слоя. Ресурс является одним непрозрачным визуальным поддеревом, чей корень остаётся в потоке родителя; [decor] и [asset] можно сочетать. Корень страницы не может быть ресурсом.",
+        "zh": "更喜欢具有稳定层名称的布尔形式。资产是一棵不透明的视觉子树，其根保留在父流中；[装饰]和[资产]可以组合。页面根不能是资产。"
       }
     },
     {
       "key": "height",
       "title": {
         "en": "Dynamic height policy",
-        "ru": "Политика динамической высоты"
+        "ru": "Политика динамической высоты",
+        "zh": "动态高度策略"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -684,7 +715,8 @@
       "key": "overflow",
       "title": {
         "en": "Overflow policy",
-        "ru": "Политика переполнения"
+        "ru": "Политика переполнения",
+        "zh": "溢出政策"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -709,7 +741,8 @@
       "key": "lines",
       "title": {
         "en": "Maximum visible lines",
-        "ru": "Максимум видимых строк"
+        "ru": "Максимум видимых строк",
+        "zh": "最大可见线数"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -734,7 +767,8 @@
       "key": "bridge-exception",
       "title": {
         "en": "Documented transfer exception",
-        "ru": "Объявленное исключение переноса"
+        "ru": "Объявленное исключение переноса",
+        "zh": "已记录的交付例外"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -756,14 +790,16 @@
       },
       "notes": {
         "en": "Overlay may satisfy exact-node absolute positioning intent. Manual-layout documents a proposed structural deviation but does not suppress page, section, container, or GROUP errors.",
-        "ru": "Overlay может подтвердить назначение точного абсолютного узла. Manual-layout документирует предлагаемое структурное отклонение, но не подавляет ошибки страницы, секции, контейнера или GROUP."
+        "ru": "Overlay может подтвердить назначение точного абсолютного узла. Manual-layout документирует предлагаемое структурное отклонение, но не подавляет ошибки страницы, секции, контейнера или GROUP.",
+        "zh": "覆盖可以满足精确节点绝对定位意图。手动布局记录了建议的结构偏差，但不会抑制页面、部分、容器或组错误。"
       }
     },
     {
       "key": "reason",
       "title": {
         "en": "Machine-readable reason",
-        "ru": "Машиночитаемая причина"
+        "ru": "Машиночитаемая причина",
+        "zh": "机器可读的原因"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -789,7 +825,8 @@
       "key": "locale",
       "title": {
         "en": "Locale variation axis",
-        "ru": "Ось языка и региона"
+        "ru": "Ось языка и региона",
+        "zh": "区域设置变化轴"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -810,7 +847,8 @@
       "key": "theme",
       "title": {
         "en": "Theme variation axis",
-        "ru": "Ось темы оформления"
+        "ru": "Ось темы оформления",
+        "zh": "主题变化轴"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -831,7 +869,8 @@
       "key": "experiment",
       "title": {
         "en": "Experiment variation axis",
-        "ru": "Ось эксперимента"
+        "ru": "Ось эксперимента",
+        "zh": "实验变化轴"
       },
       "status": "experimental",
       "authoredInLayerName": true,
@@ -852,7 +891,8 @@
       "key": "role-view",
       "title": {
         "en": "Permission-role variation axis",
-        "ru": "Ось роли и прав"
+        "ru": "Ось роли и прав",
+        "zh": "权限-角色变化轴"
       },
       "status": "experimental",
       "authoredInLayerName": true,
@@ -873,7 +913,8 @@
       "key": "data",
       "title": {
         "en": "Data stress scenario",
-        "ru": "Сценарий тестовых данных"
+        "ru": "Сценарий тестовых данных",
+        "zh": "数据压力场景"
       },
       "status": "experimental",
       "authoredInLayerName": true,
@@ -895,7 +936,8 @@
       "key": "text",
       "title": {
         "en": "Figma text node type",
-        "ru": "Тип текстового узла Figma"
+        "ru": "Тип текстового узла Figma",
+        "zh": "Figma 文本节点类型"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -912,14 +954,16 @@
       "companions": {},
       "notes": {
         "en": "Use the native TEXT node type and a stable layer name.",
-        "ru": "Используйте нативный тип узла TEXT и стабильное имя слоя."
+        "ru": "Используйте нативный тип узла TEXT и стабильное имя слоя.",
+        "zh": "使用本机 TEXT 节点类型和稳定的层名称。"
       }
     },
     {
       "key": "image",
       "title": {
         "en": "Figma image node type",
-        "ru": "Тип изображения Figma"
+        "ru": "Тип изображения Figma",
+        "zh": "Figma 图像节点类型"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -936,14 +980,16 @@
       "companions": {},
       "notes": {
         "en": "Use native fills/export metadata and a stable layer name.",
-        "ru": "Используйте нативные заливки или данные экспорта и стабильное имя слоя."
+        "ru": "Используйте нативные заливки или данные экспорта и стабильное имя слоя.",
+        "zh": "使用本机填充/导出元数据和稳定的图层名称。"
       }
     },
     {
       "key": "icon",
       "title": {
         "en": "Figma icon node type",
-        "ru": "Тип значка Figma"
+        "ru": "Тип значка Figma",
+        "zh": "Figma 图标节点类型"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -960,14 +1006,16 @@
       "companions": {},
       "notes": {
         "en": "Use component/vector metadata and a stable layer name.",
-        "ru": "Используйте метаданные компонента или вектора и стабильное имя слоя."
+        "ru": "Используйте метаданные компонента или вектора и стабильное имя слоя.",
+        "zh": "使用组件/矢量元数据和稳定的图层名称。"
       }
     },
     {
       "key": "container",
       "title": {
         "en": "Figma hierarchy",
-        "ru": "Иерархия Figma"
+        "ru": "Иерархия Figma",
+        "zh": "Figma 层级结构"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -984,14 +1032,16 @@
       "companions": {},
       "notes": {
         "en": "Use frames or components with native Auto Layout. GROUP is valid only inside an opaque [asset] subtree.",
-        "ru": "Используйте фреймы или компоненты с нативным Auto Layout. GROUP допустим только внутри непрозрачного поддерева [asset]."
+        "ru": "Используйте фреймы или компоненты с нативным Auto Layout. GROUP допустим только внутри непрозрачного поддерева [asset].",
+        "zh": "使用具有本机自动布局的框架或组件。GROUP 仅在不透明的 [asset] 子树内有效。"
       }
     },
     {
       "key": "layout",
       "title": {
         "en": "Figma layout mode",
-        "ru": "Режим компоновки Figma"
+        "ru": "Режим компоновки Figma",
+        "zh": "Figma 布局模式"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -1008,14 +1058,16 @@
       "companions": {},
       "notes": {
         "en": "Use Auto Layout and constraints.",
-        "ru": "Используйте Auto Layout и ограничения."
+        "ru": "Используйте Auto Layout и ограничения.",
+        "zh": "使用自动布局和约束。"
       }
     },
     {
       "key": "abs",
       "title": {
         "en": "Figma positioning",
-        "ru": "Позиционирование Figma"
+        "ru": "Позиционирование Figma",
+        "zh": "Figma 定位方式"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -1029,14 +1081,16 @@
       "companions": {},
       "notes": {
         "en": "Use native Figma positioning.",
-        "ru": "Используйте нативное позиционирование Figma."
+        "ru": "Используйте нативное позиционирование Figma.",
+        "zh": "使用原生 Figma 定位。"
       }
     },
     {
       "key": "component",
       "title": {
         "en": "Figma component source",
-        "ru": "Источник компонента Figma"
+        "ru": "Источник компонента Figma",
+        "zh": "Figma 组件来源"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -1053,14 +1107,16 @@
       "companions": {},
       "notes": {
         "en": "Resolve the source component from Figma metadata.",
-        "ru": "Определяйте исходный компонент по метаданным Figma."
+        "ru": "Определяйте исходный компонент по метаданным Figma.",
+        "zh": "从 Figma 元数据解析源组件。"
       }
     },
     {
       "key": "to",
       "title": {
         "en": "Second navigation destination",
-        "ru": "Второй адрес перехода"
+        "ru": "Второй адрес перехода",
+        "zh": "第二个导航目标"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -1077,14 +1133,16 @@
       "companions": {},
       "notes": {
         "en": "Use [href=...] as the single navigation destination.",
-        "ru": "Используйте [href=...] как единственный адрес перехода."
+        "ru": "Используйте [href=...] как единственный адрес перехода.",
+        "zh": "使用 [href=...] 作为单一导航目的地。"
       }
     },
     {
       "key": "wrapper-role",
       "title": {
         "en": "Wrapper intent tag",
-        "ru": "Тег назначения обёртки"
+        "ru": "Тег назначения обёртки",
+        "zh": "包装层职责标签"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -1101,14 +1159,16 @@
       "companions": {},
       "notes": {
         "en": "Express wrapper purpose with Figma structure and stable naming.",
-        "ru": "Выражайте назначение обёртки структурой Figma и стабильным именем."
+        "ru": "Выражайте назначение обёртки структурой Figma и стабильным именем.",
+        "zh": "通过 Figma 结构和稳定的命名来表达包装器的用途。"
       }
     },
     {
       "key": "card",
       "title": {
         "en": "Ad-hoc card identity",
-        "ru": "Произвольный идентификатор карточки"
+        "ru": "Произвольный идентификатор карточки",
+        "zh": "临时卡片标识"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -1125,7 +1185,8 @@
       "companions": {},
       "notes": {
         "en": "Use the stable layer/component name; use [item=...] only for an explicit repeated-item contract.",
-        "ru": "Используйте стабильное имя слоя или компонента; [item=...] нужен только для явного контракта повторяемости."
+        "ru": "Используйте стабильное имя слоя или компонента; [item=...] нужен только для явного контракта повторяемости.",
+        "zh": "使用稳定的层/组件名称；仅将 [item=...] 用于显式重复项目合同。"
       }
     }
   ]

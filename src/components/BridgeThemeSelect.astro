@@ -1,8 +1,14 @@
 ---
-const locale = Astro.locals.starlightRoute.locale === 'en' ? 'en' : 'ru';
+const locale = Astro.locals.starlightRoute.locale === 'zh'
+  ? 'zh'
+  : Astro.locals.starlightRoute.locale === 'en'
+    ? 'en'
+    : 'ru';
 const copy = locale === 'ru'
   ? { label: 'Тема оформления', dark: 'Тёмная', light: 'Светлая', auto: 'Системная' }
-  : { label: 'Color theme', dark: 'Dark', light: 'Light', auto: 'System' };
+  : locale === 'zh'
+    ? { label: '颜色主题', dark: '深色', light: '浅色', auto: '系统' }
+    : { label: 'Color theme', dark: 'Dark', light: 'Light', auto: 'System' };
 ---
 
 <bridge-theme-select class="bridge-utility-select" data-choice="auto">

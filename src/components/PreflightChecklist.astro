@@ -1,6 +1,6 @@
 ---
 interface Props {
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
   embedded?: boolean;
 }
 
@@ -82,6 +82,23 @@ const copy = locale === 'ru'
             ['Видимость и точность достаточны', 'Контраст, фокус-индикаторы и touch targets проверены; декор не попадает в accessibility tree.'],
           ],
         },
+      ],
+    }
+  : locale === 'zh'
+    ? {
+      eyebrow: '交付前检查',
+      title: '快速检查，不留盲区。',
+      lead: '检查六个交付通道。只有能从文件本身找到答案时才确认项目。进度只保存在当前浏览器中。',
+      done: '已完成', reset: '重置', copy: '复制报告', copied: '报告已复制', copyFailed: '复制失败',
+      details: '打开设计师清单', fullReview: '运行完整检查', ready: '设计已准备好接受独立复核。', pending: '仍需确认',
+      reportTitle: 'BRIDGE 快速交付前检查', unresolved: '未确认', reportProgress: '已完成', groupProgress: '本通道',
+      groups: [
+        { id: 'structure', title: '结构', description: '设计应能从图层读懂，而不是依赖会议。', items: [['根帧已声明', '每个根包含 `[page]`、`[bp]` 和 `[view]`；响应式根共享 page 和 view。'], ['标识与关系清晰', '关键图层保持稳定名称，每个动作都能解析到现有目标。']] },
+        { id: 'data', title: '数据', description: '一个示例不能代替数据契约。', items: [['文本能承受真实数据', '长、短、空和本地化内容不会依赖意外固定高度或手动换行。'], ['集合和媒体有边界', '最小值、最大值、空状态、裁剪或焦点及回退行为都已明确。']] },
+        { id: 'state', title: '状态', description: '用户流程不会在按钮处中断。', items: [['页面状态已覆盖', '默认、空、加载、错误及其他所需 view 保持一个页面身份。'], ['组件状态属于 UI Kit', 'Hover、focus、pressed、disabled、validation 和 loading 属于真实来源。']] },
+        { id: 'responsive', title: '响应式', description: '每个宽度展示同一屏幕，而不是另一个产品。', items: [['树保持一致或声明转换', '默认保留 identity、父级和含义；结构转换必须明确映射语义与焦点。'], ['溢出和裁剪已测试', '长文本、最大数量、媒体和窄宽度不会破坏设计。']] },
+        { id: 'motion', title: '动效', description: '动效有原因、时间线和安全替代方案。', items: [['动效路径可复现', '触发器、所有者、关键状态、时长、缓动和滚动关系已定义。'], ['已定义 reduced motion', '有意义的动效具备静态或缩短后的替代方案。']] },
+        { id: 'accessibility', title: '无障碍', description: '在写代码前检查语义和交互。', items: [['名称、角色和控件清晰', '交互元素有名称；焦点、键盘和顺序不依赖鼠标。'], ['可见性和触控尺寸足够', '已检查对比度、焦点指示和触控区域；装饰不进入无障碍树。']] },
       ],
     }
   : {
@@ -229,7 +246,7 @@ const itemCount = copy.groups.reduce((total, group) => total + group.items.lengt
       <button class="bridge-button bridge-button-secondary" type="button" data-reset>{copy.reset}</button>
       <button class="bridge-button bridge-button-primary" type="button" data-copy>{copy.copy}</button>
     </div>
-    <nav aria-label={locale === 'ru' ? 'Следующий шаг проверки' : 'Next review step'}>
+    <nav aria-label={locale === 'ru' ? 'Следующий шаг проверки' : locale === 'zh' ? '下一步检查' : 'Next review step'}>
       <a href={detailsUrl}>{copy.details}<span aria-hidden="true"> →</span></a>
       <a href={fullReviewUrl}>{copy.fullReview}<span aria-hidden="true"> →</span></a>
     </nav>

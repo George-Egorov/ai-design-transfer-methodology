@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const base = '/bridge-design-methodology';
 
-for (const locale of ['ru', 'en']) {
+for (const locale of ['ru', 'en', 'zh']) {
   test(`${locale} home has no overflow and no serious accessibility violations`, async ({ page }) => {
     await page.goto(`${base}/${locale}/`);
     await expect(page.locator('h1#_top')).toBeVisible();
@@ -12,6 +12,16 @@ for (const locale of ['ru', 'en']) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     const result = await new AxeBuilder({ page }).analyze();
     expect(result.violations.filter(({ impact }) => impact === 'critical' || impact === 'serious')).toEqual([]);
+  });
+}
+
+for (const locale of ['ru', 'en', 'zh']) {
+  test(`${locale} custom routes keep the locale document language`, async ({ page }) => {
+    for (const route of ['check/', 'rules/', 'tags/']) {
+      await page.goto(`${base}/${locale}/${route}`);
+      await expect(page.locator('html')).toHaveAttribute('lang', locale === 'zh' ? 'zh-CN' : locale);
+      await expect(page.locator('main')).toBeVisible();
+    }
   });
 }
 

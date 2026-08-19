@@ -1,6 +1,6 @@
 ---
 interface Props {
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
 }
 
 const { locale } = Astro.props;
@@ -73,6 +73,76 @@ const copy = locale === 'ru'
           description: 'Семантика, имя элемента, фокус, клавиатура, контраст, точность касания и декоративность проверяются как части одного профиля.',
           evidence: 'profile: WCAG 2.2 AA · focus · touch',
           checks: ['имя и роль', 'фокус и клавиатура', 'контраст и касание'],
+        },
+      ],
+    }
+  : locale === 'zh'
+    ? {
+      eyebrow: '交付覆盖图',
+      title: '设计与代码之间不应出现未解释的决策。',
+      lead: 'BRIDGE 把六个覆盖通道收敛为一份交付契约。点开任一通道，查看哪些真相由原生能力承担，哪些决策必须显式定义。',
+      modelNote: '这是六个完整性视角，不是缩写拆解；B–R–I–D–G–E 仍是原则。\"无盲区\" 并不等于所有问题都有答案。',
+      tabsLabel: 'BRIDGE 六大交付覆盖通道',
+      coreLabel: '个通道构成一份契约',
+      channel: '通道',
+      proofLabel: '例外也要可追溯决策',
+      proof: '偏离不会藏在评论里：标准化的对异常说明会记录“为什么”与“如何处理”。',
+      structureRule: '页面、区块、内容容器都应使用 Auto Layout；GROUP 仅允许出现在 [asset] 内。',
+      structureRuleAction: '打开结构规则',
+      items: [
+        {
+          id: 'structure',
+          label: '结构',
+          source: 'Figma + identity',
+          title: '重建页面树不靠猜测。',
+          description: '页面级别、区块与内容容器默认采用原生 Auto Layout；GROUP 只能出现在不透明 [asset] 内。',
+          evidence: '[page=home] [bp=1440] [view=default]',
+          checks: ['页面/区块/容器上的 Auto Layout', 'GROUP 仅在 [asset] 内出现', '稳定的命名与顺序'],
+        },
+        {
+          id: 'data',
+          label: '数据',
+          source: '结构化元数据',
+          title: '描述数据范围，而非只展示单例稿。',
+          description: '内容模型、格式、集合与边界场景不能只靠一个“完美案例”推断，它们必须写进交付契约。',
+          evidence: 'metadata: data-display · content model · edge cases',
+          checks: ['长内容与空内容', '最小与最大数量', '格式与无障碍等价项'],
+        },
+        {
+          id: 'state',
+          label: '状态',
+          source: 'views + UI Kit',
+          title: '说明在动作前、中、后的页面行为。',
+          description: '页面状态与组件变体要分离。加载、空态、异常与动作反馈应显式表达，而不是留给实现猜测。',
+          evidence: '[view=default] → loading → empty → error',
+          checks: ['页面态', '组件态', '反馈与目标'],
+        },
+        {
+          id: 'responsive',
+          label: '响应式',
+          source: '单一 identity',
+          title: '变化几何结构，并明确声明结构转换。',
+          description: '响应式视图默认保持单一逻辑树。当网格变为轮播、表格变为卡片时，契约需显式映射 identity、状态、语义与焦点。',
+          evidence: '375 ⇄ 768 ⇄ 1440 · identity + declared transform',
+          checks: ['默认同一逻辑树', '明确 grid → carousel 转换', 'identity、语义与焦点映射'],
+        },
+        {
+          id: 'motion',
+          label: '动效',
+          source: 'timeline + policy',
+          title: '说明运动原因与过程，而非只放最终效果。',
+          description: '触发时机、关键状态、滚动归属与 reduced-motion 政策共同定义可复现的动画行为。',
+          evidence: 'timeline: scroll-progress · reduced motion',
+          checks: ['触发与归属', '关键状态', '静态降级'],
+        },
+        {
+          id: 'accessibility',
+          label: '无障碍',
+          source: 'profile + checks',
+          title: '为设计与代码统一质量标准。',
+          description: '语义、可访问名称、焦点、键盘、对比度、触控精度与装饰意图共同构成单一检查面。',
+          evidence: 'profile: WCAG 2.2 AA · focus · touch',
+          checks: ['名称与角色', '焦点与键盘', '对比度与触控'],
         },
       ],
     }
