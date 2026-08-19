@@ -5,8 +5,8 @@ BRIDGE 对每个交互锚点使用一个事实来源。导航使用 `href`。非
 简单的设计器路径不需要普通链接和按钮的机器 ID。
 
 ```text
-Contacts [href=/contacts]
-Contact us [action=modal:marketplaces-modal]
+contacts [href=/contacts]
+contact-us [action=modal:marketplaces-modal]
 ```
 
 ## 链接使用 `href`
@@ -14,12 +14,12 @@ Contact us [action=modal:marketplaces-modal]
 已知的导航目的地直接写为`[href=...]`。该标签足以将该层分类为链接。
 
 ```text
-Contacts [href=/contacts]
-FAQ [href=/contacts#faq]
-Same page FAQ [href=#faq]
-Telegram [href=https://t.me/company]
-Email [href=mailto:sales@example.com]
-Phone [href=tel:+12025550123]
+contacts [href=/contacts]
+faq [href=/contacts#faq]
+same-page-faq [href=#faq]
+telegram [href=https://t.me/company]
+email [href=mailto:sales@example.com]
+phone [href=tel:+12025550123]
 ```
 
 Rules:
@@ -44,7 +44,7 @@ Contacts [link]
 可选的行为标签可以描述链接如何打开，而不是它指向的位置：
 
 ```text
-Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
+telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 ```
 
 ### 可选的高级链接 ID
@@ -52,7 +52,7 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 仅当实现、分析或自动化管道需要与层名称不同的显式稳定机器 ID 时，才允许将 `[link=...]` 作为高级覆盖。
 
 ```text
-Contacts CTA [link=nav-contacts-primary] [href=/contacts]
+contacts-cta [link=nav-contacts-primary] [href=/contacts]
 ```
 
 该值必须是英文短横线大小写，并且不得包含断点后缀，例如 `-768`、`-375`、`-移动` 或 `-桌面`。
@@ -62,11 +62,11 @@ Contacts CTA [link=nav-contacts-primary] [href=/contacts]
 控件是一种交互元素，它执行除直接导航之外的其他操作。已知的非导航行为直接写为`[action=...]`。该标签足以将该层分类为控件/按钮。
 
 ```text
-Contact us [action=modal:marketplaces-modal]
-Menu [action=state:mobile-menu-open]
-Reset filters [action=state:catalog-default]
-Submit [action=submit:lead-form]
-Disabled CTA [action=none]
+contact-us [action=modal:marketplaces-modal]
+menu [action=state:mobile-menu-open]
+reset-filters [action=state:catalog-default]
+submit [action=submit:lead-form]
+disabled-cta [action=none]
 ```
 
 Rules:
@@ -87,11 +87,11 @@ Contact us [control]
 Allowed action forms:
 
 ```text
-[action=modal:contact-modal]
-[action=state:mobile-menu-open]
-[action=submit:lead-form]
-[action=reset:catalog-filters]
-[action=none]
+ [action=modal:contact-modal]
+ [action=state:mobile-menu-open]
+ [action=submit:lead-form]
+ [action=reset:catalog-filters]
+ [action=none]
 ```
 
 ### 可选的高级控制 ID
@@ -99,7 +99,7 @@ Allowed action forms:
 仅当实现、分析或自动化管道需要与层名称不同的显式稳定机器 ID 时，才允许将 `[control=...]` 作为高级覆盖。
 
 ```text
-Contact us [control=contact-cta-primary] [action=modal:marketplaces-modal]
+contact-us [control=contact-cta-primary] [action=modal:marketplaces-modal]
 ```
 
 该值必须是英文短横线大小写，并且不得包含断点后缀，例如 `-768`、`-375`、`-移动` 或 `-桌面`。
@@ -107,13 +107,13 @@ Contact us [control=contact-cta-primary] [action=modal:marketplaces-modal]
 Bad:
 
 ```text
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 ```
 
 Good:
 
 ```text
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 ## 字段使用 `字段` 和 `名称`
@@ -121,15 +121,15 @@ Good:
 表单字段需要稳定的身份和数据绑定。
 
 ```text
-Email [field=email] [name=email]
-Country [field=country] [name=country]
-Message [field=message] [name=message]
+email [field=email] [name=email]
+country [field=country] [name=country]
+message [field=message] [name=message]
 ```
 
 仅当无法从 UI Kit 组件或本机字段元数据推断类型时才使用 `[field-type=...]`：
 
 ```text
-Country [field=country] [name=country] [field-type=select]
+country [field=country] [name=country] [field-type=select]
 ```
 
 ## 模态和状态
@@ -137,11 +137,11 @@ Country [field=country] [name=country] [field-type=select]
 已知的行动必须指向现有的目标：
 
 ```text
-Contact us [action=modal:contact-modal]
-Contact Modal [modal=contact-modal]
+contact-us [action=modal:contact-modal]
+contact-modal [modal=contact-modal]
 
-Menu [action=state:mobile-menu-open]
-Mobile Menu [state=mobile-menu-open]
+menu [action=state:mobile-menu-open]
+mobile-menu [state=mobile-menu-open]
 ```
 
 如果模态或状态目标不存在，则设计不适合 BRIDGE。

@@ -56,7 +56,7 @@ extract design tree
 
 ```text
 read explicit selection
-  -> resolve each selected node to its nearest own/ancestor [section=<stable-id>] boundary
+  resolve-each-selected-node-to-its-nearest-own-ancestor [section=<stable-id>] boundary
   -> reject empty/untagged selection, a page root, mixed section ids, or a section below an inherited [asset] as Blocked scope
   -> deduplicate normalized roots; traverse only those roots and descendants
   -> treat [asset] as opaque, descendant INSTANCE as a trusted atomic boundary, and [decor] as traversed intent
@@ -246,7 +246,7 @@ read explicit selection
 验证者应该更喜欢有用的摩擦而不是无声的失败。如果报告解释了如何标记故意异常，则误报是可以接受的：
 
 ```text
-[bridge-exception=overlay] [reason=decorative-layered-composition]
+ [bridge-exception=overlay] [reason=decorative-layered-composition]
 ```
 
 目标不是禁止复杂的设计。目标是使复杂性变得明确。即使存在 `[bridge-exception=manual-layout] [reason=...]` ，也会报告结构自动布局/组错误；这些标签为单独的偏差接受门而不是页面检查通过提供了证据。`[bridge-exception=overlay] [reason=...]` 可以满足精确绝对覆盖节点的定位意图。

@@ -248,7 +248,7 @@ See the [Delivery lifecycle](24-delivery-lifecycle.md).
 ## 12. Validation coverage and evidence
 
 - [ ] The canonical tag registry, JSON Schema, rule catalog, localization, examples, content manifest, and coverage manifests validate.
-- [ ] Page Check scope is represented honestly: plugin 0.9.3 has an exact emitted-rule union of 42 of 107 rules—40 automatic and 2 heuristic.
+- [ ] Page Check scope is represented honestly: it has an exact emitted-rule union of 42 of 107 rules—40 automatic and 2 heuristic.
 - [ ] **Check selected section** is represented separately: its exact emitted-rule union is 26 rules—24 automatic and 2 heuristic; 20 local and 6 selected-variant.
 - [ ] Rules outside each declared union have structured, heuristic, manual, implementation, or runtime evidence according to the coverage manifest; the two counts are not added because the scopes overlap.
 - [ ] A clean Page Check report is not presented as full BRIDGE or WCAG validation.

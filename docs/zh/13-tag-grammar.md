@@ -22,7 +22,7 @@ BRIDGE标签仅用于产品或转移意义。
 使用属性标签来表示代理或适配器必须读取的事实：
 
 ```text
-[property=value]
+ [property=value]
 ```
 
 对不需要值的视觉意图/策略标志和草稿标记使用布尔标签：
@@ -52,13 +52,13 @@ button-group
 Bad:
 
 ```text
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 ```
 
 Good:
 
 ```text
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 对于可选的身份承载值，例如 `[link=...]`、`[control=...]`、`[field=...]`、`[modal=...]`、`[state=...]`、`[section=...]`、集合/项目 ID 和后备 `[decor=...]` /`[asset=...]` 值、与当前断点匹配的后缀（例如 `-768`、`-375`、`-mobile` 或 `-desktop`）无效。
@@ -68,24 +68,24 @@ Good:
 ### 页面和路线
 
 ```text
-[page=home]
-[route=/]
-[bp=1920]
-[view=default]
-[anchor=faq]
+ [page=home]
+ [route=/]
+ [bp=1920]
+ [view=default]
+ [anchor=faq]
 ```
 
 ```text
-Home Page [page=home] [route=/] [bp=1920] [view=default]
-FAQ [anchor=faq]
+home [page=home] [route=/] [bp=1920] [view=default]
+faq [anchor=faq]
 ```
 
 `[page=...]`、`[bp=...]` 和 `[view=...]` 定义可起草的页面根。仅当真实生产 URL 已知时才添加 `[route=...]` 或 `[route-pattern=...]`：
 
 ```text
-Contacts [page=contacts] [bp=1440] [view=default]
-Contacts [page=contacts] [route=/contacts] [bp=1440] [view=default]
-Product Detail [page=product-detail] [route-pattern=/catalog/:slug] [bp=1440] [view=default]
+contacts [page=contacts] [bp=1440] [view=default]
+contacts [page=contacts] [route=/contacts] [bp=1440] [view=default]
+product-detail [page=product-detail] [route-pattern=/catalog/:slug] [bp=1440] [view=default]
 ```
 
 不要为了满足清单而发明虚假的生产路线。
@@ -93,8 +93,8 @@ Product Detail [page=product-detail] [route-pattern=/catalog/:slug] [bp=1440] [v
 ### 分段合同
 
 ```text
-[section=product-slider]
-[section=home-hero]
+ [section=product-slider]
+ [section=home-hero]
 ```
 
 `[section=...]` 描述了节组件的稳定键，而不是特定块的标题。
@@ -118,10 +118,10 @@ Page Sections / footer -> section=footer
 如果块是常规框架或组件太通用，请显式使用标签：
 
 ```text
-Catalog [section=product-slider]
-Related Products [section=product-slider]
-Recommended Products [section=product-slider]
-Hero [section=home-hero]
+catalog [section=product-slider]
+related-products [section=product-slider]
+recommended-products [section=product-slider]
+hero [section=home-hero]
 ```
 
 请勿使用 `Section /` 等前缀：该角色已从标记或 `Page Sections` 中的源组件中清除。
@@ -129,13 +129,13 @@ Hero [section=home-hero]
 ### 目标
 
 ```text
-[modal=contact-modal]
-[state=mobile-menu-open]
+ [modal=contact-modal]
+ [state=mobile-menu-open]
 ```
 
 ```text
-Contact Modal [modal=contact-modal]
-Mobile Menu Open [state=mobile-menu-open]
+contact-modal [modal=contact-modal]
+mobile-menu-open [state=mobile-menu-open]
 ```
 
 ### 链接
@@ -143,12 +143,12 @@ Mobile Menu Open [state=mobile-menu-open]
 已知的导航目的地写为 `[href=...]`。这个标签足以将该层分类为链接；普通设计器示例不需要`[link=...]`。
 
 ```text
-[href=/contacts]
-[href=/contacts#faq]
-[href=#faq]
-[href=https://t.me/company]
-[href=mailto:sales@example.com]
-[href=tel:+12025550123]
+ [href=/contacts]
+ [href=/contacts#faq]
+ [href=#faq]
+ [href=https://t.me/company]
+ [href=mailto:sales@example.com]
+ [href=tel:+12025550123]
 ```
 
 ```text
@@ -171,7 +171,7 @@ contacts-link [link]
 Optional link behavior:
 
 ```text
-[open=new-tab]
+ [open=new-tab]
 [a11y-label=Telegram]
 ```
 
@@ -194,11 +194,11 @@ Validators classify href values:
 已知的非导航操作被写为 `[action=...]`。这个标签足以将该层分类为控件/按钮；普通设计器示例不需要`[control=...]`。
 
 ```text
-[action=modal:contact-modal]
-[action=state:mobile-menu-open]
-[action=submit:lead-form]
-[action=reset:catalog-filters]
-[action=none]
+ [action=modal:contact-modal]
+ [action=state:mobile-menu-open]
+ [action=submit:lead-form]
+ [action=reset:catalog-filters]
+ [action=none]
 ```
 
 ```text
@@ -224,11 +224,11 @@ contact-cta [control=contact-cta-primary] [action=modal:contact-modal]
 Allowed action forms:
 
 ```text
-[action=modal:target-id]
-[action=state:target-id]
-[action=submit:form-id]
-[action=reset:target-id]
-[action=none]
+ [action=modal:target-id]
+ [action=state:target-id]
+ [action=submit:form-id]
+ [action=reset:target-id]
+ [action=none]
 ```
 
 ### 领域
@@ -327,15 +327,15 @@ Group 91 [asset=promo-poster]
 仅当无法从 Figma 安全推断行为或动态内容需要显式策略时才使用这些标签。
 
 ```text
-[height=hug]
-[height=fixed]
-[height=min]
-[height=fill]
-[overflow=visible]
-[overflow=hidden]
-[overflow=scroll]
-[overflow=truncate]
-[lines=3]
+ [height=hug]
+ [height=fixed]
+ [height=min]
+ [height=fill]
+ [overflow=visible]
+ [overflow=hidden]
+ [overflow=scroll]
+ [overflow=truncate]
+ [lines=3]
 ```
 
 ```text
@@ -346,14 +346,14 @@ description [height=fixed] [overflow=truncate] [lines=3]
 ### 例外情况
 
 ```text
-[bridge-exception=raster-text]
-[bridge-exception=overlay]
-[bridge-exception=manual-layout]
-[bridge-exception=fixed-height]
-[bridge-exception=manual-line-break]
-[bridge-exception=unsupported-effect]
-[bridge-exception=manual-transfer]
-[reason=brand-lockup]
+ [bridge-exception=raster-text]
+ [bridge-exception=overlay]
+ [bridge-exception=manual-layout]
+ [bridge-exception=fixed-height]
+ [bridge-exception=manual-line-break]
+ [bridge-exception=unsupported-effect]
+ [bridge-exception=manual-transfer]
+ [reason=brand-lockup]
 ```
 
 Rules:
@@ -369,14 +369,14 @@ Rules:
 对于 Figma 设计，请勿使用：
 
 ```text
-[text=...]
-[image=...]
-[icon=...]
-[container=...]
-[layout=...]
+ [text=...]
+ [image=...]
+ [icon=...]
+ [container=...]
+ [layout=...]
 [abs]
-[component=...]
-[to=...]
+ [component=...]
+ [to=...]
 ```
 
 Rules:
@@ -437,7 +437,7 @@ snow-bg [decor] [abs]
 无效：`decor` 是意图；定位来自Figma。仅在本机定位为绝对的确切视觉节点上使用 `snow-bg [decor]` 。
 
 ```text
-FAQ [to=anchor:contacts-faq] [href=/contacts#faq]
+faq [to=anchor:contacts-faq] [href=/contacts#faq]
 ```
 
 无效：两个目的地。仅使用 `[href=/contacts#faq]`。
@@ -449,7 +449,7 @@ unknown-link [href=#]
 无效：`#` 不是未知的 href 占位符。使用 `unknown-link [link]`。
 
 ```text
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 ```
 
-无效：可选 id 不得包含断点后缀。使用 `Отзывы мобилка [action=modal:marketplaces-modal]`。
+无效：可选 id 不得包含断点后缀。使用 `reviews [action=modal:marketplaces-modal]`。

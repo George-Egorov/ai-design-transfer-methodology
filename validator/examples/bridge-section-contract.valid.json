@@ -49,12 +49,12 @@
               {
                 "contextId": "summary-container-360",
                 "nodeId": "41:360",
-                "layerPath": "Page Sections / Checkout summary 360 [section=checkout-summary]"
+                "layerPath": "page-sections / checkout-summary-360 [section=checkout-summary]"
               },
               {
                 "contextId": "summary-container-1200",
                 "nodeId": "41:1200",
-                "layerPath": "Page Sections / Checkout summary 1200 [section=checkout-summary]"
+                "layerPath": "page-sections / checkout-summary-1200 [section=checkout-summary]"
               }
             ]
           }
@@ -70,12 +70,12 @@
               {
                 "contextId": "summary-container-360",
                 "nodeId": "42:360",
-                "layerPath": "Page Sections / Checkout summary 360 [section=checkout-summary] / Checkout"
+                "layerPath": "page-sections / checkout-summary-360 [section=checkout-summary] / checkout"
               },
               {
                 "contextId": "summary-container-1200",
                 "nodeId": "42:1200",
-                "layerPath": "Page Sections / Checkout summary 1200 [section=checkout-summary] / Checkout"
+                "layerPath": "page-sections / checkout-summary-1200 [section=checkout-summary] / checkout"
               }
             ]
           }

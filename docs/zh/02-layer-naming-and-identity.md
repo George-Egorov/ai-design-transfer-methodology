@@ -24,8 +24,8 @@ hero-copy
 非技术层属性的意图需要一个标签：
 
 ```text
-Home Page [page=home] [route=/] [bp=1920] [view=default]
-Catalog [section=product-slider]
+home [page=home] [route=/] [bp=1920] [view=default]
+catalog [section=product-slider]
 primary-cta [href=/catalog]
 menu-button [action=state:mobile-menu-open]
 email [field=email] [name=email]
@@ -109,20 +109,20 @@ Bad:
 
 ```text
 // [bp=768]
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 
 // [bp=375]
-Отзывы мобилка [control=button-reviews-box-375] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-375] [action=modal:marketplaces-modal]
 ```
 
 Good:
 
 ```text
 // [bp=768]
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 
 // [bp=375]
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 可选子 ID，例如 `[control=...]`、`[link=...]`、`[field=...]`、`[modal=...]`、`[state=...]`、`[section=...]`、集合/项目 ID 和后备 `[decor=...]` /`[asset=...]` 值必须保持断点中立。对于普通链接/按钮，最好不要选择任何 id：使用 `[href=...]`、`[link]`、`[action=...]` 或 `[control]`。如果可选标识值以当前断点后缀（例如 `-768`、`-375`、`-移动` 或 `-desktop` 结尾），请删除后缀并仅将断点保留在根上。
@@ -191,9 +191,9 @@ Page Sections / footer -> section=footer
 其次，它可能是一个规则的框架部分或一个不明确的组件。在这种情况下，请使用显式标签：
 
 ```text
-Recommended Products [section=product-slider]
-Related Products [section=product-slider]
-Catalog [section=product-slider]
+recommended-products [section=product-slider]
+related-products [section=product-slider]
+catalog [section=product-slider]
 ```
 
 Rules:

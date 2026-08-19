@@ -146,8 +146,6 @@ The page is ready for handoff when:
 - every reported blocker is fixed, while warnings and exceptions have an explicit decision;
 - the manual items in the [full preflight](08-preflight-checklist.md) have also been reviewed.
 
-The plugin 0.9.3 coverage snapshots record exact, non-additive emitted-rule unions for both commands: Page Check covers 42 of the 107 catalog rules (40 automatic and 2 heuristic), while **Check selected section** covers 26 (24 automatic and 2 heuristic; 20 local and 6 selected-variant). They shorten review; they do not replace the remaining structured and manual checks.
-
 ## Find the right example
 
 | Question | Open this example |

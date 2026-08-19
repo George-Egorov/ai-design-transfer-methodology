@@ -91,10 +91,10 @@ campaign-title [bridge-exception=manual-line-break] [reason=brand-lockup]
 使用显式溢出标签：
 
 ```text
-[overflow=visible]
-[overflow=hidden]
-[overflow=scroll]
-[overflow=truncate]
+ [overflow=visible]
+ [overflow=hidden]
+ [overflow=scroll]
+ [overflow=truncate]
 ```
 
 如果某个项目在视觉上溢出，请将其放置在预期溢出的层次结构级别。

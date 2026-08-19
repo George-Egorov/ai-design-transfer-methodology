@@ -42,8 +42,8 @@ Popup
 ### 之后：同样的设计说明了一切
 
 ```text
-Home [page=home] [route=/] [bp=1440] [view=default]
-  Hero [section=home-hero]
+home [page=home] [route=/] [bp=1440] [view=default]
+  hero [section=home-hero]
     hero-copy
       hero-title
       hero-subtitle
@@ -51,8 +51,8 @@ Home [page=home] [route=/] [bp=1440] [view=default]
       email-link [href=mailto:sales@example.com]
       contact-button [action=modal:contact-modal]
 
-Home [page=home] [route=/] [bp=375] [view=default]
-  Hero [section=home-hero]
+home [page=home] [route=/] [bp=375] [view=default]
+  hero [section=home-hero]
     hero-copy
       hero-title
       hero-subtitle
@@ -60,7 +60,7 @@ Home [page=home] [route=/] [bp=375] [view=default]
       email-link [href=mailto:sales@example.com]
       contact-button [action=modal:contact-modal]
 
-Contact Modal [modal=contact-modal]
+contact-modal [modal=contact-modal]
   modal-content
     modal-title
     close-button
@@ -77,7 +77,7 @@ Contact Modal [modal=contact-modal]
 Use this minimum:
 
 ```text
-Name [page=page-id] [bp=width] [view=default]
+page-root [page=page-id] [bp=width] [view=default]
 ```
 
 仅当真实路由已知时才添加 `[route=/production-path]`。
@@ -123,7 +123,7 @@ Use short English `kebab-case` names such as `英雄标题`, `产品网格`, and
 当周围页面不是 BRIDGE 并且只有新部分在范围内时，请勿添加虚假页面元数据。Give the source boundary one stable section tag:
 
 ```text
-Checkout summary [section=checkout-summary]
+checkout-summary [section=checkout-summary]
 ```
 
 Then:
@@ -146,7 +146,7 @@ Then:
 - 每个报告的拦截器都是固定的，而警告和异常有明确的决定；
 - [full preflight](08-preflight-checklist.md) 中的手动项目也已经过审核。
 
-插件 0.9.3 覆盖快照记录了两个命令的精确、非相加的发出规则并集：Page Check 涵盖 107 个目录规则中的 42 个（40 个自动规则和 2 个启发式规则），而 **Check selected section** 涵盖 26 个规则（24 个自动规则和 2 个启发式规则；20 个本地规则和 6 个选定变体）。他们缩短审查时间；它们不会取代其余的结构化检查和手动检查。
+公开覆盖快照记录了两个命令的精确、非相加的发出规则并集：Page Check 涵盖 107 个目录规则中的 42 个（40 个自动规则和 2 个启发式规则），而 **Check selected section** 涵盖 26 个规则（24 个自动规则和 2 个启发式规则；20 个本地规则和 6 个选定变体）。它们缩短审查时间；不会取代其余的结构化检查和手动检查。
 
 ## 找到正确的例子
 

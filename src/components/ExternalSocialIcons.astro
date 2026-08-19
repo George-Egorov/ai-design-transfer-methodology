@@ -9,12 +9,22 @@ const links = config.social || [];
   <a href={href} target="_blank" rel="me noopener noreferrer" class="bridge-social-link">
     <span class="sr-only">{label}</span>
     <Icon name={icon} />
+    {href === 'https://github.com/Poliklot/bridge-design-methodology' && (
+      <img
+        class="bridge-github-stars"
+        src="https://img.shields.io/github/stars/Poliklot/bridge-design-methodology?style=flat&label=%E2%98%85"
+        alt="GitHub stars"
+        loading="lazy"
+      />
+    )}
   </a>
 ))}
 
 <style>
   .bridge-social-link {
     display: inline-flex;
+    gap: 0.28rem;
+    align-items: center;
     padding: 0.5em;
     margin: -0.5em;
     color: var(--sl-color-text-accent);
@@ -22,5 +32,10 @@ const links = config.social || [];
 
   .bridge-social-link:hover {
     color: var(--sl-color-white);
+  }
+
+  .bridge-github-stars {
+    height: 1.05rem;
+    width: auto;
   }
 </style>

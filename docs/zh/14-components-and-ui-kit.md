@@ -31,7 +31,7 @@ UI Kit
   review-card
   icon-button
 
-Page Sections
+page-sections
   header
   footer
   hero
@@ -108,7 +108,7 @@ BRIDGE 避免了两个事实来源：如果 Figma 已经知道源组件，则页
 3. 该页面有意覆盖此特定展示位置的部分含义。
 
 ```text
-Reviews [section=reviews]
+reviews [section=reviews]
 ```
 
 该标签不是每个组件的强制标记。仅当 Figma 无法提供足够含义时，它才是明确的解释。
@@ -156,9 +156,9 @@ page-root
 页面实例仅描述属于特定页面的含义：
 
 ```text
-Contact us [action=modal:contact-modal]
-FAQ [href=/contacts#faq]
-Email [field=email] [name=email]
+contact-us [action=modal:contact-modal]
+faq [href=/contacts#faq]
+email [field=email] [name=email]
 ```
 
 当 Figma 已经知道源组件时，不要添加 `[component=...]` 。
@@ -166,13 +166,13 @@ Email [field=email] [name=email]
 Bad:
 
 ```text
-Contact us [component=button] [action=modal:contact-modal]
+contact-us [component=button] [action=modal:contact-modal]
 ```
 
 Good:
 
 ```text
-Contact us [action=modal:contact-modal]
+contact-us [action=modal:contact-modal]
 ```
 
 ## 验证器检查
@@ -209,7 +209,7 @@ BRIDGE 标签不应重复 Figma 已经可靠提供的信息。
 Page state:
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
 ```
 
 库中的组件状态：

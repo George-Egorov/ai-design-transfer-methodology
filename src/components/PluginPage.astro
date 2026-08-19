@@ -1,7 +1,4 @@
 ---
-import PluginMediaShowcase from './PluginMediaShowcase.astro';
-import PreflightChecklist from './PreflightChecklist.astro';
-
 interface Props {
   locale: 'ru' | 'en' | 'zh';
 }
@@ -14,22 +11,21 @@ const pluginUrl = 'https://www.figma.com/community/plugin/1654485530503673254/br
 const copy = locale === 'ru'
   ? {
       eyebrow: 'Центр проверки',
-      title: 'Проверьте макет, а не память команды.',
-      lead: 'Начните с короткой проверки шести областей. Затем откройте детальный чеклист или запустите Page Check в Figma. Каждый шаг оставляет воспроизводимый отчёт.',
+      title: 'Проверьте макет в три шага.',
+      lead: 'Откройте чеклист, полный review или сам плагин BRIDGE. Здесь только понятные маршруты — без имитации проверки в браузере.',
       navLabel: 'Способы проверки',
-      quick: 'Быстрая проверка',
       designer: 'Чеклист дизайнера',
       full: 'Полный review',
       plugin: 'Page Check в Figma',
       pluginEyebrow: 'Помощник в Figma',
       pluginTitle: 'Проверяйте ту же систему прямо в файле.',
-      pluginLead: 'Плагин добавляет канонические теги, собирает карту файла и запускает Page Check. Из вопроса можно перейти к точному слою и правилу.',
+      pluginLead: 'Плагин помогает разметить файл, увидеть его карту и перейти от вопроса к точному слою и правилу.',
       open: 'Figma plugin BRIDGE',
       capabilitiesLabel: 'Что делает плагин',
       capabilities: [
-        ['Разметка', 'Добавляет page, breakpoint, action и target без ручного набора синтаксиса.'],
-        ['Карта', 'Показывает объявленные страницы, цели и незавершённые черновики.'],
-        ['Проверка', 'Находит пробелы и открывает затронутый слой и каноническое правило.'],
+        ['Разметка', 'Помогает добавить смысл слою без ручного набора синтаксиса.'],
+        ['Карта', 'Показывает страницы, цели и места, которые ещё требуют решения.'],
+        ['Проверка', 'Находит пробелы и открывает затронутый слой с объяснением.'],
       ],
       trust: 'Доступен через Figma Community · аккаунт BRIDGE не нужен',
       privateTitle: 'Что открыто, а что нет',
@@ -40,37 +36,46 @@ const copy = locale === 'ru'
   : locale === 'zh'
     ? {
       eyebrow: '方法论工具',
-      title: '在 Figma 中直接核对设计就绪状态。',
-      lead: '插件会将 BRIDGE 标签写入图层名称，生成文件映射，并在交付前检查页面、断点、动作和目标。',
+      title: '用三个步骤检查设计。',
+      lead: '打开设计师清单、完整检查或 BRIDGE 插件。这里提供清晰的入口，而不是在浏览器中模拟检查。',
+      navLabel: '检查方式',
+      designer: '设计师清单',
+      full: '完整检查',
+      plugin: '在 Figma 中检查',
+      pluginEyebrow: 'Figma 助手',
+      pluginTitle: '直接在文件中检查同一套设计。',
+      pluginLead: '插件帮助标记文件、查看文件地图，并从问题直接跳到相关图层和规则。',
       open: 'Figma 插件 BRIDGE',
       capabilitiesLabel: '插件功能',
       capabilities: [
-        ['标签', '自动生成 page、breakpoint、action 和 target，无需手工拼接语法。'],
-        ['地图', '汇总页面、目标和草稿，形成可读的文件结构。'],
-        ['检查', '发现缺口并快速定位到相关图层与规则。'],
+        ['标签', '帮助为图层添加含义，无需手工拼接语法。'],
+        ['地图', '展示页面、目标和仍需决定的位置。'],
+        ['检查', '发现缺口并打开相关图层和解释。'],
       ],
       trust: '本地运行于 Figma · 不需要 BRIDGE 账号 · 无网络访问',
+      privateTitle: '哪些内容是公开的',
+      privateNote: 'BRIDGE 方法论、文档、清单和规则目录公开。Figma 插件实现是私有的。',
+      rules: '打开规则目录',
       source: '源代码',
       newTab: '将在新标签页打开',
     }
   : {
       eyebrow: 'Review hub',
-      title: 'Review the design, not the team’s memory.',
-      lead: 'Start with a short review across six coverage areas. Then open the detailed checklist or run Page Check in Figma. Every route leaves a reproducible report.',
+      title: 'Review the design in three steps.',
+      lead: 'Open the designer checklist, the full review, or the BRIDGE plugin. These are clear routes—not a browser simulation of a real file check.',
       navLabel: 'Review options',
-      quick: 'Quick preflight',
       designer: 'Designer checklist',
       full: 'Full review',
       plugin: 'Page Check in Figma',
       pluginEyebrow: 'Figma companion',
       pluginTitle: 'Review the same system directly in the file.',
-      pluginLead: 'The plugin adds canonical tags, maps the file, and runs Page Check. From a finding, it opens the exact affected layer and canonical rule.',
+      pluginLead: 'The plugin helps tag the file, see its map, and move from a question to the exact layer and rule.',
       open: 'Figma plugin BRIDGE',
       capabilitiesLabel: 'What the plugin does',
       capabilities: [
-        ['Tag', 'Adds page, breakpoint, action, and target values without handwritten syntax.'],
-        ['Map', 'Shows declared pages and targets alongside drafts that still need a decision.'],
-        ['Check', 'Finds gaps and opens the affected layer and canonical rule.'],
+        ['Tag', 'Helps add meaning to a layer without handwritten syntax.'],
+        ['Map', 'Shows pages, targets, and places that still need a decision.'],
+        ['Check', 'Finds gaps and opens the affected layer with an explanation.'],
       ],
       trust: 'Available from Figma Community · no BRIDGE account required',
       privateTitle: 'What is open, and what is not',
@@ -86,16 +91,11 @@ const copy = locale === 'ru'
     <h1 id="_top">{copy.title}</h1>
     <p>{copy.lead}</p>
     <nav aria-label={copy.navLabel}>
-      <a href="#quick-check"><span>01</span>{copy.quick}</a>
-      <a href={url('check/designer-checklist/')}><span>02</span>{copy.designer}</a>
-      <a href={url('check/full-review/')}><span>03</span>{copy.full}</a>
-      <a href="#figma-page-check"><span>04</span>{copy.plugin}</a>
+      <a href={url('check/designer-checklist/')}><span>01</span>{copy.designer}</a>
+      <a href={url('check/full-review/')}><span>02</span>{copy.full}</a>
+      <a href="#figma-page-check"><span>03</span>{copy.plugin}</a>
     </nav>
   </section>
-
-  <div id="quick-check" class="check-hub-preflight">
-    <PreflightChecklist locale={locale} embedded />
-  </div>
 
   <section id="figma-page-check" class="plugin-brief" aria-labelledby="plugin-title">
     <div class="plugin-brief-copy">
@@ -135,6 +135,4 @@ const copy = locale === 'ru'
       <a href={url('rules/')}>{copy.rules}<span aria-hidden="true"> →</span></a>
     </aside>
   </section>
-
-  <PluginMediaShowcase locale={locale} />
 </div>

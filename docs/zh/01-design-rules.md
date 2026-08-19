@@ -83,7 +83,7 @@ hero-glow [decor]
 `[decor]` 仅在 Figma 定位为绝对的确切视觉层上有效。它不授权任意自由形式的子树，也不放弃任何祖先的自动布局或组规则。如果复杂的装饰构图应保持不透明，请使用 `[decor] [asset]`；如果无法以其他方式对有意的非装饰性覆盖进行建模，请在确切的覆盖节点上使用 `[bridge-exception=overlay] [reason=...]` 。
 
 ```text
-Home [page=home] [bp=1440] [view=default]     // FRAME, vertical Auto Layout
+home [page=home] [bp=1440] [view=default]     // FRAME, vertical Auto Layout
   hero [section=hero]                          // FRAME, vertical Auto Layout
     hero-copy                                  // FRAME, vertical Auto Layout
       hero-title                               // TEXT leaf
@@ -144,14 +144,14 @@ Group 91 [asset=promo-poster]
 在 Figma 画布上，此根可能是 Figma 页面的直接子级，也可能是仅通过本机 Figma `SECTION` 组织者到达的后代。这些部分位于传输的页面层次结构之外：它们的名称和标签不会被继承，并且它们不会放松根的自动布局契约。标记根之外的普通 `FRAME` 或 `GROUP` 不是透明组织者。
 
 ```text
-Home Page [bp=1920] [view=default] [page=home] [route=/]
-Home Page [bp=375] [view=default] [page=home] [route=/]
+home [bp=1920] [view=default] [page=home] [route=/]
+home [bp=375] [view=default] [page=home] [route=/]
 ```
 
 如果还不知道路由，请忽略它，而不是发明一个假的生产 URL：
 
 ```text
-Contacts Page [bp=1440] [view=default] [page=contacts]
+contacts [bp=1440] [view=default] [page=contacts]
 ```
 
 断点是同一页面的不同宽度，而不是含义或结构的新版本。

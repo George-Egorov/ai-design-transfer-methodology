@@ -32,12 +32,12 @@
               {
                 "contextId": "desktop",
                 "nodeId": "1:1",
-                "layerPath": "Catalog / Desktop"
+                "layerPath": "catalog / desktop"
               },
               {
                 "contextId": "mobile",
                 "nodeId": "1:2",
-                "layerPath": "Catalog / Mobile"
+                "layerPath": "catalog / mobile"
               }
             ]
           },
@@ -59,12 +59,12 @@
               {
                 "contextId": "desktop",
                 "nodeId": "2:1",
-                "layerPath": "Catalog / Desktop / Product Grid"
+                "layerPath": "catalog / desktop / product-grid"
               },
               {
                 "contextId": "mobile",
                 "nodeId": "2:2",
-                "layerPath": "Catalog / Mobile / Product List"
+                "layerPath": "catalog / mobile / product-list"
               }
             ]
           },
@@ -86,7 +86,7 @@
               {
                 "contextId": "desktop",
                 "nodeId": "3:1",
-                "layerPath": "Catalog / Desktop / Revenue Chart"
+                "layerPath": "catalog / desktop / revenue-chart"
               }
             ]
           }
@@ -102,7 +102,7 @@
               {
                 "contextId": "desktop",
                 "nodeId": "3:2",
-                "layerPath": "Catalog / Desktop / Revenue Table"
+                "layerPath": "catalog / desktop / revenue-table"
               }
             ]
           }
@@ -118,7 +118,7 @@
               {
                 "contextId": "desktop",
                 "nodeId": "4:1",
-                "layerPath": "Catalog / Desktop / Filter Dialog"
+                "layerPath": "catalog / desktop / filter-dialog"
               }
             ]
           }
@@ -134,7 +134,7 @@
               {
                 "contextId": "desktop",
                 "nodeId": "5:1",
-                "layerPath": "Catalog / Desktop / Story Visual"
+                "layerPath": "catalog / desktop / story-visual"
               }
             ]
           }

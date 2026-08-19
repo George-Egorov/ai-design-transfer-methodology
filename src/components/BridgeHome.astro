@@ -27,8 +27,6 @@ const copy = locale === 'ru'
       before: 'Без BRIDGE',
       after: 'С BRIDGE',
       beforeNote: 'Названия описывают внешний вид, но не объясняют связи между фреймами.',
-      afterNote: 'Два корня с нативным Auto Layout: page, section и контейнеры сохраняют поток, а GROUP допустим только внутри [asset].',
-      layerHint: 'Нажмите на имя, чтобы переименовать. Перетащите ручку, чтобы поменять порядок соседних слоёв.',
       layerKeyboardHint: 'На ручке нажмите пробел, меняйте порядок стрелками, подтвердите пробелом или отмените Escape.',
       layerReset: 'Сбросить',
       pathsEyebrow: 'Выберите задачу',
@@ -42,7 +40,7 @@ const copy = locale === 'ru'
       methodEyebrow: 'Как это работает',
       methodTitle: 'Три шага к готовому макету',
       method: [
-        ['01', 'Соберите техническую правду', 'Нативный Auto Layout обязателен для page, section и контейнеров содержимого; GROUP допустим только внутри [asset].'],
+        ['01', 'Соберите понятную структуру', 'Слои и связи должны быть понятны без устных пояснений автора.'],
         ['02', 'Добавьте недостающий смысл', 'Теги и структурированные метаданные описывают данные, состояния, движение, доступность и осознанные исключения.'],
         ['03', 'Проверьте без автора', 'Другой человек должен понять файл без созвона и дополнительных пояснений.'],
       ],
@@ -68,7 +66,7 @@ const copy = locale === 'ru'
         ['E', 'Exceptions', 'Осознанные исключения', 'Какие отклонения сделаны намеренно?'],
       ],
       finalTitle: 'Начните с одной страницы или секции.',
-      finalText: 'Не нужно переводить весь архив или перестраивать UI Kit. Проверьте реальную страницу целиком либо новую секцию как изолированный выбранный источник; готовность секции не выдавайте за готовность унаследованной страницы.',
+      finalText: 'Не нужно переводить весь архив или перестраивать библиотеку компонентов. Проверьте реальную страницу целиком либо новую секцию как изолированный выбранный источник; готовность секции не выдавайте за готовность унаследованной страницы.',
       finalAction: 'Открыть план пилота',
     }
   : locale === 'zh'
@@ -85,8 +83,6 @@ const copy = locale === 'ru'
       before: '未使用 BRIDGE 时',
       after: '使用 BRIDGE 后',
       beforeNote: '名称描述了外观，但没有说明不同帧之间的关联。',
-      afterNote: '同一结构会明确显示页面、断点、区块和动作，可直接从图层中读取。',
-      layerHint: '点击名称可重命名。拖动手柄可调整同级图层顺序。',
       layerKeyboardHint: '在手柄上按空格，使用方向键移动，再按空格确认；按 Escape 取消。',
       layerReset: '重置',
       pathsEyebrow: '选择你的任务',
@@ -100,7 +96,7 @@ const copy = locale === 'ru'
       methodEyebrow: '如何工作',
       methodTitle: '让设计可交付的三步',
       method: [
-        ['01', '保留技术真相', 'Figma 的帧、Auto Layout、组件和几何信息保持为原生数据。'],
+        ['01', '建立清晰结构', '无需作者解释，也能看懂图层和它们之间的关系。'],
         ['02', '补充缺失语义', '用标签表达页面、动作、目标、装饰、导出项和例外。'],
         ['03', '无作者复核', '别人无需会议或上下文解释，也能读懂该文件。'],
       ],
@@ -126,7 +122,7 @@ const copy = locale === 'ru'
         ['E', 'Exceptions', '刻意例外', '哪些偏差是故意的？'],
       ],
       finalTitle: '从一个真实文件开始。',
-      finalText: '不需要重构素材库或重建 UI Kit。先拿一页真实页面，交给未参与设计的人，并验证其是否能在不通话的情况下回答实现问题。',
+      finalText: '不需要重构素材库或重建组件库。先拿一页真实页面，交给未参与设计的人，并验证其是否能在不通话的情况下回答实现问题。',
       finalAction: '打开试点方案',
     }
   : {
@@ -141,8 +137,6 @@ const copy = locale === 'ru'
       before: 'Without BRIDGE',
       after: 'With BRIDGE',
       beforeNote: 'Names describe appearance, but not the relationships between frames.',
-      afterNote: 'Two native Auto Layout roots: page, section, and content containers preserve flow; GROUP is allowed only inside [asset].',
-      layerHint: 'Select a name to rename it. Drag the handle to reorder it among sibling layers.',
       layerKeyboardHint: 'On the reorder handle, press Space, move with Arrow keys, press Space to drop, or Escape to cancel.',
       layerReset: 'Reset',
       pathsEyebrow: 'Choose a task',
@@ -156,7 +150,7 @@ const copy = locale === 'ru'
       methodEyebrow: 'How it works',
       methodTitle: 'Three steps to a transferable design',
       method: [
-        ['01', 'Build technical truth', 'Native Auto Layout is required for page, section, and content containers; GROUP is allowed only inside [asset].'],
+        ['01', 'Build a clear structure', 'Layers and relationships should be understandable without a private explanation from the author.'],
         ['02', 'Declare missing intent', 'Tags and structured metadata cover data, state, motion, accessibility, and intentional exceptions.'],
         ['03', 'Review without the author', 'Someone else should understand the file without a call or private context.'],
       ],
@@ -182,7 +176,7 @@ const copy = locale === 'ru'
         ['E', 'Exceptions', '', 'Which deviations are intentional?'],
       ],
       finalTitle: 'Start with one page or section.',
-      finalText: 'You do not need to migrate the archive or rebuild the UI kit. Check a real page as a whole or a new section as an isolated selected source; never present section readiness as readiness of its legacy host page.',
+      finalText: 'You do not need to migrate the archive or rebuild the component library. Check a real page as a whole or a new section as an isolated selected source; never present section readiness as readiness of its legacy host page.',
       finalAction: 'Open pilot plan',
     };
 ---
@@ -215,7 +209,7 @@ const copy = locale === 'ru'
           <span class="sr-only" aria-live="polite" data-layer-live></span>
         </div>
         <div class="bridge-layer-footer">
-          <div><p>{copy.beforeNote}</p><small><span aria-hidden="true">⠿</span>{copy.layerHint}</small></div>
+          <div><p>{copy.beforeNote}</p></div>
           <button type="button" data-layer-reset hidden>{copy.layerReset}</button>
         </div>
       </div>
@@ -225,8 +219,7 @@ const copy = locale === 'ru'
           <BridgeLayerTree nodes={canonicalLayerTrees.afterTree as LayerNode[]} locale={locale} helpId="layers-after-help" />
           <span class="sr-only" aria-live="polite" data-layer-live></span>
         </div>
-        <div class="bridge-layer-footer">
-          <div><p>{copy.afterNote}</p><small><span aria-hidden="true">⠿</span>{copy.layerHint}</small></div>
+        <div class="bridge-layer-footer bridge-layer-footer--actions">
           <button type="button" data-layer-reset hidden>{copy.layerReset}</button>
         </div>
       </div>

@@ -11,11 +11,11 @@ BRIDGE 故意避免将图层名称转换为数据库。
 设计师使用一个小的语法来表示在浏览设计时必须保持可见的意图：
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-  Products [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+  products [section=product-results]
     product-grid [collection=products]
       product-card-oak-chair [item=product]
-  Filter [action=state:filters-open]
+  filter [action=state:filters-open]
 ```
 
 标签定位页面、变体、部分、链接/操作、目标、字段、集合、视觉策略、溢出和显式异常。它们不携带数据模式、状态图、运动时间线、可访问性测试计划或交付历史记录。
@@ -56,7 +56,7 @@ Figma/source metadata + short BRIDGE anchors + structured bridge metadata
 团队可以将 BRIDGE 应用到一个新部分，而无需迁移周围的产品。边界是一个明确选择的源根，带有稳定的节标识：
 
 ```text
-Checkout summary [section=checkout-summary]
+checkout-summary [section=checkout-summary]
 ```
 
 不要将该部分变成假页面。`[page]`、`[bp]`、`[view]` 和 `[route]` 仍然是页面根标记，不能仅仅为了运行验证而添加。**检查所选部分** 仅遍历规范化的所选根及其后代。选定的可编辑 `FRAME` 或 `COMPONENT` 接收完整的本地源审核；`GROUP` 仍然是一个阻塞的结构发现。当规范化的选定节根本身是 `INSTANCE` 时，仅边界证据可用，结果为 Partial。普通后代 `INSTANCE` 是一个受信任的原子边界，其内部不适用于此选定源遍历，并且不会降低 Ready。精确的 `[section=id][asset]` 根是一个有效的不透明整体视觉边界，内部布局不适用。相反，不同非页面根 `[asset]` 祖先下面的部分是无效的阻止范围：检查无法穿透继承的不透明边界。页面根目录上的非法 `[asset]` 永远不会产生不透明度；页面检查报告根分开，后代仍然可以检查。`[decor]` 本身永远不会停止遍历。

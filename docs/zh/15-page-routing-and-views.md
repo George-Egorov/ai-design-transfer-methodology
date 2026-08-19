@@ -9,15 +9,15 @@ BRIDGE 将页面、生产路线、锚点和页面/数据状态视为传输契约
 已知路线：
 
 ```text
-Contacts Page [page=contacts] [route=/contacts] [bp=1200]
-Contacts Page [page=contacts] [route=/contacts] [bp=320]
+contacts [page=contacts] [route=/contacts] [bp=1200]
+contacts [page=contacts] [route=/contacts] [bp=320]
 ```
 
 Draft route unknown:
 
 ```text
-Contacts Page [page=contacts] [bp=1200] [view=default]
-Contacts Page [page=contacts] [bp=320] [view=default]
+contacts [page=contacts] [bp=1200] [view=default]
+contacts [page=contacts] [bp=320] [view=default]
 ```
 
 Rules:
@@ -34,11 +34,11 @@ Rules:
 Recommended route forms:
 
 ```text
-[route=/]
-[route=/contacts]
-[route=/catalog]
-[route=/catalog/product]
-[route-pattern=/catalog/:slug]
+ [route=/]
+ [route=/contacts]
+ [route=/catalog]
+ [route=/catalog/product]
+ [route-pattern=/catalog/:slug]
 ```
 
 Rules:
@@ -54,10 +54,10 @@ Rules:
 `[view=...]` 描述页面/数据状态，而不是组件 UI 状态。
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog Empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Catalog Loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
-Catalog Error [page=catalog] [route=/catalog] [bp=1200] [view=error]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog-empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog-loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
+catalog-error [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
 Common page views:
@@ -87,22 +87,22 @@ Rules:
 不要将页面状态建模为假页面或假路由：
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [view=default]
-Catalog Empty Page [page=catalog-empty] [route=/catalog-empty]
+catalog [page=catalog] [route=/catalog] [view=default]
+catalog-empty [page=catalog-empty] [route=/catalog-empty]
 ```
 
 Correct:
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [view=default]
-Catalog Empty [page=catalog] [route=/catalog] [view=empty]
+catalog [page=catalog] [route=/catalog] [view=default]
+catalog-empty [page=catalog] [route=/catalog] [view=empty]
 ```
 
 如果生产路线未知，则保留一页标识并省略路线：
 
 ```text
-Catalog Page [page=catalog] [view=default]
-Catalog Empty [page=catalog] [view=empty]
+catalog [page=catalog] [view=default]
+catalog-empty [page=catalog] [view=empty]
 ```
 
 ## 截面和锚杆
@@ -110,16 +110,16 @@ Catalog Empty [page=catalog] [view=empty]
 可寻址部分使用 `[section=...]` 和 `[anchor=...]`：
 
 ```text
-Contacts FAQ [section=contacts-faq] [anchor=faq]
+contacts-faq [section=contacts-faq] [anchor=faq]
 ```
 
 `[section=...]` 是可重用的部分/组件合约。人类图层名称可能是特定于页面的：
 
 ```text
-Catalog [section=product-slider]
-Related products [section=product-slider]
-Recommended products [section=product-slider]
-First screen [section=home-hero]
+catalog [section=product-slider]
+related-products [section=product-slider]
+recommended-products [section=product-slider]
+first-screen [section=home-hero]
 ```
 
 在前三个示例中，内容/数据不同，但适配器可以使用一个部分组件来实现该块。`home-hero` 是页面唯一部分的示例。
@@ -138,10 +138,10 @@ Rules:
 已知链接使用 `href` 作为唯一的目标事实，不需要 `[link=...]`：
 
 ```text
-Contacts [href=/contacts]
-FAQ [href=/contacts#faq]
-Same page FAQ [href=#faq]
-Telegram [href=https://t.me/company]
+contacts [href=/contacts]
+faq [href=/contacts#faq]
+same-page-faq [href=#faq]
+telegram [href=https://t.me/company]
 ```
 
 如果目的地未知，请使用 `[link]`：
@@ -155,9 +155,9 @@ Contacts [link]
 Validator resolution:
 
 ```text
-href=/contacts      -> page with [route=/contacts]
-href=/contacts#faq  -> page [route=/contacts] + section [anchor=faq]
-href=#faq           -> current page + section [anchor=faq]
+href-contacts-page-with [route=/contacts]
+href-contacts-faq-page [route=/contacts] + section [anchor=faq]
+href-faq-current-page-section [anchor=faq]
 href=https://...    -> external URL, no internal route required
 ```
 
@@ -180,10 +180,10 @@ page + bp + view
 Example:
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog [page=catalog] [route=/catalog] [bp=320] [view=default]
-Catalog Empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Catalog Empty [page=catalog] [route=/catalog] [bp=320] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=320] [view=default]
+catalog-empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog-empty [page=catalog] [route=/catalog] [bp=320] [view=empty]
 ```
 
 ## 验证者规则

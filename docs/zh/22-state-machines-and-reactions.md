@@ -16,10 +16,10 @@
 现有标签定位交互锚点：
 
 ```text
-Email [field=email] [name=email]
-Send [action=submit:lead-form]
-Lead Form [state=lead-form-idle]
-Success [state=lead-form-success]
+email [field=email] [name=email]
+send [action=submit:lead-form]
+lead-form [state=lead-form-idle]
+success [state=lead-form-success]
 ```
 
 原型连接可以提供额外的证据。不要为每个事件、防护、超时、焦点目的地、公告和 HTTP 状态添加标签。将这些关系放入由稳定身份键入的结构化 BRIDGE 元数据中。

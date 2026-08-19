@@ -34,8 +34,8 @@ Mobile new
 ✅ Explicit:
 
 ```text
-Home [page=home] [route=/] [bp=1440] [view=default]
-Home [page=home] [route=/] [bp=375] [view=default]
+home [page=home] [route=/] [bp=1440] [view=default]
+home [page=home] [route=/] [bp=375] [view=default]
 ```
 
 `page` 和 `view` 保持不变，因为产品页面和状态相同。`bp` 随宽度变化。`route` 存在是因为生产路线已知。
@@ -83,7 +83,7 @@ Figma 中已存在字体、颜色、大小和位置。该名称标识另一个�
 ### 方案A：普通框架
 
 ```text
-Hero [section=home-hero]
+hero [section=home-hero]
 ```
 
 需要该标签是因为 Figma 不知道框架的产品部分密钥。
@@ -107,7 +107,7 @@ home-hero
 ```text
 email-link [href=mailto:sales@example.com]
 menu-button [action=state:mobile-menu-open]
-Mobile Menu Open [state=mobile-menu-open]
+mobile-menu-open [state=mobile-menu-open]
 unknown-button [control]
 disabled-button [action=none]
 ```
@@ -139,7 +139,7 @@ contact-button [action=modal:contact-modal]
 ```text
 contact-button [action=modal:contact-modal]
 
-Contact Modal [modal=contact-modal]
+contact-modal [modal=contact-modal]
   modal-content
   close-button
 ```
@@ -157,7 +157,7 @@ Contact Modal [modal=contact-modal]
 ❌ 手动坐标和非资产组：
 
 ```text
-Home [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
+home [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
   hero [section=hero] (FRAME, layoutMode NONE)
     Group 19
       hero-title
@@ -170,7 +170,7 @@ Home [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
 ✅ 家长解释与原生自动布局的关系：
 
 ```text
-Home [page=home] [bp=1440] [view=default] (FRAME, vertical Auto Layout)
+home [page=home] [bp=1440] [view=default] (FRAME, vertical Auto Layout)
   hero [section=hero] (FRAME, vertical Auto Layout)
     hero-copy (FRAME, vertical Auto Layout)
       hero-title
@@ -240,16 +240,16 @@ complex-illustration [decor] [asset]
 该设计提供稳定的锚点和页面状态：
 
 ```text
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=default]
-  Revenue [section=revenue-overview]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=default]
+  revenue [section=revenue-overview]
     period-filter
     revenue-chart
     revenue-table
     data-status
 
-Dashboard Loading [page=dashboard] [route=/dashboard] [bp=1200] [view=loading]
-Dashboard Empty [page=dashboard] [route=/dashboard] [bp=1200] [view=empty]
-Dashboard Error [page=dashboard] [route=/dashboard] [bp=1200] [view=error]
+dashboard-loading [page=dashboard] [route=/dashboard] [bp=1200] [view=loading]
+dashboard-empty [page=dashboard] [route=/dashboard] [bp=1200] [view=empty]
+dashboard-error [page=dashboard] [route=/dashboard] [bp=1200] [view=error]
 ```
 
 结构化合约（而不是更多层标签）添加了正在回答的问题、数据集/所有者/刷新、月份和货币字段、区域设置/时区/舍入规则、排序/过滤行为、部分和陈旧行为以及 `revenue-table` 作为可访问的等价值。QA 装置涵盖缺失的月份、负值、延迟的部分响应、过时的数据、长本地化标签和混合方向标识符。
@@ -316,14 +316,14 @@ comparison-card-2
 **目标：** 使“提交此潜在客户表格”可以在快乐路径之外实现。
 
 ```text
-Lead Form [state=lead-form-idle]
+lead-form [state=lead-form-idle]
   name [field=name] [name=name]
   email [field=email] [name=email]
   consent [field=consent] [name=consent]
   send [action=submit:lead-form]
 
-Form Success [state=lead-form-success]
-Form Error [state=lead-form-failure]
+form-success [state=lead-form-success]
+form-error [state=lead-form-failure]
 ```
 
 状态机添加 `idle`、`invalid`、`submitting`、`success` 和 `failure`。它定义了验证时机、第一个无效字段焦点、错误摘要公告、重复点击策略、路线离开取消、保值、重试和成功焦点。表单不添加URL历史记录条目；成功后刷新遵循已声明的产品决策。
@@ -339,7 +339,7 @@ Form Error [state=lead-form-failure]
 **目标：**传递三场景产品讲解。
 
 ```text
-Workflow Story [section=feature-story]
+workflow-story [section=feature-story]
   story-visual
   scene-intro
   scene-compare
@@ -361,8 +361,8 @@ Workflow Story [section=feature-story]
 ### 设计证据
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-  Product Results [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+  product-results [section=product-results]
     catalog-filter-form
     results-heading
     product-grid [collection=products]
@@ -370,8 +370,8 @@ Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
       product-card-wool-lamp [item=product]
     pagination
 
-Catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
-  Product Results [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
+  product-results [section=product-results]
     catalog-filter-form
     results-heading
     product-grid [collection=products]

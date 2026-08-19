@@ -11,17 +11,17 @@ BRIDGE 将响应行为作为一组声明的上下文和规则进行传输，而�
 为代表性设计环境创造根源。它们可能是 Figma 页面上的直接兄弟姐妹，或者组织在本地 Figma 部分下：
 
 ```text
-Home [page=home] [route=/] [bp=1440] [view=default]
-Home [page=home] [route=/] [bp=768] [view=default]
-Home [page=home] [route=/] [bp=375] [view=default]
+home [page=home] [route=/] [bp=1440] [view=default]
+home [page=home] [route=/] [bp=768] [view=default]
+home [page=home] [route=/] [bp=375] [view=default]
 ```
 
 ```text
 Figma page
 ├─ Desktop variants                         // native Figma Section, organizer only
-│  ├─ Home [page=home] [bp=1440] [view=default]
-│  └─ Home [page=home] [bp=768] [view=default]
-└─ Home [page=home] [bp=375] [view=default] // direct root is also valid
+│  ├─ home [page=home] [bp=1440] [view=default]
+│  └─ home [page=home] [bp=768] [view=default]
+└─ home [page=home] [bp=375] [view=default] // direct root is also valid
 ```
 
 页面检查在发现根的同时遍历本机 Figma 部分，然后比较标记的根框架。它不会将组织者名称、顺序或嵌套视为产品结构，并且不会通过普通外部 `FRAME` 或 `GROUP` 来代替根。

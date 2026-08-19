@@ -29,8 +29,8 @@ BRIDGE 区分设计变更的原因。一个轴不得隐藏另一轴的影响。
 ## 断点轴
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
 ```
 
 默认值允许更改几何形状、间距、字体比例、自然换行、列数和视觉排列。它不允许静默内容、操作、数据、语义关系或可访问性损失。请参阅[Responsive behavior](03-responsive-breakpoints.md)。
@@ -40,10 +40,10 @@ Catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
 视图是可访问的页面/数据装置：
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog Loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
-Catalog Empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Catalog Error [page=catalog] [route=/catalog] [bp=1200] [view=error]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog-loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
+catalog-empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog-error [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
 由于产品状态发生变化，视图可能会更改内容。该视图中的匹配断点仍然遵循同一树默认值或声明的转换。组件微状态保留在组件/状态机契约中，而不是成为页面根。
@@ -51,8 +51,8 @@ Catalog Error [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ## 区域设置轴
 
 ```text
-Contacts [page=contacts] [route=/contacts] [bp=1200] [locale=en-US]
-Contacts [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
+contacts [page=contacts] [route=/contacts] [bp=1200] [locale=en-US]
+contacts [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
 ```
 
 区域设置可能会更改产品规则选择的翻译、复数、日期/数字/货币格式以及合法内容。测试扩展、牢不可破的值、字体覆盖范围和格式。区域设置并不是较短的移动副本的解决方法。
@@ -73,8 +73,8 @@ Contacts [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
 ## 主题轴
 
 ```text
-Dashboard [page=dashboard] [bp=1200] [theme=light]
-Dashboard [page=dashboard] [bp=1200] [theme=dark]
+dashboard [page=dashboard] [bp=1200] [theme=light]
+dashboard [page=dashboard] [bp=1200] [theme=dark]
 ```
 
 主题会改变标记、媒体选择，或许还有对比处理。它不得默默地更改产品副本、数据、操作或可用功能。测试每个交互、数据、焦点、禁用、错误和强制/高对比度状态，而不仅仅是默认背景。
@@ -82,8 +82,8 @@ Dashboard [page=dashboard] [bp=1200] [theme=dark]
 ## 实验轴
 
 ```text
-Pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-a]
-Pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
+pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-a]
+pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
 ```
 
 实验可能会改变批准的内容或流程。定义假设、分配、暴露事件、指标、持续时间/所有权、回退、可访问性奇偶校验和交互/历史映射。不要将实验伪装成断点。
@@ -91,8 +91,8 @@ Pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
 ## 角色轴
 
 ```text
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=guest]
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=guest]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
 ```
 
 角色/权限变体可能会更改信息和操作。授权系统仍然是运行时的事实来源；隐藏一层并不安全。当页面打开时权限发生变化时，封面会发生转换。
@@ -104,8 +104,8 @@ Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
 ```text
 product-card [data=short]
 product-card [data=long]
-Product Grid [collection=products] [data=max-items]
-Product Grid Empty [collection=products] [data=empty]
+product-grid [collection=products] [data=max-items]
+product-grid-empty [collection=products] [data=empty]
 ```
 
 涵盖零、一、典型、最大/未知计数、长和混合方向文本、缺失值/媒体、重复、部分、陈旧、失败和未经授权的数据。夹具顺序或数字后缀绝不是运行时记录标识。请参阅[Data and visualization](20-data-and-visualization.md)。
@@ -129,7 +129,7 @@ Product Grid Empty [collection=products] [data=empty]
 传输上下文可以组成轴：
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=360] [view=empty] [locale=ar-SA] [theme=dark]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=empty] [locale=ar-SA] [theme=dark]
 ```
 
 Structured context may add `方向：rtl`, `writingMode：水平-tb`, and target profile `移动低带宽`. Pairwise/full combinations are selected by risk; teams need not draw the Cartesian product, but every omitted combination must inherit deterministically or be recorded as an open question.
@@ -142,11 +142,11 @@ hero-title desktop = "Launch your store in one day"
 hero-title mobile = "Launch faster"
 
 // fake locale hides mobile copy
-Hero [bp=320] [locale=mobile-short]
+hero [bp=320] [locale=mobile-short]
 
 // theme changes product behavior
-Delete [theme=light] [action=modal:confirm-delete]
-Delete [theme=dark] [action=none]
+delete [theme=light] [action=modal:confirm-delete]
+delete [theme=dark] [action=none]
 ```
 
 ## 验证
