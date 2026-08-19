@@ -34,7 +34,9 @@ jobs:
         run: npm test
 
       - name: Install Chromium for browser checks
-        run: npx playwright install --with-deps chromium
+        # GitHub's runner image already carries the Chromium runtime libraries.
+        # Avoid apt mirror outages blocking an otherwise green Pages deployment.
+        run: npx playwright install chromium
 
       - name: Verify responsive interaction and accessibility
         run: npm run test:e2e
