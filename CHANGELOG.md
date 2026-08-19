@@ -2,6 +2,17 @@
 
 All notable changes to the public BRIDGE methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
 
+## [0.11.4] — 2026-08-19
+
+### Added
+
+- Complete zh-CN localization with manifest-backed coverage for all 27 routes, 43 tags, and 107 rules.
+- Strict locale parity checks, shared homepage layer-tree structure, localized metadata, UI copy, and Chinese custom pages.
+
+### Fixed
+
+- Removed the silent English fallback and divergent parallel route lists that previously allowed incomplete Chinese URLs to render mixed-language content.
+
 ## [0.11.3] — 2026-08-19
 
 ### Changed
@@ -85,6 +96,7 @@ All notable changes to the public BRIDGE methodology, schemas, rule catalog, and
 - Added the interactive layer inspector, focused Figma companion workflow, bilingual site, and the original 77-rule catalog.
 
 [0.11.3]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.3
+[0.11.4]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.4
 [0.11.2]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.2
 [0.11.1]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.1
 [0.11.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.0

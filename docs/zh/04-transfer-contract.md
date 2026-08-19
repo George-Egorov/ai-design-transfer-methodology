@@ -138,7 +138,7 @@ Checkout summary [section=checkout-summary]
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.3",
+    "methodologyVersion": "0.11.4",
     "rulesVersion": "0.5.0",
     "source": {
       "tool": "figma",
