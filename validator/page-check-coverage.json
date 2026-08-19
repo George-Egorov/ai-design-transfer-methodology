@@ -1,7 +1,7 @@
 {
   "$schema": "./page-check-coverage.schema.json",
   "methodology": "BRIDGE",
-  "pluginVersion": "0.9.2",
+  "pluginVersion": "0.9.3",
   "catalogVersion": "0.5.0",
   "verifiedAt": "2026-08-19",
   "counts": {
