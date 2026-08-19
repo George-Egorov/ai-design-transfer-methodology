@@ -11,11 +11,11 @@ BRIDGE deliberately avoids turning layer names into a database.
 A designer uses a small grammar for intent that must remain visible while browsing the design:
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-  Products [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+  products [section=product-results]
     product-grid [collection=products]
       product-card-oak-chair [item=product]
-  Filter [action=state:filters-open]
+  filter [action=state:filters-open]
 ```
 
 Tags locate pages, variants, sections, links/actions, targets, fields, collections, visual policy, overflow, and explicit exceptions. They do not carry a data schema, state graph, motion timeline, accessibility test plan, or delivery history.
@@ -56,7 +56,7 @@ An omitted module means “not applicable” only when the scope proves that it 
 A team may apply BRIDGE to one new section without migrating the surrounding product. The boundary is an explicitly selected source root carrying a stable section identity:
 
 ```text
-Checkout summary [section=checkout-summary]
+checkout-summary [section=checkout-summary]
 ```
 
 Do not turn the section into a fake page. `[page]`, `[bp]`, `[view]`, and `[route]` remain page-root tags and must not be added merely to run validation. **Check selected section** traverses only the normalized selected root and its descendants. A selected editable `FRAME` or `COMPONENT` receives the full local source audit; a `GROUP` remains a blocking structural finding. When the normalized selected section root itself is an `INSTANCE`, only boundary evidence is available and the result is Partial. An ordinary descendant `INSTANCE` is a trusted atomic boundary whose internals are not applicable to this selected-source traversal and does not lower Ready. An exact `[section=id] [asset]` root is a valid opaque whole-visual boundary with internal layout N/A. A section below a different non-page-root `[asset]` ancestor is instead an invalid Blocked scope: the check cannot pierce an inherited opaque boundary. An illegal `[asset]` on a page root never creates opacity; Page Check reports that root separately and descendants remain inspectable. `[decor]` alone never stops traversal.

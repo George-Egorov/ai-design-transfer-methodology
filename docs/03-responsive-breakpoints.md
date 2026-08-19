@@ -11,17 +11,17 @@ BRIDGE transfers responsive behavior as a set of declared contexts and rules—n
 Create roots for representative design contexts. They may be direct siblings on the Figma page or organized under native Figma Sections:
 
 ```text
-Home [page=home] [route=/] [bp=1440] [view=default]
-Home [page=home] [route=/] [bp=768] [view=default]
-Home [page=home] [route=/] [bp=375] [view=default]
+home [page=home] [route=/] [bp=1440] [view=default]
+home [page=home] [route=/] [bp=768] [view=default]
+home [page=home] [route=/] [bp=375] [view=default]
 ```
 
 ```text
-Figma page
-├─ Desktop variants                         // native Figma Section, organizer only
-│  ├─ Home [page=home] [bp=1440] [view=default]
-│  └─ Home [page=home] [bp=768] [view=default]
-└─ Home [page=home] [bp=375] [view=default] // direct root is also valid
+figma-page
+├─ responsive-desktop                      // native Figma Section, organizer only
+│  ├─ home [page=home] [bp=1440] [view=default]
+│  └─ home [page=home] [bp=768] [view=default]
+└─ home [page=home] [bp=375] [view=default] // direct root is also valid
 ```
 
 Page Check descends through native Figma Sections while discovering roots and then compares the tagged root frames. It does not treat the organizer name, order, or nesting as product structure, and it does not descend through an ordinary outer `FRAME` or `GROUP` in place of a root.

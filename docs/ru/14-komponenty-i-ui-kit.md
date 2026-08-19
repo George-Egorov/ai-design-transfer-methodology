@@ -95,7 +95,7 @@ Component set: footer
 3. секционный смысл намеренно переопределяется для конкретного места.
 
 ```text
-Отзывы [section=reviews]
+reviews [section=reviews]
 ```
 
 ## Обёртки вокруг секций
@@ -135,9 +135,9 @@ page-root
 Экземпляр на странице описывает только смысл конкретного места:
 
 ```text
-Связаться [action=modal:contact-modal]
-Вопросы и ответы [href=/contacts#faq]
-Почта [field=email] [name=email]
+contact-cta [action=modal:contact-modal]
+faq [href=/contacts#faq]
+email [field=email] [name=email]
 ```
 
 Не добавляйте `[component=...]`, если исходный компонент уже известен Figma.
@@ -172,7 +172,7 @@ page-root
 Состояние страницы:
 
 ```text
-Каталог [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
 ```
 
 Состояние компонента:

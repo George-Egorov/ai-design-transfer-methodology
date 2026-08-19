@@ -11,17 +11,17 @@ BRIDGE передаёт адаптивность как набор объявл�
 Создайте корни для репрезентативных контекстов. Они могут быть соседями на странице Figma или находиться внутри нативных Section Figma:
 
 ```text
-Главная [page=home] [route=/] [bp=1440] [view=default]
-Главная [page=home] [route=/] [bp=768] [view=default]
-Главная [page=home] [route=/] [bp=375] [view=default]
+home [page=home] [route=/] [bp=1440] [view=default]
+home [page=home] [route=/] [bp=768] [view=default]
+home [page=home] [route=/] [bp=375] [view=default]
 ```
 
 ```text
-Страница Figma
-├─ Адаптивы desktop                             // нативная Section Figma, только организатор
-│  ├─ Главная [page=home] [bp=1440] [view=default]
-│  └─ Главная [page=home] [bp=768] [view=default]
-└─ Главная [page=home] [bp=375] [view=default]  // прямой корень тоже допустим
+figma-page
+├─ responsive-desktop                         // нативная Section Figma, только организатор
+│  ├─ home [page=home] [bp=1440] [view=default]
+│  └─ home [page=home] [bp=768] [view=default]
+└─ home [page=home] [bp=375] [view=default]   // прямой корень тоже допустим
 ```
 
 Page Check проходит сквозь нативные Section Figma при поиске корней, а затем сравнивает размеченные корневые фреймы. Имя, порядок и вложенность организаторов не считаются продуктовой структурой. Обычный внешний `FRAME` или `GROUP` не заменяет корень и не является прозрачным для поиска.

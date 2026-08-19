@@ -108,7 +108,7 @@ A page layer still needs `[section=...]` only in these cases:
 3. The page intentionally overrides the section meaning for this specific placement.
 
 ```text
-Reviews [section=reviews]
+reviews [section=reviews]
 ```
 
 The tag is not a mandatory mark for every component. It is an explicit explanation only where Figma does not provide enough meaning.
@@ -156,9 +156,9 @@ The exact component taxonomy may differ between design systems. BRIDGE should no
 A page instance describes only the meaning that belongs to the specific page:
 
 ```text
-Contact us [action=modal:contact-modal]
-FAQ [href=/contacts#faq]
-Email [field=email] [name=email]
+contact-cta [action=modal:contact-modal]
+faq [href=/contacts#faq]
+email [field=email] [name=email]
 ```
 
 Do not add `[component=...]` when Figma already knows the source component.
@@ -172,7 +172,7 @@ Contact us [component=button] [action=modal:contact-modal]
 Good:
 
 ```text
-Contact us [action=modal:contact-modal]
+contact-cta [action=modal:contact-modal]
 ```
 
 ## Validator checks
@@ -209,7 +209,7 @@ Do not confuse page/data state with component state.
 Page state:
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
 ```
 
 Component state in the library:

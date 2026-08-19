@@ -40,7 +40,7 @@ Keep these roles distinct. A chart title is not a data field; a highlighted maxi
 Layer names and existing BRIDGE tags should expose only the anchors a reviewer needs in the design:
 
 ```text
-Revenue [section=revenue-overview]
+revenue [section=revenue-overview]
   period-filter
   revenue-chart
   revenue-table

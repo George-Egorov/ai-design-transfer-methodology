@@ -34,13 +34,13 @@ Mobile new
 Правильно — страница, состояние и контрольная ширина заданы явно:
 
 ```text
-Главная [page=home] [route=/] [bp=1440] [view=default]
-Главная [page=home] [route=/] [bp=375] [view=default]
+home [page=home] [route=/] [bp=1440] [view=default]
+home [page=home] [route=/] [bp=375] [view=default]
 ```
 
 Значения `page` и `view` совпадают, потому что оба фрейма описывают одну страницу в одном состоянии. Значение `bp` отличается, потому что меняется контрольная ширина. `route` добавлен, поскольку настоящий маршрут уже известен.
 
-Оба корня могут лежать прямо на странице Figma или внутри нативных Section Figma, например `Desktop variants` и `Mobile variants`. Организаторы холста прозрачны: теги BRIDGE остаются на настоящих корневых фреймах. Обычный внешний FRAME/GROUP не равен организатору Section Figma.
+Оба корня могут лежать прямо на странице Figma или внутри нативных Section Figma, например `responsive-desktop` и `responsive-mobile`. Организаторы холста прозрачны: теги BRIDGE остаются на настоящих корневых фреймах. Обычный внешний FRAME/GROUP не равен организатору Section Figma.
 
 [Полное правило об адаптивах](../docs/ru/03-adaptivy-i-breakpointy.md)
 
@@ -83,7 +83,7 @@ primary-cta
 ### Вариант А: обычный фрейм
 
 ```text
-Первый экран [section=home-hero]
+hero [section=home-hero]
 ```
 
 Тег нужен, потому что Figma сама не знает продуктовый ключ обычного фрейма.
@@ -107,7 +107,7 @@ home-hero
 ```text
 email-link [href=mailto:sales@example.com]
 menu-button [action=state:mobile-menu-open]
-Открытое мобильное меню [state=mobile-menu-open]
+mobile-menu-open [state=mobile-menu-open]
 unknown-button [control]
 disabled-button [action=none]
 ```
@@ -139,7 +139,7 @@ contact-button [action=modal:contact-modal]
 ```text
 contact-button [action=modal:contact-modal]
 
-Окно обратной связи [modal=contact-modal]
+contact-modal [modal=contact-modal]
   modal-content
   close-button
 ```
@@ -157,7 +157,7 @@ contact-button [action=modal:contact-modal]
 Неудачно — ручные координаты и GROUP вне ресурса:
 
 ```text
-Главная [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
+home [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
   hero [section=hero] (FRAME, layoutMode NONE)
     Group 19
       hero-title
@@ -170,7 +170,7 @@ contact-button [action=modal:contact-modal]
 Правильно — родители объясняют отношения через нативный Auto Layout:
 
 ```text
-Главная [page=home] [bp=1440] [view=default] (FRAME, вертикальный Auto Layout)
+home [page=home] [bp=1440] [view=default] (FRAME, вертикальный Auto Layout)
   hero [section=hero] (FRAME, вертикальный Auto Layout)
     hero-copy (FRAME, вертикальный Auto Layout)
       hero-title
@@ -240,16 +240,16 @@ complex-illustration [decor] [asset]
 Макет задаёт стабильные опорные элементы и состояния:
 
 ```text
-Панель [page=dashboard] [route=/dashboard] [bp=1200] [view=default]
-  Выручка [section=revenue-overview]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=default]
+  revenue [section=revenue-overview]
     period-filter
     revenue-chart
     revenue-table
     data-status
 
-Загрузка панели [page=dashboard] [route=/dashboard] [bp=1200] [view=loading]
-Пустая панель [page=dashboard] [route=/dashboard] [bp=1200] [view=empty]
-Ошибка панели [page=dashboard] [route=/dashboard] [bp=1200] [view=error]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=loading]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=empty]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=error]
 ```
 
 Структурированный контракт, а не новые теги слоёв, добавляет вопрос диаграммы, набор и владельца данных, обновление, месяц и валюту, локаль/часовой пояс/округление, сортировку и фильтр, частичный и устаревший результат, а также `revenue-table` как доступный эквивалент значений. Примеры покрывают отсутствующие месяцы, отрицательные значения, задержанный частичный ответ, устаревшие данные, длинные переводы и смешанные направления текста.
@@ -316,14 +316,14 @@ comparison-card-2
 **Задача:** реализовать отправку формы не только в идеальном пути.
 
 ```text
-Форма заявки [state=lead-form-idle]
+lead-form [state=lead-form-idle]
   name [field=name] [name=name]
   email [field=email] [name=email]
   consent [field=consent] [name=consent]
   send [action=submit:lead-form]
 
-Успех [state=lead-form-success]
-Ошибка [state=lead-form-failure]
+success [state=lead-form-success]
+error [state=lead-form-failure]
 ```
 
 Машина добавляет `idle`, `invalid`, `submitting`, `success` и `failure`: момент проверки, фокус первой ошибки, объявление сводки, повторное нажатие, отмену при уходе, сохранение значений, повтор и фокус успеха. Форма не создаёт запись истории адресов; поведение обновления после успеха задаётся продуктовым решением.
@@ -339,7 +339,7 @@ comparison-card-2
 **Задача:** передать объяснение продукта из трёх сцен.
 
 ```text
-История процесса [section=feature-story]
+feature-story [section=feature-story]
   story-visual
   scene-intro
   scene-compare
@@ -361,8 +361,8 @@ comparison-card-2
 ### Свидетельства в макете
 
 ```text
-Каталог [page=catalog] [route=/catalog] [bp=1200] [view=default]
-  Результаты [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+  product-results [section=product-results]
     catalog-filter-form
     results-heading
     product-grid [collection=products]
@@ -370,8 +370,8 @@ comparison-card-2
       product-card-wool-lamp [item=product]
     pagination
 
-Каталог [page=catalog] [route=/catalog] [bp=360] [view=default]
-  Результаты [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
+  product-results [section=product-results]
     catalog-filter-form
     results-heading
     product-grid [collection=products]

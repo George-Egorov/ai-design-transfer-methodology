@@ -9,15 +9,15 @@ A page root always needs a stable `[page=...]`. A route is added only when the r
 Known route:
 
 ```text
-Contacts Page [page=contacts] [route=/contacts] [bp=1200]
-Contacts Page [page=contacts] [route=/contacts] [bp=320]
+contacts [page=contacts] [route=/contacts] [bp=1200]
+contacts [page=contacts] [route=/contacts] [bp=320]
 ```
 
 Draft route unknown:
 
 ```text
-Contacts Page [page=contacts] [bp=1200] [view=default]
-Contacts Page [page=contacts] [bp=320] [view=default]
+contacts [page=contacts] [bp=1200] [view=default]
+contacts [page=contacts] [bp=320] [view=default]
 ```
 
 Rules:
@@ -54,10 +54,10 @@ Rules:
 `[view=...]` describes a page/data state, not a component UI state.
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog Empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Catalog Loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
-Catalog Error [page=catalog] [route=/catalog] [bp=1200] [view=error]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=loading]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
 Common page views:
@@ -87,22 +87,22 @@ Rules:
 Do not model page states as fake pages or fake routes:
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [view=default]
-Catalog Empty Page [page=catalog-empty] [route=/catalog-empty]
+catalog [page=catalog] [route=/catalog] [view=default]
+catalog-empty [page=catalog-empty] [route=/catalog-empty]
 ```
 
 Correct:
 
 ```text
-Catalog Page [page=catalog] [route=/catalog] [view=default]
-Catalog Empty [page=catalog] [route=/catalog] [view=empty]
+catalog [page=catalog] [route=/catalog] [view=default]
+catalog [page=catalog] [route=/catalog] [view=empty]
 ```
 
 If the production route is unknown, keep one page identity and omit route:
 
 ```text
-Catalog Page [page=catalog] [view=default]
-Catalog Empty [page=catalog] [view=empty]
+catalog [page=catalog] [view=default]
+catalog [page=catalog] [view=empty]
 ```
 
 ## Sections and anchors
@@ -110,16 +110,16 @@ Catalog Empty [page=catalog] [view=empty]
 Addressable sections use `[section=...]` and `[anchor=...]`:
 
 ```text
-Contacts FAQ [section=contacts-faq] [anchor=faq]
+contacts-faq [section=contacts-faq] [anchor=faq]
 ```
 
 `[section=...]` is the reusable section/component contract. The human layer name may be page-specific:
 
 ```text
-Catalog [section=product-slider]
-Related products [section=product-slider]
-Recommended products [section=product-slider]
-First screen [section=home-hero]
+catalog [section=product-slider]
+related-products [section=product-slider]
+recommended-products [section=product-slider]
+hero [section=home-hero]
 ```
 
 In the first three examples, content/data differs, but an adapter can implement the block with one section component. `home-hero` is an example of a page-unique section.
@@ -138,16 +138,16 @@ Rules:
 Known links use `href` as the only destination truth and do not need `[link=...]`:
 
 ```text
-Contacts [href=/contacts]
-FAQ [href=/contacts#faq]
-Same page FAQ [href=#faq]
-Telegram [href=https://t.me/company]
+contacts [href=/contacts]
+faq [href=/contacts#faq]
+same-page-faq [href=#faq]
+telegram [href=https://t.me/company]
 ```
 
 If the destination is unknown, use `[link]`:
 
 ```text
-Contacts [link]
+contacts [link]
 ```
 
 Do not use `[href=#]` as an unknown placeholder. `#faq` is a real same-page anchor; `#` alone is invalid.
@@ -180,10 +180,10 @@ page + bp + view
 Example:
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog [page=catalog] [route=/catalog] [bp=320] [view=default]
-Catalog Empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Catalog Empty [page=catalog] [route=/catalog] [bp=320] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=320] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=320] [view=empty]
 ```
 
 ## Validator rules

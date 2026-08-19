@@ -77,7 +77,7 @@ Now `[page=home]`, `[view=default]`, and stable layer names connect the breakpoi
 Use this minimum:
 
 ```text
-Name [page=page-id] [bp=width] [view=default]
+page-root [page=page-id] [bp=width] [view=default]
 ```
 
 Add `[route=/production-path]` only when the real route is known.
@@ -123,7 +123,7 @@ Open the [BRIDGE Assistant workflow](https://poliklot.github.io/bridge-design-me
 When the surrounding page is not BRIDGE and only the new section is in scope, do not add fake page metadata. Give the source boundary one stable section tag:
 
 ```text
-Checkout summary [section=checkout-summary]
+checkout-summary [section=checkout-summary]
 ```
 
 Then:

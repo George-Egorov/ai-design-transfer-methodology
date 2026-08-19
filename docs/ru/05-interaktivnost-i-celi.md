@@ -3,8 +3,8 @@
 BRIDGE использует один источник правды для опорной точки взаимодействия. Переходы описываются через `href`, изменения интерфейса — через `action`, а нетривиальное действие разрешается в структурированный [контракт реакций и состояний](22-sostoyaniya-i-reakcii.md). Короткий тег указывает связь, но не заменяет полное поведение.
 
 ```text
-Контакты [href=/contacts]
-Связаться с нами [action=modal:contact-modal]
+contacts [href=/contacts]
+contact-cta [action=modal:contact-modal]
 ```
 
 Обычным ссылкам и кнопкам не нужны дополнительные машинные идентификаторы.
@@ -14,12 +14,12 @@ BRIDGE использует один источник правды для опо
 Известный адрес записывается прямо в `[href=...]`:
 
 ```text
-Контакты [href=/contacts]
-Вопросы и ответы [href=/contacts#faq]
-К разделу на этой странице [href=#faq]
-Telegram [href=https://t.me/company]
-Почта [href=mailto:sales@example.com]
-Телефон [href=tel:+12025550123]
+contacts [href=/contacts]
+faq [href=/contacts#faq]
+same-page-faq [href=#faq]
+telegram [href=https://t.me/company]
+email [href=mailto:sales@example.com]
+phone [href=tel:+12025550123]
 ```
 
 Правила:
@@ -35,7 +35,7 @@ Telegram [href=https://t.me/company]
 Если адрес пока неизвестен, используйте черновую отметку:
 
 ```text
-Контакты [link]
+contacts [link]
 ```
 
 `[link]` означает, что слой станет ссылкой, но адрес ещё не определён. Перед финальной передачей такую задачу нужно разрешить.
@@ -43,7 +43,7 @@ Telegram [href=https://t.me/company]
 Дополнительные теги могут описывать способ открытия, но не цель перехода:
 
 ```text
-Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
+telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 ```
 
 ### Необязательный идентификатор ссылки
@@ -51,7 +51,7 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 `[link=...]` нужен только тогда, когда реализации, аналитике или автоматизации требуется отдельный стабильный идентификатор:
 
 ```text
-Контакты [link=nav-contacts-primary] [href=/contacts]
+contacts [link=nav-contacts-primary] [href=/contacts]
 ```
 
 Значение пишется в `kebab-case` и не содержит суффиксы ширины или устройства.
@@ -61,11 +61,11 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 Элемент управления меняет интерфейс, отправляет форму, сбрасывает данные или выполняет другое ненавигационное действие.
 
 ```text
-Связаться [action=modal:contact-modal]
-Меню [action=state:mobile-menu-open]
-Сбросить фильтры [action=reset:catalog-filters]
-Отправить [action=submit:lead-form]
-Недоступная кнопка [action=none]
+contact-cta [action=modal:contact-modal]
+menu [action=state:mobile-menu-open]
+reset-filters [action=reset:catalog-filters]
+submit [action=submit:lead-form]
+disabled-button [action=none]
 ```
 
 Правила:
@@ -78,7 +78,7 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 Если действие неизвестно, используйте `[control]`:
 
 ```text
-Связаться [control]
+contact-cta [control]
 ```
 
 Это допустимая черновая отметка, но не финальное описание.
@@ -88,7 +88,7 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 `[control=...]` используется только при реальной потребности в отдельном машинном ключе:
 
 ```text
-Связаться [control=contact-cta-primary] [action=modal:contact-modal]
+contact-cta [control=contact-cta-primary] [action=modal:contact-modal]
 ```
 
 Не добавляйте в значение `-768`, `-375`, `-mobile` или `-desktop`.
@@ -98,15 +98,15 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 Полю формы нужны стабильный идентификатор и имя данных:
 
 ```text
-Почта [field=email] [name=email]
-Страна [field=country] [name=country]
-Сообщение [field=message] [name=message]
+email [field=email] [name=email]
+country [field=country] [name=country]
+message [field=message] [name=message]
 ```
 
 Используйте `[field-type=...]` только тогда, когда тип нельзя получить из компонента или встроенных метаданных поля:
 
 ```text
-Страна [field=country] [name=country] [field-type=select]
+country [field=country] [name=country] [field-type=select]
 ```
 
 ## Модальные окна и состояния
@@ -114,11 +114,11 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 Каждая известная цель действия должна существовать:
 
 ```text
-Связаться [action=modal:contact-modal]
-Окно обратной связи [modal=contact-modal]
+contact-cta [action=modal:contact-modal]
+contact-modal [modal=contact-modal]
 
-Меню [action=state:mobile-menu-open]
-Открытое мобильное меню [state=mobile-menu-open]
+menu [action=state:mobile-menu-open]
+mobile-menu-open [state=mobile-menu-open]
 ```
 
 Если цель отсутствует, макет не соответствует BRIDGE.

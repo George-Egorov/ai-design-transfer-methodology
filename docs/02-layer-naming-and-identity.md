@@ -24,8 +24,8 @@ These names are enough when the layer has a clear Figma type and the name is sta
 A tag is required for intent that is not a technical layer property:
 
 ```text
-Home Page [page=home] [route=/] [bp=1920] [view=default]
-Catalog [section=product-slider]
+home [page=home] [route=/] [bp=1920] [view=default]
+catalog [section=product-slider]
 primary-cta [href=/catalog]
 menu-button [action=state:mobile-menu-open]
 email [field=email] [name=email]
@@ -109,20 +109,20 @@ Bad:
 
 ```text
 // [bp=768]
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 
 // [bp=375]
-Отзывы мобилка [control=button-reviews-box-375] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-375] [action=modal:marketplaces-modal]
 ```
 
 Good:
 
 ```text
 // [bp=768]
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 
 // [bp=375]
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 Optional child ids such as `[control=...]`, `[link=...]`, `[field=...]`, `[modal=...]`, `[state=...]`, `[section=...]`, collection/item ids, and fallback `[decor=...]` / `[asset=...]` values must stay breakpoint-neutral. For ordinary links/buttons, prefer no optional id at all: use `[href=...]`, `[link]`, `[action=...]`, or `[control]`. If an optional identity value ends with the current breakpoint suffix, such as `-768`, `-375`, `-mobile`, or `-desktop`, remove the suffix and keep the breakpoint only on the root.
@@ -191,9 +191,9 @@ Page Sections / footer -> section=footer
 Second, it may be a regular frame section or an ambiguous component. In that case, use an explicit tag:
 
 ```text
-Recommended Products [section=product-slider]
-Related Products [section=product-slider]
-Catalog [section=product-slider]
+recommended-products [section=product-slider]
+related-products [section=product-slider]
+catalog [section=product-slider]
 ```
 
 Rules:

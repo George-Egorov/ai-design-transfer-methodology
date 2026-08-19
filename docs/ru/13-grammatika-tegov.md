@@ -58,16 +58,16 @@ button-group
 ```
 
 ```text
-Главная [page=home] [route=/] [bp=1920] [view=default]
-Вопросы и ответы [anchor=faq]
+home [page=home] [route=/] [bp=1920] [view=default]
+faq [anchor=faq]
 ```
 
 `[page=...]`, `[bp=...]` и `[view=...]` задают страницу, контрольную ширину и состояние. `[route=...]` или `[route-pattern=...]` добавляется только для настоящего рабочего маршрута:
 
 ```text
-Контакты [page=contacts] [bp=1440] [view=default]
-Контакты [page=contacts] [route=/contacts] [bp=1440] [view=default]
-Карточка товара [page=product-detail] [route-pattern=/catalog/:slug] [bp=1440] [view=default]
+contacts [page=contacts] [bp=1440] [view=default]
+contacts [page=contacts] [route=/contacts] [bp=1440] [view=default]
+product-detail [page=product-detail] [route-pattern=/catalog/:slug] [bp=1440] [view=default]
 ```
 
 Не придумывайте рабочий адрес ради заполнения тега.
@@ -100,10 +100,10 @@ Page Sections / footer -> section=footer
 Для обычного фрейма или слишком общего компонента ключ указывается явно:
 
 ```text
-Каталог [section=product-slider]
-Похожие товары [section=product-slider]
-Рекомендованные товары [section=product-slider]
-Первый экран [section=home-hero]
+catalog [section=product-slider]
+related-products [section=product-slider]
+recommended-products [section=product-slider]
+hero [section=home-hero]
 ```
 
 Не используйте префикс `Секция /`: назначение уже понятно из тега или исходного компонента.
@@ -116,8 +116,8 @@ Page Sections / footer -> section=footer
 ```
 
 ```text
-Окно обратной связи [modal=contact-modal]
-Открытое мобильное меню [state=mobile-menu-open]
+contact-modal [modal=contact-modal]
+mobile-menu-open [state=mobile-menu-open]
 ```
 
 ### Ссылки
@@ -321,13 +321,13 @@ description [height=fixed] [overflow=truncate] [lines=3]
 Плохо:
 
 ```text
-Отзывы [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 ```
 
 Хорошо:
 
 ```text
-Отзывы [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 Суффиксы `-768`, `-375`, `-mobile` и `-desktop` недопустимы в значениях `[link]`, `[control]`, `[field]`, `[modal]`, `[state]`, `[section]`, `[collection]`, `[item]`, `[decor]` и `[asset]`.
@@ -399,7 +399,7 @@ snow-bg [decor] [abs]
 `[decor]` описывает смысл, а позиционирование берётся из Figma. `snow-bg [decor]` допустим только на точном визуальном узле с нативным абсолютным позиционированием.
 
 ```text
-FAQ [to=anchor:contacts-faq] [href=/contacts#faq]
+faq [to=anchor:contacts-faq] [href=/contacts#faq]
 ```
 
 Заданы две цели. Используйте только `[href=/contacts#faq]`.

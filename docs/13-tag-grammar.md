@@ -60,16 +60,16 @@ If a property tag has an identity-like value, the value must be English kebab-ca
 ```
 
 ```text
-Home Page [page=home] [route=/] [bp=1920] [view=default]
-FAQ [anchor=faq]
+home [page=home] [route=/] [bp=1920] [view=default]
+faq [anchor=faq]
 ```
 
 `[page=...]`, `[bp=...]`, and `[view=...]` define the draftable page root. Add `[route=...]` or `[route-pattern=...]` only when the real production URL is known:
 
 ```text
-Contacts [page=contacts] [bp=1440] [view=default]
-Contacts [page=contacts] [route=/contacts] [bp=1440] [view=default]
-Product Detail [page=product-detail] [route-pattern=/catalog/:slug] [bp=1440] [view=default]
+contacts [page=contacts] [bp=1440] [view=default]
+contacts [page=contacts] [route=/contacts] [bp=1440] [view=default]
+product-detail [page=product-detail] [route-pattern=/catalog/:slug] [bp=1440] [view=default]
 ```
 
 Do not invent fake production routes to satisfy a checklist.
@@ -102,10 +102,10 @@ Page Sections / footer -> section=footer
 If the block is a regular frame or the component is too generic, use the tag explicitly:
 
 ```text
-Catalog [section=product-slider]
-Related Products [section=product-slider]
-Recommended Products [section=product-slider]
-Hero [section=home-hero]
+catalog [section=product-slider]
+related-products [section=product-slider]
+recommended-products [section=product-slider]
+hero [section=home-hero]
 ```
 
 Do not use prefixes such as `Section /`: the role is already clear from the tag or from the source component in `Page Sections`.
@@ -118,8 +118,8 @@ Do not use prefixes such as `Section /`: the role is already clear from the tag 
 ```
 
 ```text
-Contact Modal [modal=contact-modal]
-Mobile Menu Open [state=mobile-menu-open]
+contact-modal [modal=contact-modal]
+mobile-menu-open [state=mobile-menu-open]
 ```
 
 ### Links
@@ -355,13 +355,13 @@ An identity must describe a logical element, not a width or device. The control 
 Bad:
 
 ```text
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 ```
 
 Good:
 
 ```text
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 For optional identity-bearing values such as `[link=...]`, `[control=...]`, `[field=...]`, `[modal=...]`, `[state=...]`, `[section=...]`, collection/item ids, and fallback `[decor=...]` / `[asset=...]` values, a suffix matching the current breakpoint, for example `-768`, `-375`, `-mobile`, or `-desktop`, is invalid.
@@ -439,7 +439,7 @@ snow-bg [decor] [abs]
 Invalid: `decor` is intent; positioning comes from Figma. Use `snow-bg [decor]` only on the exact visual node whose native positioning is absolute.
 
 ```text
-FAQ [to=anchor:contacts-faq] [href=/contacts#faq]
+faq [to=anchor:contacts-faq] [href=/contacts#faq]
 ```
 
 Invalid: two destinations. Use only `[href=/contacts#faq]`.

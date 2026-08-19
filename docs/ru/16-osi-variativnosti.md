@@ -29,8 +29,8 @@ BRIDGE разделяет причины изменений макета. Одн
 ## Контрольная ширина
 
 ```text
-Каталог [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Каталог [page=catalog] [route=/catalog] [bp=360] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
 ```
 
 По умолчанию меняются геометрия, интервалы, типографика, естественные переносы, число колонок и визуальная раскладка. Нельзя молча менять содержимое, действие, данные, смысловые связи и доступность. См. [правила адаптивов](03-adaptivy-i-breakpointy.md).
@@ -40,10 +40,10 @@ BRIDGE разделяет причины изменений макета. Одн
 Состояния — достижимые примеры страницы или данных:
 
 ```text
-Каталог [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Загрузка каталога [page=catalog] [route=/catalog] [bp=1200] [view=loading]
-Пустой каталог [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Ошибка каталога [page=catalog] [route=/catalog] [bp=1200] [view=error]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=loading]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
 Содержимое меняется из-за продуктового состояния. Адаптивы внутри состояния сохраняют одно дерево или объявляют преобразование. Микросостояния компонента остаются в его машине, а не становятся корнями страницы.
@@ -51,8 +51,8 @@ BRIDGE разделяет причины изменений макета. Одн
 ## Локаль
 
 ```text
-Контакты [page=contacts] [route=/contacts] [bp=1200] [locale=en-US]
-Контакты [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
+contacts [page=contacts] [route=/contacts] [bp=1200] [locale=en-US]
+contacts [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
 ```
 
 Локаль меняет перевод, множественное число, даты, числа, валюту и юридическое содержимое по продуктовым правилам. Проверяйте расширение, неделимые значения, покрытие шрифта и форматы. Локаль не является способом сократить мобильный текст.
@@ -73,8 +73,8 @@ BRIDGE разделяет причины изменений макета. Одн
 ## Тема
 
 ```text
-Панель [page=dashboard] [bp=1200] [theme=light]
-Панель [page=dashboard] [bp=1200] [theme=dark]
+dashboard [page=dashboard] [bp=1200] [theme=light]
+dashboard [page=dashboard] [bp=1200] [theme=dark]
 ```
 
 Тема меняет токены, медиаматериалы и обработку контраста. Она не меняет текст, данные, действие или доступную возможность. Проверяйте интерактивные элементы, данные, фокус, недоступность, ошибки и принудительный контраст, а не один фон.
@@ -82,8 +82,8 @@ BRIDGE разделяет причины изменений макета. Одн
 ## Эксперимент
 
 ```text
-Тарифы [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-a]
-Тарифы [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
+pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-a]
+pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
 ```
 
 Эксперимент может менять согласованное содержимое и путь. Определите гипотезу, назначение варианта, событие показа, метрики, срок и владельца, fallback, паритет доступности, реакции и историю. Не маскируйте эксперимент под адаптив.
@@ -91,8 +91,8 @@ BRIDGE разделяет причины изменений макета. Одн
 ## Роль
 
 ```text
-Панель [page=dashboard] [route=/dashboard] [bp=1200] [role-view=guest]
-Панель [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=guest]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
 ```
 
 Роль может менять сведения и действия. Источником правды о доступе остаётся runtime-авторизация: скрытый слой не является защитой. Покройте смену прав на уже открытой странице.
@@ -104,8 +104,8 @@ BRIDGE разделяет причины изменений макета. Одн
 ```text
 product-card [data=short]
 product-card [data=long]
-Сетка товаров [collection=products] [data=max-items]
-Пустая сетка [collection=products] [data=empty]
+product-grid [collection=products] [data=max-items]
+product-grid-empty [collection=products] [data=empty]
 ```
 
 Покройте ноль, один, обычный и максимальный/неизвестный объём, длинный и двунаправленный текст, отсутствующие значения и медиа, дубликаты, частичные, устаревшие, ошибочные и недоступные данные. Порядок примеров или числовой суффикс не становится рабочим ключом. См. [данные и визуализацию](20-dannye-i-vizualizaciya.md).
@@ -127,7 +127,7 @@ product-card [data=long]
 ## Сочетание осей
 
 ```text
-Каталог [page=catalog] [route=/catalog] [bp=360] [view=empty] [locale=ar-SA] [theme=dark]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=empty] [locale=ar-SA] [theme=dark]
 ```
 
 Структурированный контекст может добавить `direction: rtl`, `writingMode: horizontal-tb` и профиль `mobile-low-bandwidth`. Комбинации выбираются по риску: рисовать всё декартово произведение не нужно, но пропущенная комбинация должна наследоваться детерминированно или стать открытым вопросом.
@@ -140,11 +140,11 @@ hero-title desktop = "Launch your store in one day"
 hero-title mobile = "Launch faster"
 
 // вымышленная локаль скрывает короткий текст
-Hero [bp=320] [locale=mobile-short]
+hero [bp=320] [locale=mobile-short]
 
 // тема меняет продуктовое действие
-Delete [theme=light] [action=modal:confirm-delete]
-Delete [theme=dark] [action=none]
+delete [theme=light] [action=modal:confirm-delete]
+delete [theme=dark] [action=none]
 ```
 
 ## Проверка

@@ -40,7 +40,7 @@ BRIDGE рассматривает отображение данных как п�
 В именах слоёв и существующих тегах BRIDGE оставляйте только опорные идентификаторы:
 
 ```text
-Выручка [section=revenue-overview]
+revenue [section=revenue-overview]
   period-filter
   revenue-chart
   revenue-table

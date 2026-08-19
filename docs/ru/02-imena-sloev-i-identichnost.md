@@ -24,8 +24,8 @@ hero-copy
 Тег добавляет смысл, который не является техническим свойством слоя:
 
 ```text
-Главная [page=home] [route=/] [bp=1920] [view=default]
-Каталог [section=product-slider]
+home [page=home] [route=/] [bp=1920] [view=default]
+catalog [section=product-slider]
 primary-cta [href=/catalog]
 menu-button [action=state:mobile-menu-open]
 email [field=email] [name=email]
@@ -91,20 +91,20 @@ sneg [decor] [asset]
 
 ```text
 // [bp=768]
-Отзывы [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 
 // [bp=375]
-Отзывы [control=button-reviews-box-375] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-375] [action=modal:marketplaces-modal]
 ```
 
 Хорошо:
 
 ```text
 // [bp=768]
-Отзывы [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 
 // [bp=375]
-Отзывы [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 Не используйте суффиксы `-768`, `-375`, `-mobile` или `-desktop` в значениях `[control]`, `[link]`, `[field]`, `[modal]`, `[state]`, `[section]`, `[decor]` и `[asset]`.
@@ -167,9 +167,9 @@ footer
 **Обычный фрейм или неоднозначный компонент.** Укажите ключ явно:
 
 ```text
-Рекомендованные товары [section=product-slider]
-Похожие товары [section=product-slider]
-Каталог [section=product-slider]
+recommended-products [section=product-slider]
+related-products [section=product-slider]
+catalog [section=product-slider]
 ```
 
 Название до тегов описывает конкретный блок страницы, а значение `[section]` — стабильный тип секции. Содержимое разных экземпляров может отличаться.

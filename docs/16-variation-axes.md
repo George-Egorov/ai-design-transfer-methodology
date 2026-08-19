@@ -29,8 +29,8 @@ Tags are short design anchors. Direction, writing mode, capabilities, mappings, 
 ## Breakpoint axis
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
 ```
 
 The default permits geometry, spacing, type scale, natural wrapping, column count, and visual arrangement to change. It does not permit silent content, action, data, semantic relationship, or accessibility loss. See [Responsive behavior](03-responsive-breakpoints.md).
@@ -40,10 +40,10 @@ The default permits geometry, spacing, type scale, natural wrapping, column coun
 Views are reachable page/data fixtures:
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-Catalog Loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
-Catalog Empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-Catalog Error [page=catalog] [route=/catalog] [bp=1200] [view=error]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=loading]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
 A view may change content because the product state changed. Matching breakpoints within that view still follow the same-tree default or a declared transformation. Component microstates remain in the component/state-machine contract rather than becoming page roots.
@@ -51,8 +51,8 @@ A view may change content because the product state changed. Matching breakpoint
 ## Locale axis
 
 ```text
-Contacts [page=contacts] [route=/contacts] [bp=1200] [locale=en-US]
-Contacts [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
+contacts [page=contacts] [route=/contacts] [bp=1200] [locale=en-US]
+contacts [page=contacts] [route=/contacts] [bp=1200] [locale=ru-RU]
 ```
 
 Locale may change translation, pluralization, date/number/currency formatting, and legal content selected by product rules. Test expansion, unbreakable values, font coverage, and formats. Locale is not a workaround for shorter mobile copy.
@@ -73,8 +73,8 @@ Declare whether composition mirrors; use logical start/end; identify icons that 
 ## Theme axis
 
 ```text
-Dashboard [page=dashboard] [bp=1200] [theme=light]
-Dashboard [page=dashboard] [bp=1200] [theme=dark]
+dashboard [page=dashboard] [bp=1200] [theme=light]
+dashboard [page=dashboard] [bp=1200] [theme=dark]
 ```
 
 Theme changes tokens, media choices, and perhaps contrast treatment. It must not silently change product copy, data, action, or available feature. Test every interactive, data, focus, disabled, error, and forced/high-contrast state rather than only the default background.
@@ -82,8 +82,8 @@ Theme changes tokens, media choices, and perhaps contrast treatment. It must not
 ## Experiment axis
 
 ```text
-Pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-a]
-Pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
+pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-a]
+pricing [page=pricing] [route=/pricing] [bp=1200] [experiment=cta-b]
 ```
 
 Experiments may change approved content or flows. Define hypothesis, assignment, exposure event, metrics, duration/ownership, fallback, accessibility parity, and interaction/history mapping. Do not disguise an experiment as a breakpoint.
@@ -91,8 +91,8 @@ Experiments may change approved content or flows. Define hypothesis, assignment,
 ## Role axis
 
 ```text
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=guest]
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=guest]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [role-view=admin]
 ```
 
 Role/permission variants may change information and actions. The authorization system remains the runtime source of truth; hiding a layer is not security. Cover transitions when permissions change while the page is open.
@@ -104,8 +104,8 @@ Data scenarios are QA fixtures, not production variants:
 ```text
 product-card [data=short]
 product-card [data=long]
-Product Grid [collection=products] [data=max-items]
-Product Grid Empty [collection=products] [data=empty]
+product-grid [collection=products] [data=max-items]
+product-grid [collection=products] [data=empty]
 ```
 
 Cover zero, one, typical, maximum/unknown counts, long and mixed-direction text, missing values/media, duplicates, partial, stale, failed, and unauthorized data. Fixture order or numeric suffix is never the runtime record identity. See [Data and visualization](20-data-and-visualization.md).
@@ -129,7 +129,7 @@ Design declares which media, information, and experience are essential. Implemen
 A transfer context may compose axes:
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=360] [view=empty] [locale=ar-SA] [theme=dark]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=empty] [locale=ar-SA] [theme=dark]
 ```
 
 Structured context may add `direction: rtl`, `writingMode: horizontal-tb`, and target profile `mobile-low-bandwidth`. Pairwise/full combinations are selected by risk; teams need not draw the Cartesian product, but every omitted combination must inherit deterministically or be recorded as an open question.
@@ -142,11 +142,11 @@ hero-title desktop = "Launch your store in one day"
 hero-title mobile = "Launch faster"
 
 // fake locale hides mobile copy
-Hero [bp=320] [locale=mobile-short]
+hero [bp=320] [locale=mobile-short]
 
 // theme changes product behavior
-Delete [theme=light] [action=modal:confirm-delete]
-Delete [theme=dark] [action=none]
+delete [theme=light] [action=modal:confirm-delete]
+delete [theme=dark] [action=none]
 ```
 
 ## Validation

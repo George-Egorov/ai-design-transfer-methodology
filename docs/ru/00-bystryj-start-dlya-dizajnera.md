@@ -89,7 +89,7 @@ contact-modal [modal=contact-modal]
 Минимальная запись для каждого адаптива:
 
 ```text
-Название [page=page-id] [bp=ширина] [view=default]
+page-root [page=page-id] [bp=width] [view=default]
 ```
 
 Добавьте `[route=/production-path]`, только если настоящий рабочий маршрут уже известен. Не придумывайте адрес ради заполнения тега.
@@ -167,7 +167,7 @@ button-375          // плохо
 Если окружающая страница не использует BRIDGE, а в область входит только новая секция, не добавляйте фиктивные метаданные страницы. Задайте границе источника один стабильный тег секции:
 
 ```text
-Итог заказа [section=checkout-summary]
+checkout-summary [section=checkout-summary]
 ```
 
 Затем:

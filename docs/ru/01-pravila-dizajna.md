@@ -83,7 +83,7 @@ hero-glow [decor]
 `[decor]` допустим только на точном визуальном слое с абсолютным позиционированием Figma. Он не разрешает произвольное свободное поддерево и не отменяет правила Auto Layout или GROUP для предков. Сложную декоративную композицию, которую нужно считать непрозрачной, помечайте `[decor] [asset]`; для намеренного недекоративного наложения, которое нельзя выразить иначе, используйте `[bridge-exception=overlay] [reason=...]` на точном узле наложения.
 
 ```text
-Главная [page=home] [bp=1440] [view=default]  // FRAME, вертикальный Auto Layout
+home [page=home] [bp=1440] [view=default]  // FRAME, вертикальный Auto Layout
   hero [section=hero]                          // FRAME, вертикальный Auto Layout
     hero-copy                                  // FRAME, вертикальный Auto Layout
       hero-title                               // конечный TEXT
@@ -130,14 +130,14 @@ Group 91 [asset=promo-poster]
 На холсте Figma этот корень может быть прямым потомком страницы Figma или находиться только под нативными организаторами `SECTION` Figma. Такие Section не входят в переносимое дерево страницы: их имена и теги не наследуются, а контракт Auto Layout корня не ослабляется. Обычный `FRAME` или `GROUP` снаружи размеченного корня не является прозрачным организатором.
 
 ```text
-Главная [page=home] [route=/] [bp=1920] [view=default]
-Главная [page=home] [route=/] [bp=375] [view=default]
+home [page=home] [route=/] [bp=1920] [view=default]
+home [page=home] [route=/] [bp=375] [view=default]
 ```
 
 Если маршрут неизвестен, не придумывайте временный рабочий адрес:
 
 ```text
-Контакты [page=contacts] [bp=1440] [view=default]
+contacts [page=contacts] [bp=1440] [view=default]
 ```
 
 Адаптив — это та же страница для другой ширины, а не новая версия её смысла.

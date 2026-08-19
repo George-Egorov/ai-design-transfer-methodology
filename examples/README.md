@@ -34,13 +34,13 @@ Mobile new
 ✅ Explicit:
 
 ```text
-Home [page=home] [route=/] [bp=1440] [view=default]
-Home [page=home] [route=/] [bp=375] [view=default]
+home [page=home] [route=/] [bp=1440] [view=default]
+home [page=home] [route=/] [bp=375] [view=default]
 ```
 
 `page` and `view` stay the same because the product page and state are the same. `bp` changes with width. `route` is present because the production route is known.
 
-Both roots may be direct children of the Figma page or may be placed inside native Figma Sections such as `Desktop variants` and `Mobile variants`. Those canvas organizers are transparent: keep the BRIDGE tags on the actual root frames. An ordinary outer FRAME/GROUP is not equivalent to a Figma Section organizer.
+Both roots may be direct children of the Figma page or may be placed inside native Figma Sections such as `responsive-desktop` and `responsive-mobile`. Those canvas organizers are transparent: keep the BRIDGE tags on the actual root frames. An ordinary outer FRAME/GROUP is not equivalent to a Figma Section organizer.
 
 [Full rule: responsive breakpoints](../docs/03-responsive-breakpoints.md)
 
@@ -83,7 +83,7 @@ Font, color, size, and position already live in Figma. The name identifies the s
 ### Option A: ordinary frame
 
 ```text
-Hero [section=home-hero]
+hero [section=home-hero]
 ```
 
 The tag is needed because Figma does not know the frame's product section key.
@@ -107,7 +107,7 @@ No tag is needed on the instance: `section=home-hero` is inferred from the sourc
 ```text
 email-link [href=mailto:sales@example.com]
 menu-button [action=state:mobile-menu-open]
-Mobile Menu Open [state=mobile-menu-open]
+mobile-menu-open [state=mobile-menu-open]
 unknown-button [control]
 disabled-button [action=none]
 ```
@@ -139,7 +139,7 @@ contact-button [action=modal:contact-modal]
 ```text
 contact-button [action=modal:contact-modal]
 
-Contact Modal [modal=contact-modal]
+contact-modal [modal=contact-modal]
   modal-content
   close-button
 ```
@@ -157,7 +157,7 @@ The id after `modal:` must match `[modal=...]`. The modal component must define 
 ❌ Manual coordinates and a non-asset GROUP:
 
 ```text
-Home [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
+home [page=home] [bp=1440] [view=default] (FRAME, layoutMode NONE)
   hero [section=hero] (FRAME, layoutMode NONE)
     Group 19
       hero-title
@@ -170,7 +170,7 @@ This produces blocking page, section, and GROUP findings. `[decor]` on `Group 19
 ✅ Parents explain relationships with native Auto Layout:
 
 ```text
-Home [page=home] [bp=1440] [view=default] (FRAME, vertical Auto Layout)
+home [page=home] [bp=1440] [view=default] (FRAME, vertical Auto Layout)
   hero [section=hero] (FRAME, vertical Auto Layout)
     hero-copy (FRAME, vertical Auto Layout)
       hero-title
@@ -240,16 +240,16 @@ complex-illustration [decor] [asset]
 The design supplies stable anchors and page states:
 
 ```text
-Dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=default]
-  Revenue [section=revenue-overview]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=default]
+  revenue [section=revenue-overview]
     period-filter
     revenue-chart
     revenue-table
     data-status
 
-Dashboard Loading [page=dashboard] [route=/dashboard] [bp=1200] [view=loading]
-Dashboard Empty [page=dashboard] [route=/dashboard] [bp=1200] [view=empty]
-Dashboard Error [page=dashboard] [route=/dashboard] [bp=1200] [view=error]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=loading]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=empty]
+dashboard [page=dashboard] [route=/dashboard] [bp=1200] [view=error]
 ```
 
 The structured contract—not more layer tags—adds the question being answered, dataset/owner/refresh, month and currency fields, locale/time-zone/rounding rules, sort/filter behavior, partial and stale behavior, and `revenue-table` as the accessible value equivalent. QA fixtures cover missing months, negative values, a delayed partial response, stale data, long localized labels, and mixed-direction identifiers.
@@ -316,14 +316,14 @@ Each row/column maps to a labeled disclosure field. Reading and keyboard order, 
 **Goal:** make “submit this lead form” implementable beyond the happy path.
 
 ```text
-Lead Form [state=lead-form-idle]
+lead-form [state=lead-form-idle]
   name [field=name] [name=name]
   email [field=email] [name=email]
   consent [field=consent] [name=consent]
   send [action=submit:lead-form]
 
-Form Success [state=lead-form-success]
-Form Error [state=lead-form-failure]
+lead-form [state=lead-form-success]
+lead-form [state=lead-form-failure]
 ```
 
 The state machine adds `idle`, `invalid`, `submitting`, `success`, and `failure`. It defines validation timing, the first-invalid-field focus, error summary announcement, duplicate-click policy, cancellation on route leave, value preservation, retry, and success focus. The form does not add a URL history entry; refresh after success follows a declared product decision.
@@ -339,7 +339,7 @@ The state machine adds `idle`, `invalid`, `submitting`, `success`, and `failure`
 **Goal:** transfer a three-scene product explanation.
 
 ```text
-Workflow Story [section=feature-story]
+feature-story [section=feature-story]
   story-visual
   scene-intro
   scene-compare
@@ -361,8 +361,8 @@ Reduced motion renders all three scenes as static sections in document order. Un
 ### Design evidence
 
 ```text
-Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-  Product Results [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
+  product-results [section=product-results]
     catalog-filter-form
     results-heading
     product-grid [collection=products]
@@ -370,8 +370,8 @@ Catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
       product-card-wool-lamp [item=product]
     pagination
 
-Catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
-  Product Results [section=product-results]
+catalog [page=catalog] [route=/catalog] [bp=360] [view=default]
+  product-results [section=product-results]
     catalog-filter-form
     results-heading
     product-grid [collection=products]

@@ -30,7 +30,7 @@ Avoid a toy screen created only for the pilot. Do not migrate old files first: a
 Do not retrofit page tags onto an otherwise non-BRIDGE file merely to validate one new section. Create or select an explicit boundary such as:
 
 ```text
-Checkout summary [section=checkout-summary]
+checkout-summary [section=checkout-summary]
 ```
 
 Select that root and run **Check selected section**. For responsive evidence, explicitly select two or more roots with the same `[section]` value; the command compares only those selected variants and never discovers legacy siblings. Do not add `[page]`, `[bp]`, `[view]`, or `[route]` to the section. A single selected root declares one requested source context and does not fail merely because unrequested variants are absent. The selected root may itself be `[section=id] [asset]` when the entire section is one opaque visual, but a section nested below a different asset ancestor is Blocked because the audit cannot pierce that boundary.

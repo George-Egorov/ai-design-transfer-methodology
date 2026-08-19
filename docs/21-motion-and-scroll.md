@@ -57,7 +57,7 @@ Prefer animating transform and opacity when that preserves the intended geometry
 Use ordinary stable identities in the design:
 
 ```text
-Story [section=feature-story]
+story [section=feature-story]
   story-visual
   scene-intro
   scene-compare

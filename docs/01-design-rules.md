@@ -83,7 +83,7 @@ hero-glow [decor]
 `[decor]` is valid only on the exact visual layer whose Figma positioning is absolute. It does not authorize an arbitrary freeform subtree and does not waive Auto Layout or GROUP rules for any ancestor. If a complex decorative composition should remain opaque, use `[decor] [asset]`; if an intentional non-decorative overlay cannot be modeled otherwise, use `[bridge-exception=overlay] [reason=...]` on the exact overlay node.
 
 ```text
-Home [page=home] [bp=1440] [view=default]     // FRAME, vertical Auto Layout
+home [page=home] [bp=1440] [view=default]     // FRAME, vertical Auto Layout
   hero [section=hero]                          // FRAME, vertical Auto Layout
     hero-copy                                  // FRAME, vertical Auto Layout
       hero-title                               // TEXT leaf
@@ -144,14 +144,14 @@ The root frame should carry stable page/view/breakpoint data. Add `[route=...]` 
 On the Figma canvas, this root may be a direct child of the Figma page or a descendant reached only through native Figma `SECTION` organizers. Those Sections are outside the transferred page hierarchy: their names and tags are not inherited, and they do not relax the root's Auto Layout contract. An ordinary `FRAME` or `GROUP` outside the tagged root is not a transparent organizer.
 
 ```text
-Home Page [bp=1920] [view=default] [page=home] [route=/]
-Home Page [bp=375] [view=default] [page=home] [route=/]
+home [bp=1920] [view=default] [page=home] [route=/]
+home [bp=375] [view=default] [page=home] [route=/]
 ```
 
 If the route is not known yet, omit it instead of inventing a fake production URL:
 
 ```text
-Contacts Page [bp=1440] [view=default] [page=contacts]
+contacts [bp=1440] [view=default] [page=contacts]
 ```
 
 A breakpoint is the same page at another width, not a new version of meaning or structure.

@@ -5,8 +5,8 @@ BRIDGE uses one source of truth per interaction anchor. Navigation uses `href`. 
 The simple designer path does not require machine ids for ordinary links and buttons.
 
 ```text
-Contacts [href=/contacts]
-Contact us [action=modal:marketplaces-modal]
+contacts [href=/contacts]
+contact-cta [action=modal:marketplaces-modal]
 ```
 
 ## Links use `href`
@@ -14,12 +14,12 @@ Contact us [action=modal:marketplaces-modal]
 A known navigation destination is written directly as `[href=...]`. This tag is enough to classify the layer as a link.
 
 ```text
-Contacts [href=/contacts]
-FAQ [href=/contacts#faq]
-Same page FAQ [href=#faq]
-Telegram [href=https://t.me/company]
-Email [href=mailto:sales@example.com]
-Phone [href=tel:+12025550123]
+contacts [href=/contacts]
+faq [href=/contacts#faq]
+same-page-faq [href=#faq]
+telegram [href=https://t.me/company]
+email [href=mailto:sales@example.com]
+phone [href=tel:+12025550123]
 ```
 
 Rules:
@@ -36,7 +36,7 @@ Rules:
 If the destination is not known yet, use the boolean draft marker `[link]` instead of a fake href:
 
 ```text
-Contacts [link]
+contacts [link]
 ```
 
 `[link]` means “this layer will be a link, but the href is not known yet”. It is valid as draft markup, but it is a TODO before final handoff.
@@ -44,7 +44,7 @@ Contacts [link]
 Optional behavior tags may describe how the link opens, not where it points:
 
 ```text
-Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
+telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 ```
 
 ### Optional advanced link id
@@ -52,7 +52,7 @@ Telegram [href=https://t.me/company] [open=new-tab] [a11y-label=Telegram]
 `[link=...]` is allowed only as an advanced override when an implementation, analytics, or automation pipeline needs an explicit stable machine id that is different from the layer name.
 
 ```text
-Contacts CTA [link=nav-contacts-primary] [href=/contacts]
+contacts-cta [link=nav-contacts-primary] [href=/contacts]
 ```
 
 The value must be English kebab-case and must not contain breakpoint suffixes such as `-768`, `-375`, `-mobile`, or `-desktop`.
@@ -62,11 +62,11 @@ The value must be English kebab-case and must not contain breakpoint suffixes su
 A control is an interactive element that does something other than direct navigation. A known non-navigation behavior is written directly as `[action=...]`. This tag is enough to classify the layer as a control/button.
 
 ```text
-Contact us [action=modal:marketplaces-modal]
-Menu [action=state:mobile-menu-open]
-Reset filters [action=state:catalog-default]
-Submit [action=submit:lead-form]
-Disabled CTA [action=none]
+contact-cta [action=modal:marketplaces-modal]
+menu [action=state:mobile-menu-open]
+reset-filters [action=state:catalog-default]
+submit [action=submit:lead-form]
+disabled-cta [action=none]
 ```
 
 Rules:
@@ -79,7 +79,7 @@ Rules:
 If the action is not known yet, use the boolean draft marker `[control]`:
 
 ```text
-Contact us [control]
+contact-cta [control]
 ```
 
 `[control]` means “this layer will be a control/button, but the action is not known yet”. It is valid as draft markup, but it is a TODO before final handoff.
@@ -99,7 +99,7 @@ Allowed action forms:
 `[control=...]` is allowed only as an advanced override when an implementation, analytics, or automation pipeline needs an explicit stable machine id that is different from the layer name.
 
 ```text
-Contact us [control=contact-cta-primary] [action=modal:marketplaces-modal]
+contact-cta [control=contact-cta-primary] [action=modal:marketplaces-modal]
 ```
 
 The value must be English kebab-case and must not contain breakpoint suffixes such as `-768`, `-375`, `-mobile`, or `-desktop`.
@@ -107,13 +107,13 @@ The value must be English kebab-case and must not contain breakpoint suffixes su
 Bad:
 
 ```text
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+reviews [control=button-reviews-box-768] [action=modal:marketplaces-modal]
 ```
 
 Good:
 
 ```text
-Отзывы мобилка [action=modal:marketplaces-modal]
+reviews [action=modal:marketplaces-modal]
 ```
 
 ## Fields use `field` and `name`
@@ -121,15 +121,15 @@ Good:
 Form fields need stable identity and data binding.
 
 ```text
-Email [field=email] [name=email]
-Country [field=country] [name=country]
-Message [field=message] [name=message]
+email [field=email] [name=email]
+country [field=country] [name=country]
+message [field=message] [name=message]
 ```
 
 Use `[field-type=...]` only when the type cannot be inferred from the UI Kit component or native field metadata:
 
 ```text
-Country [field=country] [name=country] [field-type=select]
+country [field=country] [name=country] [field-type=select]
 ```
 
 ## Modals and states
@@ -137,11 +137,11 @@ Country [field=country] [name=country] [field-type=select]
 Known actions must point to existing targets:
 
 ```text
-Contact us [action=modal:contact-modal]
-Contact Modal [modal=contact-modal]
+contact-cta [action=modal:contact-modal]
+contact-modal [modal=contact-modal]
 
-Menu [action=state:mobile-menu-open]
-Mobile Menu [state=mobile-menu-open]
+menu [action=state:mobile-menu-open]
+mobile-menu [state=mobile-menu-open]
 ```
 
 If a modal or state target does not exist, the design is not BRIDGE-ready.
