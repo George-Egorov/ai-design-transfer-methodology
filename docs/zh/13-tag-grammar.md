@@ -364,6 +364,10 @@ Rules:
 - 准确的 GROUP 或手动容器上的 `[bridge-exception=manual-layout] [reason=...]` 记录了建议的偏差，但不会抑制页面/部分/容器/GROUP 结构错误；
 - 例外不会使设计变得更好，它们只会使复杂性变得更加明确。
 
+## 标识限制
+
+标签值使用稳定的英文 `kebab-case` 标识。不要在 `[link]`、`[control]`、`[field]`、`[modal]`、`[state]`、`[section]`、`[collection]`、`[item]`、`[decor]` 或 `[asset]` 的值中加入 `-mobile`、`-desktop` 或宽度后缀。
+
 ## Figma 中未写的标签
 
 对于 Figma 设计，请勿使用：
