@@ -47,22 +47,6 @@ The name must be stable English kebab-case.
 
 If a property tag has an identity-like value, the value must be English kebab-case unless the tag explicitly defines another value syntax, such as `[route=/path]`, `[href=https://...]`, or `[action=modal:target-id]`.
 
-Optional identity values must not contain breakpoint names or widths. The breakpoint already belongs to the page/root frame via `[bp=...]`; child ids describe logical elements, not responsive variants.
-
-Bad:
-
-```text
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
-```
-
-Good:
-
-```text
-Отзывы мобилка [action=modal:marketplaces-modal]
-```
-
-For optional identity-bearing values such as `[link=...]`, `[control=...]`, `[field=...]`, `[modal=...]`, `[state=...]`, `[section=...]`, collection/item ids, and fallback `[decor=...]` / `[asset=...]` values, a suffix matching the current breakpoint, for example `-768`, `-375`, `-mobile`, or `-desktop`, is invalid.
-
 ## Tags designers write
 
 ### Page and route
@@ -364,6 +348,24 @@ Rules:
 - `[bridge-exception=manual-layout] [reason=...]` on an exact GROUP or manual container documents a proposed deviation but does not suppress page/section/container/GROUP structural errors;
 - exceptions do not make a design better, they only make complexity explicit.
 
+## Identity restrictions
+
+An identity must describe a logical element, not a width or device. The control width already belongs to the page/root frame through `[bp=...]`.
+
+Bad:
+
+```text
+Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+```
+
+Good:
+
+```text
+Отзывы мобилка [action=modal:marketplaces-modal]
+```
+
+For optional identity-bearing values such as `[link=...]`, `[control=...]`, `[field=...]`, `[modal=...]`, `[state=...]`, `[section=...]`, collection/item ids, and fallback `[decor=...]` / `[asset=...]` values, a suffix matching the current breakpoint, for example `-768`, `-375`, `-mobile`, or `-desktop`, is invalid.
+
 ## Tags not written in Figma
 
 For Figma designs, do not use:
@@ -447,9 +449,3 @@ unknown-link [href=#]
 ```
 
 Invalid: `#` is not an unknown href placeholder. Use `unknown-link [link]`.
-
-```text
-Отзывы мобилка [control=button-reviews-box-768] [action=modal:marketplaces-modal]
-```
-
-Invalid: optional ids must not contain breakpoint suffixes. Use `Отзывы мобилка [action=modal:marketplaces-modal]`.

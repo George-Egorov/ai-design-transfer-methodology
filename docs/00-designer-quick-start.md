@@ -66,9 +66,9 @@ Contact Modal [modal=contact-modal]
     close-button
 ```
 
-Now `[page=home]`, `[view=default]`, and stable layer names connect the breakpoints; `[bp]` distinguishes their widths; the link and action are explicit; and the modal action resolves to a real target. `close-button` is an instance of a close control from the UI Kit, so its behavior comes from component metadata. Layout, dimensions, Auto Layout, and styling still come from Figma rather than tags.
+Now `[page=home]`, `[view=default]`, and stable layer names connect the breakpoints; `[bp]` distinguishes their widths; the link and action are explicit; and the modal action resolves to a real target. `close-button` names the button's role inside this modal. Figma metadata helps identify the source component and its standard states, but it does not determine the behavior of a particular instance: the same UI Kit component may be used in different places.
 
-> The visual layout may change between breakpoints. The same logical elements and parent relationships should remain recognizable.
+> At different widths, elements may change size, order, and position. The same element should remain recognizable by its name and meaning, and its relationship to the other elements should remain clear.
 
 ## Do this in five steps
 

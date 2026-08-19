@@ -45,22 +45,6 @@ button-group
 
 Имена и значения идентификаторов пишутся по-английски в `kebab-case`. Исключение составляют теги со специальным синтаксисом: например, `[route=/path]`, `[href=https://...]` и `[action=modal:target-id]`.
 
-Не добавляйте в дочерний идентификатор ширину или устройство. Контрольная ширина уже задана на корневом фрейме через `[bp=...]`.
-
-Плохо:
-
-```text
-Отзывы [control=button-reviews-box-768] [action=modal:marketplaces-modal]
-```
-
-Хорошо:
-
-```text
-Отзывы [action=modal:marketplaces-modal]
-```
-
-Суффиксы `-768`, `-375`, `-mobile` и `-desktop` недопустимы в значениях `[link]`, `[control]`, `[field]`, `[modal]`, `[state]`, `[section]`, `[collection]`, `[item]`, `[decor]` и `[asset]`.
-
 ## Теги, которые добавляет дизайнер
 
 ### Страница и маршрут
@@ -330,6 +314,24 @@ description [height=fixed] [overflow=truncate] [lines=3]
 - `[bridge-exception=manual-layout] [reason=...]` на точном GROUP или ручном контейнере документирует предлагаемое отклонение, но не подавляет структурные ошибки страницы, секции, контейнера или GROUP;
 - исключение не исправляет проблему, а делает её явной и проверяемой.
 
+## Ограничения идентификаторов
+
+Идентификатор должен описывать логический элемент, а не ширину или устройство. Контрольная ширина уже задана на корневом фрейме через `[bp=...]`.
+
+Плохо:
+
+```text
+Отзывы [control=button-reviews-box-768] [action=modal:marketplaces-modal]
+```
+
+Хорошо:
+
+```text
+Отзывы [action=modal:marketplaces-modal]
+```
+
+Суффиксы `-768`, `-375`, `-mobile` и `-desktop` недопустимы в значениях `[link]`, `[control]`, `[field]`, `[modal]`, `[state]`, `[section]`, `[collection]`, `[item]`, `[decor]` и `[asset]`.
+
 ## Теги, которых не должно быть в Figma
 
 ```text
@@ -407,9 +409,3 @@ unknown-link [href=#]
 ```
 
 Одиночный `#` не является адресом. Используйте `unknown-link [link]`.
-
-```text
-Отзывы [control=button-reviews-box-768] [action=modal:marketplaces-modal]
-```
-
-Идентификатор не должен содержать ширину. Достаточно `Отзывы [action=modal:marketplaces-modal]`.
