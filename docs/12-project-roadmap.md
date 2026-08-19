@@ -6,7 +6,7 @@
 
 | Product | Version | Status |
 | --- | --- | --- |
-| BRIDGE methodology and site | **0.11.3** | Bilingual canonical docs, strict source Auto Layout policy, selected-section legacy adoption, native Figma Section canvas organization, lifecycle, structured contract/schema, tag registry, and validator artifacts. |
+| BRIDGE methodology and site | **0.11.4** | Bilingual canonical docs, strict source Auto Layout policy, selected-section legacy adoption, native Figma Section canvas organization, lifecycle, structured contract/schema, tag registry, and validator artifacts. |
 | BRIDGE rule catalog | **0.5.0 — 107 rules** | Explicit automatic, heuristic, and manual coverage across methodology surfaces. |
 | BRIDGE Assistant for Figma coverage snapshot | **0.9.3** | Verified implementation contract for blocking source-structure checks, Section-organized page roots, page checking, and separately scoped **Check selected section**. Figma Community remains authoritative for the currently published installable build; implementation remains private. |
 
