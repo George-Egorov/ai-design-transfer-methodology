@@ -48,8 +48,8 @@ Popup
 ### Стало: макет описывает себя
 
 ```text
-Главная [page=home] [route=/] [bp=1440] [view=default]
-  Первый экран [section=home-hero]
+home [page=home] [route=/] [bp=1440] [view=default]
+  hero [section=home-hero]
     hero-copy
       hero-title
       hero-subtitle
@@ -57,8 +57,8 @@ Popup
       email-link [href=mailto:sales@example.com]
       contact-button [action=modal:contact-modal]
 
-Главная [page=home] [route=/] [bp=375] [view=default]
-  Первый экран [section=home-hero]
+home [page=home] [route=/] [bp=375] [view=default]
+  hero [section=home-hero]
     hero-copy
       hero-title
       hero-subtitle
@@ -66,7 +66,7 @@ Popup
       email-link [href=mailto:sales@example.com]
       contact-button [action=modal:contact-modal]
 
-Окно обратной связи [modal=contact-modal]
+contact-modal [modal=contact-modal]
   modal-content
     modal-title
     close-button

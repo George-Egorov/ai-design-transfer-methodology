@@ -42,8 +42,8 @@ This tree does not reliably tell us whether the two roots are the same page, whi
 ### After: the same design explains itself
 
 ```text
-Home [page=home] [route=/] [bp=1440] [view=default]
-  Hero [section=home-hero]
+home [page=home] [route=/] [bp=1440] [view=default]
+  hero [section=home-hero]
     hero-copy
       hero-title
       hero-subtitle
@@ -51,8 +51,8 @@ Home [page=home] [route=/] [bp=1440] [view=default]
       email-link [href=mailto:sales@example.com]
       contact-button [action=modal:contact-modal]
 
-Home [page=home] [route=/] [bp=375] [view=default]
-  Hero [section=home-hero]
+home [page=home] [route=/] [bp=375] [view=default]
+  hero [section=home-hero]
     hero-copy
       hero-title
       hero-subtitle
@@ -60,7 +60,7 @@ Home [page=home] [route=/] [bp=375] [view=default]
       email-link [href=mailto:sales@example.com]
       contact-button [action=modal:contact-modal]
 
-Contact Modal [modal=contact-modal]
+contact-modal [modal=contact-modal]
   modal-content
     modal-title
     close-button
