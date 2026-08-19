@@ -133,7 +133,7 @@ read explicit selection
 |无障碍 |`accessibility.decorative-layer-exposed` |警告|自动 |
 |互动 |`interaction.form-field-missing-label` |警告|自动|
 
-对于 `layout.section-missing-auto-layout`，自动意味着审核树中存在携带 `[section]` 的非页面框架或组件。放置的实例是原子的：Page Check 0.9 既不解析其源组件，也不发出实例的部分布局结果。单独选择并审核可编辑源代码树。
+对于 `layout.section-missing-auto-layout`，自动意味着审核树中存在携带 `[section]` 的非页面框架或组件。放置的实例作为一个整体处理：Page Check 不解析其源组件，也不为该实例发出区块布局结果。单独选择并审核可编辑源树。
 
 ## 建议的报告格式
 

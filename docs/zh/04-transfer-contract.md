@@ -1,6 +1,6 @@
 # BRIDGE 转让合约
 
-BRIDGE 合同是版本化的、独立于目标的记录，它将设计证据与实施和 QA 连接起来。0.9版本引入了1.0之前的结构化合约及其[JSON Schema](../validator/bridge.schema.json)；0.10 版本添加了针对本机自动布局和非资产 GROUP 节点的阻止源结构规则；版本 0.11 为旧主机内的新 BRIDGE 工作添加了选定部分范围。该形状可用于工具，但字段在 1.0 之前可能仍会演化；在每次交换中固定 `contractVersion`、`methodologyVersion` 和 `rulesVersion`。
+BRIDGE 合同是面向进阶使用的、版本化且独立于目标平台的记录，用于连接设计、实施和 QA。此页面面向集成和工具，不是设计师的第一阅读材料。结构化信封和 [JSON Schema](../validator/bridge.schema.json) 在 1.0 之前可能继续变化，因此每次交换都要固定 `contractVersion`、`methodologyVersion` 和 `rulesVersion`。
 
 ## 两个互补的表面
 

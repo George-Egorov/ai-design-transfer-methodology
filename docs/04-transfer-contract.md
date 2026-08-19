@@ -1,6 +1,6 @@
 # BRIDGE transfer contract
 
-The BRIDGE Contract is the versioned, target-independent record that connects design evidence to implementation and QA. Version 0.9 introduced the structured pre-1.0 contract and its [JSON Schema](../validator/bridge.schema.json); version 0.10 added blocking source-structure rules for native Auto Layout and non-asset GROUP nodes; version 0.11 adds a selected-section scope for new BRIDGE work inside a legacy host. The shape is usable for tooling, but fields may still evolve before 1.0; pin `contractVersion`, `methodologyVersion`, and `rulesVersion` in every exchange.
+The BRIDGE Contract is an advanced, versioned, target-independent record that connects design evidence to implementation and QA. Use this page for integrations and tooling, not as the first reading for a designer. The structured envelope and [JSON Schema](../validator/bridge.schema.json) may evolve before 1.0, so every exchange pins `contractVersion`, `methodologyVersion`, and `rulesVersion`.
 
 ## Two complementary surfaces
 
