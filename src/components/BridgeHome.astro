@@ -232,12 +232,12 @@ const copy = locale === 'ru'
     <div class="bridge-compare-grid">
       <article class="bridge-compare-card">
         <header><span>01</span><h3>{copy.without}</h3></header>
-        <pre>{copy.beforeTree.join('\n')}</pre>
+        <pre tabindex="0">{copy.beforeTree.join('\n')}</pre>
         <p>{copy.withoutNote}</p>
       </article>
       <article class="bridge-compare-card bridge-compare-card--good">
         <header><span>02</span><h3>{copy.with}</h3></header>
-        <pre>{copy.afterTree.join('\n')}</pre>
+        <pre tabindex="0">{copy.afterTree.join('\n')}</pre>
         <p>{copy.withNote}</p>
       </article>
     </div>
