@@ -2,6 +2,13 @@
 
 All notable changes to the public BRIDGE methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
 
+## [0.11.3] — 2026-08-19
+
+### Changed
+
+- Coverage snapshots now describe BRIDGE Assistant 0.9.3; exact Page Check 42/107 and Section Check 26/107 rule sets and catalog 0.5.0 are unchanged.
+- The installable plugin now exposes its package version as a small, low-emphasis label in every visible plugin mode.
+
 ## [0.11.2] — 2026-08-19
 
 ### Fixed
@@ -77,6 +84,7 @@ All notable changes to the public BRIDGE methodology, schemas, rule catalog, and
 
 - Added the interactive layer inspector, focused Figma companion workflow, bilingual site, and the original 77-rule catalog.
 
+[0.11.3]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.3
 [0.11.2]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.2
 [0.11.1]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.1
 [0.11.0]: https://github.com/Poliklot/bridge-design-methodology/releases/tag/v0.11.0

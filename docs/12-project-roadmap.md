@@ -6,9 +6,9 @@
 
 | Product | Version | Status |
 | --- | --- | --- |
-| BRIDGE methodology and site | **0.11.2** | Bilingual canonical docs, strict source Auto Layout policy, selected-section legacy adoption, native Figma Section canvas organization, lifecycle, structured contract/schema, tag registry, and validator artifacts. |
+| BRIDGE methodology and site | **0.11.3** | Bilingual canonical docs, strict source Auto Layout policy, selected-section legacy adoption, native Figma Section canvas organization, lifecycle, structured contract/schema, tag registry, and validator artifacts. |
 | BRIDGE rule catalog | **0.5.0 — 107 rules** | Explicit automatic, heuristic, and manual coverage across methodology surfaces. |
-| BRIDGE Assistant for Figma coverage snapshot | **0.9.2** | Verified implementation contract for blocking source-structure checks, Section-organized page roots, page checking, and separately scoped **Check selected section**. Figma Community remains authoritative for the currently published installable build; implementation remains private. |
+| BRIDGE Assistant for Figma coverage snapshot | **0.9.3** | Verified implementation contract for blocking source-structure checks, Section-organized page roots, page checking, and separately scoped **Check selected section**. Figma Community remains authoritative for the currently published installable build; implementation remains private. |
 
 The methodology remains pre-1.0. Pin versions: the structured payload, schema, rules, and wording may change with documented methodology releases.
 
@@ -41,13 +41,13 @@ Structured metadata supplements Figma/source metadata and short tags. It is not 
 
 ### Publicly installable Figma helper
 
-[Install BRIDGE Assistant from Figma Community](https://www.figma.com/community/plugin/1654485530503673254/bridge). The version 0.9.2 coverage snapshot supports direct and native-Section-organized page roots plus a separate selected-section source check without a separate BRIDGE account. Community publication is a separate manual step, so use that page to confirm which installable build is currently available.
+[Install BRIDGE Assistant from Figma Community](https://www.figma.com/community/plugin/1654485530503673254/bridge). The version 0.9.3 coverage snapshot supports direct and native-Section-organized page roots plus a separate selected-section source check without a separate BRIDGE account. Community publication is a separate manual step, so use that page to confirm which installable build is currently available.
 
 The plugin's implementation/source repository, private issues, and internal release records are not public methodology resources. Use the public installation page for availability; use this repository for the public contract, rules, examples, and roadmap.
 
 ## Separate automation scopes
 
-The rule catalog contains **107** rules. The plugin 0.9.2 coverage snapshots record two non-additive checks:
+The rule catalog contains **107** rules. The plugin 0.9.3 coverage snapshots record two non-additive checks:
 
 - **Page Check:** an exact emitted-rule union of **42** ids—**40 automatic** and **2 heuristic**—in [Page Check coverage](../validator/page-check-coverage.json);
 - **Check selected section:** an exact emitted-rule union of **26** ids—**24 automatic** and **2 heuristic**—of which 20 are local and 6 run only for usable explicitly selected variants, in [selected-section coverage](../validator/section-check-coverage.json).
