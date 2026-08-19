@@ -9,7 +9,11 @@ import SocialIcons from './ExternalSocialIcons.astro';
 
 const shouldRenderSearch = config.pagefind
   || config.components.Search !== '@astrojs/starlight/components/Search.astro';
-const locale = Astro.locals.starlightRoute.locale === 'en' ? 'en' : 'ru';
+const locale = Astro.locals.starlightRoute.locale === 'zh'
+  ? 'zh'
+  : Astro.locals.starlightRoute.locale === 'en'
+    ? 'en'
+    : 'ru';
 const hasSidebar = Astro.locals.starlightRoute.hasSidebar;
 const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
 const currentPath = Astro.url.pathname.replace(/\/$/u, '');
@@ -22,6 +26,16 @@ const labels = locale === 'ru'
       start: 'Быстрый старт',
       rules: 'Правила',
       check: 'Проверка',
+    }
+  : locale === 'zh'
+    ? {
+      nav: '主导航',
+      menu: '打开站点分区',
+      menuTitle: '站点分区',
+      overview: '总览',
+      start: '快速入门',
+      rules: '规则',
+      check: '检查',
     }
   : {
       nav: 'Primary navigation',

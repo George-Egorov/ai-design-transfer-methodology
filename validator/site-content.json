@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "locales": [
     "en",
-    "ru"
+    "ru",
+    "zh"
   ],
   "pages": [
     {
@@ -11,7 +12,11 @@
       "order": 1,
       "source": {
         "en": "docs/00-designer-quick-start.md",
-        "ru": "docs/ru/00-bystryj-start-dlya-dizajnera.md"
+        "ru": "docs/ru/00-bystryj-start-dlya-dizajnera.md",
+        "zh": "docs/zh/00-designer-quick-start.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -19,7 +24,11 @@
       "order": 2,
       "source": {
         "en": "docs/01-design-rules.md",
-        "ru": "docs/ru/01-pravila-dizajna.md"
+        "ru": "docs/ru/01-pravila-dizajna.md",
+        "zh": "docs/zh/01-design-rules.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -27,7 +36,11 @@
       "order": 3,
       "source": {
         "en": "docs/02-layer-naming-and-identity.md",
-        "ru": "docs/ru/02-imena-sloev-i-identichnost.md"
+        "ru": "docs/ru/02-imena-sloev-i-identichnost.md",
+        "zh": "docs/zh/02-layer-naming-and-identity.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -35,7 +48,11 @@
       "order": 4,
       "source": {
         "en": "docs/03-responsive-breakpoints.md",
-        "ru": "docs/ru/03-adaptivy-i-breakpointy.md"
+        "ru": "docs/ru/03-adaptivy-i-breakpointy.md",
+        "zh": "docs/zh/03-responsive-breakpoints.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -43,7 +60,11 @@
       "order": 5,
       "source": {
         "en": "docs/04-transfer-contract.md",
-        "ru": "docs/ru/04-kontrakt-perenosa.md"
+        "ru": "docs/ru/04-kontrakt-perenosa.md",
+        "zh": "docs/zh/04-transfer-contract.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -51,7 +72,11 @@
       "order": 6,
       "source": {
         "en": "docs/05-interactions-and-targets.md",
-        "ru": "docs/ru/05-interaktivnost-i-celi.md"
+        "ru": "docs/ru/05-interaktivnost-i-celi.md",
+        "zh": "docs/zh/05-interactions-and-targets.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -59,7 +84,11 @@
       "order": 7,
       "source": {
         "en": "docs/06-wrapper-policy.md",
-        "ru": "docs/ru/06-politika-obertok.md"
+        "ru": "docs/ru/06-politika-obertok.md",
+        "zh": "docs/zh/06-wrapper-policy.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -67,7 +96,11 @@
       "order": 8,
       "source": {
         "en": "docs/07-height-and-overflow.md",
-        "ru": "docs/ru/07-vysoty-i-overflow.md"
+        "ru": "docs/ru/07-vysoty-i-overflow.md",
+        "zh": "docs/zh/07-height-and-overflow.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -75,11 +108,13 @@
       "order": 9,
       "source": {
         "en": "docs/08-preflight-checklist.md",
-        "ru": "docs/ru/08-preflight-checklist.md"
+        "ru": "docs/ru/08-preflight-checklist.md",
+        "zh": "docs/zh/08-preflight-checklist.md"
       },
       "description": {
         "en": "A strict preflight review and foundation for automated validation.",
-        "ru": "Строгая проверка макета и основа для автоматического валидатора."
+        "ru": "Строгая проверка макета и основа для автоматического валидатора.",
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -87,7 +122,11 @@
       "order": 10,
       "source": {
         "en": "docs/09-common-designer-mistakes.md",
-        "ru": "docs/ru/09-tipichnye-oshibki-dizajnerov.md"
+        "ru": "docs/ru/09-tipichnye-oshibki-dizajnerov.md",
+        "zh": "docs/zh/09-common-designer-mistakes.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -95,7 +134,11 @@
       "order": 11,
       "source": {
         "en": "docs/10-hard-cases-and-edge-cases.md",
-        "ru": "docs/ru/10-slozhnye-kejsy-i-edge-cases.md"
+        "ru": "docs/ru/10-slozhnye-kejsy-i-edge-cases.md",
+        "zh": "docs/zh/10-hard-cases-and-edge-cases.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -103,7 +146,11 @@
       "order": 12,
       "source": {
         "en": "docs/11-validation-and-autochecks.md",
-        "ru": "docs/ru/11-validaciya-i-avtoproverki.md"
+        "ru": "docs/ru/11-validaciya-i-avtoproverki.md",
+        "zh": "docs/zh/11-validation-and-autochecks.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -111,7 +158,11 @@
       "order": 13,
       "source": {
         "en": "docs/19-team-adoption.md",
-        "ru": "docs/ru/19-vnedrenie-v-komandu.md"
+        "ru": "docs/ru/19-vnedrenie-v-komandu.md",
+        "zh": "docs/zh/19-team-adoption.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -119,7 +170,11 @@
       "order": 14,
       "source": {
         "en": "docs/12-project-roadmap.md",
-        "ru": "docs/ru/12-roadmap-proekta.md"
+        "ru": "docs/ru/12-roadmap-proekta.md",
+        "zh": "docs/zh/12-project-roadmap.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -127,7 +182,11 @@
       "order": 15,
       "source": {
         "en": "docs/13-tag-grammar.md",
-        "ru": "docs/ru/13-grammatika-tegov.md"
+        "ru": "docs/ru/13-grammatika-tegov.md",
+        "zh": "docs/zh/13-tag-grammar.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -135,7 +194,11 @@
       "order": 16,
       "source": {
         "en": "docs/14-components-and-ui-kit.md",
-        "ru": "docs/ru/14-komponenty-i-ui-kit.md"
+        "ru": "docs/ru/14-komponenty-i-ui-kit.md",
+        "zh": "docs/zh/14-components-and-ui-kit.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -143,7 +206,11 @@
       "order": 17,
       "source": {
         "en": "docs/15-page-routing-and-views.md",
-        "ru": "docs/ru/15-marshruty-stranic-i-sostoyaniya.md"
+        "ru": "docs/ru/15-marshruty-stranic-i-sostoyaniya.md",
+        "zh": "docs/zh/15-page-routing-and-views.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -151,7 +218,11 @@
       "order": 18,
       "source": {
         "en": "docs/16-variation-axes.md",
-        "ru": "docs/ru/16-osi-variativnosti.md"
+        "ru": "docs/ru/16-osi-variativnosti.md",
+        "zh": "docs/zh/16-variation-axes.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -159,11 +230,13 @@
       "order": 19,
       "source": {
         "en": "docs/17-designer-checklist.md",
-        "ru": "docs/ru/17-cheklist-dlya-dizaynerov.md"
+        "ru": "docs/ru/17-cheklist-dlya-dizaynerov.md",
+        "zh": "docs/zh/17-designer-checklist.md"
       },
       "description": {
         "en": "A concise checklist to use before design handoff.",
-        "ru": "Короткий чеклист перед передачей макета."
+        "ru": "Короткий чеклист перед передачей макета.",
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -171,11 +244,13 @@
       "order": 20,
       "source": {
         "en": "docs/18-terminology.md",
-        "ru": "docs/ru/18-terminologiya.md"
+        "ru": "docs/ru/18-terminologiya.md",
+        "zh": "docs/zh/18-terminology.md"
       },
       "description": {
         "en": "Canonical BRIDGE terminology and precise definitions.",
-        "ru": "Единый язык русской документации BRIDGE."
+        "ru": "Единый язык русской документации BRIDGE.",
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -183,7 +258,11 @@
       "order": 21,
       "source": {
         "en": "docs/brand-system.md",
-        "ru": "docs/ru/brend-sistema.md"
+        "ru": "docs/ru/brend-sistema.md",
+        "zh": "docs/zh/brand-system.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -191,11 +270,13 @@
       "order": 22,
       "source": {
         "en": "examples/README.md",
-        "ru": "examples/README.ru.md"
+        "ru": "examples/README.ru.md",
+        "zh": "docs/zh/examples/README.md"
       },
       "description": {
         "en": "Short BRIDGE recipes in a problem-to-solution format.",
-        "ru": "Короткие решения BRIDGE в формате «неудачно → правильно»."
+        "ru": "Короткие решения BRIDGE в формате «неудачно → правильно».",
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -203,7 +284,11 @@
       "order": 23,
       "source": {
         "en": "docs/20-data-and-visualization.md",
-        "ru": "docs/ru/20-dannye-i-vizualizaciya.md"
+        "ru": "docs/ru/20-dannye-i-vizualizaciya.md",
+        "zh": "docs/zh/20-data-and-visualization.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -211,7 +296,11 @@
       "order": 24,
       "source": {
         "en": "docs/21-motion-and-scroll.md",
-        "ru": "docs/ru/21-motion-i-scroll.md"
+        "ru": "docs/ru/21-motion-i-scroll.md",
+        "zh": "docs/zh/21-motion-and-scroll.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -219,7 +308,11 @@
       "order": 25,
       "source": {
         "en": "docs/22-state-machines-and-reactions.md",
-        "ru": "docs/ru/22-sostoyaniya-i-reakcii.md"
+        "ru": "docs/ru/22-sostoyaniya-i-reakcii.md",
+        "zh": "docs/zh/22-state-machines-and-reactions.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -227,7 +320,11 @@
       "order": 26,
       "source": {
         "en": "docs/23-accessibility-profile.md",
-        "ru": "docs/ru/23-profil-dostupnosti.md"
+        "ru": "docs/ru/23-profil-dostupnosti.md",
+        "zh": "docs/zh/23-accessibility-profile.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     },
     {
@@ -235,7 +332,11 @@
       "order": 27,
       "source": {
         "en": "docs/24-delivery-lifecycle.md",
-        "ru": "docs/ru/24-zhiznennyj-cikl-peredachi.md"
+        "ru": "docs/ru/24-zhiznennyj-cikl-peredachi.md",
+        "zh": "docs/zh/24-delivery-lifecycle.md"
+      },
+      "description": {
+        "zh": "BRIDGE 方法论的中文文档页面，说明设计交付、结构化数据与验证规则。"
       }
     }
   ]

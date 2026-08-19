@@ -52,8 +52,8 @@ function assertInsideRoot(path, label) {
   return absolute;
 }
 
-if (JSON.stringify(locales) !== JSON.stringify(['en', 'ru'])) {
-  throw new Error('validator/site-content.json must declare locales in canonical en, ru order.');
+if (JSON.stringify(locales) !== JSON.stringify(['en', 'ru', 'zh'])) {
+  throw new Error('validator/site-content.json must declare locales in canonical en, ru, zh order.');
 }
 assertUnique(entries.map(({ route }) => route), 'documentation route');
 assertUnique(entries.map(({ order }) => order), 'sidebar order');
@@ -75,6 +75,10 @@ for (const entry of entries) {
 function pageUrl(locale, route, anchor = '') {
   const normalizedRoute = route ? `${route.replace(/^\/+|\/+$/gu, '')}/` : '';
   return `${basePrefix}/${locale}/${normalizedRoute}${anchor}`;
+}
+
+function sourceEntryFor(sourceFile) {
+  return entries.find((entry) => locales.some((locale) => resolve(root, entry[locale]) === sourceFile));
 }
 
 const schemaSources = readdirSync(validatorRoot, { withFileTypes: true })
@@ -117,17 +121,23 @@ function rewriteLinks(markdown, sourceFile, locale) {
     const [pathPart, anchorPart] = destination.split('#', 2);
     if (isAbsolute(pathPart)) return match;
     const resolvedTarget = resolve(dirname(sourceFile), pathPart);
-    const mapped = sourceMap.get(resolvedTarget);
+    const sourceEntry = sourceEntryFor(sourceFile);
+    const equivalentTargets = sourceEntry
+      ? locales.map((sourceLocale) => resolve(dirname(resolve(root, sourceEntry[sourceLocale])), pathPart))
+      : [];
+    const mapped = sourceMap.get(resolvedTarget) || equivalentTargets.map((target) => sourceMap.get(target)).find(Boolean);
     const anchor = anchorPart ? `#${anchorPart}` : '';
 
     if (mapped) return `${label}(${pageUrl(locale, mapped.route, anchor)})`;
 
-    const publicValidatorPath = publicValidatorLinks.get(resolvedTarget);
+    const publicValidatorPath = publicValidatorLinks.get(resolvedTarget)
+      || equivalentTargets.map((target) => publicValidatorLinks.get(target)).find(Boolean);
     if (publicValidatorPath) return `${label}(${basePrefix}/${publicValidatorPath}${anchor})`;
 
     const assetsRoot = resolve(root, 'assets');
-    if (existsSync(resolvedTarget) && statSync(resolvedTarget).isDirectory() && resolvedTarget.startsWith(`${assetsRoot}${sep}`)) {
-      const assetDirectory = relative(root, resolvedTarget).split(sep).join('/');
+    const assetTarget = [resolvedTarget, ...equivalentTargets].find((target) => existsSync(target));
+    if (assetTarget && statSync(assetTarget).isDirectory() && assetTarget.startsWith(`${assetsRoot}${sep}`)) {
+      const assetDirectory = relative(root, assetTarget).split(sep).join('/');
       if (label.startsWith('!')) return match;
       return `${label}(https://github.com/Poliklot/bridge-design-methodology/tree/main/${assetDirectory})`;
     }
@@ -135,8 +145,9 @@ function rewriteLinks(markdown, sourceFile, locale) {
       if (label.startsWith('!')) return match;
       return `${label}(https://github.com/Poliklot/bridge-design-methodology/tree/main/assets)`;
     }
-    if (resolvedTarget.startsWith(`${assetsRoot}${sep}`)) {
-      const assetPath = relative(assetsRoot, resolvedTarget).split(sep).join('/');
+    const assetFileTarget = [resolvedTarget, ...equivalentTargets].find((target) => target.startsWith(`${assetsRoot}${sep}`));
+    if (assetFileTarget) {
+      const assetPath = relative(assetsRoot, assetFileTarget).split(sep).join('/');
       return `${label}(${basePrefix}/assets/${assetPath}${anchor})`;
     }
 
@@ -160,6 +171,37 @@ function extractTitle(markdown, source) {
   return matches[0][1].replaceAll('`', '').trim();
 }
 
+function githubSlug(text) {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/<[^>]+>/gu, '')
+    .replace(/[`*_~]/gu, '')
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/\s+/gu, '-')
+    .replace(/-+/gu, '-');
+}
+
+function headingAliases(localizedMarkdown, canonicalMarkdown) {
+  const canonicalHeadings = canonicalMarkdown
+    .split('\n')
+    .filter((line) => /^#{1,6}\s+/u.test(line))
+    .map((line) => githubSlug(line.replace(/^#{1,6}\s+/u, '')));
+  let headingIndex = 0;
+  let fenced = false;
+  return localizedMarkdown.split('\n').map((line) => {
+    if (line.trimStart().startsWith('```')) {
+      fenced = !fenced;
+      return line;
+    }
+    if (fenced) return line;
+    const match = line.match(/^(#{1,6}\s+)(.+)$/u);
+    if (!match) return line;
+    const alias = canonicalHeadings[headingIndex++];
+    return alias ? `${match[1]}<a id="${alias}"></a>${match[2]}` : line;
+  }).join('\n');
+}
+
 function extractDescription(markdown, locale, overrides) {
   const explicit = overrides?.[locale];
   if (explicit) return explicit;
@@ -173,7 +215,7 @@ function extractDescription(markdown, locale, overrides) {
     .map((line) => line.trim())
     .find((line) => line && !line.startsWith('|') && !line.startsWith('-') && !line.startsWith('!'));
 
-  return (body || (locale === 'ru' ? 'Документация BRIDGE.' : 'BRIDGE documentation.'))
+  return (body || (locale === 'ru' ? 'Документация BRIDGE.' : locale === 'zh' ? 'BRIDGE 中文文档。' : 'BRIDGE documentation.'))
     .replace(/\[([^\]]+)\]\([^)]+\)/gu, '$1')
     .replace(/[*_`>]/gu, '')
     .slice(0, 220);
@@ -186,7 +228,11 @@ for (const entry of entries) {
     const raw = readFileSync(source, 'utf8').replace(/\r\n?/gu, '\n');
     const title = extractTitle(raw, source);
     const description = extractDescription(raw, locale, entry.description);
-    const body = rewriteLinks(raw.replace(/^#\s+.+\n+/u, ''), source, locale);
+    let body = rewriteLinks(raw.replace(/^#\s+.+\n+/u, ''), source, locale);
+    if (locale === 'zh') {
+      const canonical = readFileSync(resolve(root, entry.en), 'utf8').replace(/^#\s+.+\n+/u, '');
+      body = headingAliases(body, canonical);
+    }
     const output = join(contentRoot, locale, `${entry.route}.md`);
     const generated = `---\ntitle: ${JSON.stringify(title)}\ndescription: ${JSON.stringify(description)}\neditUrl: false\nsidebar:\n  order: ${entry.order}\n---\n\n<!-- Generated from ${relative(root, source)}. Do not edit this file directly. -->\n\n${body}`;
     outputs.set(output, generated.endsWith('\n') ? generated : `${generated}\n`);

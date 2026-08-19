@@ -11,6 +11,12 @@ const files = [
   'CHANGELOG.md',
   ...manifest.pages.flatMap(({ source }) => Object.values(source)),
 ];
+const canonicalSourceByLocale = new Map();
+for (const page of manifest.pages) {
+  for (const source of Object.values(page.source)) {
+    if (source.startsWith('docs/zh/')) canonicalSourceByLocale.set(resolve(root, source), resolve(root, page.source.en));
+  }
+}
 const problems = [];
 const headingsByFile = new Map();
 
@@ -52,7 +58,8 @@ for (const sourcePath of [...new Set(files)]) {
     const destination = match[1].trim();
     if (!destination || /^(?:https?:|mailto:|tel:|data:)/u.test(destination)) continue;
     const [pathPart, encodedAnchor] = destination.split('#', 2);
-    const target = pathPart ? resolve(dirname(source), pathPart) : source;
+    const linkBase = canonicalSourceByLocale.get(source) || source;
+    const target = pathPart ? resolve(dirname(linkBase), pathPart) : linkBase;
     if (!existsSync(target)) {
       problems.push(`${sourcePath}: missing link target ${destination}`);
       continue;

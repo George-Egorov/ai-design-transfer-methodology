@@ -3,7 +3,7 @@ import PluginMediaShowcase from './PluginMediaShowcase.astro';
 import PreflightChecklist from './PreflightChecklist.astro';
 
 interface Props {
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
 }
 
 const { locale } = Astro.props;
@@ -36,6 +36,22 @@ const copy = locale === 'ru'
       privateNote: 'Методология BRIDGE, документация, чеклисты и каталог правил открыты. Реализация Figma-плагина — частная; публичного репозитория, issue tracker и ленты релизов для неё нет.',
       rules: 'Открыть каталог правил',
       newTab: 'откроется в новой вкладке',
+    }
+  : locale === 'zh'
+    ? {
+      eyebrow: '方法论工具',
+      title: '在 Figma 中直接核对设计就绪状态。',
+      lead: '插件会将 BRIDGE 标签写入图层名称，生成文件映射，并在交付前检查页面、断点、动作和目标。',
+      open: 'Figma 插件 BRIDGE',
+      capabilitiesLabel: '插件功能',
+      capabilities: [
+        ['标签', '自动生成 page、breakpoint、action 和 target，无需手工拼接语法。'],
+        ['地图', '汇总页面、目标和草稿，形成可读的文件结构。'],
+        ['检查', '发现缺口并快速定位到相关图层与规则。'],
+      ],
+      trust: '本地运行于 Figma · 不需要 BRIDGE 账号 · 无网络访问',
+      source: '源代码',
+      newTab: '将在新标签页打开',
     }
   : {
       eyebrow: 'Review hub',

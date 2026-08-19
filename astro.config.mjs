@@ -12,7 +12,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     starlight({
-      title: { ru: 'BRIDGE', en: 'BRIDGE' },
+      title: { ru: 'BRIDGE', en: 'BRIDGE', zh: 'BRIDGE' },
       description:
         'BRIDGE is a methodology for interface designs that can be implemented without guesswork.',
       logo: {
@@ -26,6 +26,7 @@ export default defineConfig({
       locales: {
         ru: { label: 'Русский', lang: 'ru' },
         en: { label: 'English', lang: 'en' },
+        zh: { label: '中文', lang: 'zh-CN' },
       },
       social: [
         {
@@ -63,7 +64,7 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Начать',
-          translations: { en: 'Start' },
+          translations: { en: 'Start', zh: '开始' },
           items: [
             { slug: 'start/designer-quick-start' },
             { slug: 'examples' },
@@ -72,22 +73,22 @@ export default defineConfig({
         },
         {
           label: 'Основные правила',
-          translations: { en: 'Core rules' },
+          translations: { en: 'Core rules', zh: '核心规则' },
           items: [{ autogenerate: { directory: 'guides' } }],
         },
         {
           label: 'Проверка качества',
-          translations: { en: 'Quality checks' },
+          translations: { en: 'Quality checks', zh: '质量检查' },
           items: [{ autogenerate: { directory: 'quality' } }],
         },
         {
           label: 'Справочник',
-          translations: { en: 'Reference' },
+          translations: { en: 'Reference', zh: '参考资料' },
           items: [{ slug: 'tags' }, { slug: 'rules' }, { autogenerate: { directory: 'reference' } }],
         },
         {
           label: 'Проект',
-          translations: { en: 'Project' },
+          translations: { en: 'Project', zh: '项目' },
           collapsed: true,
           items: [{ autogenerate: { directory: 'project' } }],
         },
@@ -99,7 +100,7 @@ export default defineConfig({
       filter: (page) => page !== canonicalRoot,
       i18n: {
         defaultLocale: 'ru',
-        locales: { ru: 'ru', en: 'en' },
+        locales: { ru: 'ru', en: 'en', zh: 'zh-CN' },
       },
     }),
   ],
