@@ -196,12 +196,12 @@ if (!existsSync(sitemap)) {
   const xml = readFileSync(sitemap, 'utf8');
   if (xml.includes(`<loc>${publicRoot}</loc>`)) problems.push('sitemap includes the noindex redirect root');
   if (xml.includes('/404')) problems.push('sitemap includes the 404 page');
-  for (const locale of ['en', 'ru']) {
+  for (const locale of ['en', 'ru', 'zh']) {
     if (!xml.includes(`<loc>${publicRoot}${locale}/</loc>`)) problems.push(`sitemap is missing ${locale} root`);
   }
   for (const block of xml.match(/<url>[\s\S]*?<\/url>/gu) || []) {
-    for (const locale of ['en', 'ru']) {
-      const matches = block.match(new RegExp(`hreflang="${locale}"`, 'gu')) || [];
+    for (const hreflang of ['en', 'ru', 'zh-CN']) {
+      const matches = block.match(new RegExp(`hreflang="${hreflang}"`, 'gu')) || [];
       if (matches.length !== 1) problems.push(`sitemap alternate group has ${matches.length} ${locale} links`);
     }
   }

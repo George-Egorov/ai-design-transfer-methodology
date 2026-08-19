@@ -8,7 +8,7 @@
   "properties": {
     "$schema": { "const": "./site-content.schema.json" },
     "version": { "type": "string", "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$" },
-    "locales": { "const": ["en", "ru"] },
+    "locales": { "const": ["en", "ru", "zh"] },
     "pages": {
       "type": "array",
       "minItems": 1,
@@ -25,10 +25,11 @@
           "source": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["en", "ru"],
+            "required": ["en", "ru", "zh"],
             "properties": {
               "en": { "type": "string", "pattern": "^(?:docs|examples)/.+\\.md$" },
               "ru": { "type": "string", "pattern": "^(?:docs/ru|examples)/.+\\.md$" }
+              ,"zh": { "type": "string", "pattern": "^(?:docs/zh|examples)/.+\\.md$" }
             }
           },
           "description": {
@@ -37,6 +38,7 @@
             "properties": {
               "en": { "type": "string", "minLength": 20, "maxLength": 220 },
               "ru": { "type": "string", "minLength": 20, "maxLength": 220 }
+              ,"zh": { "type": "string", "minLength": 20, "maxLength": 220 }
             }
           }
         }

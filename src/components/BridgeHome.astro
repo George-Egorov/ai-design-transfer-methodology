@@ -3,14 +3,16 @@ import BridgeContractGraphic from './BridgeContractGraphic.astro';
 import BridgeLayerTree from './BridgeLayerTree.astro';
 import PluginMediaShowcase from './PluginMediaShowcase.astro';
 import type { LayerNode } from './BridgeLayerTree.astro';
+import { createHomeLayerTrees } from '../data/home-layer-tree';
 
 interface Props {
-  locale: 'ru' | 'en';
+  locale: 'ru' | 'en' | 'zh';
 }
 
 const { locale } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
 const url = (path: string) => `${base}/${locale}/${path.replace(/^\//u, '')}`;
+const canonicalLayerTrees = createHomeLayerTrees(locale);
 
 const copy = locale === 'ru'
   ? {
@@ -29,43 +31,6 @@ const copy = locale === 'ru'
       layerHint: 'Нажмите на имя, чтобы переименовать. Перетащите ручку, чтобы поменять порядок соседних слоёв.',
       layerKeyboardHint: 'На ручке нажмите пробел, меняйте порядок стрелками, подтвердите пробелом или отмените Escape.',
       layerReset: 'Сбросить',
-      beforeTree: [
-        { id: 'home-final', type: 'frame', name: 'Главная — финал', children: [
-          { id: 'frame-42', type: 'frame', name: 'Frame 42', children: [
-            { id: 'group-18', type: 'group', name: 'Group 18', children: [
-              { id: 'heading', type: 'text', name: 'Heading' },
-              { id: 'text', type: 'text', name: 'Text' },
-            ] },
-            { id: 'button', type: 'component', name: 'Button' },
-          ] },
-        ] },
-        { id: 'home-mobile', type: 'frame', name: 'Главная — mobile', children: [
-          { id: 'group-91', type: 'group', name: 'Group 91', children: [
-            { id: 'title-mobile', type: 'text', name: 'Title mobile' },
-            { id: 'button-copy', type: 'component', name: 'Button copy' },
-          ] },
-        ] },
-      ] satisfies LayerNode[],
-      afterTree: [
-        { id: 'home-1440', type: 'frame', name: 'Главная · 1440', tag: '[page=home] [bp=1440] [view=default]', children: [
-          { id: 'home-hero-1440', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-1440', type: 'frame', name: 'hero-copy', children: [
-              { id: 'hero-title-1440', type: 'text', name: 'hero-title' },
-            ] },
-            { id: 'contact-button-1440', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
-          ] },
-          { id: 'contact-modal-1440', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
-        ] },
-        { id: 'home-375', type: 'frame', name: 'Главная · 375', tag: '[page=home] [bp=375] [view=default]', children: [
-          { id: 'home-hero-375', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-375', type: 'frame', name: 'hero-copy', children: [
-              { id: 'hero-title-375', type: 'text', name: 'hero-title' },
-            ] },
-            { id: 'contact-button-375', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
-          ] },
-          { id: 'contact-modal-375', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
-        ] },
-      ] satisfies LayerNode[],
       pathsEyebrow: 'Выберите задачу',
       pathsTitle: 'Начните со своей задачи',
       paths: [
@@ -106,6 +71,64 @@ const copy = locale === 'ru'
       finalText: 'Не нужно переводить весь архив или перестраивать UI Kit. Проверьте реальную страницу целиком либо новую секцию как изолированный выбранный источник; готовность секции не выдавайте за готовность унаследованной страницы.',
       finalAction: 'Открыть план пилота',
     }
+  : locale === 'zh'
+    ? {
+      eyebrow: '界面交付方法论',
+      title: '无需再做说明的设计。',
+      lead: 'BRIDGE 在开始实现前就把结构、响应式、行为和例外条件写清楚——就在设计决策形成的地方。',
+      primary: '准备你的第一份设计',
+      secondary: 'Figma 插件 BRIDGE',
+      newTab: '将在新标签页打开',
+      inspectorTitle: '图层结构对比',
+      layersLabel: '图层',
+      fileLabel: '主页 · Figma',
+      before: '未使用 BRIDGE 时',
+      after: '使用 BRIDGE 后',
+      beforeNote: '名称描述了外观，但没有说明不同帧之间的关联。',
+      afterNote: '同一结构会明确显示页面、断点、区块和动作，可直接从图层中读取。',
+      layerHint: '点击名称可重命名。拖动手柄可调整同级图层顺序。',
+      layerKeyboardHint: '在手柄上按空格，使用方向键移动，再按空格确认；按 Escape 取消。',
+      layerReset: '重置',
+      pathsEyebrow: '选择你的任务',
+      pathsTitle: '从当前任务开始',
+      paths: [
+        ['准备设计', '从结构到响应式再到检查按 5 个实用步骤快速完成第一次文件处理。', '打开快速起步', 'start/designer-quick-start/'],
+        ['检查文件', '补充关系、查看文件地图，并直接在 Figma 中运行页面检查。', '打开插件', 'check/'],
+        ['学习数据格式', '在集成原型前先对齐标签、规则目录和持续演化的约定。到 1.0 前，方案仍可能更新。', '查看合同状态', 'reference/transfer-contract/'],
+        ['团队落地', '在一个真实文件上进行试点，固定验收标准，并把检查加入交付流程。', '打开试点方案', 'project/team-adoption/'],
+      ],
+      methodEyebrow: '如何工作',
+      methodTitle: '让设计可交付的三步',
+      method: [
+        ['01', '保留技术真相', 'Figma 的帧、Auto Layout、组件和几何信息保持为原生数据。'],
+        ['02', '补充缺失语义', '用标签表达页面、动作、目标、装饰、导出项和例外。'],
+        ['03', '无作者复核', '别人无需会议或上下文解释，也能读懂该文件。'],
+      ],
+      outcomesEyebrow: '团队收益',
+      outcomesTitle: '交付不再依赖作者记忆。',
+      outcomesIntro: '同一份文件可在协作会议前和开发前回答各种岗位问题。',
+      outcomes: [
+        ['设计师', '在交付前识别未声明的断点、动作和目标。'],
+        ['开发', '从问题直接跳到准确图层和规则，不再在聊天记录里找上下文。'],
+        ['负责人和 PM', '拥有统一的“可交付”定义和可见的例外清单。'],
+        ['工作室', '即使人员变动，产品决策依然留在文件中。'],
+      ],
+      principlesEyebrow: '六大原则',
+      principlesTitle: 'BRIDGE 每个字母代表的含义',
+      principlesIntro: 'BRIDGE 是六个英文术语的首字母缩写。每一项都对应交付合同中的一个问题。',
+      translationLabel: '',
+      principles: [
+        ['B', 'Breakpoints', '响应式断点', '都准备了哪些宽度和状态？'],
+        ['R', 'Roles', '图层职责', '每个关键图层的用途是什么？'],
+        ['I', 'Identity', '稳定标识', '在不同断点里同一元素如何识别？'],
+        ['D', 'Dependencies', '关系与动作', '链接和按钮分别指向哪里？'],
+        ['G', 'Geometry', '可复现布局', '尺寸、间距和文本度量值是否可复现？'],
+        ['E', 'Exceptions', '刻意例外', '哪些偏差是故意的？'],
+      ],
+      finalTitle: '从一个真实文件开始。',
+      finalText: '不需要重构素材库或重建 UI Kit。先拿一页真实页面，交给未参与设计的人，并验证其是否能在不通话的情况下回答实现问题。',
+      finalAction: '打开试点方案',
+    }
   : {
       eyebrow: 'Open design handoff methodology',
       title: 'Design handoff with no blind spots.',
@@ -122,43 +145,6 @@ const copy = locale === 'ru'
       layerHint: 'Select a name to rename it. Drag the handle to reorder it among sibling layers.',
       layerKeyboardHint: 'On the reorder handle, press Space, move with Arrow keys, press Space to drop, or Escape to cancel.',
       layerReset: 'Reset',
-      beforeTree: [
-        { id: 'home-final', type: 'frame', name: 'Home — final', children: [
-          { id: 'frame-42', type: 'frame', name: 'Frame 42', children: [
-            { id: 'group-18', type: 'group', name: 'Group 18', children: [
-              { id: 'heading', type: 'text', name: 'Heading' },
-              { id: 'text', type: 'text', name: 'Text' },
-            ] },
-            { id: 'button', type: 'component', name: 'Button' },
-          ] },
-        ] },
-        { id: 'home-mobile', type: 'frame', name: 'Home — mobile', children: [
-          { id: 'group-91', type: 'group', name: 'Group 91', children: [
-            { id: 'title-mobile', type: 'text', name: 'Title mobile' },
-            { id: 'button-copy', type: 'component', name: 'Button copy' },
-          ] },
-        ] },
-      ] satisfies LayerNode[],
-      afterTree: [
-        { id: 'home-1440', type: 'frame', name: 'Home · 1440', tag: '[page=home] [bp=1440] [view=default]', children: [
-          { id: 'home-hero-1440', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-1440', type: 'frame', name: 'hero-copy', children: [
-              { id: 'hero-title-1440', type: 'text', name: 'hero-title' },
-            ] },
-            { id: 'contact-button-1440', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
-          ] },
-          { id: 'contact-modal-1440', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
-        ] },
-        { id: 'home-375', type: 'frame', name: 'Home · 375', tag: '[page=home] [bp=375] [view=default]', children: [
-          { id: 'home-hero-375', type: 'section', name: 'home-hero', tag: '[section=home-hero]', children: [
-            { id: 'hero-copy-375', type: 'frame', name: 'hero-copy', children: [
-              { id: 'hero-title-375', type: 'text', name: 'hero-title' },
-            ] },
-            { id: 'contact-button-375', type: 'component', name: 'contact-button', tag: '[action=modal:contact-modal]' },
-          ] },
-          { id: 'contact-modal-375', type: 'frame', name: 'contact-modal', tag: '[modal=contact-modal]' },
-        ] },
-      ] satisfies LayerNode[],
       pathsEyebrow: 'Choose a task',
       pathsTitle: 'Start with the job in front of you',
       paths: [
@@ -225,7 +211,7 @@ const copy = locale === 'ru'
       <div id="layers-before-panel" class="bridge-layers-panel" role="tabpanel" aria-labelledby="layers-before-tab" data-inspector-panel="before" hidden>
         <div class="bridge-layer-tree" data-layer-tree>
           <p id="layers-before-help" class="sr-only">{copy.layerKeyboardHint}</p>
-          <BridgeLayerTree nodes={copy.beforeTree} locale={locale} helpId="layers-before-help" />
+          <BridgeLayerTree nodes={canonicalLayerTrees.beforeTree as LayerNode[]} locale={locale} helpId="layers-before-help" />
           <span class="sr-only" aria-live="polite" data-layer-live></span>
         </div>
         <div class="bridge-layer-footer">
@@ -236,7 +222,7 @@ const copy = locale === 'ru'
       <div id="layers-after-panel" class="bridge-layers-panel is-active" role="tabpanel" aria-labelledby="layers-after-tab" data-inspector-panel="after">
         <div class="bridge-layer-tree" data-layer-tree>
           <p id="layers-after-help" class="sr-only">{copy.layerKeyboardHint}</p>
-          <BridgeLayerTree nodes={copy.afterTree} locale={locale} helpId="layers-after-help" />
+          <BridgeLayerTree nodes={canonicalLayerTrees.afterTree as LayerNode[]} locale={locale} helpId="layers-after-help" />
           <span class="sr-only" aria-live="polite" data-layer-live></span>
         </div>
         <div class="bridge-layer-footer">
@@ -352,7 +338,11 @@ const copy = locale === 'ru'
       if (inspector.dataset.inspectorReady === 'true') continue;
       inspector.dataset.inspectorReady = 'true';
 
-      const locale = inspector.dataset.locale === 'en' ? 'en' : 'ru';
+      const locale = inspector.dataset.locale === 'en'
+        ? 'en'
+        : inspector.dataset.locale === 'zh'
+          ? 'zh'
+          : 'ru';
       const messages = locale === 'ru'
         ? {
             rename: (name: string) => `Переименовать слой «${name}»`,
@@ -366,6 +356,19 @@ const copy = locale === 'ru'
             cancelled: (name: string) => `Изменение порядка слоя «${name}» отменено.`,
             reset: 'Исходный порядок и названия восстановлены.',
           }
+        : locale === 'zh'
+          ? {
+              rename: (name: string) => `重命名图层“${name}”`,
+              input: (name: string) => `请输入图层新名称“${name}”`,
+              reorder: (name: string, position: number, total: number) => `调整图层“${name}”顺序。当前 ${position} / ${total}`,
+              renamed: (before: string, after: string) => `图层重命名：“${before}” → “${after}”。`,
+              empty: '请输入图层名称。',
+              emptyRestored: '未保存空名称，已保留此前的图层名称。',
+              picked: (name: string) => `已选择图层“${name}”。请使用方向键移动，空格确认或按 Escape 取消。`,
+              position: (name: string, position: number, total: number) => `图层“${name}”：第 ${position} 位，共 ${total} 个。`,
+              cancelled: (name: string) => `已取消图层“${name}”的顺序调整。`,
+              reset: '已恢复原始图层顺序和名称。',
+            }
         : {
             rename: (name: string) => `Rename layer “${name}”`,
             input: (name: string) => `New name for layer “${name}”`,

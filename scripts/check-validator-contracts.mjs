@@ -390,6 +390,10 @@ if (contentManifest) {
     ...readdirSync(join(root, 'docs', 'ru'), { withFileTypes: true })
       .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
       .map((entry) => `docs/ru/${entry.name}`),
+    ...readdirSync(join(root, 'docs', 'zh'), { withFileTypes: true })
+      .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+      .map((entry) => `docs/zh/${entry.name}`),
+    'docs/zh/examples/README.md',
   ];
   for (const file of discoveredDocs) if (!manifestedDocs.has(file)) problems.push(`validator/site-content.json: canonical doc is not manifested: ${file}`);
   for (const file of manifestedDocs) if (!discoveredDocs.includes(file)) problems.push(`validator/site-content.json: manifest references missing canonical doc: ${file}`);
@@ -397,7 +401,7 @@ if (contentManifest) {
 
 if (tagRegistry) {
   const ignoredGenericKeys = new Set(['property']);
-  const negativeCue = /\b(?:do not|don['’]t|invalid|bad|wrong|deprecated)\b|не\s+(?:созда|использ|добав|кодир|пиш)|недопустим|неверн|плохо|ошиб/iu;
+  const negativeCue = /\b(?:do not|don['’]t|invalid|bad|wrong|deprecated)\b|не\s+(?:созда|использ|добав|кодир|пиш)|(?:请勿|不要|不得|不应|禁止|无须|无需)|недопустим|неверн|плохо|ошиб/iu;
   for (const file of canonicalFiles) {
     const absolute = resolve(root, file);
     if (!existsSync(absolute)) continue;

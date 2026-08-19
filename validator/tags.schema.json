@@ -53,10 +53,11 @@
     "localizedCopy": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["en", "ru"],
+      "required": ["en", "ru", "zh"],
       "properties": {
         "en": { "type": "string", "minLength": 3 },
-        "ru": { "type": "string", "minLength": 3 }
+        "ru": { "type": "string", "minLength": 3 },
+        "zh": { "type": "string", "minLength": 3 }
       }
     },
     "tagKey": {
