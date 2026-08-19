@@ -66,7 +66,7 @@ Contact Modal [modal=contact-modal]
     close-button
 ```
 
-Now `[page=home]`, `[view=default]`, and stable layer names connect the breakpoints; `[bp]` distinguishes their widths; the link and action are explicit; and the modal action resolves to a real target. `close-button` names the button's role inside this modal. Figma metadata helps identify the source component and its standard states, but it does not determine the behavior of a particular instance: the same UI Kit component may be used in different places.
+Now `[page=home]`, `[view=default]`, and stable layer names connect the breakpoints; `[bp]` distinguishes their widths; the link and action are explicit; and the modal action resolves to a real target. The modal structure explicitly includes a close button.
 
 > At different widths, elements may change size, order, and position. The same element should remain recognizable by its name and meaning, and its relationship to the other elements should remain clear.
 
